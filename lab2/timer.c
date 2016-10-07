@@ -5,13 +5,28 @@
 #define RBC_COUNT1 0x11100100
 #define RBC_COUNT2 0x11101000
 
+
 int timer_set_square(unsigned long timer, unsigned long freq) {
 
 	unsigned char conf;
+	unsigned long div;
 	if(timer == 0)
+		{
+			sys_inb(TIMER_0, &conf);
+		}
+	if(timer == 1)
 	{
-		sys_inb(TIMER_0, &conf);
-		sys_outb(TIMER_0, )
+		sys_inb(TIMER_1, &conf);
+	}
+	if(timer == 2)
+	{
+		sys_inb(TIMER_2, &conf);
+	}
+	div = TIMER_FREQ/freq;
+
+	sys_outb(TIMER_CRTL,CHANGE_TIMER0)
+
+
 	return 1;
 }
 

@@ -1,5 +1,6 @@
 #include <minix/syslib.h>
 #include <minix/drivers.h>
+#include "i8254.h"
 
 #define RBC_COUNT0 0x11100010
 #define RBC_COUNT1 0x11100100

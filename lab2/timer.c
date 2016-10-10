@@ -1,32 +1,30 @@
+#include "i8254.h"
 #include <minix/syslib.h>
 #include <minix/drivers.h>
-#include "i8254.h"
 
-#define RBC_COUNT0 0x11100010
-#define RBC_COUNT1 0x11100100
-#define RBC_COUNT2 0x11101000
+
+
+#define RBC_COUNT0 0xE2
+#define RBC_COUNT1 0xE4
+#define RBC_COUNT2 0xE8
+#define COPY_4LAST 0x0F
+
 
 
 int timer_set_square(unsigned long timer, unsigned long freq) {
 
-	unsigned char conf;
-	unsigned long div;
-	if(timer == 0)
+		unsigned char conf;
+		unsigned char final;
+		timer_get_conf(timer, &conf);
+		unsigned long div;
+		div = TIMER_FREQ/freq;
+		final = conf & COPY_4LAST;
+		if (timer == TIMER_0)
 		{
-			sys_inb(TIMER_0, &conf);
+			final = final & 0x3f;
 		}
-	if(timer == 1)
-	{
-		sys_inb(TIMER_1, &conf);
-	}
-	if(timer == 2)
-	{
-		sys_inb(TIMER_2, &conf);
-	}
-	div = TIMER_FREQ/freq;
-
-	sys_outb(TIMER_CRTL,CHANGE_TIMER0)
-
+		sys_outb(TIMER_CTRL, final);
+		sys_outb(TIMER_0, )
 
 	return 1;
 }
@@ -48,96 +46,30 @@ void timer_int_handler() {
 int timer_get_conf(unsigned long timer, unsigned char *st) {
 	if(timer == 0)
 	{
-		sys_outb(TIMER_CRTL, RBC_COUNT0);
+		sys_outb(TIMER_CTRL, RBC_COUNT0);
 		sys_inb(TIMER_0, st);
 	}
 	if(timer == 1)
 	{
-			sys_outb(TIMER_CRTL, RBC_COUNT1);
+			sys_outb(TIMER_CTRL, RBC_COUNT1);
 			sys_inb(TIMER_1, st);
 	}
 	if(timer == 2)
 	{
-			sys_outb(TIMER_CRTL, RBC_COUNT2);
+			sys_outb(TIMER_CTRL, RBC_COUNT2);
 			sys_inb(TIMER_2, st);
 	}
 	return 1;
 }
 
 int timer_display_conf(unsigned char conf) {
-	
+
 	int bcd=0, null=0, output=0;
-	string mode;
-	string type_access;
+
 
 	if(conf & BIT(0) == 1)
 	{
 		bcd = 1;
-	}
-	if(conf & BIT(3) == 0)
-	{
-		if(conf & BIT(2) == 0)
-		{
-			if(conf & BIT(1) == 0)
-			{
-				mode = "INTERRUPT ON TERMINAL COUNT";
-			}
-			else if(conf & BIT(1) == 1)
-			{
-				mode = "HARDWARE RETRIGGERABLE ONE-SHOT";
-			}
-		}
-		else if(conf & BIT(2) == 1)
-		{
-			if(conf & BIT(1) == 0)
-			{
-				mode = "RATE GENERATOR";
-			}
-			else if(conf & BIT(1) == 1)
-			{
-				mode = "SQUARE WAVE MODE";
-			}
-		}
-	}
-	else if (conf & BIT(3) == 1)
-	{
-		if(conf & BIT(2) == 0)
-		{
-			if(conf & BIT(1) == 0)
-			{
-				mode = "SOFTWARE TRIGGERED STROBE";
-			}
-			else if(conf & BIT(1) == 1)
-			{
-				mode = "HARDWARE TRIGGERED STROBE (RETRIGGERABLE)";
-			}
-		}
-		else if(conf & BIT(2) == 1)
-		{
-			if(conf & BIT(1) == 0)
-			{
-				mode = "RATE GENERATOR";
-			}
-			else if(conf E BIT(1) == 1)
-			{
-				mode = "SQUARE WAVE MODE";
-			}
-		}
-	}
-	if((conf & BIT(5) == 0) && (conf & BIT(4) == 1))
-	{
-		type_access = "LSB";
-	}
-	else if(conf & BIT(5) == 1)
-	{
-		if(conf & BIT(4) == 0)
-		{
-			type_access = "MSB";
-		}
-		else if (conf & BIT(4) == 1)
-		{
-			type_access = "LSB followed by MSB";
-		}
 	}
 	if(conf & BIT(6) == 1)
 	{
@@ -147,32 +79,101 @@ int timer_display_conf(unsigned char conf) {
 	{
 		output = 1;
 	}
-
 	printf("BCD = %d\n", bcd);
 	printf("Null Count = %d\n", null);
 	printf("Output = %d\n", output);
-	printf("Programmed Mode = %s\n", mode);
-	printf("Type of Access = %s\n", type_access);
+	if(conf & BIT(3) == 0)
+	{
+		if(conf & BIT(2) == 0)
+		{
+			if(conf & BIT(1) == 0)
+			{
+				printf("Programmed Mode = INTERRUPT ON TERMINAL COUNT\n");
+
+			}
+			else if(conf & BIT(1) == 1)
+			{
+				printf("Programmed Mode = HARDWARE RETRIGGERABLE ONE-SHOT\n");
+
+			}
+		}
+		else if(conf & BIT(2) == 1)
+		{
+			if(conf & BIT(1) == 0)
+			{
+				printf("Programmed Mode = RATE GENERATOR\n");
+
+			}
+			else if(conf & BIT(1) == 1)
+			{
+				printf("Programmed Mode = SQUARE WAVE MODE\n");
+
+			}
+		}
+	}
+	else if (conf & BIT(3) == 1)
+	{
+		if(conf & BIT(2) == 0)
+		{
+			if(conf & BIT(1) == 0)
+			{
+				printf("Programmed Mode = SOFTWARE TRIGGERED STROBE\n");
+
+			}
+			else if(conf & BIT(1) == 1)
+			{
+				printf("Programmed Mode = HARDWARE TRIGGERED STROBE (RETRIGGERABLE)\n");
+
+			}
+		}
+		else if(conf & BIT(2) == 1)
+		{
+			if(conf & BIT(1) == 0)
+			{
+				printf("Programmed Mode = RATE GENERATOR\n");
+			}
+			else if(conf & BIT(1) == 1)
+			{
+				printf("Programmed Mode = SQUARE WAVE MODE\n");
+			}
+		}
+	}
+	if((conf & BIT(5) == 0) && (conf & BIT(4) == 1))
+	{
+		printf("Type of Access = LSB\n");
+	}
+	else if(conf & BIT(5) == 1)
+	{
+		if(conf & BIT(4) == 0)
+		{
+			printf("Type of Access = MSB\n");
+		}
+		else if (conf & BIT(4) == 1)
+		{
+			printf("Type of Access = LSB followed by MSB\n");
+		}
+	}
+
 
 	return 1;
 }
 
 int timer_test_square(unsigned long freq) {
-	
 
+	timer_set_square(TIMER_0, freq);
 
 	return 1;
 }
 
 int timer_test_int(unsigned long time) {
-	
+
 	return 1;
 }
 
 int timer_test_config(unsigned long timer) {
-	
+
 	unsigned char var;
-	timer_get_conf(timer, &var)
+	timer_get_conf(timer, &var);
 	timer_display_conf(var);
 	return 1;
 }

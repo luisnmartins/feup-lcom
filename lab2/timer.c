@@ -15,16 +15,20 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 
 		unsigned char conf;
 		unsigned char final;
+		unsigned char div_lsb, div_msb;
 		timer_get_conf(timer, &conf);
 		unsigned long div;
 		div = TIMER_FREQ/freq;
+		div_lsb = div;
+		div_msb div<<8;
 		final = conf & COPY_4LAST;
 		if (timer == TIMER_0)
 		{
 			final = final & 0x3f;
 		}
 		sys_outb(TIMER_CTRL, final);
-		sys_outb(TIMER_0, )
+		sys_outb(TIMER_0, div_lsb);
+		sys_outb(TIMER_0, div_msb);
 
 	return 1;
 }

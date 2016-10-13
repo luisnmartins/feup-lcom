@@ -7,6 +7,9 @@
 #define RBC_COUNT1 0xE4
 #define RBC_COUNT2 0xE8
 #define COPY_4LAST 0x0F
+#define COUNTER0_LSBMSB_CWORD 0x3f
+#define COUNTER1_LSBMSB_CWORD 0x7f
+#define COUNTER2_LSBMSB_CWORD 0xbf
 
 unsigned int contador = 0;
 unsigned int hook_id=7;
@@ -17,7 +20,10 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 	unsigned long final;
 	unsigned long conf;
 	unsigned char div_lsb, div_msb;
-	timer_get_conf(timer, &conf);
+	if(timer_get_conf(timer, &conf) != 0)
+	{
+		return 1;
+	}
 	unsigned long div;
 	div = TIMER_FREQ / freq;
 	div_lsb = div;
@@ -25,30 +31,46 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 	final = conf & COPY_4LAST;
 	if (timer == 0)
 	{
-		final &= 0x3f;
-		sys_outb(TIMER_CTRL, final);
-		sys_outb(TIMER_0, div_lsb);
-		sys_outb(TIMER_0, div_msb);
-		printf("Time set with success!!\n");
-		return 0;
+		final &= COUNTER0_LSBMSB_CWORD;
+		if(sys_outb(TIMER_CTRL, final) == OK &&
+		sys_outb(TIMER_0, div_lsb)== OK &&
+		sys_outb(TIMER_0, div_msb) == OK)
+		{
+			printf("Time set with success!!\n");
+			return 0;
+		}
+		else
+			{
+			printf ("Something went wrong!\n");
+			return 1;
+			}
 	}
 	else if (timer == 1)
 	{
-		final = final & 0x7f;
-		sys_outb(TIMER_CTRL, final);
-		sys_outb(TIMER_1, div_lsb);
-		sys_outb(TIMER_1, div_msb);
-		printf("Time set with success!!\n");
-		return 0;
+		final = final & COUNTER1_LSBMSB_CWORD;
+		if(sys_outb(TIMER_CTRL, final) == OK &&
+		sys_outb(TIMER_1, div_lsb) == OK &&
+		sys_outb(TIMER_1, div_msb) == OK)
+		{printf("Time set with success!!\n");
+		return 0;}
+		else {
+			printf ("Something went wrong!\n");
+			return 1;
+		}
+
 
 	}
 	else if (timer == 2) {
-		final = final & 0xbf;
-		sys_outb(TIMER_CTRL, final);
-		sys_outb(TIMER_2, div_lsb);
-		sys_outb(TIMER_2, div_msb);
-			printf("Time set with success!!\n");
-			return 0;
+		final = final & COUNTER2_LSBMSB_CWORD;
+		if(sys_outb(TIMER_CTRL, final) == OK &&
+		sys_outb(TIMER_2, div_lsb) == OK &&
+		sys_outb(TIMER_2, div_msb) == OK)
+			{printf("Time set with success!!\n");
+			return 0;}
+		else {
+			printf ("Something went wrong!\n");
+			return 1;
+		}
 
 	}
 
@@ -60,7 +82,7 @@ int timer_subscribe_int() {
 
 	unsigned int hid_ant = hook_id;
 
-	if(!sys_irqsetpolicy(0, IRQ_REENABLE, &hook_id))
+	if(!sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id))
 		return -1;
 	if(!sys_irqenable(&hook_id))
 		return -1;
@@ -73,7 +95,7 @@ int timer_subscribe_int() {
 int timer_unsubscribe_int() {
 	if(!sys_irqrmpolicy(&hook_id))
 		return 1;
-	if(sys_irqdisable(&hook_id))
+	if(sys_irqdisable(&hook_id))// ??
 		return 1;
 
 	return 0;
@@ -93,7 +115,7 @@ int timer_get_conf(unsigned long timer, unsigned char *st) {
 
 	unsigned long read_info;
 	if (timer == 0) {
-		printf("palavra : 0x%x\n", RBC_COUNT0);
+		printf("word : 0x%x\n", RBC_COUNT0);
 		if (sys_outb(TIMER_CTRL, RBC_COUNT0) == 0
 				&& sys_inb(TIMER_0, &read_info) == 0)
 			*st = (unsigned char) read_info;
@@ -101,7 +123,7 @@ int timer_get_conf(unsigned long timer, unsigned char *st) {
 
 	}
 	if (timer == 1) {
-		printf("palavra : 0x%x\n", RBC_COUNT1);
+		printf("word : 0x%x\n", RBC_COUNT1);
 		if (sys_outb(TIMER_CTRL, RBC_COUNT1) == 0
 				&& sys_inb(TIMER_1, &read_info) == 0)
 			*st = (unsigned char) read_info;
@@ -190,7 +212,7 @@ int timer_display_conf(unsigned char conf) {
 
 int timer_test_square(unsigned long freq) {
 
-	if (timer_set_square(0, freq) == 0)
+	if (timer_set_square(TIMER_SEL0, freq) == 0)
 		return 0;
 	else
 		return 1;
@@ -218,9 +240,13 @@ int timer_test_int(unsigned long time) {
 
 					if (contador % 60 == 0)
 					{
-						printf("Message");
+
+						printf("Message\n");
+
+
 					}
 					timer_int_handler();
+
 
 			}
 			break;
@@ -232,7 +258,13 @@ int timer_test_int(unsigned long time) {
 		}
 
 	}
-	timer_unsubscribe_int();
+
+	if(timer_unsubscribe_int() != 0)
+	{
+
+		return 1;
+	}
+	printf("Unsubscribed\n");
 return 0;
 
 }

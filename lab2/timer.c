@@ -9,7 +9,9 @@
 #define RBC_COUNT2 0xE8
 #define COPY_4LAST 0x0F
 
-
+unsigned int contador=0;
+unsigned int hook_id;
+char irq_set = BIT(hook_id);
 
 int timer_set_square(unsigned long timer, unsigned long freq) {
 
@@ -49,12 +51,14 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 }
 
 int timer_subscribe_int(void ) {
-	int
-	sys_irqsetpolicy(0, IRQ_REENABLE, )
+	hook_id = 0;
+	if(sys_irqsetpolicy(0, IRQ_REENABLE, &hook_id) < 0)
+		return -1;
+	else
+		return hook_id;
 
 
 
-	return 1;
 }
 
 int timer_unsubscribe_int() {
@@ -64,6 +68,8 @@ int timer_unsubscribe_int() {
 
 void timer_int_handler() {
 
+	printf("Message");
+	contador++;
 }
 
 int timer_get_conf(unsigned long timer, unsigned char *st) {
@@ -208,7 +214,7 @@ int timer_test_int(unsigned long time) {
 	int ipc_status;
 	message msg;
 
-while( 1 ) { /* You may want to use a different condition */
+while(hook_id < 400) { /* You may want to use a different condition */
    /* Get a request message. */
    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 )
    {
@@ -219,9 +225,13 @@ while( 1 ) { /* You may want to use a different condition */
        switch (_ENDPOINT_P(msg.m_source)) {
            case HARDWARE: /* hardware interrupt notification */
                 if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
-                	timer_subscribe_int();
 
-                	...   /* process it */
+                	while(contador < time)
+                	{
+                		timer_int_handler;
+                	}
+                	timer_unsubscribe_int();
+
                 }
                 break;
             default:

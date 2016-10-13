@@ -9,7 +9,7 @@
 #define COPY_4LAST 0x0F
 
 unsigned int contador = 0;
-unsigned int hook_id;
+unsigned int hook_id=7;
 
 
 int timer_set_square(unsigned long timer, unsigned long freq) {
@@ -57,17 +57,26 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 }
 
 int timer_subscribe_int() {
-	hook_id = 0;
-	if (sys_irqsetpolicy(0, IRQ_REENABLE, &hook_id) < 0)
+
+	unsigned int hid_ant = hook_id;
+
+	if(!sys_irqsetpolicy(0, IRQ_REENABLE, &hook_id))
 		return -1;
-	else
-		return hook_id;
+	if(!sys_irqenable(&hook_id))
+		return -1;
+
+	return hid_ant;
+
 
 }
 
 int timer_unsubscribe_int() {
-	sys_irqdisable(&hook_id);
-	sys_irqrmpolicy(&hook_id);
+	if(!sys_irqrmpolicy(&hook_id))
+		return 1;
+	if(sys_irqdisable(&hook_id))
+		return 1;
+
+	return 0;
 
 
 
@@ -188,11 +197,11 @@ int timer_test_square(unsigned long freq) {
 }
 
 int timer_test_int(unsigned long time) {
-	int ipc_status, irq_set;
+	int ipc_status, irq_set=timer_subscribe_int();
 	message msg;
 	int r;
 
-	while (time > contador/60)
+	while (contador < (time*60))
 	{ /* You may want to use a different condition */
 		/* Get a request message. */
 
@@ -204,9 +213,8 @@ int timer_test_int(unsigned long time) {
 			switch (_ENDPOINT_P(msg.m_source))
 			{
 			case HARDWARE: /* hardware interrupt notification */
-				irq_set = timer_subscribe_int();
+
 				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
-					sys_irqenable(&hook_id);
 
 					if (contador % 60 == 0)
 					{

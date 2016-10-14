@@ -1,5 +1,6 @@
 #ifndef _LCOM_I8254_H_
 #define _LCOM_I8254_H_
+#define T0_IRQSET 0
 
 /** @defgroup i8254 i8254
  * @{

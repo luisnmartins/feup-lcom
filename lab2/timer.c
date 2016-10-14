@@ -12,7 +12,7 @@
 #define COUNTER2_LSBMSB_CWORD 0xbf
 
 unsigned int contador = 0;
-unsigned int hook_id=7;
+unsigned int hook_id = T0_IRQSET;
 
 
 int timer_set_square(unsigned long timer, unsigned long freq) {
@@ -80,23 +80,30 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 
 int timer_subscribe_int() {
 
-	unsigned int hid_ant = hook_id;
 
-	if(!sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id))
+
+	if(sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id) != OK)
 		return -1;
-	if(!sys_irqenable(&hook_id))
+	if(!sys_irqenable(&hook_id) != OK)
 		return -1;
 
-	return hid_ant;
+	return BIT(T0_IRQSET);
 
 
 }
 
 int timer_unsubscribe_int() {
-	if(!sys_irqrmpolicy(&hook_id))
+
+	if(sys_irqdisable(&hook_id) != OK)
+	{
+			printf("Error executing sys_irqdisable");
+			return 1;
+	}
+	if(sys_irqrmpolicy(&hook_id) != OK)
+	{
+		printf("Error executing sys_irqmpolicy - failure unsubscribing the previous subscription of the interrupt");
 		return 1;
-	if(sys_irqdisable(&hook_id))// ??
-		return 1;
+	}
 
 	return 0;
 
@@ -142,7 +149,7 @@ int timer_display_conf(unsigned char conf) {
 
 	int bcd = 0, null = 0, output = 0;
 
-	printf("configuracao: 0x%x\n", conf);
+	printf("configuration: 0x%x\n", conf);
 	if (conf & BIT(0)) {
 		bcd = 1;
 	}
@@ -241,7 +248,7 @@ int timer_test_int(unsigned long time) {
 					if (contador % 60 == 0)
 					{
 
-						printf("Message\n");
+						printf("\nMessage");
 
 
 					}
@@ -261,11 +268,13 @@ int timer_test_int(unsigned long time) {
 
 	if(timer_unsubscribe_int() != 0)
 	{
-
 		return 1;
 	}
-	printf("Unsubscribed\n");
-return 0;
+	else
+	{
+		printf("\nUnsubscribed");
+		return 0;
+	}
 
 }
 int timer_test_config(unsigned long timer) {

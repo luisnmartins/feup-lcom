@@ -1,6 +1,7 @@
 #ifndef _LCOM_I8254_H_
 #define _LCOM_I8254_H_
-#define T0_IRQSET 0
+
+
 
 /** @defgroup i8254 i8254
  * @{
@@ -56,5 +57,18 @@
 
 
 /**@}*/
+
+
+//new variables
+#define RBC_COUNT0               TIMER_RB_CMD | TIMER_RB_COUNT_ | BIT(1)
+#define RBC_COUNT1               TIMER_RB_CMD | TIMER_RB_COUNT_ | BIT(2)
+#define RBC_COUNT2               TIMER_RB_CMD | TIMER_RB_COUNT_ | BIT(3)
+#define COPY_4LAST               BIT(0)|BIT(1)|BIT(2)|BIT(3)
+#define COPY_3LAST               BIT(0) | BIT(1) | BIT(2)
+#define COUNTER0_LSBMSB_CWORD    TIMER_LSB_MSB | COPY_4LAST
+#define COUNTER1_LSBMSB_CWORD    TIMER_SEL1 | TIMER_LSB_MSB | COPY_4LAST
+#define COUNTER2_LSBMSB_CWORD    TIMER_SEL2 | TIMER_LSB_MSB | COPY_4LAST
+#define T0_IRQSET 0
+
 
 #endif /* _LCOM_I8254_H */

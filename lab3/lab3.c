@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 static void print_usage(char **argv)
 {
 	printf("Usage: one of the following:\n"
-			"\t service run %s -args \"scan <decimal no.- IH>\"\n"
+			"\t service run %s -args \"scan <decimal no.- compile_code>\"\n"
 			"\t service run %s -args \"led <decimal no. - LEDarray>\"\n"
 			"\t service run %s -args \"timed <decimal no. - seconds>\"\n",
 			argv[0], argv[0], argv[0]);
@@ -32,7 +32,7 @@ static void print_usage(char **argv)
 
 static int proc_args(int argc, char **argv)
 {
-	unsigned long ih, , timed;
+	unsigned long compile_code, timed;
 	unsigned short arraysize;
 	unsigned short *ledarray;
 	if (strncmp(argv[1], "IH", strlen("IH")) == 0) {
@@ -43,8 +43,8 @@ static int proc_args(int argc, char **argv)
 		ih = parse_ulong(argv[2], 10);						/* Parses string to unsigned long */
 		if (ih == ULONG_MAX)
 			return 1;
-		printf("test3::kbd_test_scan(%lu)\n", ih);
-		return kbd_test_scan(ih);
+		printf("test3::kbd_test_scan(%lu)\n", compile_code);
+		return kbd_test_scan(compile_code);
 	}
 	else if (strncmp(argv[1], "LEDarray", strlen("LEDarray")) == 0) {
 		if (argc != 3) {

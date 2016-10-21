@@ -58,21 +58,12 @@ int keyboard_test_int(unsigned int &acabou) {
 			else if(2bytes == 1)
 			{
 				out_buf |= out_buf2;
-				print_code(2bytes, out_buf);
+				out_buf2 = print_code(2bytes, out_buf);
 			}
 
 		}
-									if(out_buf == OUT_BUF_2BYTES)
-									{
-										out_buf<<8;
-										sys_inb(STATUS_REG, &status);
-										if(!(status & BIT(0)))
-										{
-											sys_inb(KBD_OUT_BUF, &out_buf2);
-											out_buf |= out_buf2;
-										}
-
-									}
+	}
+}
 
 
 

@@ -51,7 +51,16 @@ int keyboard_test_int(unsigned int &acabou) {
 		}
 		else
 		{
-			out_buf2 = print_code(2bytes, out_buf);
+			if(2bytes == 0)
+			{
+				out_buf2 = print_code(2bytes, out_buf);
+			}
+			else if(2bytes == 1)
+			{
+				out_buf |= out_buf2;
+				print_code(2bytes, out_buf);
+			}
+
 		}
 									if(out_buf == OUT_BUF_2BYTES)
 									{
@@ -64,18 +73,7 @@ int keyboard_test_int(unsigned int &acabou) {
 										}
 
 									}
-									if(out_buf & BIT(7)
-)
-{
-	printf("Break code: %x\n", out_buf);
-}
-else
-{
-	printf("Make code: %x\n", out_buf);
-}
 
-}
-}
 
 
 void read(unsigned char port, unsigned long &var)
@@ -104,8 +102,16 @@ unsigned long print_code(unsigned int &2bytes,unsigned long &out_buf)
 		}
 		2bytes = 0;
 	}
-	else
+	else if(2bytes == 0)
 	{
+		if(out_buf & BIT(7))
+		{
+			printf("Break code: %x\n", out_buf);
+		}
+		else
+		{
+			printf("Make code: %x\n", out_buf);
+		}
 
 	}
 

@@ -49,7 +49,7 @@ int keyboard_test_int() {
 			if( status & OBF )
 			{
 				sys_inb(KBD_OUT_BUF, &data);
-				//jbhfdhj
+
 				if ( (status &(PAR_ERR | TO_ERR)) == 0 )
 					return data;
 				else

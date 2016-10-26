@@ -60,10 +60,11 @@ static int proc_args(int argc, char **argv)
 		{
 			if (argv[2+i] == ULONG_MAX)
 					return 1;
-			*(ledarray+(i*sizeof(unsigned short))) = parse_ulong(argv[2+i], 10); // Parses string to unsigned long
+			ledarray[i] = parse_ulong(argv[2+i], 10); // Parses string to unsigned long
 		}
 
 		printf("test3::kbd_test_leds()");
+
 		return kbd_test_leds(arraysize, ledarray);
 	}
 	else if (strncmp(argv[1], "timed", strlen("timed")) == 0) {

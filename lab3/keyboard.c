@@ -106,3 +106,47 @@ void print_code(unsigned long *out_buf)
 
 
 }
+
+
+int print_led(int leds_p, int *flag)
+{
+	if(leds_p == 0)
+	{
+		if(flag==0)
+		{
+			printf("Scroll lock is on\n");
+			flag=1;
+		}
+		else
+		{
+			printf("Scroll lock is off\n");
+			flag=0;
+		}
+	}
+	else if(leds_p == 1)
+	{
+		if(flag==0)
+		{
+			printf("Numeric lock is on\n");
+			flag=1;
+		}
+		else
+		{
+			printf("Numeric lock is off\n");
+			flag=0;
+		}
+	}
+	else if(leds_p == 2)
+	{
+		if(flag==0)
+		{
+			printf("Caps lock is on");
+			flag=1;
+		}
+		else
+		{
+			printf("Caps lock is off");
+			flag=0;
+		}
+	}
+}

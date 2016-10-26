@@ -85,56 +85,100 @@ int kbd_test_scan(unsigned short ass)
 int kbd_test_leds(unsigned short n, unsigned short *leds) {
 
 	int ipc_status, irq_set = timer_subscribe_int();
+	int flag0=0, flag1=0, flag2=0;
 	message msg;
 	int r;
-	int out_buf=0;
-	int i=0;
+	int out_buf=0, out_buf_bit_send=0;
 	int led1=0, led2=0, led3=0;
+	int counter =0;
+	int i=0;
+	for(i; i<=n; i++)
+	{
 
-	for(int i=0; i<n; i++) {
-		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0)
+		{
 			printf("driver_receive failed with: %d", r);
 			continue;
 		}
-		if (is_ipc_notify(ipc_status)) { /* received notification */
-			switch (_ENDPOINT_P(msg.m_source)) {
+		if (is_ipc_notify(ipc_status))
+		{ /* received notification */
+			switch (_ENDPOINT_P(msg.m_source))
+			{
 			case HARDWARE: /* hardware interrupt notification */
 
-				if (msg.NOTIFY_ARG & irq_set) {
-					issue_cmd_kbd(ON_OFF_LEDS);
-					out_buf=keyboard_test_int();
+				if (msg.NOTIFY_ARG & irq_set)
+				{
+					//printf("subscreveu loop\n");
+					while(counter%60!=0)
+					{
+						counter ++;
+					}
+					do
+					{
+						issue_cmd_kbd(ON_OFF_LEDS);
+						out_buf=keyboard_test_int();
+
+					}
+					while(out_buf == RESEND || out_buf == ERROR);
+					printf("Outbuf: %x", out_buf );
 					if(out_buf == ACK)
 					{
+						printf("é ac\n");
 						issue_cmd_kbd(BIT(leds[i]));
+						out_buf_bit_send = keyboard_test_int();
+						while(out_buf_bit_send == RESEND)
+						{
+							issue_cmd_kbd(BIT(leds[i]));
+							out_buf_bit_send = keyboard_test_int();
+						}
+					}
+					else if(out_buf_bit_send == ERROR)
+					{
+						i--;
+						continue;
+					}
+					else if(out_buf_bit_send == ACK)
+					{
+						if(leds[i] == 0)
+						{
+							print_led(leds[i], &flag0);
+						}
+						else if(leds[i] == 1)
+						{
+							print_led(leds[i], &flag1);
+						}
+						else if(leds[i] == 2)
+						{
+							print_led(leds[i], &flag2);
+						}
+					}
+					else
+					{
 
-
-
-
+					}
 				}
 				break;
 			default:
 				break; /* no other notifications expected: do nothing */
 			}
-		} else { /* received a standard message, not a notification */
+		}
+		else { /* received a standard message, not a notification */
 			/* no standard messages expected: do nothing */
 		}
 	}
 
 	printf("Program Finish\n");
-	if (timer_unsubscribe_int() == 0) {
+	if (timer_unsubscribe_int() == 0)
+	{
 		printf("Unsubscribed\n");
 		return 0;
-	} else {
+	}
+	else
+	{
 		return 1;
 	}
-
-	/* To be completed */
-}
 }
 
-}
-
-}
 
 
 

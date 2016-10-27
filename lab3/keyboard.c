@@ -38,9 +38,9 @@ int keyboard_unsubscribe_int() {
 }
 
 
-int keyboard_test_int() {
+unsigned long keyboard_test_int() {
 
-	unsigned int data;
+	unsigned long data;
 		unsigned int n=0;
 		unsigned long status;
 		while( n<= 5)
@@ -65,7 +65,7 @@ int keyboard_test_int() {
 
 }
 
-unsigned int issue_cmd_kbd(unsigned long cmd)
+int issue_cmd_kbd(unsigned long cmd)
 {
 
 	unsigned long stat=0;
@@ -96,11 +96,11 @@ void print_code(unsigned long *out_buf)
 
 		if(*out_buf & BIT(7))
 				{
-					printf("Break code: %X\n", *out_buf);
+					printf("Break code: 0x%X\n", *out_buf);
 				}
 				else
 				{
-					printf("Make code: %X\n", *out_buf);
+					printf("Make code: 0x%X\n", *out_buf);
 				}
 
 
@@ -109,7 +109,7 @@ void print_code(unsigned long *out_buf)
 }
 
 
-int print_led(int leds_p, int *flag)
+void print_led(int leds_p, int *flag)
 {
 	if(leds_p == 0)
 	{

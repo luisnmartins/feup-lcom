@@ -15,8 +15,8 @@ int kbd_test_scan(unsigned short ass)
 		int ipc_status, irq_set = keyboard_subscribe_int();
 		message msg;
 		int r;
-		int out_buf = 0;
-		int out_buf2 = 0;
+		unsigned long  out_buf = 0;
+		unsigned long out_buf2 = 0;
 		unsigned int bytes_2=0;
 		while (out_buf != ESC_CODE)
 		{ /* You may want to use a different condition */
@@ -68,7 +68,7 @@ int kbd_test_scan(unsigned short ass)
 			}
 		}
 
-		printf("Program Finish\n");
+		printf("Program Finished\n");
 		if (keyboard_unsubscribe_int() == 0)
 		{
 			printf("Unsubscribed\n");
@@ -85,18 +85,18 @@ int kbd_test_scan(unsigned short ass)
 int kbd_test_leds(unsigned short n, unsigned short *leds) {
 
 	keyboard_subscribe_int();
-	printf("Teclado subscrito");
+	printf("Teclado subscrito\n");
 
 	int ipc_status, irq_set = timer_subscribe_int();
 
 	int flag0 = 0, flag1 = 0, flag2 = 0;
 	message msg;
 	int r;
-	int out_buf = 0, out_buf_bit_send = 0;
+	unsigned long out_buf = 0, out_buf_bit_send = 0;
 	int led1 = 0, led2 = 0, led3 = 0;
 	int counter = 0;
 	int i = 0;
-	int data;
+	unsigned long data;
 	sys_inb(KBD_OUT_BUF, &data);
 
 	while (counter < n * 60) {
@@ -156,12 +156,12 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 		}
 	}
 
-	printf("Program Finish\n");
-	if ((timer_unsubscribe_int() != 0) && (keyboard_unsubscribe_int() != 0)) {
-			return 1;
+	printf("Program Finished\n");
+	if ((timer_unsubscribe_int() == 0) && (keyboard_unsubscribe_int() == 0)) {
+					printf("\nUnsubscribed");
+					return 0;
 		} else {
-			printf("\nUnsubscribed");
-			return 0;
+			return 1;
 		}
 
 }
@@ -173,8 +173,8 @@ int kbd_test_timed_scan(unsigned short n) {
 	int ipc_status, irq_set1 = keyboard_subscribe_int(), irq_set2 = timer_subscribe_int();
 	message msg;
 	int r;
-	int out_buf = 0;
-	int out_buf2 = 0;
+	unsigned long out_buf = 0;
+	unsigned long out_buf2 = 0;
 	unsigned int bytes_2=0;
 	unsigned int seg=0;
 	static  unsigned int counter = 0;

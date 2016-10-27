@@ -58,9 +58,10 @@ static int proc_args(int argc, char **argv)
 		int i=0;
 		for(i; i<arraysize; i++)
 		{
-			if (argv[2+i] == ULONG_MAX)
+			ledarray[i] = parse_ulong(argv[2+i], 10);
+			if (*argv[2+i] == ULONG_MAX)
 					return 1;
-			ledarray[i] = parse_ulong(argv[2+i], 10); // Parses string to unsigned long
+			 // Parses string to unsigned long
 		}
 
 		printf("test3::kbd_test_leds()");

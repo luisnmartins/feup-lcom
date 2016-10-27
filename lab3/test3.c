@@ -6,6 +6,7 @@
 //commit test
 
 static unsigned int counter = 0;
+unsigned long outbufass = 0;
 
 int kbd_test_scan(unsigned short ass)
 {
@@ -39,6 +40,23 @@ int kbd_test_scan(unsigned short ass)
 						{
 							if (ass == 0)
 								out_buf = keyboard_test_int();
+							else
+							{
+								/*while(1)
+								{
+
+									outbufass = 0;
+									keyboardasm();
+									out_buf = outbufass;
+									if (outbufass != 0x00)
+										break;
+								}*/
+								outbufass = 0;
+								keyboardasm();
+								out_buf = outbufass;
+
+
+							}
 							if (out_buf == OUT_BUF_2BYTES)
 							{
 								bytes_2 = 1;
@@ -87,7 +105,8 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 	keyboard_subscribe_int();
 	printf("Teclado subscrito\n");
 
-	int ipc_status, irq_set = timer_subscribe_int();
+	int ipc_status;
+	int irq_set = timer_subscribe_int();
 
 	int flag0 = 0, flag1 = 0, flag2 = 0;
 	message msg;
@@ -157,10 +176,13 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 	}
 
 	printf("Program Finished\n");
-	if ((timer_unsubscribe_int() == 0) && (keyboard_unsubscribe_int() == 0)) {
-					printf("\nUnsubscribed");
-					return 0;
-		} else {
+	if ((timer_unsubscribe_int() == OK))
+	{
+		if(keyboard_unsubscribe_int() == OK)
+			{printf("\nUnsubscribed");
+			return 0;
+			}
+	}else {
 			return 1;
 		}
 

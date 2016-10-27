@@ -42,18 +42,18 @@ int kbd_test_scan(unsigned short ass)
 								out_buf = keyboard_test_int();
 							else
 							{
-								/*while(1)
+								while(1)
 								{
 
 									outbufass = 0;
 									keyboardasm();
 									out_buf = outbufass;
-									if (outbufass != 0x00)
+									if (outbufass != OUT_BUFF_ERR)
 										break;
-								}*/
-								outbufass = 0;
+								}
+								/*outbufass = 0;
 								keyboardasm();
-								out_buf = outbufass;
+								out_buf = outbufass;*/
 
 
 							}

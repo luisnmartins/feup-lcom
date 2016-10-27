@@ -4,14 +4,14 @@
 _keyboardasm:
 
 	xor %eax, %eax
-	xor %ebx, %ebx
 	movl 5, %ecx
 	cicle:
 
- 		inb  $STATUS_REG ,%ebx
- 		andl $OBF, %ebx
-		cmpl %ebx, 0
+ 		inb  $STATUS_REG
+ 		andl $OBF, %eax
+		cmpl %eax, 0
 		loope cicle
+		xor %eax,%eax
 		in $KBD_OUT_BUF, %eax
 		ret
 

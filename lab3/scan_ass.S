@@ -1,18 +1,27 @@
 #include "i8042.h"
 
 .globl _keyboardasm
+
+.globl _outbufass
+.text
 _keyboardasm:
+
+//inb $KBD_OUT_BUF, %al
+//mov %al, _outbufass
+
+//ret
+
 
 	xor %eax, %eax
 	movl 5, %ecx
 	cicle:
 
- 		inb  $STATUS_REG
- 		andl $OBF, %eax
-		cmpl %eax, 0
+ 		inb  $STATUS_REG, %al
+ 		and $OBF, %al
+		cmp %al, 0
 		loope cicle
-		xor %eax,%eax
-		in $KBD_OUT_BUF, %eax
+		inb $KBD_OUT_BUF, %al
+		mov %al, _outbufass
 		ret
 
 

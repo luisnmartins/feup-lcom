@@ -46,7 +46,7 @@ int keyboard_test_int() {
 		while( n<= 5)
 		{
 			sys_inb(STATUS_REG, &status);
-			if( status & OBF )
+			if( status & OBF)
 			{
 				sys_inb(KBD_OUT_BUF, &data);
 
@@ -68,7 +68,7 @@ int keyboard_test_int() {
 unsigned int issue_cmd_kbd(unsigned long cmd)
 {
 
-	unsigned long stat;
+	unsigned long stat=0;
 	unsigned int n=0;
     while( n<= 5 )
     {
@@ -77,7 +77,8 @@ unsigned int issue_cmd_kbd(unsigned long cmd)
         /* loop while 8042 input buffer is not empty */
         if( (stat & IBF) == 0 )
         {
-            sys_outb(KBC_CMD_REG, cmd); /* no args command */
+        	sys_outb(KBD_OUT_BUF, cmd);
+        	//sys_outb(KBC_CMD_REG, cmd); /* no args command */
             return 0;
         }
 
@@ -112,41 +113,41 @@ int print_led(int leds_p, int *flag)
 {
 	if(leds_p == 0)
 	{
-		if(flag==0)
+		if(*flag==0)
 		{
 			printf("Scroll lock is on\n");
-			flag=1;
+			*flag=1;
 		}
 		else
 		{
 			printf("Scroll lock is off\n");
-			flag=0;
+			*flag=0;
 		}
 	}
 	else if(leds_p == 1)
 	{
-		if(flag==0)
+		if(*flag==0)
 		{
 			printf("Numeric lock is on\n");
-			flag=1;
+			*flag=1;
 		}
 		else
 		{
 			printf("Numeric lock is off\n");
-			flag=0;
+			*flag=0;
 		}
 	}
 	else if(leds_p == 2)
 	{
-		if(flag==0)
+		if(*flag==0)
 		{
-			printf("Caps lock is on");
-			flag=1;
+			printf("Caps lock is on\n");
+			*flag=1;
 		}
 		else
 		{
-			printf("Caps lock is off");
-			flag=0;
+			printf("Caps lock is off\n");
+			*flag=0;
 		}
 	}
 }

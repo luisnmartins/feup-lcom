@@ -112,22 +112,22 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 				if (msg.NOTIFY_ARG & irq_set) {
 
 					if (counter % 60 == 0) {
-						//do {
+						do {
 						issue_cmd_kbd(ON_OFF_LEDS);
 						data = keyboard_test_int();
 						if(data != 0x9c)
 							out_buf = data;
 
-						//} while (out_buf == RESEND || out_buf == ERROR);
+						} while (out_buf == RESEND || out_buf == ERROR);
 
 						//printf("Outbuf: %x", out_buf);
-						//if (out_buf == ACK) {
+						if (out_buf == ACK) {
 							issue_cmd_kbd(BIT(leds[i]));
 							out_buf_bit_send = keyboard_test_int();
 							while (out_buf_bit_send == RESEND) {
 								issue_cmd_kbd(BIT(leds[i]));
 								out_buf_bit_send = keyboard_test_int();
-							//}
+							}
 						} if (out_buf_bit_send == ERROR) {
 							i--;
 							continue;

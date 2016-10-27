@@ -53,13 +53,13 @@ unsigned long keyboard_test_int() {
 				if ( (status &(PAR_ERR | TO_ERR)) == 0 )
 					return data;
 				else
-					return -1;
+					return 1;
 			}
 			tickdelay(micros_to_ticks(DELAY_US));
 			n++;
 
 		}
-		return -1;
+		return 1;
 
 
 

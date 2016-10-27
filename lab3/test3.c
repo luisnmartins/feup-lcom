@@ -9,8 +9,7 @@ static unsigned int counter = 0;
 
 int kbd_test_scan(unsigned short ass)
 {
-	if (ass == 0)
-	{
+
 
 		int ipc_status, irq_set = keyboard_subscribe_int();
 		message msg;
@@ -38,7 +37,8 @@ int kbd_test_scan(unsigned short ass)
 
 						if (bytes_2 == 0)
 						{
-							out_buf = keyboard_test_int();
+							if (ass == 0)
+								out_buf = keyboard_test_int();
 							if (out_buf == OUT_BUF_2BYTES)
 							{
 								bytes_2 = 1;
@@ -80,7 +80,7 @@ int kbd_test_scan(unsigned short ass)
 
 		/* To be completed */
 	}
-}
+
 
 int kbd_test_leds(unsigned short n, unsigned short *leds) {
 

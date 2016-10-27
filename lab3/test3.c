@@ -7,6 +7,7 @@
 
 static unsigned int counter = 0;
 unsigned long outbufass = 0;
+unsigned long statusandobf = 0;
 
 int kbd_test_scan(unsigned short ass)
 {
@@ -42,7 +43,12 @@ int kbd_test_scan(unsigned short ass)
 								out_buf = keyboard_test_int();
 							else
 							{
-								while(1)
+								do {
+									keyboardasm();
+								}while(statusandobf == 0);
+								readoutbuf();
+								out_buf = outbufass;
+								/*while(1)
 								{
 
 									outbufass = 0;
@@ -50,7 +56,7 @@ int kbd_test_scan(unsigned short ass)
 									out_buf = outbufass;
 									if (outbufass != OUT_BUFF_ERR)
 										break;
-								}
+								}*/
 								/*outbufass = 0;
 								keyboardasm();
 								out_buf = outbufass;*/

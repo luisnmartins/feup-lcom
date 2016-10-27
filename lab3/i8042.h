@@ -20,6 +20,7 @@
 
 
 #define TIMER0_IRQ	        0
+#define OUT_BUFF_ERR 0x00
 
 
 #define ON_OFF_LEDS 0xED

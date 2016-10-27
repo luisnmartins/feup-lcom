@@ -6,23 +6,23 @@
 .text
 _keyboardasm:
 
-//inb $KBD_OUT_BUF, %al
-//mov %al, _outbufass
+inb $KBD_OUT_BUF, %al
+mov %al, _outbufass
 
-//ret
+ret
 
 
-	xor %eax, %eax
-	movl 5, %ecx
+	/*xor %eax, %eax
 	cicle:
 
  		inb  $STATUS_REG, %al
- 		and $OBF, %al
-		cmp %al, 0
-		loope cicle
+ 		andl $OBF, %eax
+		cmpl %eax, 0
+		je cicle
+		xor %eax,%eax
 		inb $KBD_OUT_BUF, %al
 		mov %al, _outbufass
-		ret
+		ret*/
 
 
 

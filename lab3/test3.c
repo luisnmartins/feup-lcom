@@ -115,6 +115,7 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 	int irq_set = timer_subscribe_int();
 
 	int flag0 = 0, flag1 = 0, flag2 = 0;
+	int *flag_temp;
 	message msg;
 	int r;
 	unsigned long out_buf = 0, out_buf_bit_send = 0;
@@ -138,59 +139,69 @@ int kbd_test_leds(unsigned short n, unsigned short *leds) {
 
 					if (counter % 60 == 0) {
 						do {
-						issue_cmd_kbd(ON_OFF_LEDS);
-						data = keyboard_test_int();
-						if(data != 0x9c)
-							out_buf = data;
+							issue_cmd_kbd(ON_OFF_LEDS);
+							data = keyboard_test_int();
+							if (data != 0x9c)
+								out_buf = data;
 
 						} while (out_buf == RESEND || out_buf == ERROR);
 
 						//printf("Outbuf: %x", out_buf);
 						if (out_buf == ACK) {
-							issue_cmd_kbd(BIT(leds[i]));
-							out_buf_bit_send = keyboard_test_int();
-							while (out_buf_bit_send == RESEND) {
-								issue_cmd_kbd(BIT(leds[i]));
+							do {
+								if (leds[i] == 0) {
+
+									flag_temp = &flag0;
+
+								} else if (leds[i] == 1) {
+									flag_temp = &flag1;
+								} else if (leds[i] == 2) {
+									flag_temp = &flag2;
+								}
+
+								if (*flag_temp == 0)
+								{
+									issue_cmd_kbd(BIT(leds[i]));
+
+								} else
+								{
+									issue_cmd_kbd(0);
+								}
 								out_buf_bit_send = keyboard_test_int();
+							} while (out_buf_bit_send == RESEND);
+
+							if (out_buf_bit_send == ACK) {
+								print_led(leds[i], flag_temp);
 							}
-						} if (out_buf_bit_send == ERROR) {
+
+						if (out_buf_bit_send == ERROR) {
 							i--;
 							continue;
-						} else if (out_buf_bit_send == ACK) {
-							if (leds[i] == 0) {
-								print_led(leds[i], &flag0);
-							} else if (leds[i] == 1) {
-								print_led(leds[i], &flag1);
-							} else if (leds[i] == 2) {
-								print_led(leds[i], &flag2);
-							}
-						} else {
-
 						}
-						i++;
 					}
-					counter++;
-				}
 
-				break;
-			default:
-				break; /* no other notifications expected: do nothing */
+					i++;
+				}
+				counter++;
 			}
-		} else { /* received a standard message, not a notification */
-			/* no standard messages expected: do nothing */
+
+			break;
+		default:
+			break; /* no other notifications expected: do nothing */
+			}
 		}
 	}
 
 	printf("Program Finished\n");
-	if ((timer_unsubscribe_int() == OK))
+	if(keyboard_unsubscribe_int() == OK)
 	{
-		if(keyboard_unsubscribe_int() == OK)
-			{printf("\nUnsubscribed");
+		if (timer_unsubscribe_int() == OK) {
+			printf("\nUnsubscribed");
 			return 0;
-			}
-	}else {
-			return 1;
 		}
+	} else {
+		return 1;
+	}
 
 }
 

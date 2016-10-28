@@ -11,7 +11,7 @@ int keyboard_unsubscribe_int();
 unsigned long keyboard_test_int();
 int issue_cmd_kbd(unsigned long cmd);
 void print_code(unsigned long *out_buf);
-void print_led(int leds_p, int *flag);
+void print_led(unsigned long leds_p, int *flag);
 
 
 

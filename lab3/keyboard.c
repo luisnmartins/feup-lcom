@@ -109,7 +109,7 @@ void print_code(unsigned long *out_buf)
 }
 
 
-void print_led(int leds_p, int *flag)
+void print_led(unsigned long leds_p, int *flag)
 {
 	if(leds_p == 0)
 	{

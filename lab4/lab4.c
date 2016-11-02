@@ -1,3 +1,10 @@
+#include "i8042.h"
+#include "mouse.h"
+#include <limits.h>
+#include <string.h>
+#include <errno.h>
+
+
 static int proc_args(int argc, char **argv);
 static unsigned long parse_ulong(char *str, int base);
 static void print_usage(char **argv);
@@ -18,59 +25,60 @@ int main(int argc, char **argv)
 static void print_usage(char **argv)
 {
 	printf("Usage: one of the following:\n"
-			"\t service run %s -args \"packet <decimal no.- compile_code>\"\n"
-			"\t service run %s -args \"async <decimal no. - LEDarray>\"\n"
-			"\t service run %s -args \"config <decimal no. - seconds>\"\n"
-			"\t service run %s -args \"gesture <decimal no. - seconds>\"\n",
+			"\t service run %s -args \"packet <decimal no.- number_packets>\"\n"
+			"\t service run %s -args \"async <decimal no. - time>\"\n"
+			"\t service run %s -args \"config\"\n"
+			"\t service run %s -args \"gesture <decimal no. - length>\"\n",
 			argv[0], argv[0], argv[0],argv[0]);
 }
 
 static int proc_args(int argc, char **argv)
 {
-	unsigned short compile_code, timed;
-	unsigned short arraysize;
-	unsigned short *ledarray;
+	unsigned short np, time, leng;
+
 	if (strncmp(argv[1], "packet", strlen("packet")) == 0) {
 		if (argc != 3) {
 			printf("Interrupt Handler: wrong no. of arguments for test_packet()\n");
 			return 1;
 		}
-		compile_code = parse_ulong(argv[2], 10);						/* Parses string to unsigned long */
-		if (compile_code == ULONG_MAX)
+		np = parse_ulong(argv[2], 10);						/* Parses string to unsigned long */
+		if (np == ULONG_MAX)
 			return 1;
-		printf("test3::kbd_test_scan(%lu)\n", compile_code);
-		return kbd_test_scan(compile_code);
+		printf("test4::test_packet(%lu)\n", np);
+
+		return test_packet(np);
 	}
 	else if (strncmp(argv[1], "async", strlen("async")) == 0) {
 		if (argc < 3) {
 			printf("LED Array: wrong no. of arguments for test_async()\n");
 			return 1;
 		}
-		ledarray = malloc(sizeof(unsigned short)*(argc-2));
-		arraysize = argc-2;
-		int i=0;
-		for(i; i<arraysize; i++)
-		{
-			ledarray[i] = parse_ulong(argv[2+i], 10);
-			if (*argv[2+i] == ULONG_MAX)
+		time = parse_ulong(argv[2], 10);
+		if (time == ULONG_MAX)
 					return 1;
-			 // Parses string to unsigned long
-		}
+		printf("test4::test_async(%lu)", time);
 
-		printf("test3::kbd_test_leds()");
-
-		return kbd_test_leds(arraysize, ledarray);
+		return test_async(time);
 	}
 	else if (strncmp(argv[1], "config", strlen("config")) == 0) {
 		if (argc != 3) {
-			printf("timer: wrong no of arguments for timer_test_int()\n");
+			printf("Conf: wrong no of arguments for test_config()\n");
 			return 1;
 		}
-		timed = parse_ulong(argv[2], 10);						/* Parses string to unsigned long */
-		if (timed == ULONG_MAX)
+		printf("test4::test_config()\n");
+		return test_config();
+	}
+	else if (strncmp(argv[1], "gesture", strlen("gesture")) == 0) {
+		if (argc < 3) {
+			printf("LED Array: wrong no. of arguments for test_async()\n");
 			return 1;
-		printf("test3::kbd_test_timed_scan(%lu)\n", timed);
-		return kbd_test_timed_scan(timed);
+		}
+		time = parse_ulong(argv[2], 10);
+		if (time == ULONG_MAX)
+					return 1;
+		printf("test4::test_async(%lu)", time);
+
+		return test_async(time);
 	}
 	else {
 		printf("test3: %s - no valid function!\n", argv[1]);

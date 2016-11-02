@@ -1,6 +1,10 @@
 #ifndef __TEST4_H
 #define __TEST4_H
 
+#include "i8042.h"
+#include "mouse.h"
+#include <stdio.h>
+
 /** @defgroup test4 test4
  * @{
  *

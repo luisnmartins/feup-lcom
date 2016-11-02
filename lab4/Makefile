@@ -4,8 +4,8 @@ COMPILER_TYPE= gnu
 
 CC= gcc
 
-PROG= lab3
-SRCS= lab4.c test4.c 
+PROG= lab4
+SRCS= lab4.c test4.c mouse.c
 
 CCFLAGS= -Wall
 

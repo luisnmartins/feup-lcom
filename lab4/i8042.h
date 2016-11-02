@@ -4,8 +4,10 @@
 
 
 #define KB_IRQ 1    //Keyboard IRQ
+
 #define STATUS_REG 0x64
 #define KBD_OUT_BUF 0x60
+
 #define OBF BIT(0)
 #define IBF BIT(1)
 
@@ -26,5 +28,18 @@
 #define ACK 0xFA
 #define RESEND 0xFE
 #define ERROR 0xFC
+
+
+// ------- RATO
+
+#define MS_OUT_BUF 0x60		//mouse out_buf
+#define MS_IRQ 12   //Mouse IRQ
+#define AUX BIT(5) //out_buf is mouse information
+#define WRITE_B_MOUSE 0xD4 //commands the KBC to forward its argument to the mouse
+#define STREAM_MODE 0xEA //set mouse with stream mode
+#define DISABLE_STREAM 0xF5
+#define ENABLE_STREAM 0xF4
+
+
 
 #endif /* _LCOM_I8042_H */

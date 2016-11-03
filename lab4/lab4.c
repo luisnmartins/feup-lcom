@@ -22,6 +22,7 @@ int main(int argc, char **argv)
 	else return proc_args(argc, argv);
 }
 
+
 static void print_usage(char **argv)
 {
 	printf("Usage: one of the following:\n"

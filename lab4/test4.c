@@ -15,18 +15,25 @@ int test_packet(unsigned short cnt) {
 	unsigned long out_buf = 0;
 	unsigned long packet[3];
 
-	issue_cmd_ms(STREAM_MODE);
-	issue_cmd_ms(ENABLE_STREAM);
 
-	// {
-		//issue_cmd_ms(WRITE_B_MOUSE);
-		//out_buf = mouse_int_handler();
+	//do{
+		out_buf = mouse_int_handler();
+		sys_outb(STATUS_REG, WRITE_B_MOUSE);
+		issue_cmd_ms(STREAM_MODE) ;
+		out_buf = mouse_int_handler();
+			do
+			{
+				sys_outb(STATUS_REG, WRITE_B_MOUSE);
+				issue_cmd_ms(ENABLE_STREAM);
+				out_buf = mouse_int_handler();
+				if(out_buf == ERROR || out_buf == ACK)
+				{
+					break;
+				}
+			}
+			while(out_buf == RESEND);
 
-	//} while (out_buf == RESEND || out_buf == ERROR);
-		//printf("%x", out_buf);
-	/*if (out_buf == ACK) {
-
-	}*/
+			out_buf = 0;
 
 	while (n < cnt) { /* You may want to use a different condition */
 		/* Get a request message. */
@@ -35,16 +42,21 @@ int test_packet(unsigned short cnt) {
 			printf("driver_receive failed with: %d", r);
 			continue;
 		}
-		if (is_ipc_notify(ipc_status)) { /* received notification */
+		if (is_ipc_notify(ipc_status)) {
+			/* received notification */
 			switch (_ENDPOINT_P(msg.m_source)) {
 			case HARDWARE:
 				/* hardware interrupt notification */
 
 				if (msg.NOTIFY_ARG & irq_set) {
 					/* subscribed interrupt */
+
 					out_buf = mouse_int_handler();
+					printf("%x,\n", out_buf);
 					if (counter == 0) {
+						printf("counter 0");
 						if (out_buf & BIT(3)) {
+							printf("BIT(3)\n");
 							packet[0] = out_buf;
 							counter++;
 
@@ -56,6 +68,7 @@ int test_packet(unsigned short cnt) {
 							packet[1] = out_buf;
 							counter++;
 						} else if (counter == 2) {
+							printf("Ta aqui\n");
 							packet[2] = out_buf;
 							counter = 0;
 							n++;
@@ -72,16 +85,18 @@ int test_packet(unsigned short cnt) {
 
 		}
 	}
+	sys_outb(STATUS_REG, WRITE_B_MOUSE);
 	if(issue_cmd_ms(DISABLE_STREAM))
 	{
 		return 1;
 	}
-	issue_cmd_ms(STREAM_MODE);
+	//issue_cmd_ms(STREAM_MODE);
 	if(mouse_unsubscribe_int() == 1)
 		return 1;
 	else
 		return 0;
 
+	return 0;
 }
 
 

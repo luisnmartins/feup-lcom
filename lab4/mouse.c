@@ -1,9 +1,10 @@
 #include "mouse.h"
 
-unsigned int mhook_id = MS_IRQ;
+unsigned int mhook_id = 2;
 
 int mouse_subscribe_int()
 {
+	int temp = mhook_id;
 
 	if (sys_irqsetpolicy(MS_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &mhook_id) != OK) {
 		printf("Can't send and define the policy");
@@ -15,12 +16,12 @@ int mouse_subscribe_int()
 		return -1;
 	}
 
-	return BIT(MS_IRQ);
+	return BIT(temp);
 }
 
 int mouse_unsubscribe_int() {
 
-	if (sys_irqdisable(&mhook_id) != OK) {
+	if (sys_irqdisable(&mhook_id) != OK){
 		printf("Error executing sys_irqdisable");
 		return 1;
 	}
@@ -35,6 +36,7 @@ int mouse_unsubscribe_int() {
 }
 
 
+
 unsigned long mouse_int_handler() {
 
 	unsigned long data;
@@ -43,14 +45,12 @@ unsigned long mouse_int_handler() {
 		while( n<= 5)
 		{
 			sys_inb(STATUS_REG, &status);
-			if((status & OBF) & AUX)
+			if((status & OBF))
 			{
 				sys_inb(MS_OUT_BUF, &data);
 
-				if ( (status &(PAR_ERR | TO_ERR)) == 0 )
-					return data;
-				else
-					return 1;
+				return data;
+
 			}
 			tickdelay(micros_to_ticks(DELAY_US));
 			n++;
@@ -70,7 +70,6 @@ int issue_cmd_ms(unsigned long cmd)
 	unsigned int n=0;
     while( n<= 5 )
     {
-
         sys_inb(STATUS_REG, &stat); /* assuming it returns OK */
         /* loop while 8042 input buffer is not empty */
         if( (stat & IBF) == 0 )

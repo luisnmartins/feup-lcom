@@ -63,10 +63,10 @@ static int proc_args(int argc, char **argv)
 		return test_async(time);
 	}
 	else if (strncmp(argv[1], "config", strlen("config")) == 0) {
-		if (argc != 3) {
+		/*if (argc != 3) {
 			printf("Conf: wrong no of arguments for test_config()\n");
 			return 1;
-		}
+		}*/
 		printf("test4::test_config()\n");
 		return test_config();
 	}
@@ -111,4 +111,3 @@ static unsigned long parse_ulong(char *str, int base)
 	/* Successful conversion */
 	return val;
 }
-

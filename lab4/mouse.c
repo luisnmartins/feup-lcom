@@ -132,11 +132,11 @@ void print_packet(int size_array, unsigned long *array)
 		{
 			printf("LB=%d  ", flag);
 		}
-		else if(n == 1)
+		else if(n == 2)
 		{
 			printf("MB=%d  ", flag);
 		}
-		else if(n == 2)
+		else if(n == 1)
 		{
 			printf("RB=%d  ", flag);
 		}

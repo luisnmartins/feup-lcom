@@ -40,8 +40,10 @@
 #define DISABLE_STREAM 0xF5
 #define ENABLE_STREAM 0xF4
 #define NACK 0xFE
-
+#define STATUS_REQUEST 0xE9
+#define CONF_BYTE2_ZEROS BIT(7) & BIT(6) & BIT(5) & BIT(4) & BIT(3) & BIT(2)
 #define READ_KBC 0x20
+
 
 
 

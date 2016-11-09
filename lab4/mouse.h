@@ -8,6 +8,8 @@
 #include <minix/drivers.h>
 #include <minix/com.h>
 
+
+
 int mouse_subscribe_int();
 int mouse_unsubscribe_int();
 unsigned long mouse_int_handler();

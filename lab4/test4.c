@@ -1,4 +1,12 @@
 #include "test4.h"
+unsigned int mhook_id = 12;
+typedef enum {
+	INIT, DRAW, COMP
+} state_t;
+typedef enum {
+	RDOW, RUP, MOVE
+} ev_type_t;
+static state_t st = INIT;
 
 int test_packet(unsigned short cnt) {
 
@@ -339,4 +347,119 @@ int test_config(void) {
 
 int test_gesture(short length) {
 	/* To be completed ... */
+	int ipc_status, irq_set = mouse_subscribe_int();
+	ev_type_t tipo;
+	if (irq_set == -1) {
+		printf("Fail subscribing mouse");
+		return 1;
+	}
+	message msg;
+	int r;
+	int counter = 0;
+	int n = 0;
+	unsigned long out_buf = 0;
+	unsigned long out_buf2 = 0;
+	unsigned long packet[3];
+	unsigned long equal_bits;
+
+
+
+	do {
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
+
+		issue_cmd_ms(ENABLE_STREAM);
+		out_buf = mouse_int_handler();
+
+	} while (out_buf != ACK);
+
+	while (n < cnt) { /* You may want to use a different condition */
+		/* Get a request message. */
+
+		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+			printf("driver_receive failed with: %d", r);
+			continue;
+		}
+		if (is_ipc_notify(ipc_status)) { /* received notification */
+			switch (_ENDPOINT_P(msg.m_source)) {
+			case HARDWARE: /* hardware interrupt notification */
+
+				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
+					sys_inb(MS_OUT_BUF, &out_buf2);
+
+
+					if (counter == 2) {
+
+						packet[2] = out_buf2;
+						counter = 0;
+						n++;
+						print_packet(3, packet);
+						equal_bits = packet[0];
+						equal_bits>>1;
+						if(packet[0] & BIT(1))
+						{
+							tipo = RDOW;
+							//roda dfa
+						}else
+						{
+							tipo = RUP;
+							//roda DFA
+						}
+						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4)))
+						{
+							MOVE = 1;
+							tipo = MOVE;
+							//roda dfa;
+						}else
+						{
+							MOVE = 0;
+							tipo = MOVE;
+							// roda dfa;
+						}
+
+					}
+
+					if (counter == 1) {
+
+						packet[1] = out_buf2;
+						counter++;
+					}
+					if (counter == 0) {
+
+						if (out_buf2 & BIT(3)) {
+
+							packet[0] = out_buf2;
+
+							counter++;
+
+
+						}
+					}
+				}
+
+				break;
+			default:
+				break; /* no other notifications expected: do nothing */
+			}
+		} else { /* received a standard message, not a notification */
+			/* no standard messages expected: do nothing */
+		}
+	}
+	do {
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
+
+		issue_cmd_ms(DISABLE_STREAM);
+		out_buf = mouse_int_handler();
+
+	} while (out_buf != ACK);
+	printf("Stream Disabled\n");
+	//issue_cmd_ms(STREAM_MODE);
+	out_buf = mouse_int_handler();
+
+	if (mouse_unsubscribe_int() == 1)
+		return 1;
+	else
+		return 0;
+	return 0;
 }

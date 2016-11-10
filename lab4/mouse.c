@@ -164,6 +164,7 @@ void print_packet(int size_array, unsigned long *array) {
 long compl2(long nr) {
 	nr ^= 0xFF;
 	nr++;
+	return nr;
 
 }
 

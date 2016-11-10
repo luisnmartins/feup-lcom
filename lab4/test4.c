@@ -8,7 +8,7 @@ typedef enum {
 	RDOW, RUP, TOLERANCE, VERT_LINE
 } ev_type_t;
 
-static state_t st = INIT;
+state_t st = INIT;
 
 int test_packet(unsigned short cnt) {
 
@@ -416,28 +416,28 @@ int test_gesture(short length) {
 						equal_bits >> 1;
 						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
-							check_hor_line(tipo);
+							check_hor_line(&tipo,&st);
 							//roda dfa
 						} else {
 							tipo = RUP;
-							check_hor_line(tipo);
+							check_hor_line(&tipo,&st);
 							//roda DFA
 						}
 						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) {
 
 							tipo = TOLERANCE;
-							check_hor_line(tipo);
+							check_hor_line(&tipo,&st);
 							//roda dfa;
-						} else {
+						} else if (is_vert(length,packet[2])) {
 
 							tipo = VERT_LINE;
-							check_hor_line(tipo);
+							check_hor_line(&tipo,&st);
 							// roda dfa;
 						}
-						/*else {
+						else {
 							tipo = TOLERANCE;
-							check_hor_line(tipo);
-						}*/
+							check_hor_line(&tipo,&st);
+						}
 
 					}
 
@@ -466,6 +466,16 @@ int test_gesture(short length) {
 	if (mouse_unsubscribe_int() == 1)
 		return 1;
 	else
+	{
+		printf("out\n");
 		return 0;
+	}
 	return 0;
+}
+
+int is_vert(short length,unsigned long byte2)
+{
+	if (byte2 == length)
+		return 0;
+	else return 1;
 }

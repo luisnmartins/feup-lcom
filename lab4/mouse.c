@@ -204,7 +204,7 @@ void print_conf_byte1(unsigned long *conf_byte) {
 
 }
 
-void check_hor_line(ev_type_t *evt) {
+void check_hor_line(ev_type_t *evt,state_t *st) {
 	//static state_t st = INIT; // initial state; keep state
 
 	long y0;
@@ -212,22 +212,22 @@ void check_hor_line(ev_type_t *evt) {
 
 
 
-	state_t st;
-	switch (st) {
+
+	switch (*st) {
 	case INIT:
 		if (*evt == RDOW)
-			st = DRAW;
+			*st = DRAW;
 		break;
 	case DRAW:
 		if (*evt == TOLERANCE) {
-			st = DRAW;
+			*st = DRAW;
 		}else if (*evt == VERT_LINE)
 		{
-			st = COMP;
+			*st = COMP;
 		}
 			// need to check if events VERT_LINE or HOR_TOLERANCE
 	 else if (*evt == RUP)
-		st = INIT;
+		*st = INIT;
 	break;
 default:
 	break;

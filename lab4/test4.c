@@ -10,6 +10,8 @@ typedef enum {
 
 state_t st = INIT;
 
+
+
 int test_packet(unsigned short cnt) {
 
 	int ipc_status, irq_set = mouse_subscribe_int();
@@ -414,7 +416,7 @@ int test_gesture(short length) {
 
 						print_packet(3, packet);
 						flag++;
-						if (flag ==2)
+						if (flag != 1)
 						{
 						equal_bits = packet[0];
 						equal_bits >> 1;
@@ -432,7 +434,7 @@ int test_gesture(short length) {
 							tipo = TOLERANCE;
 							check_hor_line(&tipo,&st);
 							//roda dfa;
-						} else if (is_vert(length,packet[2])) {
+						} else if (is_vert(length,packet[2]) == 0) {
 
 							tipo = VERT_LINE;
 							check_hor_line(&tipo,&st);
@@ -477,9 +479,9 @@ int test_gesture(short length) {
 	return 0;
 }
 
-int is_vert(short length,unsigned long byte2)
+/*int is_vert(short length,unsigned long byte2)
 {
 	if (byte2 == length)
 		return 0;
 	else return 1;
-}
+}*/

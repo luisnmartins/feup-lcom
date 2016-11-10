@@ -215,10 +215,12 @@ void check_hor_line(ev_type_t *evt,state_t *st) {
 
 	switch (*st) {
 	case INIT:
+		printf("entrouinit\n");
 		if (*evt == RDOW)
 			*st = DRAW;
 		break;
 	case DRAW:
+		printf("entroudraw\n");
 		if (*evt == TOLERANCE) {
 			*st = DRAW;
 		}else if (*evt == VERT_LINE)
@@ -232,6 +234,12 @@ void check_hor_line(ev_type_t *evt,state_t *st) {
 default:
 	break;
 	}
+}
+int is_vert(short length,unsigned long byte2)
+{
+	if (byte2 == length)
+		return 0;
+	else return 1;
 }
 
 /*int vert_line(short size,unsigned long *array)

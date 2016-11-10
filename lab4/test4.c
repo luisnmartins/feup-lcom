@@ -28,46 +28,7 @@ int test_packet(unsigned short cnt) {
 	unsigned long out_buf2 = 0;
 	unsigned long packet[3];
 
-	/*do
-	 {
-	 if (set_kbc_mouse() == -1) //set kbc to read mouse
-	 return 1;
 
-	 do{
-
-	 issue_cmd_ms(STREAM_MODE);
-	 out_buf = mouse_int_handler();
-
-	 if ((out_buf & READ_KBC) == READ_KBC)
-	 {
-	 if(out_buf == ACK)
-	 {
-	 break;
-	 }
-	 else if( out_buf == NACK)
-	 {
-	 continue;
-	 }
-	 else if(out_buf == ERROR)
-	 {
-	 break;
-	 }
-	 }
-	 else
-	 {
-	 out_buf = ERROR;
-	 break;
-	 }
-	 }while(out_buf == NACK);
-
-	 if(out_buf == ERROR)
-	 {
-	 continue;
-	 }
-	 else
-	 break;
-
-	 }while(out_buf == ERROR);*/
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
@@ -419,7 +380,8 @@ int test_gesture(short length) {
 						if (flag != 1)
 						{
 						equal_bits = packet[0];
-						equal_bits >> 1;
+						equal_bits &= BIT(5);
+						equal_bits>>1;
 						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
 							check_hor_line(&tipo,&st);
@@ -429,18 +391,19 @@ int test_gesture(short length) {
 							check_hor_line(&tipo,&st);
 							//roda DFA
 						}
-						if ((((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) != 0) || (packet[1] == 0) || (packet[2] == 0))  {
+						if (((packet[0] & BIT(4)) != equal_bits) || (packet[1] == 0) || (packet[2] == 0))  {
 
 							tipo = TOLERANCE;
 							check_hor_line(&tipo,&st);
 							//roda dfa;
 						} else if (is_vert(length,packet[2],packet[0]) == 0) {
-
+							//printf("sinais iguais");
 							tipo = VERT_LINE;
 							check_hor_line(&tipo,&st);
 							// roda dfa;
 						}
 						else {
+							//printf("sinais iguais");
 							tipo = TOLERANCE;
 							check_hor_line(&tipo,&st);
 						}

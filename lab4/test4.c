@@ -1,5 +1,5 @@
 #include "test4.h"
-unsigned int mhook_id = 12;
+
 typedef enum {
 	INIT, DRAW, COMP
 } state_t;
@@ -64,7 +64,14 @@ int test_packet(unsigned short cnt) {
 	 break;
 
 	 }while(out_buf == ERROR);*/
+	do {
+			if (set_kbc_mouse() == -1) //set kbc to read mouse
+				return 1;
 
+			issue_cmd_ms(DISABLE_STREAM);
+			out_buf = mouse_int_handler();
+
+		} while (out_buf != ACK);
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
@@ -87,35 +94,36 @@ int test_packet(unsigned short cnt) {
 
 				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
 					sys_inb(MS_OUT_BUF, &out_buf2);
-					//mouse = (unsigned int) out_buf2;
 
-					//printf("%x\n", mouse);
 
-					if (counter == 2) {
-						//printf("Ta aqui\n");
-						packet[2] = out_buf2;
-						counter = 0;
-						n++;
-						print_packet(3, packet);
-
-					}
-
-					if (counter == 1) {
-						//printf("esta no counter1\n");
-						packet[1] = out_buf2;
-						counter++;
-					}
 					if (counter == 0) {
-						//printf("counter 0");
+
 						if (out_buf2 & BIT(3)) {
-							//printf("BIT(3)\n");
+
 							packet[0] = out_buf2;
-							//printf("escreveu no pos 0\n");
-							counter++;
-							//printf("%d\n", counter);
+
+
+
+
+							}else continue;
+					}else if (counter == 1) {
+
+							packet[1] = out_buf2;
 
 						}
+					else if (counter == 2) {
+
+						packet[2] = out_buf2;
+
+						print_packet(3, packet);
+						counter = 0;
+						n++;
+						continue;
+
 					}
+
+					counter++;
+
 				}
 
 				break;
@@ -356,7 +364,7 @@ int test_gesture(short length) {
 	message msg;
 	int r;
 	int counter = 0;
-	int n = 0;
+
 	unsigned long out_buf = 0;
 	unsigned long out_buf2 = 0;
 	unsigned long packet[3];
@@ -373,7 +381,7 @@ int test_gesture(short length) {
 
 	} while (out_buf != ACK);
 
-	while (n < cnt) { /* You may want to use a different condition */
+	while (st != COMP) { /* You may want to use a different condition */
 		/* Get a request message. */
 
 		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -392,7 +400,7 @@ int test_gesture(short length) {
 
 						packet[2] = out_buf2;
 						counter = 0;
-						n++;
+
 						print_packet(3, packet);
 						equal_bits = packet[0];
 						equal_bits>>1;
@@ -407,12 +415,12 @@ int test_gesture(short length) {
 						}
 						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4)))
 						{
-							MOVE = 1;
+							//MOVE = 1;
 							tipo = MOVE;
 							//roda dfa;
 						}else
 						{
-							MOVE = 0;
+							//MOVE = 0;
 							tipo = MOVE;
 							// roda dfa;
 						}

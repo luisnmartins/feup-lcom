@@ -1,13 +1,14 @@
 #include "mouse.h"
 
 unsigned int mhook_id = 12;
+
 typedef enum {
 	INIT, DRAW, COMP
 } state_t;
 typedef enum {
-	RDOW, RUP, MOVE
+	RDOW, RUP, TOLERANCE, VERT_LINE
 } ev_type_t;
-static state_t st = INIT;// initial state; keep state / condicao de paragem st == COMP
+
 
 
 int mouse_subscribe_int() {
@@ -211,25 +212,29 @@ void check_hor_line(ev_type_t *evt) {
 
 
 
-
+	state_t st;
 	switch (st) {
 	case INIT:
 		if (*evt == RDOW)
 			st = DRAW;
 		break;
 	case DRAW:
-		if (*evt == MOVE) {
-			if(*evt == 1)//VERT_LINE)//por criar VERT_LINE
-			{
-
-				st= COMP;
-			}else if (*evt == 2)//HOR_TOLERANCE) // por criar HOR_TOLERANCE
-				st=DRAW;
+		if (*evt == TOLERANCE) {
+			st = DRAW;
+		}else if (*evt == VERT_LINE)
+		{
+			st = COMP;
+		}
 			// need to check if events VERT_LINE or HOR_TOLERANCE
-	} else if (*evt == RUP)
+	 else if (*evt == RUP)
 		st = INIT;
 	break;
 default:
 	break;
 	}
 }
+
+/*int vert_line(short size,unsigned long *array)
+{
+	return 0;
+}*/

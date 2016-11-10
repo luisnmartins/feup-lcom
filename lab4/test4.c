@@ -1,11 +1,13 @@
 #include "test4.h"
+#include "mouse.h"
 
 typedef enum {
 	INIT, DRAW, COMP
 } state_t;
 typedef enum {
-	RDOW, RUP, MOVE
+	RDOW, RUP, TOLERANCE, VERT_LINE
 } ev_type_t;
+
 static state_t st = INIT;
 
 int test_packet(unsigned short cnt) {
@@ -390,7 +392,21 @@ int test_gesture(short length) {
 				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
 					sys_inb(MS_OUT_BUF, &out_buf2);
 
-					if (counter == 2) {
+					if (counter == 0) {
+
+						if (out_buf2 & BIT(3)) {
+
+							packet[0] = out_buf2;
+
+							counter++;
+
+						} else
+							continue;
+					} else if (counter == 1) {
+
+						packet[1] = out_buf2;
+						counter++;
+					} else if (counter == 2) {
 
 						packet[2] = out_buf2;
 						counter = 0;
@@ -400,38 +416,31 @@ int test_gesture(short length) {
 						equal_bits >> 1;
 						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
+							check_hor_line(tipo);
 							//roda dfa
 						} else {
 							tipo = RUP;
+							check_hor_line(tipo);
 							//roda DFA
 						}
 						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) {
-							//MOVE = 1;
-							tipo = MOVE;
+
+							tipo = TOLERANCE;
+							check_hor_line(tipo);
 							//roda dfa;
 						} else {
-							//MOVE = 0;
-							tipo = MOVE;
+
+							tipo = VERT_LINE;
+							check_hor_line(tipo);
 							// roda dfa;
 						}
+						/*else {
+							tipo = TOLERANCE;
+							check_hor_line(tipo);
+						}*/
 
 					}
 
-					if (counter == 1) {
-
-						packet[1] = out_buf2;
-						counter++;
-					}
-					if (counter == 0) {
-
-						if (out_buf2 & BIT(3)) {
-
-							packet[0] = out_buf2;
-
-							counter++;
-
-						}
-					}
 				}
 
 				break;

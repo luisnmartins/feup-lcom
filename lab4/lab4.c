@@ -72,15 +72,15 @@ static int proc_args(int argc, char **argv)
 	}
 	else if (strncmp(argv[1], "gesture", strlen("gesture")) == 0) {
 		if (argc < 3) {
-			printf("LED Array: wrong no. of arguments for test_async()\n");
+			printf("MOUSE: wrong no. of arguments for test_gesture()\n");
 			return 1;
 		}
-		time = parse_ulong(argv[2], 10);
-		if (time == ULONG_MAX)
+		leng = parse_ulong(argv[2], 10);
+		if (leng == ULONG_MAX)
 					return 1;
-		printf("test4::test_async(%lu)", time);
+		printf("test4::test_gesture(%lu)", leng);
 
-		return test_async(time);
+		return test_gesture(leng);
 	}
 	else {
 		printf("test3: %s - no valid function!\n", argv[1]);

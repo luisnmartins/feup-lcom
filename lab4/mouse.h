@@ -17,5 +17,6 @@ int issue_cmd_ms(unsigned long cmd);
 void print_packet(int size_array, unsigned long *array);
 long compl2(long nr);
 void print_conf_byte1(unsigned long *conf_byte);
+//int vert_line(short size,unsigned long *array)
 
 #endif /* __MOUSE_H */

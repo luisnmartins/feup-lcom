@@ -235,9 +235,17 @@ default:
 	break;
 	}
 }
-int is_vert(short length,unsigned long byte2)
+int is_vert(short length,unsigned long byte2,unsigned long byte0)
 {
-	if (byte2 == length)
+	if(byte0 & BIT(5))
+	{
+		byte2 = compl2(byte2);
+	}
+	if(length < 0)
+	{
+		byte2 =-byte2;
+	}
+	if (byte2 >= length)
 		return 0;
 	else return 1;
 }

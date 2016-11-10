@@ -429,12 +429,12 @@ int test_gesture(short length) {
 							check_hor_line(&tipo,&st);
 							//roda DFA
 						}
-						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) {
+						if ((((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) != 0) || (packet[1] == 0) || (packet[2] == 0))  {
 
 							tipo = TOLERANCE;
 							check_hor_line(&tipo,&st);
 							//roda dfa;
-						} else if (is_vert(length,packet[2]) == 0) {
+						} else if (is_vert(length,packet[2],packet[0]) == 0) {
 
 							tipo = VERT_LINE;
 							check_hor_line(&tipo,&st);

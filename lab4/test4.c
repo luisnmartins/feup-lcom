@@ -363,6 +363,7 @@ int test_gesture(short length) {
 	message msg;
 	int r;
 	int counter = 0;
+	int flag = 0;
 
 	unsigned long out_buf = 0;
 	unsigned long out_buf2 = 0;
@@ -412,6 +413,9 @@ int test_gesture(short length) {
 						counter = 0;
 
 						print_packet(3, packet);
+						flag++;
+						if (flag ==2)
+						{
 						equal_bits = packet[0];
 						equal_bits >> 1;
 						if (packet[0] & BIT(1)) {
@@ -439,7 +443,7 @@ int test_gesture(short length) {
 							check_hor_line(&tipo,&st);
 						}
 
-					}
+					}}
 
 				}
 

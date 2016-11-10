@@ -65,13 +65,13 @@ int test_packet(unsigned short cnt) {
 
 	 }while(out_buf == ERROR);*/
 	do {
-			if (set_kbc_mouse() == -1) //set kbc to read mouse
-				return 1;
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
 
-			issue_cmd_ms(DISABLE_STREAM);
-			out_buf = mouse_int_handler();
+		issue_cmd_ms(DISABLE_STREAM);
+		out_buf = mouse_int_handler();
 
-		} while (out_buf != ACK);
+	} while (out_buf != ACK);
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
@@ -95,23 +95,19 @@ int test_packet(unsigned short cnt) {
 				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
 					sys_inb(MS_OUT_BUF, &out_buf2);
 
-
 					if (counter == 0) {
 
 						if (out_buf2 & BIT(3)) {
 
 							packet[0] = out_buf2;
 
+						} else
+							continue;
+					} else if (counter == 1) {
 
+						packet[1] = out_buf2;
 
-
-							}else continue;
-					}else if (counter == 1) {
-
-							packet[1] = out_buf2;
-
-						}
-					else if (counter == 2) {
+					} else if (counter == 2) {
 
 						packet[2] = out_buf2;
 
@@ -172,6 +168,14 @@ int test_async(unsigned short idle_time) {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
 
+		issue_cmd_ms(DISABLE_STREAM);
+		out_buf = mouse_int_handler();
+
+	} while (out_buf != ACK);
+	do {
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
+
 		issue_cmd_ms(ENABLE_STREAM);
 		out_buf = mouse_int_handler();
 
@@ -198,31 +202,30 @@ int test_async(unsigned short idle_time) {
 
 					//printf("%x\n", mouse);
 
-					if (counter == 2) {
-						//printf("Ta aqui\n");
+					if (counter == 0) {
+
+						if (out_buf2 & BIT(3)) {
+
+							packet[0] = out_buf2;
+
+						} else
+							continue;
+					} else if (counter == 1) {
+
+						packet[1] = out_buf2;
+
+					} else if (counter == 2) {
+
 						packet[2] = out_buf2;
+
+						print_packet(3, packet);
 						counter = 0;
 						n++;
-						print_packet(3, packet);
+						continue;
 
 					}
 
-					if (counter == 1) {
-						//printf("esta no counter1\n");
-						packet[1] = out_buf2;
-						counter++;
-					}
-					if (counter == 0) {
-						//printf("counter 0");
-						if (out_buf2 & BIT(3)) {
-							//printf("BIT(3)\n");
-							packet[0] = out_buf2;
-							//printf("escreveu no pos 0\n");
-							counter++;
-							//printf("%d\n", counter);
-
-						}
-					}
+					counter++;
 					counter_timer = 0;
 				}
 
@@ -270,13 +273,13 @@ int test_config(void) {
 		return 1;
 	}
 	do {
-				if (set_kbc_mouse() == -1) //set kbc to read mouse
-					return 1;
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
 
-				issue_cmd_ms(ENABLE_STREAM);
-				out_buf = mouse_int_handler();
+		issue_cmd_ms(ENABLE_STREAM);
+		out_buf = mouse_int_handler();
 
-			} while (out_buf != ACK);
+	} while (out_buf != ACK);
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
@@ -286,8 +289,7 @@ int test_config(void) {
 
 	} while (out_buf != ACK);
 
-
-	for (i=0; i < 3; i++) {
+	for (i = 0; i < 3; i++) {
 
 		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
 			printf("driver_receive failed with: %d", r);
@@ -300,20 +302,15 @@ int test_config(void) {
 
 					sys_inb(MS_OUT_BUF, &out_buf2);
 
-					if (i == 0)
-					{
-						if (out_buf2 & BIT(7) & BIT(3))
-						{
+					if (i == 0) {
+						if (out_buf2 & BIT(7) & BIT(3)) {
 							printf("First configuration byte is not correct\n");
 							return 1;
-						}
-						else
-						{
+						} else {
 							print_conf_byte1(&out_buf2);
 						}
 					}
-					if (i == 1)
-					{
+					if (i == 1) {
 						if (out_buf2 & CONF_BYTE2_ZEROS) {
 							printf(
 									"Second configuration byte is not correct\n");
@@ -335,13 +332,13 @@ int test_config(void) {
 		}
 	}
 	do {
-			if (set_kbc_mouse() == -1) //set kbc to read mouse
-				return 1;
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+			return 1;
 
-			issue_cmd_ms(DISABLE_STREAM);
-			out_buf = mouse_int_handler();
+		issue_cmd_ms(DISABLE_STREAM);
+		out_buf = mouse_int_handler();
 
-		} while (out_buf != ACK);
+	} while (out_buf != ACK);
 
 	out_buf = mouse_int_handler();
 
@@ -370,8 +367,6 @@ int test_gesture(short length) {
 	unsigned long packet[3];
 	unsigned long equal_bits;
 
-
-
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
 			return 1;
@@ -395,7 +390,6 @@ int test_gesture(short length) {
 				if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
 					sys_inb(MS_OUT_BUF, &out_buf2);
 
-
 					if (counter == 2) {
 
 						packet[2] = out_buf2;
@@ -403,23 +397,19 @@ int test_gesture(short length) {
 
 						print_packet(3, packet);
 						equal_bits = packet[0];
-						equal_bits>>1;
-						if(packet[0] & BIT(1))
-						{
+						equal_bits >> 1;
+						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
 							//roda dfa
-						}else
-						{
+						} else {
 							tipo = RUP;
 							//roda DFA
 						}
-						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4)))
-						{
+						if ((packet[0] & BIT(4)) ^ (equal_bits & BIT(4))) {
 							//MOVE = 1;
 							tipo = MOVE;
 							//roda dfa;
-						}else
-						{
+						} else {
 							//MOVE = 0;
 							tipo = MOVE;
 							// roda dfa;
@@ -439,7 +429,6 @@ int test_gesture(short length) {
 							packet[0] = out_buf2;
 
 							counter++;
-
 
 						}
 					}

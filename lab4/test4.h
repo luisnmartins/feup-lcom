@@ -62,7 +62,7 @@ int test_config(void);
  * @return Return 0 upon success and non-zero otherwise
  */
 
-
+int is_vert(short length,unsigned long byte2);
 int test_gesture(short length);
 
 #endif /* __TEST_4.H */

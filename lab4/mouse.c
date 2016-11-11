@@ -71,6 +71,8 @@ int issue_cmd_ms(unsigned long cmd) {
 	unsigned long stat = 0;
 	unsigned int n = 0;
 	while (n <= 5) {
+		if (set_kbc_mouse() == -1) //set kbc to read mouse
+					return 1;
 		sys_inb(STATUS_REG, &stat); /* assuming it returns OK */
 		/* loop while 8042 input buffer is not empty */
 		if ((stat & IBF) == 0) {

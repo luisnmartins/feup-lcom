@@ -44,8 +44,18 @@
 #define CONF_BYTE2_ZEROS BIT(7) & BIT(6) & BIT(5) & BIT(4) & BIT(3) & BIT(2)
 #define READ_KBC 0x20
 
+
+#define VERIFY_PACKET BIT(3)
+#define CONF_FIRST_BYTE  BIT(7) & BIT(3)
+#define RIGHT_BUTTON BIT(1)
+#define MIDDLE_BUTTON BIT(2)
+#define LEFT_BUTTON BIT(0)
+#define SCALING BIT(4)
+#define DATA_REPORT BIT(5)
+#define MOUSE_MODE BIT(6)
 #define SINAL_X BIT(4)
 #define SINAL_Y BIT(5)
+#define TOLERAN 5
 
 
 

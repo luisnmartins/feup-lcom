@@ -79,7 +79,7 @@ static int proc_args(int argc, char **argv)
 		leng = parse_long(argv[2], 10);
 		if (leng == LONG_MAX)
 					return 1;
-		printf("test4::test_gesture(%i)", leng);
+		printf("test4::test_gesture(%ld)", leng);
 
 		return test_gesture(leng);
 	}

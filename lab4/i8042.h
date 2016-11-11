@@ -46,6 +46,13 @@
 
 
 
+#define
+#define RIGHT_BUTTON BIT(1)
+#define MIDDLE_BUTTON BIT(2)
+#define LEFT_BUTTON BIT(0)
+#define SCALING BIT(4)
+#define DATA_REPORT BIT(5)
+#define MOUSE_MODE BIT(6)
 
 
 #endif /* _LCOM_I8042_H */

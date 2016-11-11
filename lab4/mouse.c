@@ -170,33 +170,33 @@ long compl2(long nr) {
 }
 
 void print_conf_byte1(unsigned long *conf_byte) {
-	if (*conf_byte & BIT(0)) {
+	if (*conf_byte & RIGHT_BUTTON) {
 		printf("Right button is currently pressed\n");
 	} else {
 		printf("Right button is currently released\n");
 	}
-	if (*conf_byte & BIT(1)) {
+	if (*conf_byte & MIDDLE_BUTTON) {
 		printf("Middle button is currently pressed\n");
 	} else {
 		printf("Middle button is currently released\n");
 	}
 
-	if (*conf_byte & BIT(2)) {
+	if (*conf_byte & LEFT_BUTTON) {
 		printf("Left button is currently pressed\n");
 	} else {
 		printf("Left button is currently released\n");
 	}
-	if (*conf_byte & BIT(4)) {
+	if (*conf_byte & SCALING) {
 		printf("Scaling= 2:1\n");
 	} else {
 		printf("Scaling= 1:1\n");
 	}
-	if (*conf_byte & BIT(5)) {
+	if (*conf_byte & DATA_REPORT) {
 		printf("Data Reporting= Enabled\n");
 	} else {
 		printf("Data Reporting= Disabled\n");
 	}
-	if (*conf_byte & BIT(6)) {
+	if (*conf_byte & MOUSE_MODE) {
 		printf("Remote (polled) mode\n");
 	} else {
 		printf("Stream Mode\n");

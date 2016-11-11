@@ -281,8 +281,7 @@ int test_config(void) {
 									"Second configuration byte is not correct\n");
 							return 1;
 						} else {
-							printf("Resolution: %d counter per mm\n",
-									pow(out_buf2, 2));
+							printf("Resolution: %d counter per mm\n", pow(2, out_buf2));
 						}
 					} else if (i == 2) {
 						printf("Sample Rate: %d\n", out_buf2);

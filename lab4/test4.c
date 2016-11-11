@@ -333,7 +333,8 @@ int test_gesture(short length) {
 	else
 		length_sign = 0;
 
-	unsigned long previous_deltay = 0;
+	unsigned long initial_deltay = 0;
+	unsigned long initial_deltax = 0;
 
 	unsigned long out_buf = 0;
 	unsigned long out_buf2 = 0;
@@ -341,6 +342,7 @@ int test_gesture(short length) {
 	unsigned long equal_bits;
 	unsigned long abs_value;
 	unsigned long equal_bits1;
+	int tolerant=5;
 
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
@@ -389,7 +391,7 @@ int test_gesture(short length) {
 
 						if (flag != 1)
 						{
-
+						tolerant = 5;
 						equal_bits = packet[0];
 						equal_bits1 = packet[0];
 						equal_bits1 &= BIT(4);
@@ -398,11 +400,14 @@ int test_gesture(short length) {
 						equal_bits1 = equal_bits1 >> 4;
 						printf("%d,   %d\n", equal_bits, equal_bits1);
 						if(equal_bits != 0)
-							abs_value = compl2(packet[2]);
-						else abs_value = packet[2];
+							{
+							abs_value = compl2(packet[2]);}
+						else
+							{tolerant = -tolerant;
+							abs_value = packet[2];}
 						printf("%d\n",length_sign );
 
-						if(equal_bits  == length_sign && packet[1] != 0 && packet[2] != 0 && (equal_bits == equal_bits1) )
+						if((equal_bits  == length_sign || abs_value < tolerant)  && packet[1] != 0 && packet[2] != 0 && (equal_bits == equal_bits1) )
 						{
 							length_drawn += abs_value;
 
@@ -418,6 +423,7 @@ int test_gesture(short length) {
 
 						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
+
 							check_hor_line(&tipo,&st);
 							printf("passou aqui\n");
 							//roda dfa

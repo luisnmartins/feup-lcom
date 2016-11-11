@@ -41,18 +41,11 @@
 #define ENABLE_STREAM 0xF4
 #define NACK 0xFE
 #define STATUS_REQUEST 0xE9
-#define CONF_BYTE2_ZEROS BIT(7) | BIT(6) | BIT(5) | BIT(4) | BIT(3) | BIT(2)
+#define CONF_BYTE2_ZEROS BIT(7) & BIT(6) & BIT(5) & BIT(4) & BIT(3) & BIT(2)
 #define READ_KBC 0x20
 
 
 
-#define
-#define RIGHT_BUTTON BIT(1)
-#define MIDDLE_BUTTON BIT(2)
-#define LEFT_BUTTON BIT(0)
-#define SCALING BIT(4)
-#define DATA_REPORT BIT(5)
-#define MOUSE_MODE BIT(6)
 
 
 #endif /* _LCOM_I8042_H */

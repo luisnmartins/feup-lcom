@@ -281,7 +281,7 @@ int test_config(void) {
 									"Second configuration byte is not correct\n");
 							return 1;
 						} else {
-							printf("Resolution: %d counter per mm\n", pow(2, out_buf2));
+							printf("Resolution: %d counter per mm\n", 1<<out_buf2);
 						}
 					} else if (i == 2) {
 						printf("Sample Rate: %d\n", out_buf2);
@@ -326,11 +326,21 @@ int test_gesture(short length) {
 	int r;
 	int counter = 0;
 	int flag = 0;
+	short length_drawn;
+	int length_sign ;
+	if (length < 0)
+		length_sign = 1;
+	else
+		length_sign = 0;
+
+	unsigned long previous_deltay = 0;
 
 	unsigned long out_buf = 0;
 	unsigned long out_buf2 = 0;
 	unsigned long packet[3];
 	unsigned long equal_bits;
+	unsigned long abs_value;
+	unsigned long equal_bits1;
 
 	do {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
@@ -340,7 +350,7 @@ int test_gesture(short length) {
 		out_buf = mouse_int_handler();
 
 	} while (out_buf != ACK);
-
+	out_buf = mouse_int_handler();
 	while (st != COMP) { /* You may want to use a different condition */
 		/* Get a request message. */
 
@@ -376,38 +386,63 @@ int test_gesture(short length) {
 
 						print_packet(3, packet);
 						flag++;
+
 						if (flag != 1)
 						{
+
 						equal_bits = packet[0];
+						equal_bits1 = packet[0];
+						equal_bits1 &= BIT(4);
 						equal_bits &= BIT(5);
-						equal_bits>>1;
+						equal_bits = equal_bits>>5;
+						equal_bits1 = equal_bits1 >> 4;
+						printf("%d,   %d\n", equal_bits, equal_bits1);
+						if(equal_bits != 0)
+							abs_value = compl2(packet[2]);
+						else abs_value = packet[2];
+						printf("%d\n",length_sign );
+
+						if(equal_bits  == length_sign && packet[1] != 0 && packet[2] != 0 && (equal_bits == equal_bits1) )
+						{
+							length_drawn += abs_value;
+
+
+						}else
+						{
+							length_drawn = 0;
+							abs_value = 0;
+
+
+
+						}
+
 						if (packet[0] & BIT(1)) {
 							tipo = RDOW;
 							check_hor_line(&tipo,&st);
+							printf("passou aqui\n");
 							//roda dfa
 						} else {
 							tipo = RUP;
 							check_hor_line(&tipo,&st);
 							//roda DFA
 						}
-						if (((packet[0] & BIT(4)) != equal_bits) || (packet[1] == 0) || (packet[2] == 0))  {
+						if ((is_vert(abs(length),length_drawn) != 0))  {
 
 							tipo = TOLERANCE;
+
 							check_hor_line(&tipo,&st);
+
 							//roda dfa;
-						} else if (is_vert(length,packet[2],packet[0]) == 0) {
+						} else if (is_vert(length,length_drawn) == 0) {
 							//printf("sinais iguais");
 							tipo = VERT_LINE;
 							check_hor_line(&tipo,&st);
 							// roda dfa;
 						}
-						else {
-							//printf("sinais iguais");
-							tipo = TOLERANCE;
-							check_hor_line(&tipo,&st);
-						}
+
 
 					}}
+
 
 				}
 

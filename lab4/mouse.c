@@ -170,33 +170,33 @@ long compl2(long nr) {
 }
 
 void print_conf_byte1(unsigned long *conf_byte) {
-	if (*conf_byte & RIGHT_BUTTON) {
+	if (*conf_byte & BIT(0)) {
 		printf("Right button is currently pressed\n");
 	} else {
 		printf("Right button is currently released\n");
 	}
-	if (*conf_byte & MIDDLE_BUTTON) {
+	if (*conf_byte & BIT(1)) {
 		printf("Middle button is currently pressed\n");
 	} else {
 		printf("Middle button is currently released\n");
 	}
 
-	if (*conf_byte & LEFT_BUTTON) {
+	if (*conf_byte & BIT(2)) {
 		printf("Left button is currently pressed\n");
 	} else {
 		printf("Left button is currently released\n");
 	}
-	if (*conf_byte & SCALING) {
+	if (*conf_byte & BIT(4)) {
 		printf("Scaling= 2:1\n");
 	} else {
 		printf("Scaling= 1:1\n");
 	}
-	if (*conf_byte & DATA_REPORT) {
+	if (*conf_byte & BIT(5)) {
 		printf("Data Reporting= Enabled\n");
 	} else {
 		printf("Data Reporting= Disabled\n");
 	}
-	if (*conf_byte & MOUSE_MODE) {
+	if (*conf_byte & BIT(6)) {
 		printf("Remote (polled) mode\n");
 	} else {
 		printf("Stream Mode\n");
@@ -235,16 +235,14 @@ default:
 	break;
 	}
 }
-int is_vert(short length,unsigned long byte2,unsigned long byte0)
+int is_vert(short length,short length_drawn)
 {
-	if(byte0 & BIT(5))
+	if(length_drawn >= length)
 	{
-		byte2 = compl2(byte2);
-	}
-
-	if (byte2 >= length)
 		return 0;
-	else return 1;
+	}else return 1;
+
+
 }
 
 /*int vert_line(short size,unsigned long *array)

@@ -61,7 +61,7 @@ unsigned long mouse_int_handler() {
 		n++;
 
 	}
-
+	//printf("Error reading from out buffer\n");
 	return 1;
 
 }
@@ -72,7 +72,7 @@ int issue_cmd_ms(unsigned long cmd) {
 	unsigned int n = 0;
 	while (n <= 5) {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
-					return 1;
+					return -1;
 		sys_inb(STATUS_REG, &stat); /* assuming it returns OK */
 		/* loop while 8042 input buffer is not empty */
 		if ((stat & IBF) == 0) {
@@ -88,6 +88,9 @@ int issue_cmd_ms(unsigned long cmd) {
 	return -1;
 
 }
+
+
+
 
 int set_kbc_mouse() {
 	unsigned long stat = 0;
@@ -133,14 +136,14 @@ void print_packet(int size_array, unsigned long *array) {
 		}
 
 	}
-	if ((byte1 & BIT(4)) && (array[1] != 0)) {
+	if ((byte1 & SINAL_X) && (array[1] != 0)) {
 
 		printf("X=-%03d  ", compl2(array[1]));
 	} else {
 		printf("X=%04d  ", array[1]);
 	}
 
-	if ((byte1 & BIT(5)) && (array[2] != 0)) {
+	if ((byte1 & SINAL_Y) && (array[2] != 0)) {
 		printf("Y=-%03d   ", compl2(array[2]));
 	} else {
 		printf("Y=%04d   ", array[2]);
@@ -148,7 +151,7 @@ void print_packet(int size_array, unsigned long *array) {
 	//byte1>>6;
 	flag = 0;
 
-	if (byte1 & BIT(6)) {
+	if (byte1 & X_OVF) {
 		flag = 1;
 	}
 
@@ -156,7 +159,7 @@ void print_packet(int size_array, unsigned long *array) {
 
 	flag = 0;
 
-	if (byte1 & BIT(7)) {
+	if (byte1 & Y_OVF) {
 		flag = 1;
 
 	}
@@ -172,33 +175,33 @@ long compl2(long nr) {
 }
 
 void print_conf_byte1(unsigned long *conf_byte) {
-	if (*conf_byte & BIT(0)) {
+	if (*conf_byte & RIGHT_BUTTON) {
 		printf("Right button is currently pressed\n");
 	} else {
 		printf("Right button is currently released\n");
 	}
-	if (*conf_byte & BIT(1)) {
+	if (*conf_byte & MIDDLE_BUTTON) {
 		printf("Middle button is currently pressed\n");
 	} else {
 		printf("Middle button is currently released\n");
 	}
 
-	if (*conf_byte & BIT(2)) {
+	if (*conf_byte & LEFT_BUTTON) {
 		printf("Left button is currently pressed\n");
 	} else {
 		printf("Left button is currently released\n");
 	}
-	if (*conf_byte & BIT(4)) {
+	if (*conf_byte & SCALING) {
 		printf("Scaling= 2:1\n");
 	} else {
 		printf("Scaling= 1:1\n");
 	}
-	if (*conf_byte & BIT(5)) {
+	if (*conf_byte & DATA_REPORT) {
 		printf("Data Reporting= Enabled\n");
 	} else {
 		printf("Data Reporting= Disabled\n");
 	}
-	if (*conf_byte & BIT(6)) {
+	if (*conf_byte & MOUSE_MODE) {
 		printf("Remote (polled) mode\n");
 	} else {
 		printf("Stream Mode\n");
@@ -217,12 +220,12 @@ void check_hor_line(ev_type_t *evt,state_t *st) {
 
 	switch (*st) {
 	case INIT:
-		printf("entrouinit\n");
+
 		if (*evt == RDOW)
 			*st = DRAW;
 		break;
 	case DRAW:
-		printf("entroudraw\n");
+
 		if (*evt == TOLERANCE) {
 			*st = DRAW;
 		}else if (*evt == VERT_LINE)
@@ -247,7 +250,4 @@ int is_vert(short length,short length_drawn)
 
 }
 
-/*int vert_line(short size,unsigned long *array)
-{
-	return 0;
-}*/
+

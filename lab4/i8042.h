@@ -44,6 +44,9 @@
 #define CONF_BYTE2_ZEROS BIT(7) & BIT(6) & BIT(5) & BIT(4) & BIT(3) & BIT(2)
 #define READ_KBC 0x20
 
+#define SINAL_X BIT(4)
+#define SINAL_Y BIT(5)
+
 
 
 

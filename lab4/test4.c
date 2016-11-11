@@ -13,6 +13,7 @@ state_t st = INIT;
 int test_packet(unsigned short cnt) {
 
 	int ipc_status, irq_set = mouse_subscribe_int();
+	int send_ct=0;
 
 	if (irq_set == -1) {
 		printf("Fail subscribing mouse");
@@ -26,18 +27,32 @@ int test_packet(unsigned short cnt) {
 
 	unsigned long packet[3];
 
+
+
 	do {
 
 		issue_cmd_ms(DISABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while ((out_buf != ACK) && send_ct<5);
+	if(send_ct>= 5)
+	{
+		printf("Error sending Disable command");
+	}
+	send_ct=0;
 	do {
+
 
 		issue_cmd_ms(ENABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while ((out_buf != ACK) && send_ct<5);
+	if(send_ct>= 5)
+	{
+		printf("Error sending Enable command");
+	}
 
 	while (n < cnt) { /* You may want to use a different condition */
 		/* Get a request message. */
@@ -89,20 +104,34 @@ int test_packet(unsigned short cnt) {
 			/* no standard messages expected: do nothing */
 		}
 	}
+	send_ct=0;
 	do {
 
 		issue_cmd_ms(DISABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while ((out_buf != ACK) && send_ct<5);
+	if(send_ct>= 5)
+	{
+		printf("Error sending Disable command");
+	}
+
 	printf("Stream Disabled\n");
+
+	send_ct=0;
 
 	do {
 
 		issue_cmd_ms(STREAM_MODE);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while (out_buf != ACK && send_ct<5);
+	if(send_ct>= 5)
+		{
+			printf("Error sending set stream command");
+		}
 
 	printf("Stream mode set");
 
@@ -116,8 +145,7 @@ int test_packet(unsigned short cnt) {
 }
 
 int test_async(unsigned short idle_time) {
-	int ipc_status, irq_set1 = mouse_subscribe_int(), irq_set2 =
-			timer_subscribe_int();
+	int ipc_status, irq_set1 = mouse_subscribe_int(), irq_set2 =timer_subscribe_int();
 	message msg;
 	int r;
 	unsigned long out_buf = 0;
@@ -125,22 +153,36 @@ int test_async(unsigned short idle_time) {
 	int counter = 0;
 	int n = 0;
 	unsigned long packet[3];
+	int send_ct=0;
 
 	if ((irq_set1 == -1) || (irq_set2 == -1))
 		return 1;
 
+	send_ct=0;
 	do {
 
 		issue_cmd_ms(DISABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while ((out_buf != ACK) && send_ct<5);
+	if(send_ct>= 5)
+	{
+		printf("Error sending Disable command");
+	}
+	send_ct=0;
 	do {
+
 
 		issue_cmd_ms(ENABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
-	} while (out_buf != ACK);
+	} while ((out_buf != ACK) && send_ct<5);
+	if(send_ct>= 5)
+	{
+		printf("Error sending Enable command");
+	}
 
 	while (counter_timer <= idle_time * 60) { /* You may want to use a different condition */
 		/* Get a request message. */
@@ -197,21 +239,36 @@ int test_async(unsigned short idle_time) {
 			/* no standard messages expected: do nothing */
 		}
 	}
-	do {
+	send_ct=0;
+		do {
 
-		issue_cmd_ms(DISABLE_STREAM);
-		out_buf = mouse_int_handler();
+			issue_cmd_ms(DISABLE_STREAM);
+			out_buf = mouse_int_handler();
+			send_ct++;
 
-	} while (out_buf != ACK);
-	printf("Stream Disabled\n");
+		} while ((out_buf != ACK) && send_ct<5);
+		if(send_ct>= 5)
+		{
+			printf("Error sending Disable command");
+		}
 
-	do {
+		printf("Stream Disabled\n");
 
-		issue_cmd_ms(STREAM_MODE);
-		out_buf = mouse_int_handler();
+		send_ct=0;
 
-	} while (out_buf != ACK);
-	printf("Stream mode set");
+		do {
+
+			issue_cmd_ms(STREAM_MODE);
+			out_buf = mouse_int_handler();
+			send_ct++;
+
+		} while (out_buf != ACK && send_ct<5);
+		if(send_ct>= 5)
+			{
+				printf("Error sending set stream command");
+			}
+
+		printf("Stream mode set");
 
 	out_buf = mouse_int_handler();
 
@@ -230,6 +287,7 @@ int test_config(void) {
 	int r;
 	int counter = 0;
 	int n = 0;
+	int send_ct=0;
 	unsigned long out_buf = 0;
 	int i = 0;
 
@@ -237,26 +295,44 @@ int test_config(void) {
 		printf("Fail subscribing mouse");
 		return 1;
 	}
-	do {
+	send_ct=0;
+		do {
 
-		issue_cmd_ms(DISABLE_STREAM);
-		out_buf = mouse_int_handler();
+			issue_cmd_ms(DISABLE_STREAM);
+			out_buf = mouse_int_handler();
+			send_ct++;
 
-	} while (out_buf != ACK);
+		} while ((out_buf != ACK) && send_ct<5);
+		if(send_ct>= 5)
+		{
+			printf("Error sending Disable command");
+		}
+		send_ct=0;
+		do {
 
-	do {
 
-		issue_cmd_ms(ENABLE_STREAM);
-		out_buf = mouse_int_handler();
+			issue_cmd_ms(ENABLE_STREAM);
+			out_buf = mouse_int_handler();
+			send_ct++;
 
-	} while (out_buf != ACK);
-
+		} while ((out_buf != ACK) && send_ct<5);
+		if(send_ct>= 5)
+		{
+			printf("Error sending Enable command");
+		}
+		send_ct=0;
 	do {
 
 		issue_cmd_ms(STATUS_REQUEST);
 		out_buf = mouse_int_handler();
+		send_ct++;
 
 	} while (out_buf != ACK);
+
+	if(send_ct>= 5)
+	{
+		printf("Error sending Status request command");
+	}
 
 	for (i = 0; i < 3; i++) {
 
@@ -300,20 +376,36 @@ int test_config(void) {
 
 		}
 	}
-	do {
+	send_ct=0;
+			do {
 
-		issue_cmd_ms(DISABLE_STREAM);
-		out_buf = mouse_int_handler();
+				issue_cmd_ms(DISABLE_STREAM);
+				out_buf = mouse_int_handler();
+				send_ct++;
 
-	} while (out_buf != ACK);
+			} while ((out_buf != ACK) && send_ct<5);
+			if(send_ct>= 5)
+			{
+				printf("Error sending Disable command");
+			}
 
-	do {
+			printf("Stream Disabled\n");
 
-		issue_cmd_ms(STREAM_MODE);
-		out_buf = mouse_int_handler();
+			send_ct=0;
 
-	} while (out_buf != ACK);
+			do {
 
+				issue_cmd_ms(STREAM_MODE);
+				out_buf = mouse_int_handler();
+				send_ct++;
+
+			} while (out_buf != ACK && send_ct<5);
+			if(send_ct>= 5)
+				{
+					printf("Error sending set stream command");
+				}
+
+			printf("Stream mode set");
 	out_buf = mouse_int_handler();
 	if (mouse_unsubscribe_int() == 1)
 		return 1;
@@ -336,6 +428,7 @@ int test_gesture(short length) {
 	int counter = 0;
 	int flag = 0;
 	short length_drawn;
+	int send_ct=0;
 	int length_sign;
 	if (length < 0)
 		length_sign = 1;
@@ -348,19 +441,31 @@ int test_gesture(short length) {
 	unsigned long abs_valuey, abs_valuex;
 	unsigned long equal_bits1;
 
-	do {
+	send_ct=0;
+			do {
 
-		issue_cmd_ms(DISABLE_STREAM);
-		out_buf = mouse_int_handler();
+				issue_cmd_ms(DISABLE_STREAM);
+				out_buf = mouse_int_handler();
+				send_ct++;
 
-	} while (out_buf != ACK);
+			} while ((out_buf != ACK) && send_ct<5);
+			if(send_ct>= 5)
+			{
+				printf("Error sending Disable command");
+			}
+			send_ct=0;
+			do {
 
-	do {
 
-		issue_cmd_ms(ENABLE_STREAM);
-		out_buf = mouse_int_handler();
+				issue_cmd_ms(ENABLE_STREAM);
+				out_buf = mouse_int_handler();
+				send_ct++;
 
-	} while (out_buf != ACK);
+			} while ((out_buf != ACK) && send_ct<5);
+			if(send_ct>= 5)
+			{
+				printf("Error sending Enable command");
+			}
 
 	while (st != COMP) { /* You may want to use a different condition */
 		/* Get a request message. */
@@ -436,7 +541,10 @@ int test_gesture(short length) {
 							else
 								length_drawn = 0;
 
-							printf("Length: %d\n", length_drawn);
+							if(length_sign == 0)
+								printf("Length: %d\n", length_drawn);
+							else
+								printf("Length: -%d\n", length_drawn);
 
 							if ((is_vert(abs(length), length_drawn) != 0)) {
 
@@ -465,22 +573,41 @@ int test_gesture(short length) {
 			/* no standard messages expected: do nothing */
 		}
 	}
-	do {
-		if (set_kbc_mouse() == -1) //set kbc to read mouse
-			return 1;
+			send_ct=0;
+						do {
 
-		issue_cmd_ms(DISABLE_STREAM);
-		out_buf = mouse_int_handler();
+							issue_cmd_ms(DISABLE_STREAM);
+							out_buf = mouse_int_handler();
+							send_ct++;
 
-	} while (out_buf != ACK);
-	printf("Stream Disabled\n");
+						} while ((out_buf != ACK) && send_ct<5);
+						if(send_ct>= 5)
+						{
+							printf("Error sending Disable command");
+						}
 
+						printf("Stream Disabled\n");
+
+						send_ct=0;
+
+						do {
+
+							issue_cmd_ms(STREAM_MODE);
+							out_buf = mouse_int_handler();
+							send_ct++;
+
+						} while (out_buf != ACK && send_ct<5);
+						if(send_ct>= 5)
+							{
+								printf("Error sending set stream command");
+							}
+
+						printf("Stream mode set");
 	out_buf = mouse_int_handler();
 
 	if (mouse_unsubscribe_int() == 1)
 		return 1;
 	else {
-		printf("out\n");
 		return 0;
 	}
 	return 0;

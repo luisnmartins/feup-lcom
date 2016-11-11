@@ -47,14 +47,16 @@
 
 #define VERIFY_PACKET BIT(3)
 #define CONF_FIRST_BYTE  BIT(7) & BIT(3)
-#define RIGHT_BUTTON BIT(1)
-#define MIDDLE_BUTTON BIT(2)
-#define LEFT_BUTTON BIT(0)
+#define RIGHT_BUTTON BIT(0)
+#define MIDDLE_BUTTON BIT(1)
+#define LEFT_BUTTON BIT(2)
 #define SCALING BIT(4)
 #define DATA_REPORT BIT(5)
 #define MOUSE_MODE BIT(6)
 #define SINAL_X BIT(4)
 #define SINAL_Y BIT(5)
+#define X_OVF BIT(6)
+#define Y_OVF BIT(7)
 #define TOLERAN 5
 
 

@@ -1,6 +1,13 @@
 void *test_init(unsigned short mode, unsigned short delay) {
 	
-	/* To be completed */
+	struct reg86u r;
+	r.u.w.ax = 0x4F02; // VBE call, function 02 -- set VBE mode
+	r.u.w.bx = 1<<14|mode; // set bit 14: linear framebuffer
+	r.u.b.intno = 0x10;
+	if( sys_int86(&r) != OK ) {
+	printf("set_vbe_mode: sys_int86() failed \n");
+	return 1;
+	}
 	
 }
 

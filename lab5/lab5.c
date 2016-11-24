@@ -3,11 +3,8 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
+#include "pixmap.h" // defines  pic1, pic2, etc
 
-
-
-int* v
-v[2]   v + 2*sizeof(int*)
 
 
 static int proc_args(int argc, char **argv);
@@ -32,7 +29,7 @@ int main(int argc, char **argv)
 static void print_usage(char **argv)
 {
 	printf("Usage: one of the following:\n"
-			"\t service run %s -args \"test_init <decimal no. - mode> <decimal no. - delay>\"\n"
+			"\t service run %s -args \"test_init <hexadecimal no. - mode> <decimal no. - delay>\"\n"
 			"\t service run %s -args \"test_square<decimal no. - x>  <decimal no. - y> <decimal no. - size> <decimal no. - color>\"\n"
 			"\t service run %s -args \"config\"\n"
 			"\t service run %s -args \"gesture <decimal no. - length>\"\n",
@@ -48,14 +45,14 @@ static int proc_args(int argc, char **argv)
 			printf("Graphics Card: wrong no. of arguments for test_init()\n");
 			return 1;
 		}
-		mode = parse_ulong(argv[2], 10);
+		mode = parse_ulong(argv[2], 16);
 		delay = parse_ulong(argv[3], 10);
 		/* Parses string to unsigned long */
 		if (mode == ULONG_MAX || delay == ULONG_MAX)
 			return 1;
 		printf("test5::test_init(%lu, %lu)\n", mode, delay);
 
-		return test_init(mode, delay);
+		return test_init(0x105, delay);
 	}
 
 	else if (strncmp(argv[1], "test_square", strlen("test_square")) == 0) {
@@ -66,7 +63,7 @@ static int proc_args(int argc, char **argv)
 		x = parse_ulong(argv[2], 10);
 		y = parse_ulong(argv[3], 10);
 		size = parse_ulong(argv[4], 10);
-		color = parse_ulong(argv[5], 10);
+		color = parse_ulong(argv[5], 16);
 
 	if (x == ULONG_MAX || y == ULONG_MAX|| size == ULONG_MAX || color == ULONG_MAX)
 					return 1;
@@ -83,7 +80,7 @@ static int proc_args(int argc, char **argv)
 		y = parse_ulong(argv[3], 10);
 		xf = parse_ulong(argv[4], 10);
 		yf = parse_ulong(argv[5], 10);
-		color = parse_ulong(argv[6], 10);
+		color = parse_ulong(argv[6], 16);
 
 
 		printf("test5::test_line(%lu, %lu, %lu, %lu, %lu)\n", x, y, xf, yf, color);
@@ -96,36 +93,51 @@ static int proc_args(int argc, char **argv)
 		}
 		x = parse_ulong(argv[2], 10);
 		y = parse_ulong(argv[3], 10);
-		xmp =(char**) malloc(sizeof(char*)*(argc-2));
-		if (x == ULONG_MAX || y == ULONG_MAX)
-					return 1;
-		printf("test5::test_xpm(%lu, %lu, %lu)", x, y, );
+		const char* xpm = argv[4];
 
-		return test_xpm(x, y, xpm);
-	}
-	else {
-		printf("test5: %s - no valid function!\n", argv[1]);
-		return 1;
-	}
+		if (x == ULONG_MAX || y == ULONG_MAX)
+				return 1;
+
+		if(strncmp(xpm, "pic1", strlen("pic1")) == 0)
+				test_xpm(x,y,pic1);
+		else if(strncmp(xpm, "pic2", strlen("pic2")) == 0)
+			test_xpm(x,y,pic2);
+		else if(strncmp(xpm, "pic3", strlen("pic3")) == 0)
+					test_xpm(x,y,pic3);
+		else if(strncmp(xpm, "cross", strlen("cross")) == 0)
+					test_xpm(x,y,cross);
+		else if(strncmp(xpm, "penguin", strlen("penguin")) == 0)
+					test_xpm(x,y,penguin);
+		else
+			return 1;
+
+
+		printf("test5::test_xpm(%lu, %lu, %lu)", x, y, xpm);
+
+		return 0;
+		/*else {
+			printf("test5: %s - no valid function!\n", argv[1]);
+			return 1;
+		}*/
+
 	}
 	else if (strncmp(argv[1], "test_move", strlen("test_move")) == 0) {
-		if (argc < 8) {
+		if (argc < 8)
+		{
 			printf("Graphics Card: wrong no of arguments for test_line()\n");
 			return 1;
 		}
 		x = parse_ulong(argv[2], 10);
 		y = parse_ulong(argv[3], 10);
-		xmp =(char**) malloc(sizeof(char*)*(argc-4));
+		xpm =(char**) malloc(sizeof(char*)*(argc-4));
 		hor = parse_ulong(argv[4], 10);
 		delta = parse_ulong(argv[5], 10);
 		time = parse_ulong(argv[6], 10);
 
 
-		printf("test5::test_line(%lu, %lu, %lu, %lu, %lu, %lu)\n", x, y, xmp, hor, delta, time);
-		return test_line(x, y, xmp, hor, delta, time);
-		else {
-		printf("test5: %s - no valid function!\n", argv[1]);
-		return 1;
+		printf("test5::test_line(%lu, %lu, %lu, %lu, %lu, %lu)\n", x, y, xpm, hor, delta, time);
+		return test_line(x, y, xpm, hor, delta, time);
+
 	}
 }
 

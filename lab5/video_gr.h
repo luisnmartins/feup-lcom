@@ -1,6 +1,12 @@
 #ifndef __VIDEO_GR_H
 #define __VIDEO_GR_H
 
+#define VRAM_PHYS_ADDR	0xE0000000
+#define H_RES             1024
+#define V_RES		  768
+#define BITS_PER_PIXEL	  8
+
+
 
 
 /** @defgroup video_gr video_gr
@@ -30,5 +36,10 @@ void *vg_init(unsigned short mode);
 int vg_exit(void);
 
  /** @} end of video_gr */
+
+
+
+int paintPixel(int x,int y,int color);
+int make_line(float x1,float x2,float y1,float y2, unsigned long color);
  
 #endif /* __VIDEO_GR_H */

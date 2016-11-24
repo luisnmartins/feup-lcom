@@ -44,14 +44,14 @@ Sprite * create_sprite(char *pic[], int x, int y, int xspeed, int yspeed);
  * LEFT_HIT, if a collision with the players pad (WHITE colored!) is
  * detected.
  */
-int animate_sprite(Sprite *sp);
+int animate_sprite(Sprite *sp,unsigned short hor,short delta);
 
 /** The "fig" sprite is erased from memory whose address is "base"
  * and used resources released.
  */
 void destroy_sprite(Sprite *sp);
 
-int animate_sprite(Sprite *sp);
+
 
 //static int draw_sprite(Sprite *sp, char *base);
 

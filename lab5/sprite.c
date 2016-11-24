@@ -33,8 +33,23 @@ free(sp);
 sp = NULL;	// hopeless: pointer is passed by value
 			//should do this @ the caller
 }
-int animate_sprite(Sprite *sp) {
+int animate_sprite(Sprite *sp,unsigned short hor,short delta) {
 //...
+	if (hor != 1)
+	{
+
+			sp->x +=1;
+			delta--;
+
+
+	}else
+	{
+
+			sp->y +=1;
+			delta--;
+
+	}
+
 }
 /* Some useful non-visible functions */
 static int draw_sprite(Sprite *sp, char *base) {

@@ -1,4 +1,5 @@
 #include "sprite.h"
+#include <stdio.h>
 
 /**
  Creates a new sprite with pixmap "pic", with specified
@@ -20,7 +21,7 @@ Sprite *create_sprite(char * pic[], int x, int y, int xspeed, int yspeed) {
 		free(sp);
 		return NULL;
 	}
-...
+//...
 return sp;
 }
 
@@ -33,13 +34,13 @@ sp = NULL;	// hopeless: pointer is passed by value
 			//should do this @ the caller
 }
 int animate_sprite(Sprite *sp) {
-...
+//...
 }
 /* Some useful non-visible functions */
 static int draw_sprite(Sprite *sp, char *base) {
-...
+//...
 }
 static int check_collision(Sprite *sp, char *base) {
-...
+//...
 }
 

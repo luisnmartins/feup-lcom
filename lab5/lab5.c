@@ -129,14 +129,29 @@ static int proc_args(int argc, char **argv)
 		}
 		x = parse_ulong(argv[2], 10);
 		y = parse_ulong(argv[3], 10);
-		xpm =(char**) malloc(sizeof(char*)*(argc-4));
+		const char* xpm1 = argv[4];
 		hor = parse_ulong(argv[4], 10);
 		delta = parse_ulong(argv[5], 10);
 		time = parse_ulong(argv[6], 10);
 
+		if (x == ULONG_MAX || y == ULONG_MAX)
+						return 1;
+
+				if(strncmp(xpm1, "pic1", strlen("pic1")) == 0)
+						test_move(x,y,pic1,hor,delta,time);
+				else if(strncmp(xpm1, "pic2", strlen("pic2")) == 0)
+					test_move(x,y,pic2,hor,delta,time);
+				else if(strncmp(xpm1, "pic3", strlen("pic3")) == 0)
+					test_move(x,y,pic3,hor,delta,time);
+				else if(strncmp(xpm1, "cross", strlen("cross")) == 0)
+					test_move(x,y,cross,hor,delta,time);
+				else if(strncmp(xpm1, "penguin", strlen("penguin")) == 0)
+					test_move(x,y,penguin,hor,delta,time);
+				else
+					return 1;
 
 		printf("test5::test_line(%lu, %lu, %lu, %lu, %lu, %lu)\n", x, y, xpm, hor, delta, time);
-		return test_line(x, y, xpm, hor, delta, time);
+		return 0;
 
 	}
 }

@@ -119,34 +119,19 @@ int paintPixel(int x,int y,int color)
 int make_line(float x1,float x2,float y1,float y2, unsigned long color)
 {
 
-	//using DDA algorithm and the tutorial from https://www.tutorialspoint.com/computer_graphics/line_generation_algorithm.htm
-
-	int comp_x, comp_y, p, delta_max, i;
-	float x, y, delta_y, delta_x;
-
-		//calculating the distance between points in x and y coordinates
-		comp_x = abs(x1 - x2);
-	    comp_y = abs(y1 - y2);
-
-	    //setting as step the greater value between comp_x and comp_y because
-	    if (abs(comp_x) > abs(comp_y))
-	       delta_max = abs(comp_x);
-	    else
-	    	delta_max = abs(comp_y);
-
-	    //setting the step to x axis and y axis
-	    delta_x = (float)comp_x/delta_max;
-	    delta_y = (float)comp_y/delta_max;
 
 
+	  int dx = abs(x2-x1), sx = x1<x2 ? 1 : -1;
+	  int dy = abs(y2-y1), sy = y1<y2 ? 1 : -1;
+	  int err = (dx>dy ? dx : -dy)/2, e2;
 
-	    for(i=0; i<delta_max; i++)
-	    {
-	    	x1 = x1+delta_x;
-	    	y1 = y1+delta_y;
-	    	if(paintPixel(round(x1), round(y1), color)!= 0)
-	    		return 1;
-	    }
+	  for(;;){
+	    paintPixel(x1,y1,color);
+	    if (x1==x2 && y1==y2) break;
+	    e2 = err;
+	    if (e2 >-dx) { err -= dy; x1 += sx; }
+	    if (e2 < dy) { err += dx; y1 += sy; }
+	  }
 
 	return 0;
 }

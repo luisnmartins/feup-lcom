@@ -9,6 +9,8 @@
 #include  <machine/int86.h>
 #include <sys/mman.h>
 #include <sys/types.h>
+#include "sprite.h"
+#include "asprite.h"
 //#include "pixmap.h" // defines  pic1, pic2, etc
 
 static unsigned int counter = 0;
@@ -212,17 +214,32 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 
 	int ipc_status, irq_set = timer_subscribe_int();
 		message msg;
-		int a;
+		int r;
+		int counter;
+		int a,b;
 		if (time <= 0) {
 			printf("Time not valid!");
 			return 1;
 		}
 		vg_init(0x105);
+		int wd,hg;
+		char *st = read_xpm(xpm, &wd, &hg);
+		Sprite *sprite = create_sprite(st,xi,yi,1,1);
+		for(a=0; a<hg; a++)
+						{
+							for(b=0; b<wd; b++)
+							{
+								paintPixel(xi+b, yi+a, *(st +a*wd+b));
+							}
+						}
+						free(sprite);
+
+
 		while (counter <= (time * 60)) { /* You may want to use a different condition */
 			/* Get a request message. */
 
-			if ((a = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-				printf("driver_receive failed with: %d", a);
+			if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+				printf("driver_receive failed with: %d", r);
 				continue;
 			}
 			if (is_ipc_notify(ipc_status)) { /* received notification */
@@ -231,13 +248,14 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 
 					if (msg.NOTIFY_ARG & irq_set) {
 						timer_int_handler(&counter);
+						animate_sprite(sprite,hor,delta);
 
 					}
 				}
 			}
 		}
 		if (timer_unsubscribe_int() != 0) {
-			return NULL;
+			return 0;
 		}
 		else {
 			if (vg_exit() != 0)

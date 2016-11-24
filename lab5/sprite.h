@@ -29,7 +29,7 @@ typedef struct {
  * memory whose address is "base";
  * Returns NULL on invalid pixmap.
  */
-Sprite * create_sprite(char *pic[], char *base);
+Sprite * create_sprite(char *pic[], int x, int y, int xspeed, int yspeed);
 
 /** Animate the sprite "fig" according to its attributes in memory,
  * whose address is "base".  The animation detects the screen borders
@@ -44,23 +44,17 @@ Sprite * create_sprite(char *pic[], char *base);
  * LEFT_HIT, if a collision with the players pad (WHITE colored!) is
  * detected.
  */
-int animate_sprite(Sprite *fig, char *base);
+int animate_sprite(Sprite *sp);
 
 /** The "fig" sprite is erased from memory whose address is "base"
  * and used resources released.
  */
-void destroy_sprite(Sprite *fig, char *base);
+void destroy_sprite(Sprite *sp);
 
-/** Move in memory whose address is 'base', the 'fig' cursor, a
- * standard sprite, from its current position to a new position
- * 'xstep' and 'ystep' away.  
- * The cursor is erased from its present position in xor-mode and draw
- * in the new position also oin xor-mode.
- * The first time this function is called it only draws the cursor at the
- * current position.
- */ 
-void move_cursor(Sprite *fig, int xstep, int ystep, char *base);
+int animate_sprite(Sprite *sp);
 
-/** @} end of sprite */
+//static int draw_sprite(Sprite *sp, char *base);
+
+//static int check_collision(Sprite *sp, char *base)
 
 #endif

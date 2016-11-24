@@ -3,7 +3,7 @@
 #include <minix/drivers.h>
 #include <minix/com.h>
 
-unsigned int contador = 0;
+unsigned int contador=0;
 unsigned int hook_id = T0_IRQSET;
 
 int timer_set_square(unsigned long timer, unsigned long freq) {

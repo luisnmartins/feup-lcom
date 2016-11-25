@@ -131,7 +131,7 @@ static int proc_args(int argc, char **argv)
 		y = parse_ulong(argv[3], 10);
 		const char* xpm1 = argv[4];
 		hor = parse_ulong(argv[5], 10);
-		delta = parse_ulong(argv[6], 10);
+		delta = parse_long(argv[6], 10);
 		time = parse_ulong(argv[7], 10);
 
 		if (x == ULONG_MAX || y == ULONG_MAX)
@@ -151,7 +151,7 @@ static int proc_args(int argc, char **argv)
 			return 1;
 
 
-		printf("test5::test_line(%lu, %lu, %lu, %lu, %lu, %lu)\n", x, y, xpm, hor, delta, time);
+		printf("test5::test_line(%lu, %lu, %lu, %lu, %l, %lu)\n", x, y, xpm, hor, delta, time);
 		//return test_move(x, y, xpm, hor, delta, time);
 
 	}

@@ -55,6 +55,23 @@ void *test_init(unsigned short mode, unsigned short delay) {
 int test_square(unsigned short x, unsigned short y, unsigned short size,
 		unsigned long color) {
 
+
+	vbe_mode_info_t v1;
+	vbe_get_mode_info(0x105,&v1);
+
+	unsigned hres = v1.XResolution;
+	unsigned vres = v1.YResolution;
+	unsigned bitspixel = v1.BitsPerPixel;
+
+
+	if(x+size >= hres || y+size >= vres)
+	{
+		printf("Not valid\n");
+		return 1;
+	}
+
+
+
 	int ipc_status, irq_set = keyboard_subscribe_int();
 	message msg;
 	int r;
@@ -100,6 +117,26 @@ int test_square(unsigned short x, unsigned short y, unsigned short size,
 
 int test_line(unsigned short xi, unsigned short yi, unsigned short xf,
 		unsigned short yf, unsigned long color) {
+
+
+	vbe_mode_info_t v1;
+	vbe_get_mode_info(0x105,&v1);
+
+	unsigned hres = v1.XResolution;
+	unsigned vres = v1.YResolution;
+	unsigned bitspixel = v1.BitsPerPixel;
+
+
+	if(xi >= hres || xf>=hres || yf>=vres || yi >= vres)
+	{
+		printf("Not valid\n");
+		return 1;
+	}
+
+
+
+
+
 
 	int ipc_status, irq_set = keyboard_subscribe_int();
 	message msg;
@@ -198,6 +235,20 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 		printf("Not valid\n");
 		return 1;
 	}
+	else if(hor == 0)
+	{
+		if(yi+delta >= vres)
+		{
+			printf("Not valid\n");
+				return 1;}
+	}
+	else
+	{
+		if(xi+delta >= hres)
+		{		printf("Not valid\n");
+						return 1;
+		}
+	}
 
 
 
@@ -209,9 +260,9 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 	int i, a;
 	void *video_mem_val = vg_init(0x105);
 	int flag=0;
+	unsigned short xant, yant;
 
-
-	float nr_int_total = abs(delta)/(time * 60);
+	float nr_int_total = (float)delta/(time * 60);
 	float v= nr_int_total;
 	int contador=0;
 
@@ -239,26 +290,15 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 								flag = 1;
 
 							if (hor == 0)
-							{
-								if(delta >0)
 									yi += v;
-								else
-									yi -= v;
-							}
 							else
-							{
-								if(delta >0)
 									xi += v;
-								else
-									xi -= v;
-							}
-
 
 							contador++;
-							//if(contador+1 > time*60)
-								//set_buf(xi+v, yi+v, xpm);
 
-							memset(video_mem_val, 0, hres * vres * bitspixel / 8);
+
+							paint_black_xpm(xant, yant, xpm);
+
 							if (xi >= hres || yi >= vres)
 							{
 								flag= 1;
@@ -266,6 +306,11 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 							}
 							if(paint_xpm(xi, yi, xpm) == 1)
 								break;
+							else
+							{
+								xant = xi;
+								yant = yi;
+							}
 						}
 					}
 				}
@@ -324,18 +369,18 @@ int test_controller() {
 	}
 
 	printf("VBE version: %u\n",conf.VbeVersion);
-	printf("Total memory:%d \n",conf.TotalMemory*64);
+	printf("Total memory:%d KB\n" ,conf.TotalMemory);
 
 
 	short *modes = conf.VideoModePtr;
-	int aux = modes;
-	int most_significant = aux >> 12  & (0xF0000);
-	aux = modes;
+	int aux = (int)modes;
+	int most_significant = aux >> 16  & (0xF0000);
+	aux = (int) modes;
 	int least_significant = aux && 0x0000FFFF;
 
 	aux = most_significant + least_significant;
 
-	modes = aux;
+	modes =(short*) aux;
 	printf("Modes: ");
 	while(*modes != -1)
 	{

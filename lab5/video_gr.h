@@ -42,5 +42,7 @@ int vg_exit(void);
 
 int paintPixel(int x,int y,int color);
 int make_line(float x1,float x2,float y1,float y2, unsigned long color);
+
+int paint_black_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
  
 #endif /* __VIDEO_GR_H */

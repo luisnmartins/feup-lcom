@@ -184,5 +184,25 @@ int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[])
 
 }
 
+int paint_black_xpm(unsigned short xi, unsigned short yi, char *xpm[])
+{
+	int largura, altura,a,b;
+	char *ptr_img = (char *)read_xpm(xpm, &largura, &altura);
+
+	if(xi >= h_res || yi >= v_res)
+	{
+		return 1;
+	}
+
+	for (a = 0; a < altura; a++)
+	{
+		for (b = 0; b < largura; b++) {
+			paintPixel(xi + b, yi + a, 0);
+		}
+	}
+	free(ptr_img);
+
+}
+
 
 

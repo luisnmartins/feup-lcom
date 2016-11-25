@@ -124,7 +124,7 @@ static int proc_args(int argc, char **argv)
 	else if (strncmp(argv[1], "test_move", strlen("test_move")) == 0) {
 		if (argc < 8)
 		{
-			printf("Graphics Card: wrong no of arguments for test_line()\n");
+			printf("Graphics Card: wrong no of arguments for test_move()\n");
 			return 1;
 		}
 		x = parse_ulong(argv[2], 10);
@@ -153,9 +153,19 @@ static int proc_args(int argc, char **argv)
 
 		printf("test5::test_line(%lu, %lu, %lu, %lu, %l, %lu)\n", x, y, xpm, hor, delta, time);
 		//return test_move(x, y, xpm, hor, delta, time);
+	}
+		else if (strncmp(argv[1], "test_controller", strlen("test_controller")) == 0) {
+				if (argc < 2)
+				{
+					printf("Graphics Card: wrong no of arguments for test_controller()\n");
+					return 1;
+				}
+		}
+
+				return test_controller();
 
 	}
-}
+
 
 
 static unsigned long parse_ulong(char *str, int base)

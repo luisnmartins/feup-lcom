@@ -74,6 +74,17 @@ typedef struct {
   uint8_t Reserved4[190]; 		 /* remainder of ModeInfoBlock */
 } __attribute__((packed)) vbe_mode_info_t;
 
+
+
+typedef struct  {
+   char VbeSignature[4];             // == "VESA"
+   uint16_t VbeVersion;                 // == 0x0300 for VBE 3.0
+   uint16_t OemStringPtr[2];            // isa vbeFarPtr
+   uint8_t Capabilities[4];
+   uint16_t VideoModePtr[2];         // isa vbeFarPtr
+   uint16_t TotalMemory;             // as # of 64KB blocks
+} __attribute__((packed)) VbeInfoBlock;
+
 /** @} end of vbe_mode_info_t*/
 
 /**
@@ -89,6 +100,8 @@ typedef struct {
  * @return 0 on success, non-zero otherwise
  */
 int vbe_get_mode_info(unsigned short mode, vbe_mode_info_t *vmi_p);
+
+int vbe_read_block_info(VbeInfoBlock *vbp);
 
  /** @} end of vbe */
 

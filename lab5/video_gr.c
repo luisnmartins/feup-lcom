@@ -169,6 +169,10 @@ int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[])
 	int largura, altura,a,b;
 	char *ptr_img = (char *)read_xpm(xpm, &largura, &altura);
 
+	if(xi >= h_res || yi >= v_res)
+	{
+		return 1;
+	}
 
 	for (a = 0; a < altura; a++)
 	{

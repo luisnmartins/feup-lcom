@@ -184,14 +184,18 @@ int test_xpm(unsigned short xi, unsigned short yi, char *xpm[]) {
 int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 		unsigned short hor, short delta, unsigned short time) {
 
+	vbe_mode_info_t v1;
+	vbe_get_mode_info(0x105,&v1);
+
+	unsigned hres = v1.XResolution;
+	unsigned vres = v1.YResolution;
 
 
-
-	/*if(abs(xi) > hres || abs(yi) > vres)
+	if(abs(xi) >= hres || abs(yi) >= vres)
 	{
 		printf("Not valid\n");
 		return 1;
-	}*/
+	}
 
 
 

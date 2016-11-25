@@ -35,20 +35,7 @@ sp = NULL;	// hopeless: pointer is passed by value
 }
 int animate_sprite(Sprite *sp,unsigned short hor,short delta) {
 //...
-	if (hor != 1)
-	{
 
-			sp->x +=1;
-			delta--;
-
-
-	}else
-	{
-
-			sp->y +=1;
-			delta--;
-
-	}
 
 }
 /* Some useful non-visible functions */

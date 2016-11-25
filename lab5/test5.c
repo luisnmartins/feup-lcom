@@ -189,6 +189,7 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 
 	unsigned hres = v1.XResolution;
 	unsigned vres = v1.YResolution;
+	unsigned bitspixel = v1.BitsPerPixel;
 
 
 	if(abs(xi) >= hres || abs(yi) >= vres)
@@ -255,7 +256,13 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 							contador++;
 							//if(contador+1 > time*60)
 								//set_buf(xi+v, yi+v, xpm);
-							memset(video_mem_val, 0, H_RES * V_RES * BITS_PER_PIXEL / 8);
+
+							memset(video_mem_val, 0, hres * vres * bitspixel / 8);
+							if (xi >= hres || yi >= vres)
+							{
+								flag= 1;
+								continue;
+							}
 							if(paint_xpm(xi, yi, xpm) == 1)
 								break;
 						}

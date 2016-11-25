@@ -160,7 +160,7 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 		paintPixel(round(x1),round(y1),color);
 	}
 
- //Baseado no algoritmo de DDA
+ //Baseado no algoritmo de DDA demonstrado em https://www.tutorialspoint.com/computer_graphics/line_generation_algorithm.htm
 
 	return 0;
 }

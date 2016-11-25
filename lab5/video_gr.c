@@ -131,32 +131,34 @@ int paintPixelaux ( int x, int y, int color)
 
 int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 
-	int d; /* Decision variable */
+	//int d; /* Decision variable */
 	int dx, dy; /* Dx and Dy values for the line */
-	int Eincr, NEincr; /* Decision variable increments, para saber qual dos pixeis pintar numa diagonal de forma a nao ficar picotado */
-	int yincr; /* Variavel que indica se a nova variavel de x ou y incrementa ou decrementa */
-	int t; /* Variavel auxiliar necessaria caso seja necessario trocar as variaveis finais ou iniciais*/
-	int steps,x,y;
-	float xinc, yinc;
-	dx = x2-x1;
-	dy = y2-y1;
+	//int Eincr, NEincr; /* Decision variable increments, para saber qual dos pixeis pintar numa diagonal de forma a nao ficar picotado */
+	//int yincr; /* Variavel que indica se a nova variavel de x ou y incrementa ou decrementa */
+	int t;
+	float n_inc; //numero de  incrementos que ocorre, obtem-se do delta de maior valor
+	float xinc, yinc; //o incremento que x e y vao ter em cada iteracao que pinta
+
+
+	dx = x2-x1; //deltax
+	dy = y2-y1; //deltay
 
 	if(ABSOL(dx) > ABSOL(dy))
-		steps = abs(dx);
+		n_inc = ABSOL(dx); // determina o delta com maior valor e mete o em steps
 	else
-		steps = abs(dy);
+		n_inc = ABSOL(dy);
 
-	xinc = dx/(float) steps;
-	yinc = dy / (float) steps;
-
-	for (t = 0; t < steps; t++)
+	xinc = dx/ n_inc; //o x a pintar vai ser obtido pela razao entre o seu delta e numero de passos, pode nao dar numero inteiro mas nao interessa porque sao feitos arredondamentos
+	yinc = dy / n_inc; // o x a pintar vai ser obtido pela razao entre o seu delta e numero de passos, pode nao dar numero inteiro mas nao interessa porque sao feitos arredondamentos
+	paintPixel(x1,x2,color); // pinta o primeiro pixel da linha;
+	for (t = 0; t < n_inc; t++)
 	{
-		x1 +=  xinc;
+		x1 +=  xinc; //
 		y1 +=  yinc;
 		paintPixel(round(x1),round(y1),color);
 	}
 
-
+ //Baseado no algoritmo de DDA
 	/*
 	dx = ABSOL(x2 - x1);
 	dy = ABSOL(y2 - y1);

@@ -136,7 +136,28 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 	int Eincr, NEincr; /* Decision variable increments, para saber qual dos pixeis pintar numa diagonal de forma a nao ficar picotado */
 	int yincr; /* Variavel que indica se a nova variavel de x ou y incrementa ou decrementa */
 	int t; /* Variavel auxiliar necessaria caso seja necessario trocar as variaveis finais ou iniciais*/
+	int steps,x,y;
+	float xinc, yinc;
+	dx = x2-x1;
+	dy = y2-y1;
 
+	if(ABSOL(dx) > ABSOL(dy))
+		steps = abs(dx);
+	else
+		steps = abs(dy);
+
+	xinc = dx/(float) steps;
+	yinc = dy / (float) steps;
+
+	for (t = 0; t < steps; t++)
+	{
+		x1 +=  xinc;
+		y1 +=  yinc;
+		paintPixel(round(x1),round(y1),color);
+	}
+
+
+	/*
 	dx = ABSOL(x2 - x1);
 	dy = ABSOL(y2 - y1);
 	if (dy <= dx) {
@@ -148,35 +169,35 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 		 * right to ensure that we produce the same line from P1 to P0 as the
 		 * line from P0 to P1.
 		 */
-		if (x2 < x1) {
+/*		if (x2 < x1) {
 			t = x2;
 			x2 = x1;
 			x1 = t; /* Swap X coordinates*/
-			t = y2;
+/*			t = y2;
 			y2 = y1;
 			y1 = t; /* Swap Y coordinates */
-		}
+/*		}
 		if (y2 > y1)
 			yincr = 1;
 		else
 			yincr = -1;
 
 		d = 2 * dy - dx; /* Initial decision variable value */
-		Eincr = 2 * dy; /* Increment to move to E pixel*/
-		NEincr = 2 * (dy - dx); /* Increment to move to NE pixel*/
-		paintPixel(x1, y1, color); /* Draw the first point at (x1,y1) */
+/*		Eincr = 2 * dy; /* Increment to move to E pixel*/
+/*		NEincr = 2 * (dy - dx); /* Increment to move to NE pixel*/
+/*		paintPixel(x1, y1, color); /* Draw the first point at (x1,y1) */
 
 		/* Incrementally determine the positions of the remaining pixels */
-
+/*
 		for (x1++; x1 <= x2; x1++) {
 			if (d < 0)
 				d += Eincr; /* Choose the Eastern Pixel*/
-			else {
+/*			else {
 				d += NEincr; /* Choose the North Eastern Pixel*/
-				y1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
-			}
+/*				y1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
+/*			}
 			paintPixel(x1, y1, color); /* Draw the point*/
-		}
+/*		}
 	} else {
 
 		// Caso contrario(deltay e maior) sao necessarios mais passos para a variavel y
@@ -188,14 +209,14 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 	 * line from P0 to P1.
 	 */
 
-		if (y2 < y1) {
+/*		if (y2 < y1) {
 			t = x2;
 			x2 = x1;
 			x1 = t; /* Swap X coordinates*/
-			t = y2;
+/*			t = y2;
 			y2 = y1;
 			y1 = t; /* Swap Y coordinates*/
-		}
+/*		}
 
 		if (x2 > x1)
 			yincr = 1;
@@ -203,21 +224,21 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 			yincr = -1;
 
 		d = 2 * dx - dy;/* Initial decision variable value */
-		Eincr = 2 * dx; /* Increment to move to E pixel*/
-		NEincr = 2 * (dx - dy); /* Increment to move to NE pixel*/
-		paintPixel(x1, y1, color);/* Draw the first point at (x1,y1) */
+/*		Eincr = 2 * dx; /* Increment to move to E pixel*/
+/*		NEincr = 2 * (dx - dy); /* Increment to move to NE pixel*/
+/*		paintPixel(x1, y1, color);/* Draw the first point at (x1,y1) */
 
 		/* Incrementally determine the positions of the remaining pixels */
 
-		for (y1++; y1 <= y2; y1++) {
+/*		for (y1++; y1 <= y2; y1++) {
 			if (d < 0)
 				d += Eincr; /* Choose the Eastern Pixel*/
-			else {
+/*			else {
 				d += NEincr; /* Choose the North Eastern Pixel*/
-				x1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
-			}
+/*				x1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
+/*			}
 			paintPixel(x1, y1, color); /* Draw the point*/
-		}
+/*		}
 	}
 
 	/* int dx = abs(x2-x1), sx = x1<x2 ? 1 : -1;

@@ -9,6 +9,7 @@
 #include  <machine/int86.h>
 #include <sys/mman.h>
 #include <sys/types.h>
+#include <inttypes.h>
 //#include "pixmap.h" // defines  pic1, pic2, etc
 
 static unsigned int counter = 0;
@@ -289,6 +290,59 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 
 int test_controller() {
 
-	/* To be completed */
+	VbeInfoBlock conf;
+
+	vbe_read_block_info(&conf);
+
+	printf ("VBE controller information\n");
+
+
+
+	if(conf.Capabilities[0] && BIT(0) == 0)
+	{
+		printf("DAC is fixed width,with 6 bits per primary color\n");
+	}
+	else
+	{
+		printf("DAC width is switchable to 8 bits per primary color\n");
+	}
+	if(conf.Capabilities[0] && BIT(1) == 0)
+	{
+		printf("Controller is VGA compatible\n");
+	}
+	else
+	{
+		printf("Controller is not VGA compatible\n");
+	}
+	if(conf.Capabilities[0] && BIT(2) == 0)
+	{
+		printf("Normal RAMDAC operation\n");
+
+	}else
+	{
+		printf("When programming large blocks of information to the RAMDAC,use the blank bit in Function 09h\n");
+	}
+
+	printf("VBE version: %u\n",conf.VbeVersion);
+	printf("Total memory:%d \n",conf.TotalMemory*64);
+
+
+	short *modes = conf.VideoModePtr;
+	int aux = modes;
+	int most_significant = aux >> 12  & (0xF0000);
+	aux = modes;
+	int least_significant = aux && 0x0000FFFF;
+
+	aux = most_significant + least_significant;
+
+	modes = aux;
+	printf("Modes: ");
+	while(*modes != -1)
+	{
+		printf("%u\t",*modes);
+	}
+
+
+	return 0;
 
 }

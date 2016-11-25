@@ -160,9 +160,10 @@ static int proc_args(int argc, char **argv)
 					printf("Graphics Card: wrong no of arguments for test_controller()\n");
 					return 1;
 				}
+				return test_controller();
 		}
 
-				return test_controller();
+
 
 	}
 

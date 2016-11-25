@@ -48,6 +48,13 @@ int vg_exit() {
 void *vg_init(unsigned short mode) {
 
 	struct reg86u r;
+	vbe_mode_info_t v;
+	struct mem_range mr;
+	vbe_get_mode_info(mode,&v);
+
+	h_res = v.XResolution;
+	v_res = v.YResolution;
+	bits_per_pixel = v.BitsPerPixel;
 
 	r.u.w.ax = 0x4F02; // VBE call, function 02 -- set VBE mode
 	r.u.w.bx = 1 << 14 | mode; // set bit 14: linear framebuffer
@@ -57,9 +64,9 @@ void *vg_init(unsigned short mode) {
 		return NULL;
 	}
 
-	struct mem_range mr;
-	unsigned int vram_base = VRAM_PHYS_ADDR; /* VRAM's physical addresss */
-	unsigned int vram_size = H_RES * V_RES * BITS_PER_PIXEL / 8; /* VRAM's size, but you can use
+
+	unsigned int vram_base = v.PhysBasePtr; /* VRAM's physical addresss */
+	unsigned int vram_size = h_res * v_res * bits_per_pixel / 8; /* VRAM's size, but you can use
 	 the frame-buffer size, instead *//* frame-buffer VM address */
 
 	int reg;
@@ -79,9 +86,7 @@ void *vg_init(unsigned short mode) {
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
 
-	h_res = H_RES;
-	v_res = V_RES;
-	bits_per_pixel = BITS_PER_PIXEL;
+
 	double_buffer = (char*) malloc(h_res*v_res*(bits_per_pixel/8) *sizeof(char));
 	return video_mem;
 }
@@ -131,10 +136,7 @@ int paintPixelaux ( int x, int y, int color)
 
 int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 
-	//int d; /* Decision variable */
 	int dx, dy; /* Dx and Dy values for the line */
-	//int Eincr, NEincr; /* Decision variable increments, para saber qual dos pixeis pintar numa diagonal de forma a nao ficar picotado */
-	//int yincr; /* Variavel que indica se a nova variavel de x ou y incrementa ou decrementa */
 	int t;
 	float n_inc; //numero de  incrementos que ocorre, obtem-se do delta de maior valor
 	float xinc, yinc; //o incremento que x e y vao ter em cada iteracao que pinta
@@ -153,107 +155,12 @@ int make_line(float x1, float x2, float y1, float y2, unsigned long color) {
 	paintPixel(x1,x2,color); // pinta o primeiro pixel da linha;
 	for (t = 0; t < n_inc; t++)
 	{
-		x1 +=  xinc; //
+		x1 +=  xinc;
 		y1 +=  yinc;
 		paintPixel(round(x1),round(y1),color);
 	}
 
  //Baseado no algoritmo de DDA
-	/*
-	dx = ABSOL(x2 - x1);
-	dy = ABSOL(y2 - y1);
-	if (dy <= dx) {
-
-		/* Se tivermos deltax maior que deltay significa que temos que realizar mais passo para a variavel x
-		/* We have a line with a slope between -1 and 1
-		 *
-		 * Ensure that we are always scan converting the line from left to
-		 * right to ensure that we produce the same line from P1 to P0 as the
-		 * line from P0 to P1.
-		 */
-/*		if (x2 < x1) {
-			t = x2;
-			x2 = x1;
-			x1 = t; /* Swap X coordinates*/
-/*			t = y2;
-			y2 = y1;
-			y1 = t; /* Swap Y coordinates */
-/*		}
-		if (y2 > y1)
-			yincr = 1;
-		else
-			yincr = -1;
-
-		d = 2 * dy - dx; /* Initial decision variable value */
-/*		Eincr = 2 * dy; /* Increment to move to E pixel*/
-/*		NEincr = 2 * (dy - dx); /* Increment to move to NE pixel*/
-/*		paintPixel(x1, y1, color); /* Draw the first point at (x1,y1) */
-
-		/* Incrementally determine the positions of the remaining pixels */
-/*
-		for (x1++; x1 <= x2; x1++) {
-			if (d < 0)
-				d += Eincr; /* Choose the Eastern Pixel*/
-/*			else {
-				d += NEincr; /* Choose the North Eastern Pixel*/
-/*				y1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
-/*			}
-			paintPixel(x1, y1, color); /* Draw the point*/
-/*		}
-	} else {
-
-		// Caso contrario(deltay e maior) sao necessarios mais passos para a variavel y
-		/* We have a line with a slope between -1 and 1 (ie: includes
-	 * vertical lines). We must swap our x and y coordinates for this.
-	 *
-	 * Ensure that we are always scan converting the line from left to
-	 * right to ensure that we produce the same line from P1 to P0 as the
-	 * line from P0 to P1.
-	 */
-
-/*		if (y2 < y1) {
-			t = x2;
-			x2 = x1;
-			x1 = t; /* Swap X coordinates*/
-/*			t = y2;
-			y2 = y1;
-			y1 = t; /* Swap Y coordinates*/
-/*		}
-
-		if (x2 > x1)
-			yincr = 1;
-		else
-			yincr = -1;
-
-		d = 2 * dx - dy;/* Initial decision variable value */
-/*		Eincr = 2 * dx; /* Increment to move to E pixel*/
-/*		NEincr = 2 * (dx - dy); /* Increment to move to NE pixel*/
-/*		paintPixel(x1, y1, color);/* Draw the first point at (x1,y1) */
-
-		/* Incrementally determine the positions of the remaining pixels */
-
-/*		for (y1++; y1 <= y2; y1++) {
-			if (d < 0)
-				d += Eincr; /* Choose the Eastern Pixel*/
-/*			else {
-				d += NEincr; /* Choose the North Eastern Pixel*/
-/*				x1 += yincr; /* (or SE pixel for dx/dy < 0!)*/
-/*			}
-			paintPixel(x1, y1, color); /* Draw the point*/
-/*		}
-	}
-
-	/* int dx = abs(x2-x1), sx = x1<x2 ? 1 : -1;
-	 int dy = abs(y2-y1), sy = y1<y2 ? 1 : -1;
-	 int err = (dx>dy ? dx : -dy)/2, e2;
-
-	 for(;;){
-	 paintPixel(x1,y1,color);
-	 if (x1==x2 && y1==y2) break;
-	 e2 = err;
-	 if (e2 >-dx) { err -= dy; x1 += sx; }
-	 if (e2 < dy) { err += dx; y1 += sy; }
-	 }*/
 
 	return 0;
 }

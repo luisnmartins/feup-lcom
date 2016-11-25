@@ -184,6 +184,17 @@ int test_xpm(unsigned short xi, unsigned short yi, char *xpm[]) {
 int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 		unsigned short hor, short delta, unsigned short time) {
 
+
+
+
+	/*if(abs(xi) > hres || abs(yi) > vres)
+	{
+		printf("Not valid\n");
+		return 1;
+	}*/
+
+
+
 	int ipc_status, irq_set = keyboard_subscribe_int();
 	int irq_set2 = timer_subscribe_int();
 	message msg;
@@ -191,48 +202,64 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 	unsigned long out_buf = 0;
 	int i, a;
 	void *video_mem_val = vg_init(0x105);
+	int flag=0;
 
 
-	float nr_int_total = delta/(time * 60);
+	float nr_int_total = abs(delta)/(time * 60);
 	float v= nr_int_total;
-	float nr_int_atual = 0;
+	int contador=0;
 
 	while (out_buf != ESC_CODE) {
 
-		if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
+			if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
 			printf("driver_receive failed with: %d", r);
 			continue;
-		}
-		if (is_ipc_notify(ipc_status)) { /* received notification */
-			switch (_ENDPOINT_P(msg.m_source)) {
-			case HARDWARE: /* hardware interrupt notification */
+			}
+			if (is_ipc_notify(ipc_status)) { /* received notification */
+				switch (_ENDPOINT_P(msg.m_source)) {
+				case HARDWARE: /* hardware interrupt notification */
 
-				if (msg.NOTIFY_ARG & irq_set) {
-					out_buf = keyboard_int_handler();
+					if (msg.NOTIFY_ARG & irq_set)
+					{
+						out_buf = keyboard_int_handler();
 
-						break;
-				}
+					}
 
 				if (msg.NOTIFY_ARG & irq_set2) {
 
-					if(nr_int_atual > nr_int_total)
-						break;
+					if(flag == 0)
+						{
+							if(contador> time*60)
+								flag = 1;
 
-					if (hor == 0)
-							yi += v;
-						else
-							xi += v;
+							if (hor == 0)
+							{
+								if(delta >0)
+									yi += v;
+								else
+									yi -= v;
+							}
+							else
+							{
+								if(delta >0)
+									xi += v;
+								else
+									xi -= v;
+							}
 
-					nr_int_atual++;
 
-					memset(video_mem_val, 0, H_RES * V_RES * BITS_PER_PIXEL / 8);
-					paint_xpm(xi, yi, xpm);
-
+							contador++;
+							//if(contador+1 > time*60)
+								//set_buf(xi+v, yi+v, xpm);
+							memset(video_mem_val, 0, H_RES * V_RES * BITS_PER_PIXEL / 8);
+							if(paint_xpm(xi, yi, xpm) == 1)
+								break;
+						}
+					}
 				}
-
 			}
-		}
 	}
+
 
 	if (timer_unsubscribe_int() != 0) {
 		return 1;
@@ -247,6 +274,7 @@ int test_move(unsigned short xi, unsigned short yi, char *xpm[],
 
 	return 0;
 }
+
 
 int test_controller() {
 

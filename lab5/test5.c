@@ -22,6 +22,11 @@ void *test_init(unsigned short mode, unsigned short delay) {
 		printf("Time not valid!");
 		return NULL;
 	}
+
+
+	vbe_mode_info_t v1;
+	vbe_get_mode_info(0x105,&v1);
+
 	void *result = vg_init(mode);
 	while (counter <= (delay * 60)) { /* You may want to use a different condition */
 		/* Get a request message. */
@@ -41,12 +46,14 @@ void *test_init(unsigned short mode, unsigned short delay) {
 			}
 		}
 	}
+
 	if (timer_unsubscribe_int() != 0) {
 		return NULL;
 	} else {
 		if (vg_exit() != 0)
-			return NULL;
 
+			return NULL;
+		printf("Physical Adress: 0x%02x",v1.PhysBasePtr);
 		return result;
 
 	}

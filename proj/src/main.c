@@ -5,6 +5,7 @@
 #include "video_gr.h"
 #include "keyboard.h"
 #include "graphics.h"
+#include "bitmap.h"
 //#include "pixmap.h"
 
 int main()
@@ -12,6 +13,8 @@ int main()
 	sef_startup();
 
 	start_mode();
+	Bitmap* segmento = loadBitmap("/home/proj/res/images/segmento.bmp");
+	drawBitmap(segmento,200,200,ALIGN_LEFT);
 
 	int pos=0;
 

@@ -54,6 +54,9 @@ int make_line(float x1,float x2,float y1,float y2, unsigned long color);
 int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
 
 int paint_black_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
+int getVerResolution();
+int getHorResolution();
+char *getGraphicsBuffer();
 
 
 //Funcoes de execucao

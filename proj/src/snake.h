@@ -2,6 +2,8 @@
 #define SEG_HEIGHT 16
 #define SEG_WIDTH 16
 
+#include <stdio.h>
+
 typedef struct segment segment;
 
 struct segment{

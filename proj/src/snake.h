@@ -4,21 +4,23 @@
 
 #include <stdio.h>
 
-typedef struct segment segment;
 
-struct segment{
-	unsigned short line, col;
-	segment *next;
-	segment *before;
+typedef struct Segment Segment;
+
+struct Segment{
+	unsigned short row, col;
+	Segment *next;
+	Segment *before;
 	unsigned short direction;
+	unsigned short orientation;
 };
 
 
 typedef struct {
-	segment *head;
-	segment *tail;
+	Segment *head;
+	Segment *tail;
 	unsigned int size;
 	unsigned short boost;
-}snake;
+}Snake;
 
-int new_snake(int size, unsigned short x, unsigned short y);
+Snake* new_snake(int size, unsigned short x, unsigned short y);

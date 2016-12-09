@@ -68,12 +68,13 @@ void *vg_init(unsigned short mode) {
 
 	video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
 	double_buffer = (char *)malloc(h_res*v_res*bits_per_pixel/8*sizeof(char));
+	memset(double_buffer, 0, SCREEN_SIZE);
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
 
 	snap = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/snapchat20-16.bmp");
-	maca1 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/maca20-16.bmp");
-	segment1 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/segmento20-16.bmp");
+	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/maca20-16.bmp");
+	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/segmento20-16.bmp");
 
 	return video_mem;
 }
@@ -83,10 +84,14 @@ int start_mode()
 {
 
 		void *result = vg_init(0x11A);
+		memset(double_buffer, 0, SCREEN_SIZE);
+		update_matrix_snake(new_snake(5, 10, 32));
+		draw_screen();
+		memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
-		drawBitmap(result, snap, 200, 200, ALIGN_LEFT);
-		drawBitmap(result, maca1, 500, 500, ALIGN_LEFT);
-		drawBitmap(result, segment1, 400, 400, ALIGN_LEFT);
+		//drawBitmap(result, snap, 200, 200, ALIGN_LEFT);
+		//drawBitmap(result, maca1, 500, 500, ALIGN_LEFT);
+		//drawBitmap(result, segment1, 400, 400, ALIGN_LEFT);
 
 		//if(a == NULL)
 			//printf("imagem nao carregada\n");
@@ -279,6 +284,48 @@ int clear_pos(unsigned short line, unsigned short col)
 	}
 	else
 		return 1;
+}
+
+void draw_screen()
+{
+	int i_col=0;
+	int i_line=0;
+
+	memcpy(video_mem, double_buffer, SCREEN_SIZE);
+	memset(double_buffer, 0, SCREEN_SIZE);
+
+	for(i_col; i_col<64; i_col++)
+	{
+		for(i_line; i_line< 64; i_line++)
+		{
+			if(matrix_graphics[i_col][i_line] != NULL)
+			{
+				draw_cell(matrix_graphics[i_col][i_line], i_col, i_line);
+			}
+		}
+	}
+}
+
+
+void draw_cell(Bitmap* bmp, int col, int line)
+{
+
+	drawBitmap(double_buffer, bmp, 16*col, 20*line, ALIGN_LEFT);
+
+}
+
+
+
+void update_matrix_snake(Snake *s1)
+{
+	int i=0;
+	Segment *seg1 = s1->tail;
+	for(i; i<s1->size; i++)
+	{
+		matrix_graphics[seg1->col][seg1->row] = element;
+		seg1 = seg1->before;
+	}
+
 }
 
 

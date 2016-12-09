@@ -1,39 +1,41 @@
 
 #include "snake.h"
 
-int new_snake(int size, unsigned short line, unsigned short col)
+Snake* new_snake(int size, unsigned short row, unsigned short col)
 {
 
-	int i=1;
-	segment seg1;
-	seg1.line = line;
-	seg1.col = col;
-	seg1.before = NULL;
-	seg1.next = NULL;
-	seg1.direction = 0;
-	snake s1;
-	s1.head = &seg1;
-	s1.tail = &seg1;
-	s1.size = 1;
-	s1.boost =0;
+	Snake *s1 = (Snake*)(malloc(sizeof(Snake)));
+	s1->size=0;
+	s1->boost = 0;
+
+	int i=0;
 	for(i; i<size; i++)
 	{
-		segment seg2;
-		seg2.line = line;
-		seg2.col = s1.tail->col++;
-		seg2.direction= 0;
-		add_segment(&s1, &seg2);
+		add_segment(&s1, row, col);
+		col++;
 	}
-
+	return s1;
 
 }
 
-void add_segment(snake *s1, segment *seg1)
+void add_segment(Snake *s1,unsigned short row,unsigned short col)
 {
-	/*seg1->before = s1->tail;
-	seg1->next = NULL;
-	s1->tail = seg1;
+	Segment *new_seg = (Segment*)(malloc(sizeof(Segment)));
+	new_seg->row = row;
+	new_seg->col = col;
+	if(s1->head == NULL)
+	{
+		new_seg->before = NULL;
+		new_seg->next = NULL;
+		s1->head = new_seg;
+		s1->tail = new_seg;
+	}
+	else
+	{
+		new_seg->before = s1->tail;
+		new_seg->next = NULL;
+		s1->tail->next = new_seg;
+		s1->tail = new_seg;
+	}
 	s1->size++;
-*/
-
 }

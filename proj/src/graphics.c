@@ -3,7 +3,7 @@
 
 static char *double_buffer;
 static char *video_mem; /* Process address to which VRAM is mapped */
-
+static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
 static unsigned h_res; /* Horizontal screen resolution in pixels */
 static unsigned v_res; /* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
@@ -31,7 +31,7 @@ void *vg_init(unsigned short mode) {
 	struct reg86u r;
 	vbe_mode_info_t v;
 	struct mem_range mr;
-	char *video_mem; /* Process address to which VRAM is mapped */
+	//char *video_mem; /* Process address to which VRAM is mapped */
 
 
 	vbe_get_mode_info(mode,&v);
@@ -50,7 +50,7 @@ void *vg_init(unsigned short mode) {
 
 
 	unsigned int vram_base = v.PhysBasePtr; /* VRAM's physical addresss */
-	unsigned int vram_size = h_res * v_res * bits_per_pixel / 8; /* VRAM's size, but you can use
+	unsigned int vram_size = h_res * v_res * bits_per_pixel/8; /* VRAM's size, but you can use
 	 the frame-buffer size, instead *//* frame-buffer VM address */
 
 	int reg;
@@ -67,7 +67,7 @@ void *vg_init(unsigned short mode) {
 
 
 	video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
-	double_buffer = (char *)malloc(h_res*v_res*bits_per_pixel/8*sizeof(char));
+	double_buffer = (short *)malloc(h_res*v_res*bits_per_pixel/8);
 	memset(double_buffer, 0, SCREEN_SIZE);
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
@@ -84,9 +84,11 @@ int start_mode()
 {
 
 		void *result = vg_init(0x11A);
-		memset(double_buffer, 0, SCREEN_SIZE);
-		update_matrix_snake(new_snake(5, 10, 32));
+		Snake *s1 = new_snake(5,10,32);
+		printf("ok\n");
+		update_matrix_snake(s1);
 		draw_screen();
+		printf("okok\n");
 		memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
 		//drawBitmap(result, snap, 200, 200, ALIGN_LEFT);
@@ -105,6 +107,7 @@ int start_mode()
 
 
 }
+
 
 int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[])
 {
@@ -289,28 +292,33 @@ int clear_pos(unsigned short line, unsigned short col)
 void draw_screen()
 {
 	int i_col=0;
-	int i_line=0;
+	int i_row=0;
 
 	memcpy(video_mem, double_buffer, SCREEN_SIZE);
 	memset(double_buffer, 0, SCREEN_SIZE);
 
-	for(i_col; i_col<64; i_col++)
-	{
-		for(i_line; i_line< 64; i_line++)
+		while(i_col < 64)
 		{
-			if(matrix_graphics[i_col][i_line] != NULL)
+			while(i_row < 64)
 			{
-				draw_cell(matrix_graphics[i_col][i_line], i_col, i_line);
+				if(matrix_graphics[i_col][i_row] != NULL)
+				{
+
+					printf("%d\n", i_col);
+					draw_cell(matrix_graphics[i_col][i_row], i_col,i_row);
+				}
+				i_row++;
 			}
+			i_col++;
+			i_row=0;
 		}
-	}
 }
 
 
-void draw_cell(Bitmap* bmp, int col, int line)
+void draw_cell(Bitmap* bmp, int col, int row)
 {
 
-	drawBitmap(double_buffer, bmp, 16*col, 20*line, ALIGN_LEFT);
+	drawBitmap(double_buffer, bmp, 20*col, 16*row, ALIGN_LEFT);
 
 }
 
@@ -319,7 +327,7 @@ void draw_cell(Bitmap* bmp, int col, int line)
 void update_matrix_snake(Snake *s1)
 {
 	int i=0;
-	Segment *seg1 = s1->tail;
+	segment_t *seg1 = s1->tail;
 	for(i; i<s1->size; i++)
 	{
 		matrix_graphics[seg1->col][seg1->row] = element;

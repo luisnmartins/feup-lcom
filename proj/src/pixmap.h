@@ -312,7 +312,7 @@ static char *snapchat[] = {
 
 
 
-static char *maca[] = {
+static char *maca1[] = {
 /* columns rows colors chars-per-pixel */
 "14 17 4",
 "v 2",

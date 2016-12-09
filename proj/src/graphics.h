@@ -22,7 +22,7 @@
 #define SCREEN_SIZE  H_RES*V_RES*BITS_PER_PIXEL/8
 
 
-static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
+
 
 //Bitmaps
 static Bitmap *snap;
@@ -38,7 +38,7 @@ int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
 int clear_pos(unsigned short line, unsigned short col);
 void draw_cell(Bitmap* bmp, int col, int line);
 void update_matrix_snake(Snake *s1);
-
+void update_matrix_seg(segment_t *seg);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

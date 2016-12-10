@@ -7,7 +7,7 @@ Game_object *new_object(unsigned short row, unsigned short col,object_name name)
 	obj->row = row;
 	obj->col = col;
 	obj->name = name;
-	switch(obj->name)
+	switch(obj->name){
 	case FRUIT:
 		obj->type = FRIENDLY_TYPE;
 		obj->point_value = 2;
@@ -22,4 +22,5 @@ Game_object *new_object(unsigned short row, unsigned short col,object_name name)
 		break;
 	default:
 		break;
+	}
 }

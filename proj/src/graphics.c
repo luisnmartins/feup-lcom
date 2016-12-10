@@ -8,6 +8,11 @@ static unsigned h_res; /* Horizontal screen resolution in pixels */
 static unsigned v_res; /* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 
+//TODO aloca memoria snake 1
+//TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
+
+
+
 
 int vg_exit() {
 	struct reg86u reg86;
@@ -31,7 +36,6 @@ void *vg_init(unsigned short mode) {
 	struct reg86u r;
 	vbe_mode_info_t v;
 	struct mem_range mr;
-	//char *video_mem; /* Process address to which VRAM is mapped */
 
 
 	vbe_get_mode_info(mode,&v);
@@ -91,12 +95,6 @@ int start_mode()
 		printf("okok\n");
 		memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
-		//drawBitmap(result, snap, 200, 200, ALIGN_LEFT);
-		//drawBitmap(result, maca1, 500, 500, ALIGN_LEFT);
-		//drawBitmap(result, segment1, 400, 400, ALIGN_LEFT);
-
-		//if(a == NULL)
-			//printf("imagem nao carregada\n");
 		if(result == NULL)
 			return 1;
 		else

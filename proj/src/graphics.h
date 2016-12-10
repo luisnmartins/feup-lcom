@@ -1,9 +1,10 @@
+#ifndef __GRAPHICS_H
+#define __GRAPHICS_H
 
 
 
 #include <minix/syslib.h>
 #include <minix/drivers.h>
-//#include <machine/int86.h>
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <math.h>
@@ -14,14 +15,7 @@
 #include "keyboard.h"
 #include "snake.h"
 #include "Bitmap.h"
-
-
-#define H_RES             1280
-#define V_RES		  1024
-#define BITS_PER_PIXEL	  16
-#define SCREEN_SIZE  H_RES*V_RES*BITS_PER_PIXEL/8
-
-
+#include "constants.h"
 
 
 //Bitmaps
@@ -44,3 +38,5 @@ void update_matrix_seg(segment_t *seg);
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);
 int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int xant);
 
+
+#endif /* __GRAPHICS_H */

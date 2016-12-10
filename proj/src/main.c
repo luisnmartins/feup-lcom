@@ -5,6 +5,8 @@
 #include "video_gr.h"
 #include "keyboard.h"
 #include "graphics.h"
+#include "timer.h"
+#include "constants.h"
 
 //#include "pixmap.h"
 
@@ -17,14 +19,16 @@ int main()
 
 
 	int ipc_status;
-	int irq_set = timer_subscribe_int();
-	int irq_set2 = keyboard_subscribe_int();
+	int irq_timer = timer_subscribe_int();
+	int irq_kb = keyboard_subscribe_int();
+	//int irq_mouse = mouse_subscribre_int();
 	message msg;
 	int r;
-	unsigned long out_buf = 0;
-			//out_buf = keyboard_int_handler();
+	unsigned long out_buf = 0, out_buf2 = 0;
+	unsigned short counter=0;
+	unsigned short flag_outbuf=0;
 
-			while (1) { /* You may want to use a different condition */
+	while (1) { /* You may want to use a different condition */
 					/* Get a request message. */
 
 					if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
@@ -35,14 +39,35 @@ int main()
 						switch (_ENDPOINT_P(msg.m_source)) {
 						case HARDWARE: /* hardware interrupt notification */
 							printf("a\n");
-							if (msg.NOTIFY_ARG & irq_set2) {
-								printf("b\n");
+							if (msg.NOTIFY_ARG & irq_timer)
+							{
+								timer_int_handler(&counter);
+								timer_event_hanlder(counter);
+
+							}
+							if(msg.NOTIFY_ARG & irq_kb)
+							{
 								out_buf = keyboard_int_handler();
-								//paint_xpm(200, 500, maca);
+								if(out_buf == FIRST_BYTE_ARROWS)
+								{
+									out_buf2 = out_buf<<8;
+									flag_outbuf = 1;
+									continue;
+								}
+								if(flag_outbuf == 1)
+								{
+									out_buf |= out_buf2;
+									out_buf2 = 0;
+									continue;
+								}
+								keyboard_event_handler(out_buf);
 							}
 						}
 					}
 				}
+
+
+
 				if (keyboard_unsubscribe_int() != 0) {
 					return 1;
 				}

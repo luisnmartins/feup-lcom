@@ -59,6 +59,7 @@ main.o:	i8042.h
 main.o:	i8254.h
 main.o:	keyboard.h
 main.o:	main.c
+main.o:	man_events.h
 main.o:	pixmap.h
 main.o:	snake.h
 main.o:	timer.h

@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 typedef enum {
-	FRUIT, OBSTACLE, SNAPCHAT // ADICONAR MAIS SE PRECISO
+	FRUIT, OBSTACLE, SNAPCHAT //add more if it's necessary
 } object_name;
 
 typedef struct {

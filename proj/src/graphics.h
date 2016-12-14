@@ -16,6 +16,7 @@
 #include "snake.h"
 #include "Bitmap.h"
 #include "constants.h"
+#include "i8042.h"
 
 
 //Bitmaps
@@ -31,12 +32,12 @@ int paintPixel(int x,int y,int color);
 int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
 int clear_pos(unsigned short line, unsigned short col);
 void draw_cell(Bitmap* bmp, int col, int line);
-void update_matrix_snake(Snake *s1);
+int update_matrix_snake(Snake *s1);
 void update_matrix_seg(segment_t *seg);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);
-int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int xant);
+
 
 
 #endif /* __GRAPHICS_H */

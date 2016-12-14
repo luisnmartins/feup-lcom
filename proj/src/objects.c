@@ -17,7 +17,7 @@ Game_object *new_object(unsigned short row, unsigned short col,object_name name)
 		obj-> point_value = 4;
 		break;
 	case OBSTACLE:
-		obj->type= DANGER_TYPE
+		obj->type= DANGER_TYPE;
 		obj-> point_value = 0;
 		break;
 	default:

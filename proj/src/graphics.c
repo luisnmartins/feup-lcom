@@ -3,15 +3,10 @@
 
 static char *double_buffer;
 static char *video_mem; /* Process address to which VRAM is mapped */
-static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
 static unsigned h_res; /* Horizontal screen resolution in pixels */
 static unsigned v_res; /* Vertical screen resolution in pixels */
 static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
-
-//TODO aloca memoria snake 1
-//TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
-
-
+static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
 
 
 int vg_exit() {
@@ -88,12 +83,9 @@ int start_mode()
 {
 
 		void *result = vg_init(0x11A);
-		Snake *s1 = new_snake(5,10,32);
-		printf("ok\n");
-		update_matrix_snake(s1);
-		draw_screen();
-		printf("okok\n");
-		memcpy(video_mem, double_buffer, SCREEN_SIZE);
+
+
+		//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
 		if(result == NULL)
 			return 1;
@@ -188,7 +180,7 @@ int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned 
 
 }
 
-int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int xant)
+/*int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int xant)
 {
 
 		int ipc_status;
@@ -214,9 +206,9 @@ int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int x
 				continue;
 				}
 				if (is_ipc_notify(ipc_status)) { /* received notification */
-					switch (_ENDPOINT_P(msg.m_source)) {
-					case HARDWARE: /* hardware interrupt notification */
-						if(msg.NOTIFY_ARG & irq_set2)
+					//switch (_ENDPOINT_P(msg.m_source)) {
+					//case HARDWARE: /* hardware interrupt notification */
+						/*if(msg.NOTIFY_ARG & irq_set2)
 						{
 							out_buf = keyboard_int_handler();
 							if(out_buf == 0xE0)
@@ -274,7 +266,7 @@ int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int x
 		out_buf = keyboard_int_handler();
 
 		return 0;
-}
+}*/
 
 int clear_pos(unsigned short line, unsigned short col)
 {
@@ -316,21 +308,51 @@ void draw_screen()
 void draw_cell(Bitmap* bmp, int col, int row)
 {
 
-	drawBitmap(double_buffer, bmp, 20*col, 16*row, ALIGN_LEFT);
+	drawBitmap(double_buffer, bmp, 16*col, 20*row, ALIGN_LEFT);
 
 }
 
 
-
-void update_matrix_snake(Snake *s1)
+void remove_snakes_matrix()
 {
+	int i_col =0;
+	int i_row = 0;
+
+	while(i_col < 64)
+	{
+			while(i_row < 64)
+			{
+				if(matrix_graphics[i_col][i_row] == element)
+				{
+					matrix_graphics[i_col][i_row] == NULL;
+
+				}
+				i_row++;
+			}
+			i_col++;
+			i_row=0;
+	}
+}
+
+int update_matrix_snake(Snake *s1)
+{
+	remove_snakes_matrix();
+	if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 )
+		return 1;
+
 	int i=0;
 	segment_t *seg1 = s1->tail;
 	for(i; i<s1->size; i++)
 	{
+		if(seg1 == s1->head)
+		{
+			if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+				return 1;
+		}
 		matrix_graphics[seg1->col][seg1->row] = element;
 		seg1 = seg1->before;
 	}
+	return 0;
 
 }
 

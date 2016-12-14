@@ -53,8 +53,11 @@ graphics.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include-fixed/syslimits.h
 graphics.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include-fixed/unistd.h
 graphics.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include/stdarg.h
 graphics.o:	Bitmap.h
+graphics.o:	constants.h
 graphics.o:	graphics.c
 graphics.o:	graphics.h
+graphics.o:	i8042.h
+graphics.o:	i8254.h
 graphics.o:	keyboard.h
 graphics.o:	pixmap.h
 graphics.o:	snake.h

@@ -7,7 +7,7 @@
 #include "graphics.h"
 #include "timer.h"
 #include "constants.h"
-
+#include "man_events.h"
 //#include "pixmap.h"
 
 int main()
@@ -42,7 +42,7 @@ int main()
 							if (msg.NOTIFY_ARG & irq_timer)
 							{
 								timer_int_handler(&counter);
-								timer_event_hanlder(counter);
+								timer_event_handler(counter);
 
 							}
 							if(msg.NOTIFY_ARG & irq_kb)

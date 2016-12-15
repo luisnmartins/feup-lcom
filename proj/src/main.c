@@ -38,9 +38,9 @@ int main()
 					if (is_ipc_notify(ipc_status)) { /* received notification */
 						switch (_ENDPOINT_P(msg.m_source)) {
 						case HARDWARE: /* hardware interrupt notification */
-							printf("a\n");
 							if (msg.NOTIFY_ARG & irq_timer)
 							{
+								printf("interrupt timer\n");
 								timer_int_handler(&counter);
 								timer_event_handler(counter);
 

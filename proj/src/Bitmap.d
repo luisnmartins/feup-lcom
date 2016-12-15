@@ -54,7 +54,10 @@ Bitmap.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include-fixed/unistd.h
 Bitmap.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include/stdarg.h
 Bitmap.o:	Bitmap.c
 Bitmap.o:	Bitmap.h
+Bitmap.o:	constants.h
 Bitmap.o:	graphics.h
+Bitmap.o:	i8042.h
+Bitmap.o:	i8254.h
 Bitmap.o:	keyboard.h
 Bitmap.o:	pixmap.h
 Bitmap.o:	snake.h

@@ -75,6 +75,8 @@ void *vg_init(unsigned short mode) {
 	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/maca20-16.bmp");
 	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/segmento20-16.bmp");
 
+	memset(video_mem, 1, SCREEN_SIZE);
+	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
 }
 
@@ -293,8 +295,6 @@ void draw_screen()
 			{
 				if(matrix_graphics[i_col][i_row] != NULL)
 				{
-
-					printf("%d\n", i_col);
 					draw_cell(matrix_graphics[i_col][i_row], i_col,i_row);
 				}
 				i_row++;
@@ -302,13 +302,14 @@ void draw_screen()
 			i_col++;
 			i_row=0;
 		}
+		printf("acabou screen\n");
 }
 
 
 void draw_cell(Bitmap* bmp, int col, int row)
 {
 
-	drawBitmap(double_buffer, bmp, 16*col, 20*row, ALIGN_LEFT);
+	drawBitmap(double_buffer, bmp, 20*col, 16*row, ALIGN_LEFT);
 
 }
 
@@ -337,20 +338,32 @@ void remove_snakes_matrix()
 int update_matrix_snake(Snake *s1)
 {
 	remove_snakes_matrix();
+
+	//printf("okokok3\n");
+	//printf("ROW: %d\n", s1->head->row);
+		//		printf("COLD: %d\n", s1->head->col);
 	if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 )
+	{	printf("merdou\n");
 		return 1;
+	}
+
+
 
 	int i=0;
-	segment_t *seg1 = s1->tail;
-	for(i; i<s1->size; i++)
+	segment_snake *seg1 = s1->tail;
+	while(i < s1->size)
 	{
 		if(seg1 == s1->head)
 		{
 			if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+			{
+				printf("colision\n");
 				return 1;
+			}
 		}
 		matrix_graphics[seg1->col][seg1->row] = element;
 		seg1 = seg1->before;
+		i++;
 	}
 	return 0;
 

@@ -13,13 +13,8 @@ typedef struct Segment{
 	unsigned short row, col;
 	unsigned short direction;
 	unsigned short orientation;
-}segment_t;
-
-typedef struct Segment2
-{
-	segment_t seg;
-	segment_t* next;
-	segment_t* before;
+	struct Segment *next;
+	struct Segment *before;
 }segment_snake;
 
 typedef struct {
@@ -31,6 +26,6 @@ typedef struct {
 
 
 void add_segment(Snake *s1,unsigned short row,unsigned short col);
-Snake* new_snake(int size, unsigned short x, unsigned short y);
-segment_t *new_seg(unsigned short col, unsigned short row);
+void new_snake(int size, unsigned short x, unsigned short y, Snake *s1);
+segment_snake *new_seg(unsigned short col, unsigned short row);
 void move_snake(Snake* s1);

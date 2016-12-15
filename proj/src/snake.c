@@ -47,6 +47,40 @@ void new_snake(int size, unsigned short row, unsigned short col, Snake* s1)
 
 }*/
 
+void inc_snake(Snake *s1)
+{
+	segment_snake* new_seg = NULL;
+	new_seg = malloc(sizeof(segment_snake));
+	int inc = s1->tail->orientation;
+	int dir = s1->tail->direction;
+	if(dir == HORIZONTAL)
+	{
+
+		new_seg->row = s1->tail->row;
+		new_seg->col = s1->tail->col-inc;
+		new_seg->direction = HORIZONTAL;
+		new_seg->orientation = s1->tail->orientation;
+		new_seg->next = NULL;
+		new_seg->before = s1->tail;
+		s1->tail->next = new_seg;
+		s1->tail = new_seg;
+	}
+	else if(dir == VERTICAL)
+	{
+
+		new_seg->row = s1->tail->row - inc;
+		new_seg->col = s1->tail->col;
+		new_seg->direction = HORIZONTAL;
+		new_seg->orientation = s1->tail->orientation;
+		new_seg->next = NULL;
+		new_seg->before = s1->tail;
+		s1->tail->next = new_seg;
+		s1->tail = new_seg;
+	}
+	s1->size++;
+}
+
+
 
 void add_segment(Snake *s1,unsigned short row,unsigned short col)
 {

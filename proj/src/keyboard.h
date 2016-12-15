@@ -4,6 +4,7 @@
 #include <minix/sysutil.h>
 #include <minix/syslib.h>
 #include <minix/drivers.h>
+#include "constants.h"
 
 
 int keyboard_subscribe_int();

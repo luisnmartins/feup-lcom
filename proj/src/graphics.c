@@ -182,93 +182,6 @@ int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned 
 
 }
 
-/*int move_snake(unsigned int x, unsigned int y, unsigned short hor,unsigned int xant)
-{
-
-		int ipc_status;
-		int irq_set2 = keyboard_subscribe_int();
-		int irq_set = timer_subscribe_int();
-
-		message msg;
-		int r;
-		int i, a;
-		unsigned short yant=200;
-		unsigned long out_buf = 0;
-		unsigned long out_buf2=0;
-		out_buf = keyboard_int_handler();
-		out_buf =0;
-		int flag =0;
-
-		int contador=0;
-
-		while (out_buf!= 0xE0C8 && out_buf!= 0xE0D0) {
-
-				if ((r = driver_receive(ANY, &msg, &ipc_status)) != 0) {
-				printf("driver_receive failed with: %d", r);
-				continue;
-				}
-				if (is_ipc_notify(ipc_status)) { /* received notification */
-					//switch (_ENDPOINT_P(msg.m_source)) {
-					//case HARDWARE: /* hardware interrupt notification */
-						/*if(msg.NOTIFY_ARG & irq_set2)
-						{
-							out_buf = keyboard_int_handler();
-							if(out_buf == 0xE0)
-							{
-								out_buf2 = out_buf<<8;
-								flag =1;
-								continue;
-							}
-							if(flag == 1)
-							{
-								out_buf |= out_buf2;
-								out_buf2 = 0;
-								continue;
-							}
-
-						}
-
-					if (msg.NOTIFY_ARG & irq_set) {
-
-						out_buf =0;
-		 				if(contador%30 == 0)
-						{
-							if (hor == 0)
-									y += 19;
-							else
-									x += 19;
-
-								//paint_black_xpm(xant, yant, square_right);
-
-								if(paint_xpm(x, y, square_right) == 1)
-									break;
-								else
-								{
-									xant = xant+19;
-
-								}
-								memcpy(video_mem, double_buffer, h_res*v_res*bits_per_pixel/8);
-								memset(double_buffer,0, h_res*v_res*bits_per_pixel/8);
-							}
-						contador++;
-					}
-						}
-					}
-				}
-
-
-		if (timer_unsubscribe_int() != 0) {
-
-			return 1;
-		}
-		if(keyboard_unsubscribe_int() != 0)
-		{
-			return 1;
-		}
-		out_buf = keyboard_int_handler();
-
-		return 0;
-}*/
 
 int clear_pos(unsigned short line, unsigned short col)
 {
@@ -357,24 +270,75 @@ int update_matrix_snake(Snake *s1)
 	segment_snake *seg1 = s1->tail;
 	printf("criou segmento");
 	printf("tail cenas: %d\n", seg1->col);
-	while(i < s1->size)
+
+
+	do
 	{
 		printf("seg1 col: %d\n", seg1->col);
 		printf("seg1 row: %d\n", seg1->row);
-		if(seg1 == s1->head)
-		{
-			if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
-			{
-				printf("colision\n");
-				return 1;
-			}
-		}
+		/*if(seg1 == s1->head)
+				{
+					if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+					{
+						printf("colision\n");
+						return 1;
+					}
+					else if(matrix_graphics[seg1->col][seg1->row] == maca)
+					{
+						inc_snake(s1);
+						new_object_matrix(s1);
+					}
+				}*/
+
 		matrix_graphics[seg1->col][seg1->row] = element;
 
 		seg1 = seg1->before;
 		i++;
-	}
+	}while(i < s1->size-1);
+
+	if(seg1 == s1->head)
+			{
+				if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+				{
+					printf("colision\n");
+					return 1;
+				}
+				else if(matrix_graphics[seg1->col][seg1->row] == maca)
+				{
+					inc_snake(s1);
+					new_object_matrix(s1);
+				}
+			}
+
+	matrix_graphics[seg1->col][seg1->row] = element;
+
 	printf("acabou\n");
+	return 0;
+
+}
+
+void new_object_matrix(Snake *s1)
+{
+	Game_object *obj = (Game_object*)(malloc(sizeof(Game_object)));
+	do
+	{
+
+		new_object(obj,0);
+
+	}while(update_matrix_objects(obj,s1) == 1);
+}
+
+
+int update_matrix_objects(Game_object *obj, Snake *s1)
+{
+
+	if(matrix_graphics[obj->col][obj->row] != NULL)
+		return 1;
+	if((abs(obj->row - s1->head->row) < 2 || abs(obj->col - s1->head->col) < 2) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
+	{
+		return 1;
+	}
+	matrix_graphics[obj->col][obj->row] = maca;
 	return 0;
 
 }

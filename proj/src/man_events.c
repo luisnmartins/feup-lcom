@@ -1,13 +1,12 @@
 
 #include "man_events.h"
 
-
 typedef enum {
 	MENU_T, SP_T, MP_T, MOKB_T ,KBC_T, EXIT_T, END_T
 } states;
 
 typedef enum {
-	OPTA, OPTB, OPTC, COLISION, START_E //mais cenas
+	OPTA, OPTB, OPTC, COLISION, START_E ,ESC_PRESSED//mais cenas
 } event;
 
 states p=MENU_T;
@@ -34,7 +33,9 @@ void check_game_status(states *st, event *ev)
 				Snake *s2 = (Snake*)(malloc(sizeof(Snake)));
 				s1 = s2;
 				new_snake(5,10,32, s1);
-
+				update_matrix_snake(s1);
+				new_object_matrix(s1);
+				draw_screen();
 				//printf("COL: %d\n", s1->head->col);
 				//printf("ROW: %d\n", s1->head->row);
 				if(s1->tail == NULL || s1->head == NULL)
@@ -80,23 +81,45 @@ void check_game_status(states *st, event *ev)
 
 }
 
-void keyboard_event_handler(unsigned long out_buf)
+int keyboard_event_handler(unsigned long out_buf)
 {
 	printf("P: %d", p);
 	if(p == END_T)
 	{
 		if(out_buf == ESC_CODE)
-			vg_exit();
+		{
+			return 1;
+		}
 	}
-	if(out_buf == ESC_CODE)
+	if(p == SP_T)
 	{
-		s1->head->orientation = RIGHT_DOWN;
-		s1->head->direction = VERTICAL;
+		if(s1->head->direction == HORIZONTAL)
+		{
+			if(out_buf == UP_ARROW)
+			{
+				s1->head->direction = VERTICAL;
+				s1->head->orientation = LEFT_UP;
+			}
+			else if(out_buf == DOWN_ARROW){
+				s1->head->direction = VERTICAL;
+				s1->head->orientation = RIGHT_DOWN;
+			}
+		}
+		else
+		{
+			if(out_buf == LEFT_ARROW)
+			{
+				s1->head->direction = HORIZONTAL;
+				s1->head->orientation = LEFT_UP;
+			}
+			else if(out_buf == RIGHT_ARROW)
+			{
+				s1->head->direction = HORIZONTAL;
+				s1->head->orientation = RIGHT_DOWN;
+			}
+		}
 	}
-	if(out_buf & 0xFF00 == 0xE0)
-	{
-
-	}
+		return 0;
 }
 
 void change_to_start()
@@ -130,7 +153,7 @@ void timer_event_handler(unsigned short counter)
 
 				}
 
-	if(counter%30 == 0)
+	if(counter%10 == 0)
 	{
 		printf("procesing\n");
 		//printf("R: %d\n", s1->head->row);

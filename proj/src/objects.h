@@ -3,6 +3,8 @@
 #define DANGER_TYPE 1
 
 #include <stdio.h>
+#include "Bitmap.h"
+
 typedef enum {
 	FRUIT, OBSTACLE, SNAPCHAT //add more if it's necessary
 } object_name;
@@ -14,4 +16,4 @@ typedef struct {
 
 }Game_object;
 
-Game_object *new_object(unsigned short row, unsigned short col,object_name name);
+void new_object(Game_object *obj, object_name name);

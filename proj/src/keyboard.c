@@ -1,6 +1,6 @@
-#include "i8042.h"
+
 #include "keyboard.h"
-#include "pixmap.h"
+
 
 unsigned int khook_id = KB_IRQ;
 

@@ -56,9 +56,9 @@ graphics.o:	Bitmap.h
 graphics.o:	constants.h
 graphics.o:	graphics.c
 graphics.o:	graphics.h
-graphics.o:	i8042.h
 graphics.o:	i8254.h
 graphics.o:	keyboard.h
+graphics.o:	objects.h
 graphics.o:	pixmap.h
 graphics.o:	snake.h
 graphics.o:	timer.h

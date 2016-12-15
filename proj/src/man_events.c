@@ -12,6 +12,7 @@ typedef enum {
 
 states p=MENU_T;
 
+
 //static states *matrix_states[64][64] = {NULL};   //col x line
 
 static Snake *s1;
@@ -19,8 +20,8 @@ static Snake *s1;
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
 
 void check_game_status(states *st, event *ev)
-
 {
+
 
 	switch(*st){
 	case MENU_T:
@@ -29,8 +30,15 @@ void check_game_status(states *st, event *ev)
 			if(*ev == OPTA)
 			{
 				printf("fixe\n");
-				s1 = new_snake(5,10,32);
+				Snake *s2 = (Snake*)(malloc(sizeof(Snake)));
+				s1 = s2;
+				new_snake(5,10,32, s1);
 
+				//printf("COL: %d\n", s1->head->col);
+				//printf("ROW: %d\n", s1->head->row);
+				if(s1->tail == NULL || s1->head == NULL)
+					printf("nao deu\n");
+				*ev = START_E;
 				*st = SP_T;
 			}
 			else if (*ev == OPTB)
@@ -45,8 +53,10 @@ void check_game_status(states *st, event *ev)
 	case SP_T:
 		//TODO
 	{
+
 		if(*ev == COLISION)
 		{
+			printf("tenta mudar de estado\n");
 			*st = END_T;
 		}
 		break;
@@ -82,28 +92,49 @@ void keyboard_event_handler(unsigned long out_buf)
 	}
 }
 
+void change_to_start()
+{
+	event col_event2 = OPTA;
+	check_game_status(&p, &col_event2);
+	//printf("COL1: %d\n", s1->head->col);
+	//printf("ROW1: %d\n", s1->head->row);
+}
+
+
 void timer_event_handler(unsigned short counter)
 {
 	int flag_colision = 0;
-	event col_event2 = OPTA;
-	check_game_status(&p, &col_event2);
+	if(p == MENU_T)
+	{
+		change_to_start();
+		printf("changed\n");
+	}
+	if(flag_colision == 1)
+				{
+
+					printf("mudanca estado\n");
+					printf("%d\n", p);
+					event col_event = COLISION;
+					check_game_status(&p, &col_event);
+
+				}
+
 	if(counter%30 == 0)
 	{
+		printf("procesing\n");
+		//printf("R: %d\n", s1->head->row);
+		//printf("C: %d\n", s1->head->col);
 
 
 		if(p == SP_T)
 		{
 
-			move_snake(&s1);
-
-			flag_colision = update_matrix_snake(&s1);
+			move_snake(s1);
+			printf("running\n");
+			flag_colision = update_matrix_snake(s1);
 			draw_screen();
 			//memcpy(video_mem, double_buffer, SCREEN_SIZE);
-			if(flag_colision == 1)
-			{
-				event *col_event = COLISION;
-				check_game_status(&p, col_event);
-			}
+
 
 
 		}

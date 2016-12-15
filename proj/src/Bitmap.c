@@ -117,9 +117,11 @@ void drawBitmap(char* db, Bitmap* bmp, int x, int y, Alignment alignment) {
         bufferStartPos = db;
         bufferStartPos += x * 2 + pos * H_RES * 2;
 
+        //printf("%x \n", bufferStartPos);
         imgStartPos = bmp->bitmapData + xCorrection * 2 + i * width * 2;
 
         memcpy(bufferStartPos, imgStartPos, drawWidth * 2);
+
     }
 }
 

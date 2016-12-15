@@ -1,11 +1,12 @@
 #include "objects.h"
 
 
-Game_object *new_object(unsigned short row, unsigned short col,object_name name)
+void new_object(Game_object *obj, object_name name)
 {
-	Game_object *obj = (Game_object*)(malloc(sizeof(Game_object)));
-	obj->row = row;
-	obj->col = col;
+
+
+	obj->row = rand()%64;
+	obj->col = rand()%64;
 	obj->name = name;
 	switch(obj->name){
 	case FRUIT:
@@ -24,3 +25,4 @@ Game_object *new_object(unsigned short row, unsigned short col,object_name name)
 		break;
 	}
 }
+

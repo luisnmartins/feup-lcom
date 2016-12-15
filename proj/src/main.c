@@ -1,4 +1,3 @@
-#include "i8042.h"
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
@@ -8,7 +7,10 @@
 #include "timer.h"
 #include "constants.h"
 #include "man_events.h"
+#include <time.h>
 //#include "pixmap.h"
+
+
 
 int main()
 {
@@ -27,6 +29,7 @@ int main()
 	unsigned long out_buf = 0, out_buf2 = 0;
 	unsigned short counter=0;
 	unsigned short flag_outbuf=0;
+	unsigned short flag_end=0;
 
 	while (1) { /* You may want to use a different condition */
 					/* Get a request message. */
@@ -44,12 +47,11 @@ int main()
 								timer_int_handler(&counter);
 								timer_event_handler(counter);
 
-
 							}
 							if(msg.NOTIFY_ARG & irq_kb)
 							{
 								out_buf = keyboard_int_handler();
-								if(out_buf == FIRST_BYTE_ARROWS)
+								if(out_buf == OUT_BUF_2BYTES)
 								{
 									out_buf2 = out_buf<<8;
 									flag_outbuf = 1;
@@ -59,11 +61,19 @@ int main()
 								{
 									out_buf |= out_buf2;
 									out_buf2 = 0;
-									continue;
 								}
-								keyboard_event_handler(out_buf);
+								if(keyboard_event_handler(out_buf) == 1)
+								{
+									printf("Terminou\n");
+									flag_end = 1;
+									break;
+								}
+
 							}
+							break;
 						}
+						if(flag_end==1)
+							break;
 					}
 				}
 
@@ -75,6 +85,9 @@ int main()
 
 				out_buf = keyboard_int_handler();
 
+				if (timer_unsubscribe_int() != 0) {
+									return 1;
+				}
 
 	vg_exit();
 

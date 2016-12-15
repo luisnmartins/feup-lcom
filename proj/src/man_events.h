@@ -6,7 +6,8 @@
 
 
 
-void keyboard_event_handler(unsigned long out_buf);
+
+int keyboard_event_handler(unsigned long out_buf);
 void timer_event_handler(unsigned short counter);
 
 

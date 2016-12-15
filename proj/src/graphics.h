@@ -14,9 +14,8 @@
 #include "timer.h"
 #include "keyboard.h"
 #include "snake.h"
-#include "Bitmap.h"
 #include "constants.h"
-#include "i8042.h"
+#include "objects.h"
 
 
 //Bitmaps
@@ -33,7 +32,9 @@ int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
 int clear_pos(unsigned short line, unsigned short col);
 void draw_cell(Bitmap* bmp, int col, int line);
 int update_matrix_snake(Snake *s1);
-void update_matrix_seg(struct Segment *seg);
+//void update_matrix_seg(struct Segment *seg);
+void new_object_matrix(Snake *s1);
+int update_matrix_objects(Game_object *obj, Snake *s1);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

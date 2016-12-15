@@ -73,7 +73,7 @@ void *vg_init(unsigned short mode) {
 
 	snap = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/snapchat20-16.bmp");
 	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/maca20-16.bmp");
-	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/segmento20-16.bmp");
+	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/Untitled.bmp");
 
 	memset(video_mem, 1, SCREEN_SIZE);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
@@ -296,6 +296,8 @@ void draw_screen()
 				if(matrix_graphics[i_col][i_row] != NULL)
 				{
 					draw_cell(matrix_graphics[i_col][i_row], i_col,i_row);
+					printf("linha: %d\n", i_row);
+					printf("coluna: %d\n", i_col);
 				}
 				i_row++;
 			}
@@ -325,7 +327,7 @@ void remove_snakes_matrix()
 			{
 				if(matrix_graphics[i_col][i_row] == element)
 				{
-					matrix_graphics[i_col][i_row] == NULL;
+					matrix_graphics[i_col][i_row] = NULL;
 
 				}
 				i_row++;
@@ -333,6 +335,8 @@ void remove_snakes_matrix()
 			i_col++;
 			i_row=0;
 	}
+
+	printf("snake removed\n");
 }
 
 int update_matrix_snake(Snake *s1)
@@ -351,8 +355,12 @@ int update_matrix_snake(Snake *s1)
 
 	int i=0;
 	segment_snake *seg1 = s1->tail;
+	printf("criou segmento");
+	printf("tail cenas: %d\n", seg1->col);
 	while(i < s1->size)
 	{
+		printf("seg1 col: %d\n", seg1->col);
+		printf("seg1 row: %d\n", seg1->row);
 		if(seg1 == s1->head)
 		{
 			if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
@@ -362,9 +370,11 @@ int update_matrix_snake(Snake *s1)
 			}
 		}
 		matrix_graphics[seg1->col][seg1->row] = element;
+
 		seg1 = seg1->before;
 		i++;
 	}
+	printf("acabou\n");
 	return 0;
 
 }

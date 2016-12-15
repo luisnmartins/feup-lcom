@@ -16,6 +16,7 @@ states p=MENU_T;
 //static states *matrix_states[64][64] = {NULL};   //col x line
 
 static Snake *s1;
+static int flag_colision = 0;
 
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
 
@@ -75,16 +76,22 @@ void check_game_status(states *st, event *ev)
 		break;
 
 	}
+	return;
 
 }
 
 void keyboard_event_handler(unsigned long out_buf)
 {
-
+	printf("P: %d", p);
 	if(p == END_T)
 	{
 		if(out_buf == ESC_CODE)
 			vg_exit();
+	}
+	if(out_buf == ESC_CODE)
+	{
+		s1->head->orientation = RIGHT_DOWN;
+		s1->head->direction = VERTICAL;
 	}
 	if(out_buf & 0xFF00 == 0xE0)
 	{
@@ -103,12 +110,13 @@ void change_to_start()
 
 void timer_event_handler(unsigned short counter)
 {
-	int flag_colision = 0;
+
 	if(p == MENU_T)
 	{
 		change_to_start();
 		printf("changed\n");
 	}
+
 	if(flag_colision == 1)
 				{
 
@@ -116,6 +124,9 @@ void timer_event_handler(unsigned short counter)
 					printf("%d\n", p);
 					event col_event = COLISION;
 					check_game_status(&p, &col_event);
+					draw_screen();
+					printf("p: %d\n",p);
+
 
 				}
 
@@ -132,6 +143,8 @@ void timer_event_handler(unsigned short counter)
 			move_snake(s1);
 			printf("running\n");
 			flag_colision = update_matrix_snake(s1);
+			printf("Flag colision: %d\n", flag_colision);
+			printf("matrix updated\n");
 			draw_screen();
 			//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
@@ -139,5 +152,5 @@ void timer_event_handler(unsigned short counter)
 
 		}
 	}
-
+	return;
 }

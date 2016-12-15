@@ -44,6 +44,7 @@ int main()
 								timer_int_handler(&counter);
 								timer_event_handler(counter);
 
+
 							}
 							if(msg.NOTIFY_ARG & irq_kb)
 							{

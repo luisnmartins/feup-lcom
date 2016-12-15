@@ -99,7 +99,7 @@ void move_snake(Snake* s1)
 	segment_snake* new_seg = NULL;
 	new_seg = malloc(sizeof(segment_snake));
 
-	segment_snake* remove = s1->tail;
+	//segment_snake* remove = s1->tail;
 	int inc = s1->head->orientation;
 	printf("INC: %d\n", inc);
 	int row = s1->head->row;
@@ -111,6 +111,22 @@ void move_snake(Snake* s1)
 
 		col += inc;
 		add_segment(s1,row, col);
+		s1->size--;
+
+		s1->tail = s1->tail->before;
+
+		free(s1->tail->next);
+		s1->tail->next= NULL;
+		printf("Col do tail novo: %d\n", s1->tail->col);
+
+		/*new_seg = s1->head;
+		while (new_seg->next->next != NULL) {
+	        new_seg = new_seg->next;
+		}
+		free(new_seg->next);
+		new_seg->next = NULL;
+		s1->tail = new_seg;*/
+
 		//printf("COL2: %d\n", col);
 			//		printf("ROW2: %d\n", row);
 		//printf("INIT: %d \n", col);		//s1->tail = s1->tail->before;
@@ -118,22 +134,22 @@ void move_snake(Snake* s1)
 
 
 
-	}
+	}else
 	if(s1->head->direction == VERTICAL)
 	{
-		/*printf("hgjesrkgjm\n");
-				printf("okdf\n");
-		new_seg->before = NULL;
-			new_seg->next = s1->head;
-			new_seg->direction = s1->head->direction;
-			new_seg->orientation = s1->head->orientation;
-			new_seg->row += s1->head->orientation;
-			s1->head->before = new_seg;
-			s1->head = new_seg;
-			remove = s1->tail;
-			s1->tail = s1->tail->before;
-			s1->tail->next = NULL;
-			free(remove);*/
+
+				row += inc;
+				add_segment(s1,row, col);
+				s1->size--;
+				printf("row: %d\n",row);
+				printf("col: %d\n",col);
+
+				s1->tail = s1->tail->before;
+
+				free(s1->tail->next);
+				s1->tail->next= NULL;
+				printf("Col do tail novo: %d\n", s1->tail->col);
+
 
 	}
 }

@@ -5,6 +5,7 @@
 #include "keyboard.h"
 #include "graphics.h"
 #include "timer.h"
+#include "mouse.h"
 #include "constants.h"
 #include "man_events.h"
 #include <time.h>
@@ -23,13 +24,21 @@ int main()
 	int ipc_status;
 	int irq_timer = timer_subscribe_int();
 	int irq_kb = keyboard_subscribe_int();
-	//int irq_mouse = mouse_subscribre_int();
+	int irq_mouse = mouse_subscribe_int();
+	if (irq_mouse == -1) {
+			printf("Fail subscribing mouse");
+			return 1;
+		}
+	if(set_stream_mode() == 1)
+		return 1;
 	message msg;
 	int r;
 	unsigned long out_buf = 0, out_buf2 = 0;
 	unsigned short counter=0;
 	unsigned short flag_outbuf=0;
 	unsigned short flag_end=0;
+	unsigned long packet_mouse[3];
+	unsigned short counter_mouse =0;
 
 	while (1) { /* You may want to use a different condition */
 					/* Get a request message. */
@@ -71,6 +80,15 @@ int main()
 
 							}
 							break;
+						}
+						if (msg.NOTIFY_ARG & irq_mouse)
+						{
+
+							if(get_packets(&counter_mouse, &packet_mouse) == 0)
+							{
+
+							}
+
 						}
 						if(flag_end==1)
 							break;

@@ -22,6 +22,7 @@
 static Bitmap *snap;
 static Bitmap *maca;
 static Bitmap *element;
+static Bitmap *mouse;
 
 
 

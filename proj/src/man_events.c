@@ -16,6 +16,7 @@ states p=MENU_T;
 
 static Snake *s1;
 static int flag_colision = 0;
+static int buf_full =0;
 
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
 
@@ -93,16 +94,21 @@ int keyboard_event_handler(unsigned long out_buf)
 	}
 	if(p == SP_T)
 	{
+		if(buf_full == 1)
+			return 0;
+
 		if(s1->head->direction == HORIZONTAL)
 		{
 			if(out_buf == UP_ARROW)
 			{
 				s1->head->direction = VERTICAL;
 				s1->head->orientation = LEFT_UP;
+				buf_full = 1;
 			}
 			else if(out_buf == DOWN_ARROW){
 				s1->head->direction = VERTICAL;
 				s1->head->orientation = RIGHT_DOWN;
+				buf_full = 1;
 			}
 		}
 		else
@@ -111,13 +117,19 @@ int keyboard_event_handler(unsigned long out_buf)
 			{
 				s1->head->direction = HORIZONTAL;
 				s1->head->orientation = LEFT_UP;
+				buf_full = 1;
 			}
 			else if(out_buf == RIGHT_ARROW)
 			{
 				s1->head->direction = HORIZONTAL;
 				s1->head->orientation = RIGHT_DOWN;
+				buf_full = 1;
 			}
 		}
+	}
+	else if( p == MP_T)
+	{
+
 	}
 		return 0;
 }
@@ -153,8 +165,7 @@ void timer_event_handler(unsigned short counter)
 
 				}
 
-	if(counter%10 == 0)
-	{
+
 		printf("procesing\n");
 		//printf("R: %d\n", s1->head->row);
 		//printf("C: %d\n", s1->head->col);
@@ -163,17 +174,26 @@ void timer_event_handler(unsigned short counter)
 		if(p == SP_T)
 		{
 
-			move_snake(s1);
-			printf("running\n");
-			flag_colision = update_matrix_snake(s1);
-			printf("Flag colision: %d\n", flag_colision);
-			printf("matrix updated\n");
 			draw_screen();
+			if(counter%10 == 0)
+			{
+				move_snake(s1);
+				printf("running\n");
+				flag_colision = update_matrix_snake(s1);
+				printf("Flag colision: %d\n", flag_colision);
+				printf("matrix updated\n");
+
+				buf_full =0;
+			}
 			//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
 
 
 		}
-	}
+		else if( p == MOKB_T)
+		{
+			draw_screen();
+			draw_mouse();
+		}
 	return;
 }

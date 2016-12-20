@@ -15,6 +15,7 @@ states p=MENU_T;
 //static states *matrix_states[64][64] = {NULL};   //col x line
 
 static Snake *s1;
+static Snake *s2;
 static int flag_colision = 0;
 static int buf_full =0;
 
@@ -41,7 +42,9 @@ void check_game_status(states *st, event *ev)
 				*st = SP_T;
 			}
 			else if (*ev == OPTB)
+				{game_start(2);
 				*st = MP_T;
+				}
 			else if (*ev == OPTC)
 				*st = EXIT_T;
 			break;
@@ -61,6 +64,11 @@ void check_game_status(states *st, event *ev)
 		break;
 	}
 	case MP_T:
+		if(*ev == COLISION)
+				{
+					printf("tenta mudar de estado\n");
+					*st = END_T;
+				}
 		if(*ev == OPTA)
 		{
 			//TODO gera ecra e cobra
@@ -95,13 +103,13 @@ int keyboard_event_handler(unsigned long out_buf)
 
 		if(s1->head->direction == HORIZONTAL)
 		{
-			if(out_buf == W_KEY)
+			if(out_buf == UP_ARROW)
 			{
 				s1->head->direction = VERTICAL;
 				s1->head->orientation = LEFT_UP;
 				buf_full = 1;
 			}
-			else if(out_buf == S_KEY){
+			else if(out_buf == DOWN_ARROW){
 				s1->head->direction = VERTICAL;
 				s1->head->orientation = RIGHT_DOWN;
 				buf_full = 1;
@@ -109,13 +117,13 @@ int keyboard_event_handler(unsigned long out_buf)
 		}
 		else
 		{
-			if(out_buf == A_KEY)
+			if(out_buf == LEFT_ARROW)
 			{
 				s1->head->direction = HORIZONTAL;
 				s1->head->orientation = LEFT_UP;
 				buf_full = 1;
 			}
-			else if(out_buf == D_KEY)
+			else if(out_buf == RIGHT_ARROW)
 			{
 				s1->head->direction = HORIZONTAL;
 				s1->head->orientation = RIGHT_DOWN;
@@ -125,7 +133,67 @@ int keyboard_event_handler(unsigned long out_buf)
 	}
 	else if( p == MP_T)
 	{
+		if(buf_full == 1)
+					return 0;
 
+				if(s1->head->direction == HORIZONTAL)
+				{
+					if(out_buf == UP_ARROW)
+					{
+						s1->head->direction = VERTICAL;
+						s1->head->orientation = LEFT_UP;
+						buf_full = 1;
+					}
+					else if(out_buf == DOWN_ARROW){
+						s1->head->direction = VERTICAL;
+						s1->head->orientation = RIGHT_DOWN;
+						buf_full = 1;
+					}
+				}
+				else
+				{
+					if(out_buf == LEFT_ARROW)
+					{
+						s1->head->direction = HORIZONTAL;
+						s1->head->orientation = LEFT_UP;
+						buf_full = 1;
+					}
+					else if(out_buf == RIGHT_ARROW)
+					{
+						s1->head->direction = HORIZONTAL;
+						s1->head->orientation = RIGHT_DOWN;
+						buf_full = 1;
+					}
+				}
+				if(s2->head->direction == HORIZONTAL)
+								{
+									if(out_buf == W_KEY)
+									{
+										s2->head->direction = VERTICAL;
+										s2->head->orientation = LEFT_UP;
+										buf_full = 1;
+									}
+									else if(out_buf == S_KEY){
+										s2->head->direction = VERTICAL;
+										s2->head->orientation = RIGHT_DOWN;
+										buf_full = 1;
+									}
+								}
+								else
+								{
+									if(out_buf == A_KEY)
+									{
+										s2->head->direction = HORIZONTAL;
+										s2->head->orientation = LEFT_UP;
+										buf_full = 1;
+									}
+									else if(out_buf == D_KEY)
+									{
+										s2->head->direction = HORIZONTAL;
+										s2->head->orientation = RIGHT_DOWN;
+										buf_full = 1;
+									}
+								}
 	}
 		return 0;
 }
@@ -142,14 +210,28 @@ void game_start(int mode)
 {
 	if (mode == 1) // e modo singleplayer
 	{
-		Snake *s2 = (Snake*)(malloc(sizeof(Snake)));
-						s1 = s2;
+		Snake *s3 = (Snake*)(malloc(sizeof(Snake)));
+						s1 = s3;
 						new_snake(5,10,32, s1);
 						update_matrix_snake(s1);
 						//new_object_matrix(s1);
 						//new_object_matrix(s1);
 						new_object_matrix(s1);
 						draw_screen();
+	}
+	if (mode == 2)
+	{
+		Snake *s3 = (Snake*)(malloc(sizeof(Snake)));
+								s1 = s3;
+								s2 = s3;
+								new_snake(5,10,10, s1);
+								new_snake(5,50,10,s2);
+								update_matrix_snake(s1);
+								update_matrix_snake(s2);
+								//new_object_matrix(s1);
+								//new_object_matrix(s1);
+								new_object_matrix(s1);
+								draw_screen();
 	}
 	//TODO para multiplayer
 }
@@ -201,6 +283,26 @@ void timer_event_handler(unsigned short counter)
 
 
 
+		}
+		else if(p == MP_T)
+		{
+			draw_screen();
+						if(counter%10 == 0)
+						{
+							move_snake(s1);
+							move_snake(s2);
+							printf("running\n");
+							flag_colision = update_matrix_snake(s1);
+							if (flag_colision == 0)
+							{
+								flag_colision = update_matrix_snake(s2);
+							}else
+								update_matrix_snake(s2);
+							printf("Flag colision: %d\n", flag_colision);
+							printf("matrix updated\n");
+
+							buf_full =0;
+						}
 		}
 		/*else if( p == MOKB_T)
 		{

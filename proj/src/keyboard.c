@@ -78,11 +78,10 @@ int receive_buffer(unsigned long *out_buf, unsigned long *out_buf2)
 		(*out_buf2) = (*out_buf)<<8;
 		return 1 ;
 	}
-	if((*out_buf2) == 0)
-	{
+
 		(*out_buf) |= (*out_buf2);
 		(*out_buf2) = 0;
-	}
+
 	return 0;
 
 

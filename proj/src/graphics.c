@@ -360,16 +360,21 @@ int add_fruit_matrix(int x, int y)
 		return 1;
 	else
 	{
-		int col = (x/20)-1;
-		int row = (y/16)-1;
+		int col = (x/20);
+		int row = (y/16);
+		Game_object *obj = (Game_object*)(malloc(sizeof(Game_object)));
+		new_object(obj,0);
+		obj->col = col;
+		obj->row = row;
+
 		printf("nova_coluna:%d  novarow:%d  \n",col,row);
-		if (matrix_graphics[col][row] != NULL)
+		if (matrix_graphics[obj->col][obj->row] != NULL)
 				return 1;
 
 
 		if(fruit_count() < 3)
 		{
-			matrix_graphics[col][row] = maca;
+			matrix_graphics[obj->col][obj->row] = maca;
 			return 0;
 		}
 

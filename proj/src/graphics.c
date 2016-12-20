@@ -261,6 +261,7 @@ void remove_snakes_matrix()
 	}
 
 	printf("snake removed\n");
+
 }
 
 int update_matrix_snake(Snake *s1)
@@ -326,6 +327,97 @@ int update_matrix_snake(Snake *s1)
 	printf("acabou\n");
 	return 0;
 
+}
+
+int update_matrix_snakemp(Snake *s1,Snake *s2)
+{
+	remove_snakes_matrix();
+
+		//printf("okokok3\n");
+		//printf("ROW: %d\n", s1->head->row);
+			//		printf("COLD: %d\n", s1->head->col);
+		if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 ||s2->head->row > 63 || s2->head->row <0 || s2->head->col > 63 || s2->head->col < 0 )
+		{	printf("merdou\n");
+			return 1;
+		}
+
+
+
+		int i=0;
+		segment_snake *seg1 = s1->tail;
+		printf("criou segmento");
+		printf("tail cenas: %d\n", seg1->col);
+
+
+		do
+		{
+			printf("seg1 col: %d\n", seg1->col);
+			printf("seg1 row: %d\n", seg1->row);
+			/*if(seg1 == s1->head)
+					{
+						if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+						{
+							printf("colision\n");
+							return 1;
+						}
+						else if(matrix_graphics[seg1->col][seg1->row] == maca)
+						{
+							inc_snake(s1);
+							new_object_matrix(s1);
+						}
+					}*/
+
+			matrix_graphics[seg1->col][seg1->row] = element;
+
+			seg1 = seg1->before;
+			i++;
+		}while(i < s1->size-1);
+
+		if(seg1 == s1->head)
+				{
+					if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+					{
+						printf("colision\n");
+						return 1;
+					}
+					else if(matrix_graphics[seg1->col][seg1->row] == maca)
+					{
+						inc_snake(s1);
+						new_object_matrix(s1);
+					}
+				}
+
+		matrix_graphics[seg1->col][seg1->row] = element;
+		i = 0;
+		segment_snake *seg2 = s2->tail;
+		do
+			{
+				printf("seg2 col: %d\n", seg2->col);
+				printf("seg2 row: %d\n", seg2->row);
+				matrix_graphics[seg2->col][seg2->row] = element;
+
+				seg2 = seg2->before;
+				i++;
+			}while(i < s2->size-1);
+
+			if(seg2 == s2->head)
+					{
+						if(matrix_graphics[seg2->col][seg2->row] == element)  //TODO need to add other colisions
+						{
+							printf("colision\n");
+							return 1;
+						}
+						else if(matrix_graphics[seg2->col][seg2->row] == maca)
+						{
+							inc_snake(s2);
+							new_object_matrix(s2);
+						}
+					}
+
+			matrix_graphics[seg2->col][seg2->row] = element;
+
+		printf("acabou\n");
+		return 0;
 }
 
 void new_object_matrix(Snake *s1)

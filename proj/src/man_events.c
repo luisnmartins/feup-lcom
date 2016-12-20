@@ -213,6 +213,7 @@ void game_start(int mode)
 		Snake *s3 = (Snake*)(malloc(sizeof(Snake)));
 						s1 = s3;
 						new_snake(5,10,32, s1);
+						//remove_snakes_matrix();
 						update_matrix_snake(s1);
 						//new_object_matrix(s1);
 						//new_object_matrix(s1);
@@ -222,12 +223,12 @@ void game_start(int mode)
 	if (mode == 2)
 	{
 		Snake *s3 = (Snake*)(malloc(sizeof(Snake)));
+		Snake *s4 = (Snake*)(malloc(sizeof(Snake)));
 								s1 = s3;
-								s2 = s3;
+								s2 = s4;
 								new_snake(5,10,10, s1);
-								new_snake(5,50,10,s2);
-								update_matrix_snake(s1);
-								update_matrix_snake(s2);
+								new_snake(5,50,20,s2);
+								update_matrix_snakemp(s1,s2);
 								//new_object_matrix(s1);
 								//new_object_matrix(s1);
 								new_object_matrix(s1);
@@ -289,15 +290,12 @@ void timer_event_handler(unsigned short counter)
 			draw_screen();
 						if(counter%10 == 0)
 						{
-							move_snake(s1);
 							move_snake(s2);
+							move_snake(s1);
+
 							printf("running\n");
-							flag_colision = update_matrix_snake(s1);
-							if (flag_colision == 0)
-							{
-								flag_colision = update_matrix_snake(s2);
-							}else
-								update_matrix_snake(s2);
+							flag_colision = update_matrix_snakemp(s1,s2);
+
 							printf("Flag colision: %d\n", flag_colision);
 							printf("matrix updated\n");
 
@@ -324,7 +322,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		printf("novoLB: %d\n",*lb);
 		update_pos_mouse(x,y);
 		//printf("x: %d, y: %d\n",*x,*y);
-		if(*lb == 1)
+		if(*lb == 1)//TODO adicionar a verificacao se esta no modo certo
 		{
 			add_fruit_matrix(*x,*y);
 

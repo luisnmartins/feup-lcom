@@ -38,7 +38,9 @@ void update_pos_mouse(unsigned long *x, unsigned long *y);
 int update_matrix_snake(Snake *s1);
 //void update_matrix_seg(struct Segment *seg);
 void new_object_matrix(Snake *s1);
+void remove_snakes_matrix();
 int update_matrix_objects(Game_object *obj, Snake *s1);
+int update_matrix_snakemp(Snake *s1,Snake *s2);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

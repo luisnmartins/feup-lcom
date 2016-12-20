@@ -230,8 +230,12 @@ void draw_screen()
 
 void update_pos_mouse(unsigned long *x, unsigned long *y)
 {
+
 	x_pos_atual += (*x);
 	y_pos_atual -= (*y);
+
+	(*y) = y_pos_atual;
+	(*x)= x_pos_atual;
 
 }
 
@@ -313,7 +317,7 @@ int update_matrix_snake(Snake *s1)
 				else if(matrix_graphics[seg1->col][seg1->row] == maca)
 				{
 					inc_snake(s1);
-					new_object_matrix(s1);
+					//new_object_matrix(s1);
 				}
 			}
 
@@ -349,7 +353,54 @@ int update_matrix_objects(Game_object *obj, Snake *s1)
 	return 0;
 
 }
+int add_fruit_matrix(int x, int y)
+{
+	printf("x: %d, y: %d\n",x,y);
+	if(x > 1280 || x < 0 || y >1024 || y <0 )
+		return 1;
+	else
+	{
+		int col = (x/20)-1;
+		int row = (y/16)-1;
+		printf("nova_coluna:%d  novarow:%d  \n",col,row);
+		if (matrix_graphics[col][row] != NULL)
+				return 1;
 
+
+		if(fruit_count() < 3)
+		{
+			matrix_graphics[col][row] = maca;
+			return 0;
+		}
+
+	}
+
+
+
+}
+
+int fruit_count()
+{
+	int how_many = 0;
+	int i_col = 0;
+	int i_row = 0;
+	while(i_col < 64)
+		{
+				while(i_row < 64)
+				{
+					if(matrix_graphics[i_col][i_row] == maca)
+					{
+						how_many++;
+
+					}
+					i_row++;
+				}
+				i_col++;
+				i_row=0;
+		}
+	printf("quantods:%d\n", how_many);
+	return how_many;
+}
 
 
 

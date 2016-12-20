@@ -42,6 +42,8 @@ int update_matrix_objects(Game_object *obj, Snake *s1);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);
+int add_fruit_matrix(int x, int y);
+int fruit_count();
 
 
 

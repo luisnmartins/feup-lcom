@@ -32,12 +32,7 @@ void check_game_status(states *st, event *ev)
 			if(*ev == OPTA)
 			{
 				printf("fixe\n");
-				Snake *s2 = (Snake*)(malloc(sizeof(Snake)));
-				s1 = s2;
-				new_snake(5,10,32, s1);
-				update_matrix_snake(s1);
-				new_object_matrix(s1);
-				draw_screen();
+				game_start(1);
 				//printf("COL: %d\n", s1->head->col);
 				//printf("ROW: %d\n", s1->head->row);
 				if(s1->tail == NULL || s1->head == NULL)
@@ -143,6 +138,22 @@ void change_to_start()
 	//printf("ROW1: %d\n", s1->head->row);
 }
 
+void game_start(int mode)
+{
+	if (mode == 1) // e modo singleplayer
+	{
+		Snake *s2 = (Snake*)(malloc(sizeof(Snake)));
+						s1 = s2;
+						new_snake(5,10,32, s1);
+						update_matrix_snake(s1);
+						//new_object_matrix(s1);
+						//new_object_matrix(s1);
+						new_object_matrix(s1);
+						draw_screen();
+	}
+	//TODO para multiplayer
+}
+
 
 void timer_event_handler(unsigned short counter)
 {
@@ -208,7 +219,16 @@ void mouse_event_handler(unsigned long *packet_mouse)
 	printf("ALOCA MEMORIA PACKETS\n");
 	if(print_packet(3, packet_mouse, x, y, lb) == 0)
 	{
+		printf("novoLB: %d\n",*lb);
 		update_pos_mouse(x,y);
+		//printf("x: %d, y: %d\n",*x,*y);
+		if(*lb == 1)
+		{
+			add_fruit_matrix(*x,*y);
+
+		}
+
+
 
 	}
 }

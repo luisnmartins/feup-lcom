@@ -78,7 +78,11 @@ int main()
 							{
 
 								if(get_packets(&counter_mouse, &packet_mouse, &out_buf_mouse) == 0)
+
+									{
 									mouse_event_handler(&packet_mouse);
+									draw_screen();
+									}
 							}
 							break;
 						}

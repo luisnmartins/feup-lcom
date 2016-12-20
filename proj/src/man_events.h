@@ -10,6 +10,7 @@
 int keyboard_event_handler(unsigned long out_buf);
 void timer_event_handler(unsigned short counter);
 void mouse_event_handler(unsigned long *packet_mouse);
+void game_start(int mode);
 
 
 

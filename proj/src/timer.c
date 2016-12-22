@@ -84,7 +84,7 @@ int timer_unsubscribe_int() {
 
 }
 
-void timer_int_handler(int *counter) {
+void timer_int_handler(unsigned short *counter) {
 
 	(*counter)++;
 

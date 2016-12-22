@@ -38,7 +38,7 @@ int timer_unsubscribe_int();
  *
  * Increments counter
  */
-void timer_int_handler(int *counter);
+void timer_int_handler(unsigned short *counter);
 
 /**
  * @brief Reads the input timer configuration via read-back command

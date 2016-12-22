@@ -117,22 +117,22 @@ int set_kbc_mouse() {
 }
 
 
-int get_packets(unsigned short *counter, unsigned long *packet_mouse, unsigned long out_buf_mouse)
+int get_packets(unsigned short *counter, unsigned long *packet_mouse, unsigned long *out_buf_mouse)
 {
 
 	printf("GET PACKETS\n");
-	out_buf_mouse = mouse_int_handler();
-	if(out_buf_mouse == -1)
+	(*out_buf_mouse) = mouse_int_handler();
+	if((*out_buf_mouse) == -1)
 	{
 			(*counter) = 0;
 			return 1;
 	}
 	if ((*counter) == 0)
 	{
-		if (out_buf_mouse & VERIFY_PACKET)
+		if ((*out_buf_mouse) & VERIFY_PACKET)
 		{
 
-			packet_mouse[0] = out_buf_mouse;
+			packet_mouse[0] = (*out_buf_mouse);
 
 		} else return 1;
 
@@ -140,12 +140,12 @@ int get_packets(unsigned short *counter, unsigned long *packet_mouse, unsigned l
 	else if ((*counter) == 1)
 	{
 
-		packet_mouse[1] = out_buf_mouse;
+		packet_mouse[1] = (*out_buf_mouse);
 
 	}
 	else if ((*counter) == 2)
 	{
-		packet_mouse[2] = out_buf_mouse;
+		packet_mouse[2] = (*out_buf_mouse);
 		printf("ACABOU LEITURA\n");
 		(*counter) = 0;
 		return 0;

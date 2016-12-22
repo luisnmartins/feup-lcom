@@ -18,7 +18,7 @@ static Snake *s1;
 static Snake *s2;
 static int flag_colision = 0;
 static int buf_full =0;
-
+static date_rtc *date;
 
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
 
@@ -241,6 +241,10 @@ void game_start(int mode)
 void timer_event_handler(unsigned short counter)
 {
 
+	if(can_read_date() == 0)
+	{
+
+	}
 	if(p == MENU_T)
 	{
 		change_to_start();
@@ -327,8 +331,6 @@ void mouse_event_handler(unsigned long *packet_mouse)
 			add_fruit_matrix(*x,*y);
 
 		}
-
-
 
 	}
 }

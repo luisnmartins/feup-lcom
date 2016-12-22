@@ -47,7 +47,7 @@
 #define ERROR 0xFC
 
 
-// ------- RATO
+// ------- MOUSE
 
 #define MS_OUT_BUF 0x60		//mouse out_buf
 #define MS_IRQ 12   //Mouse IRQ
@@ -78,7 +78,18 @@
 #define TOLERAN 5
 
 
+// ---------- RTC
 
+#define RTC_ADDR_REG 0x70
+#define RTC_DATA_REG 0x71
+#define RTC_REG_A 0xA
+#define RTC_UIP BIT(7)
+#define RTC_SEC_REG 0x00
+#define RTC_MIN_REG 0x02
+#define RTC_H_REG 0x04
+#define RTC_DAY_REG 0x07
+#define RTC_MON_REG 0x08
+#define RTC_YEAR_REG 0x09
 
 
 #endif /* _CONSTANTS_H */

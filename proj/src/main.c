@@ -34,13 +34,13 @@ int main()
 	message msg;
 	int r;
 	unsigned long out_buf = 0, out_buf2 = 0;
-	unsigned short out_buf_mouse =0;
+	unsigned long out_buf_mouse =0;
 	unsigned short counter=0;
 	unsigned short flag_outbuf=0;
 	unsigned short flag_end=0;
 	unsigned long packet_mouse[3];
 	unsigned short counter_mouse =0;
-	//lixo = keyboard_int_handler();
+	unsigned short
 	unsigned long status;
 
 	while (1) { /* You may want to use a different condition */

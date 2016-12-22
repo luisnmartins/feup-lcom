@@ -50,7 +50,7 @@ void new_snake(int size, unsigned short row, unsigned short col, Snake* s1)
 void inc_snake(Snake *s1)
 {
 	segment_snake* new_seg = NULL;
-	new_seg = malloc(sizeof(segment_snake));
+	new_seg = (segment_snake*)malloc(sizeof(segment_snake));
 	int inc = s1->tail->orientation;
 	int dir = s1->tail->direction;
 	if(dir == HORIZONTAL)
@@ -88,7 +88,7 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col)
 	if(s1->head == NULL)
 	{
 		segment_snake* new_seg = NULL;
-		new_seg = malloc(sizeof(segment_snake));
+		new_seg = (segment_snake*)malloc(sizeof(segment_snake));
 		if(new_seg == NULL)
 		{
 
@@ -107,7 +107,7 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col)
 	else
 	{
 		segment_snake* new_seg = NULL;
-		new_seg = malloc(sizeof(segment_snake));
+		new_seg = (segment_snake*)malloc(sizeof(segment_snake));
 		//printf("cola: %d\n", col);
 		new_seg->row = row;
 		new_seg->col = col;
@@ -131,7 +131,7 @@ void move_snake(Snake* s1)
 
 
 	segment_snake* new_seg = NULL;
-	new_seg = malloc(sizeof(segment_snake));
+	new_seg = (segment_snake*)malloc(sizeof(segment_snake));
 
 	//segment_snake* remove = s1->tail;
 	int inc = s1->head->orientation;
@@ -168,8 +168,7 @@ void move_snake(Snake* s1)
 
 
 
-	}else
-	if(s1->head->direction == VERTICAL)
+	}else if(s1->head->direction == VERTICAL)
 	{
 
 				row += inc;

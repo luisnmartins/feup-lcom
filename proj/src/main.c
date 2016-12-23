@@ -40,7 +40,6 @@ int main()
 	unsigned short flag_end=0;
 	unsigned long packet_mouse[3];
 	unsigned short counter_mouse =0;
-	unsigned short
 	unsigned long status;
 
 	while (1) { /* You may want to use a different condition */

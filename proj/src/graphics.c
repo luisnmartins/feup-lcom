@@ -229,7 +229,7 @@ void draw_menu()
 void draw_time(int hour,int min, int seconds)
 {
 	//memcpy(video_mem,double_buffer,SCREEN_SIZE);
-	int x_inicial =800;
+	int x_inicial =700;
 	int y_inicial = 100;
 	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
 	x_inicial += 60;

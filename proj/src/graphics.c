@@ -1,4 +1,3 @@
-
 #include "graphics.h"
 
 static char *double_buffer;
@@ -73,12 +72,29 @@ void *vg_init(unsigned short mode) {
 		panic("couldn't map video memory");
 
 	snap = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/snapchat20-16.bmp");
-	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/MACCA.bmp");
-	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/Untitled.bmp");
+	cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
+	cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
+	cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
+	cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
+	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/macaq.bmp");
+	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
 	white = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/3white.bmp");
-	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg3.bmp");
+	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg.bmp");
+	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
+	cursor = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cursor.bmp");
+	numbers[0]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number0.bmp");
+	numbers[1]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number1.bmp");
+	numbers[2]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number2.bmp");
+	numbers[3]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number3.bmp");
+	numbers[4]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number4.bmp");
+	numbers[5]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number5.bmp");
+	numbers[6]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number6.bmp");
+	numbers[7]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number7.bmp");
+	numbers[8]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number8.bmp");
+	numbers[9]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number9.bmp");
 
-	memset(video_mem, 1, SCREEN_SIZE);
+
+	//memset(video_mem, 1, SCREEN_SIZE);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
 }
@@ -184,7 +200,10 @@ int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned 
 
 
 }
-
+void clear_matrix()
+{
+	memset(matrix_graphics,NULL,sizeof(matrix_graphics[0][0])*64*64);
+}
 
 int clear_pos(unsigned short line, unsigned short col)
 {
@@ -196,6 +215,39 @@ int clear_pos(unsigned short line, unsigned short col)
 	else
 		return 1;
 }
+void draw_menu()
+{
+
+	memcpy(video_mem,double_buffer, SCREEN_SIZE);
+	//memset(double_buffer,0,SCREEN_SIZE);
+	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
+	update_menu_mouse();
+	//drawbackground(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+
+
+}
+void draw_time(int hour,int min, int seconds)
+{
+	//memcpy(video_mem,double_buffer,SCREEN_SIZE);
+	int x_inicial =800;
+	int y_inicial = 100;
+	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 60;
+	drawBitmap(double_buffer,numbers[(hour%10)],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 65;
+	drawBitmap(double_buffer,numbers[(min/10)],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 60;
+	drawBitmap(double_buffer,numbers[(min%10)],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 65;
+	drawBitmap(double_buffer,numbers[(seconds/10)],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 60;
+	drawBitmap(double_buffer,numbers[(seconds%10)],x_inicial,y_inicial,ALIGN_LEFT);
+
+}
+void  update_menu_mouse()
+{
+	drawBitmap(double_buffer,cursor,x_pos_atual,y_pos_atual,ALIGN_LEFT);
+}
 
 void draw_screen()
 {
@@ -203,7 +255,7 @@ void draw_screen()
 	int i_row=0;
 
 	memcpy(video_mem, double_buffer, SCREEN_SIZE);
-	memset(double_buffer, 0, SCREEN_SIZE);
+	//memset(double_buffer, 0, SCREEN_SIZE);
 	drawbackground(double_buffer, bg, 0, 0, ALIGN_LEFT);
 	//drawBitmap(double_buffer, maca, 200, 200, ALIGN_LEFT);
 
@@ -222,9 +274,9 @@ void draw_screen()
 			i_col++;
 			i_row=0;
 		}
-		drawBitmap(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+		//drawBitmap(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 		printf("acabou screen\n");
-
+		//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 }
 
 
@@ -318,11 +370,24 @@ int update_matrix_snake(Snake *s1)
 				else if(matrix_graphics[seg1->col][seg1->row] == maca)
 				{
 					inc_snake(s1);
-					//new_object_matrix(s1);
+					new_object_matrix(s1);
 				}
 			}
+	if(s1->head->direction == HORIZONTAL)
+	{
+		if(s1->head->orientation == RIGHT_DOWN)
+			matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+		else
+			matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+	}
+	else
+	{
+		if(s1->head->orientation == RIGHT_DOWN)
+			matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+		else
+			matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+	}
 
-	matrix_graphics[seg1->col][seg1->row] = element;
 
 	printf("acabou\n");
 	return 0;
@@ -387,7 +452,20 @@ int update_matrix_snakemp(Snake *s1,Snake *s2)
 					}
 				}
 
-		matrix_graphics[seg1->col][seg1->row] = element;
+		if(s1->head->direction == HORIZONTAL)
+			{
+				if(s1->head->orientation == RIGHT_DOWN)
+					matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+				else
+					matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+			}
+			else
+			{
+				if(s1->head->orientation == RIGHT_DOWN)
+					matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+				else
+					matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+			}
 		i = 0;
 		segment_snake *seg2 = s2->tail;
 		do
@@ -414,7 +492,20 @@ int update_matrix_snakemp(Snake *s1,Snake *s2)
 						}
 					}
 
-			matrix_graphics[seg2->col][seg2->row] = element;
+			if(s2->head->direction == HORIZONTAL)
+				{
+					if(s2->head->orientation == RIGHT_DOWN)
+						matrix_graphics[seg2->col][seg2->row] = cabeca1hd;
+					else
+						matrix_graphics[seg2->col][seg2->row] = cabeca1he;
+				}
+				else
+				{
+					if(s2->head->orientation == RIGHT_DOWN)
+						matrix_graphics[seg2->col][seg2->row] = cabeca1vb;
+					else
+						matrix_graphics[seg2->col][seg2->row] = cabeca1vc;
+				}
 
 		printf("acabou\n");
 		return 0;
@@ -435,12 +526,17 @@ void new_object_matrix(Snake *s1)
 int update_matrix_objects(Game_object *obj, Snake *s1)
 {
 
+	if(obj->col < 4 || obj->col >= 60 || obj->row < 4 || obj->row >= 60)
+		{
+			return 1;
+		}
 	if(matrix_graphics[obj->col][obj->row] != NULL)
 		return 1;
 	if((abs(obj->row - s1->head->row) < 2 || abs(obj->col - s1->head->col) < 2) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
 	{
 		return 1;
 	}
+
 	matrix_graphics[obj->col][obj->row] = maca;
 	return 0;
 
@@ -462,7 +558,10 @@ int add_fruit_matrix(int x, int y)
 		printf("nova_coluna:%d  novarow:%d  \n",col,row);
 		if (matrix_graphics[obj->col][obj->row] != NULL)
 				return 1;
-
+		if(col < 4 || col >= 60 || row < 4 || row >=60)
+		{
+			return 1;
+		}
 
 		if(fruit_count() < 3)
 		{
@@ -498,6 +597,3 @@ int fruit_count()
 	printf("quantods:%d\n", how_many);
 	return how_many;
 }
-
-
-

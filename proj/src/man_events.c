@@ -18,7 +18,7 @@ static Snake *s1;
 static Snake *s2;
 static int flag_colision = 0;
 static int buf_full =0;
-static date_rtc *date;
+
 
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
 
@@ -58,8 +58,10 @@ void check_game_status(states *st, event *ev)
 
 		if(*ev == COLISION)
 		{
+
 			printf("tenta mudar de estado\n");
-			*st = END_T;
+			clear_matrix();
+			*st = MENU_T;
 		}
 		break;
 	}
@@ -67,7 +69,8 @@ void check_game_status(states *st, event *ev)
 		if(*ev == COLISION)
 				{
 					printf("tenta mudar de estado\n");
-					*st = END_T;
+					clear_matrix();
+					*st = MENU_T;
 				}
 		if(*ev == OPTA)
 		{
@@ -88,6 +91,14 @@ void check_game_status(states *st, event *ev)
 
 int keyboard_event_handler(unsigned long out_buf)
 {
+	if (p == MENU_T)
+	{
+		if(out_buf == ESC_CODE)
+		{
+			return 1;
+		}
+
+	}
 	printf("P: %d", p);
 	if(p == END_T)
 	{
@@ -215,8 +226,8 @@ void game_start(int mode)
 						new_snake(5,10,32, s1);
 						//remove_snakes_matrix();
 						update_matrix_snake(s1);
-						//new_object_matrix(s1);
-						//new_object_matrix(s1);
+						new_object_matrix(s1);
+						new_object_matrix(s1);
 						new_object_matrix(s1);
 						draw_screen();
 	}
@@ -238,17 +249,29 @@ void game_start(int mode)
 }
 
 
-void timer_event_handler(unsigned short counter)
+int timer_event_handler(unsigned short counter)
 {
 
-	if(can_read_date() == 0)
+	update_date(&date);
+	if(p == EXIT_T)
 	{
-
+		return 1;
 	}
+
 	if(p == MENU_T)
 	{
-		change_to_start();
+
+			int hour = bcd_to_decimal(date.hour);
+			int min = bcd_to_decimal(date.min);
+			int sec = bcd_to_decimal(date.sec);
+			draw_time(hour,min,sec);
+
+
+		//change_to_start();
+		draw_menu();
+		//update_menu_mouse();
 		printf("changed\n");
+		return 0;
 	}
 
 	if(flag_colision == 1)
@@ -259,7 +282,9 @@ void timer_event_handler(unsigned short counter)
 					event col_event = COLISION;
 					check_game_status(&p, &col_event);
 					draw_screen();
+					flag_colision = 0;
 					printf("p: %d\n",p);
+					return 0;
 
 
 				}
@@ -286,11 +311,12 @@ void timer_event_handler(unsigned short counter)
 			}
 			//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
-
+			return 0;
 
 		}
 		else if(p == MP_T)
 		{
+			update_menu_mouse();
 			draw_screen();
 						if(counter%10 == 0)
 						{
@@ -305,18 +331,19 @@ void timer_event_handler(unsigned short counter)
 
 							buf_full =0;
 						}
+						return 0;
 		}
-		/*else if( p == MOKB_T)
-		{
-			draw_screen();
-			draw_mouse();
-		}*/
-	return;
+
+
 }
 
 
 void mouse_event_handler(unsigned long *packet_mouse)
 {
+	if(p == SP_T || p == KBC_T)
+	{
+		return;
+	}
 	long *x = (long*)malloc(sizeof(long));
 	long *y = (long*)malloc(sizeof(long));
 	unsigned short *lb = (unsigned short*)malloc(sizeof(unsigned short));
@@ -326,11 +353,26 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		printf("novoLB: %d\n",*lb);
 		update_pos_mouse(x,y);
 		//printf("x: %d, y: %d\n",*x,*y);
-		if(*lb == 1)//TODO adicionar a verificacao se esta no modo certo
+		if(p == MENU_T)
+		{
+			if(*x >= 478 && *y >=404 && *x <=(478+278) && *y <= (404+85) && *lb==1  )
+			{
+				event t= OPTA;
+				check_game_status(&p,&t);
+			}else
+				if(*x >= 488 && *y >=620 && *x <=(488+276) && *y <= (620+80) && *lb==1 )
+				{
+					event t= OPTC;
+					check_game_status(&p,&t);
+				}
+		}
+		if(*lb == 1 && p == MOKB_T)//TODO adicionar a verificacao se esta no modo certo
 		{
 			add_fruit_matrix(*x,*y);
 
 		}
+
+
 
 	}
 }

@@ -8,6 +8,8 @@
 #define V_RES		  1024
 #define BITS_PER_PIXEL	  16
 #define SCREEN_SIZE  H_RES*V_RES*BITS_PER_PIXEL/8
+#define HORIZONTAL_PAINT 0
+#define VERTICAL_PAINT 1
 
 
 // -------------- KEYB0ARD
@@ -83,6 +85,8 @@
 #define RTC_ADDR_REG 0x70
 #define RTC_DATA_REG 0x71
 #define RTC_REG_A 0xA
+#define RTC_REG_B 0xB
+#define BINARY_MODE BIT(2)
 #define RTC_UIP BIT(7)
 #define RTC_SEC_REG 0x00
 #define RTC_MIN_REG 0x02
@@ -93,4 +97,3 @@
 
 
 #endif /* _CONSTANTS_H */
-

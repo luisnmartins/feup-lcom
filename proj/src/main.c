@@ -57,7 +57,12 @@ int main()
 							{
 								printf("interrupt timer\n");
 								timer_int_handler(&counter);
-								timer_event_handler(counter);
+								if(timer_event_handler(counter) == 1)
+								{
+									flag_end =1 ;
+									break;
+								}
+
 
 							}
 							if(msg.NOTIFY_ARG & irq_kb)
@@ -81,7 +86,7 @@ int main()
 
 									{
 									mouse_event_handler(&packet_mouse);
-									draw_screen();
+									//draw_screen();
 									}
 							}
 							break;

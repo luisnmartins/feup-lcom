@@ -92,7 +92,9 @@ void *vg_init(unsigned short mode) {
 	numbers[7]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number7.bmp");
 	numbers[8]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number8.bmp");
 	numbers[9]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number9.bmp");
-
+	numbers[10] =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/twodots.bmp");
+	sp_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameControllersSP.bmp");
+	mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
 
 	//memset(video_mem, 1, SCREEN_SIZE);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
@@ -117,6 +119,10 @@ int start_mode()
 		}
 
 
+}
+void clear_screen()
+{
+	memset(video_mem,0,SCREEN_SIZE);
 }
 
 
@@ -215,38 +221,62 @@ int clear_pos(unsigned short line, unsigned short col)
 	else
 		return 1;
 }
-void draw_menu()
+void draw_menu(int mode)
 {
-
-	memcpy(video_mem,double_buffer, SCREEN_SIZE);
+	if(mode == 0)
+	{
+		memcpy(video_mem,double_buffer, SCREEN_SIZE);
 	//memset(double_buffer,0,SCREEN_SIZE);
 	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
 	update_menu_mouse();
 	//drawbackground(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+
+	}else
+		if (mode == 1)
+		{
+			memcpy(video_mem,double_buffer, SCREEN_SIZE);
+			//memset(double_buffer,0,SCREEN_SIZE);
+			drawbackground(double_buffer,mp_menu,0,0,ALIGN_LEFT);
+			update_menu_mouse();
+			//drawbackground(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+		}
 
 
 }
 void draw_time(int hour,int min, int seconds)
 {
 	//memcpy(video_mem,double_buffer,SCREEN_SIZE);
-	int x_inicial =700;
-	int y_inicial = 100;
+	int x_inicial =850;
+	int y_inicial = 75;
 	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 60;
+	x_inicial += 40;
 	drawBitmap(double_buffer,numbers[(hour%10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 65;
+	x_inicial += 40;
+	drawBitmap(double_buffer,numbers[10],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial +=40;
 	drawBitmap(double_buffer,numbers[(min/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 60;
+	x_inicial += 40;
 	drawBitmap(double_buffer,numbers[(min%10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 65;
+	x_inicial += 40;
+	drawBitmap(double_buffer,numbers[10],x_inicial,y_inicial,ALIGN_LEFT);
+	x_inicial += 40;
 	drawBitmap(double_buffer,numbers[(seconds/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 60;
+	x_inicial += 40;
 	drawBitmap(double_buffer,numbers[(seconds%10)],x_inicial,y_inicial,ALIGN_LEFT);
 
 }
 void  update_menu_mouse()
 {
 	drawBitmap(double_buffer,cursor,x_pos_atual,y_pos_atual,ALIGN_LEFT);
+}
+
+void draw_instructions(int mode)
+{
+	if (mode == 1)
+	{
+		drawBitmap(double_buffer,sp_inst,0,0,ALIGN_LEFT);
+		memcpy(video_mem,double_buffer,SCREEN_SIZE);
+	}
 }
 
 void draw_screen()
@@ -316,7 +346,7 @@ void remove_snakes_matrix()
 
 }
 
-int update_matrix_snake(Snake *s1)
+int update_matrix_snake(Snake *s1,int mouse)
 {
 	remove_snakes_matrix();
 
@@ -370,6 +400,7 @@ int update_matrix_snake(Snake *s1)
 				else if(matrix_graphics[seg1->col][seg1->row] == maca)
 				{
 					inc_snake(s1);
+					if(mouse == 0)
 					new_object_matrix(s1);
 				}
 			}

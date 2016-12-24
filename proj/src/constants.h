@@ -31,6 +31,7 @@
 #define W_KEY 0x91
 #define S_KEY 0x9F
 #define D_KEY 0xA0
+#define ENTER  0x001C
 
 
 #define NBIT(n) (0xFF^BIT(n))

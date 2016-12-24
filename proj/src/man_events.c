@@ -2,14 +2,15 @@
 #include "man_events.h"
 
 typedef enum {
-	MENU_T, SP_T, MP_T, MOKB_T ,KBC_T, EXIT_T, END_T
+	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T
 } states;
 
 typedef enum {
-	OPTA, OPTB, OPTC, COLISION, START_E ,ESC_PRESSED//mais cenas
+	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED//mais cenas
 } event;
 
 states p=MENU_T;
+ event t;
 
 
 //static states *matrix_states[64][64] = {NULL};   //col x line
@@ -32,26 +33,50 @@ void check_game_status(states *st, event *ev)
 
 			if(*ev == OPTA)
 			{
+				draw_instructions(1);
 				printf("fixe\n");
-				game_start(1);
+				//game_start(1);
 				//printf("COL: %d\n", s1->head->col);
 				//printf("ROW: %d\n", s1->head->row);
-				if(s1->tail == NULL || s1->head == NULL)
-					printf("nao deu\n");
-				*ev = START_E;
-				*st = SP_T;
+				/*if(s1->tail == NULL || s1->head == NULL)
+					printf("nao deu\n");*/
+				//*ev = START_E;
+				//TODO draw rules;
+				*st = WAIT_T;
 			}
-			else if (*ev == OPTB)
-				{game_start(2);
-				*st = MP_T;
+			 if (*ev == OPTB)
+				{//game_start(2);
+				 printf("SIMMMMMMMMM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+				*st = MPMENU_T;
 				}
-			else if (*ev == OPTC)
+			if (*ev == OPTC)
 				*st = EXIT_T;
 			break;
 		}
 	/*case EXIT:
 		//sai do programa
 		break;*/
+	case WAIT_T:
+	{
+		if(*ev == START_E)
+		{
+			if(t == OPTA)
+			{
+				game_start(1);
+				*st = SP_T;
+			}
+			else if(t == OPTB_1)
+			{
+				game_start(2);
+				*st= KBC_T;
+			}else if (t== OPTB_2)
+			{
+				game_start(3);
+				*st = MOKB_T;
+			}
+
+		}
+	}
 	case SP_T:
 		//TODO
 	{
@@ -65,24 +90,44 @@ void check_game_status(states *st, event *ev)
 		}
 		break;
 	}
-	case MP_T:
-		if(*ev == COLISION)
+	case MPMENU_T:
+	{/*if(*ev == COLISION)
 				{
 					printf("tenta mudar de estado\n");
 					clear_matrix();
 					*st = MENU_T;
-				}
-		if(*ev == OPTA)
+				}*/
+		if(*ev == OPTB_1)
 		{
 			//TODO gera ecra e cobra
-			*st = KBC_T;
+			*st = WAIT_T;
 		}
-		else if (*ev == OPTB)
+		else if (*ev == OPTB_2)
 		{
 			//TODO gera ecra e cobra
-			*st = MOKB_T;
+			*st = WAIT_T;
+		}else if (*ev == OPTC)
+		{
+			*st = MENU_T;
 		}
 		break;
+	}
+	case KBC_T:
+		if(*ev == COLISION)
+						{
+							printf("tenta mudar de estado\n");
+							clear_matrix();
+							*st = MENU_T;
+						}
+		break;
+	case MOKB_T:
+		if(*ev == COLISION)
+								{
+									printf("tenta mudar de estado\n");
+									clear_matrix();
+									*st = MENU_T;
+								}
+				break;
 
 	}
 	return;
@@ -99,6 +144,23 @@ int keyboard_event_handler(unsigned long out_buf)
 		}
 
 	}
+	if( p== MPMENU_T)
+	{
+		if(out_buf == ESC_CODE)
+		{
+			p = MENU_T;
+		}
+	}
+
+	if (p == WAIT_T)
+	{
+		if(out_buf == ENTER)
+		{
+			event start_game = START_E;
+			check_game_status(&p,&start_game);
+			return 0;
+		}
+	}
 	printf("P: %d", p);
 	if(p == END_T)
 	{
@@ -107,7 +169,7 @@ int keyboard_event_handler(unsigned long out_buf)
 			return 1;
 		}
 	}
-	if(p == SP_T)
+	if(p == SP_T || p == MOKB_T)
 	{
 		if(buf_full == 1)
 			return 0;
@@ -142,7 +204,7 @@ int keyboard_event_handler(unsigned long out_buf)
 			}
 		}
 	}
-	else if( p == MP_T)
+	else if( p == KBC_T)
 	{
 		if(buf_full == 1)
 					return 0;
@@ -225,7 +287,7 @@ void game_start(int mode)
 						s1 = s3;
 						new_snake(5,10,32, s1);
 						//remove_snakes_matrix();
-						update_matrix_snake(s1);
+						update_matrix_snake(s1,0);
 						new_object_matrix(s1);
 						new_object_matrix(s1);
 						new_object_matrix(s1);
@@ -240,9 +302,21 @@ void game_start(int mode)
 								new_snake(5,10,10, s1);
 								new_snake(5,50,20,s2);
 								update_matrix_snakemp(s1,s2);
-								//new_object_matrix(s1);
-								//new_object_matrix(s1);
 								new_object_matrix(s1);
+								new_object_matrix(s1);
+								new_object_matrix(s1);
+								draw_screen();
+	}
+	if (mode == 3)
+	{
+		Snake *s3 = (Snake*)(malloc(sizeof(Snake)));
+								s1 = s3;
+								new_snake(5,10,32, s1);
+								//remove_snakes_matrix();
+								update_matrix_snake(s1,1);
+								//new_object_matrix(s1);
+								//new_object_matrix(s1);
+								//new_object_matrix(s1);
 								draw_screen();
 	}
 	//TODO para multiplayer
@@ -268,13 +342,23 @@ int timer_event_handler(unsigned short counter)
 
 
 		//change_to_start();
-		draw_menu();
+		draw_menu(0);
 		//update_menu_mouse();
 		printf("changed\n");
-		return 0;
+
+	}
+	if (p == MPMENU_T)
+	{
+		printf("ENTROU EM MPMENU_T!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		int hour = bcd_to_decimal(date.hour);
+		int min = bcd_to_decimal(date.min);
+		int sec = bcd_to_decimal(date.sec);
+		draw_time(hour,min,sec);
+		draw_menu(1);
+
 	}
 
-	if(flag_colision == 1)
+	if(flag_colision == 1 && (p== SP_T || p == KBC_T || p == MOKB_T))
 				{
 
 					printf("mudanca estado\n");
@@ -295,15 +379,22 @@ int timer_event_handler(unsigned short counter)
 		//printf("C: %d\n", s1->head->col);
 
 
-		if(p == SP_T)
+		if(p == SP_T || p == MOKB_T)
 		{
-
+			if(p == MOKB_T)
+			{
+				update_menu_mouse();
+			}
 			draw_screen();
 			if(counter%10 == 0)
 			{
 				move_snake(s1);
 				printf("running\n");
-				flag_colision = update_matrix_snake(s1);
+				if(p == MOKB_T)
+				{
+					flag_colision = update_matrix_snake(s1,1);
+				}else
+				{flag_colision = update_matrix_snake(s1,0);}
 				printf("Flag colision: %d\n", flag_colision);
 				printf("matrix updated\n");
 
@@ -314,7 +405,7 @@ int timer_event_handler(unsigned short counter)
 			return 0;
 
 		}
-		else if(p == MP_T)
+		else if(p == KBC_T)
 		{
 			update_menu_mouse();
 			draw_screen();
@@ -355,17 +446,50 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		//printf("x: %d, y: %d\n",*x,*y);
 		if(p == MENU_T)
 		{
-			if(*x >= 478 && *y >=404 && *x <=(478+278) && *y <= (404+85) && *lb==1  )
+			if(*x >= 370 && *y >=374 && *x <=(370+542) && *y <= (374+116) && *lb==1 )
 			{
-				event t= OPTA;
+				t= OPTA;
 				check_game_status(&p,&t);
-			}else
-				if(*x >= 488 && *y >=620 && *x <=(488+276) && *y <= (620+80) && *lb==1 )
+				return ;
+			}
+			if(*x >= 370 && *y >=522 && *x <=(370+538) && *y <= (522+112) && *lb==1)
+			{
+				printf("RECONHECEU OPCAO MULTIPLAYER !!!!!!!!!!!!\n");
+				t = OPTB;
+				//clear_screen();
+				check_game_status(&p,&t);
+				printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP: %d!!!\n",p);
+				return ;
+			}
+
+			if(*x >= 370 && *y >=658 && *x <=(370+542) && *y <= (658+116) && *lb==1 )
 				{
-					event t= OPTC;
+					t= OPTC;
 					check_game_status(&p,&t);
+					return;
 				}
 		}
+		if(p == MPMENU_T)
+				{
+					if(*x >= 370 && *y >=374 && *x <=(370+542) && *y <= (374+116) && *lb==1  )
+					{
+						t= OPTB_1;
+						check_game_status(&p,&t);
+						return;
+					}
+					if(*x >= 370 && *y >=658 && *x <=(370+542) && *y <= (658+116) && *lb==1 )
+						{
+							t= OPTC;
+							check_game_status(&p,&t);
+							return;
+						}
+					if(*x >= 370 && *y >=522 && *x <=(370+542) && *y <= (522+116) && *lb==1)
+						{
+							t = OPTB_2;
+							check_game_status(&p,&t);
+							return;
+						}
+				}
 		if(*lb == 1 && p == MOKB_T)//TODO adicionar a verificacao se esta no modo certo
 		{
 			add_fruit_matrix(*x,*y);

@@ -407,12 +407,13 @@ int timer_event_handler(unsigned short counter)
 		}
 		else if(p == KBC_T)
 		{
-			update_menu_mouse();
+			//update_menu_mouse();
 			draw_screen();
 						if(counter%10 == 0)
 						{
 							move_snake(s2);
 							move_snake(s1);
+
 
 							printf("running\n");
 							flag_colision = update_matrix_snakemp(s1,s2);

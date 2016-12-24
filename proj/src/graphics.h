@@ -22,7 +22,8 @@
 //Bitmaps
 static Bitmap *snap;
 static Bitmap *maca;
-static Bitmap *element;
+static Bitmap *body;
+static Bitmap *body2;
 static Bitmap *mouse;
 static Bitmap *white;
 static Bitmap *bg;
@@ -31,6 +32,10 @@ static Bitmap *cabeca1hd;
 static Bitmap *cabeca1he;
 static Bitmap *cabeca1vc;
 static Bitmap *cabeca1vb;
+static Bitmap *cabeca2hd;
+static Bitmap *cabeca2he;
+static Bitmap *cabeca2vc;
+static Bitmap *cabeca2vb;
 static Bitmap *main_menu;
 static Bitmap *mp_menu;
 static Bitmap *cursor;

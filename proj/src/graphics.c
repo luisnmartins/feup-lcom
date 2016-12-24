@@ -76,8 +76,13 @@ void *vg_init(unsigned short mode) {
 	cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
 	cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
 	cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
+	cabeca2hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
+	cabeca2he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
+	cabeca2vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
+	cabeca2vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
 	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/macaq.bmp");
-	element = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+	body = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+	body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
 	white = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/3white.bmp");
 	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg.bmp");
 	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
@@ -229,7 +234,7 @@ void draw_menu(int mode)
 	//memset(double_buffer,0,SCREEN_SIZE);
 	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
 	update_menu_mouse();
-	//drawbackground(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+	//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 
 	}else
 		if (mode == 1)
@@ -238,7 +243,7 @@ void draw_menu(int mode)
 			//memset(double_buffer,0,SCREEN_SIZE);
 			drawbackground(double_buffer,mp_menu,0,0,ALIGN_LEFT);
 			update_menu_mouse();
-			//drawbackground(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+			//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 		}
 
 
@@ -274,7 +279,7 @@ void draw_instructions(int mode)
 {
 	if (mode == 1)
 	{
-		drawBitmap(double_buffer,sp_inst,0,0,ALIGN_LEFT);
+		drawbackground(double_buffer,sp_inst,0,0,ALIGN_LEFT);
 		memcpy(video_mem,double_buffer,SCREEN_SIZE);
 	}
 }
@@ -295,16 +300,23 @@ void draw_screen()
 			{
 				if(matrix_graphics[i_col][i_row] != NULL)
 				{
-					drawBitmap(double_buffer, matrix_graphics[i_col][i_row], 20*i_col, 16*i_row, ALIGN_LEFT);
+					if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2)
+					{
+						drawbackground(double_buffer,matrix_graphics[i_col][i_row],20*i_col,16*i_row,ALIGN_LEFT);
+					}else
+					{
+						drawBitmap(double_buffer, matrix_graphics[i_col][i_row], 20*i_col, 16*i_row, ALIGN_LEFT);
 					printf("linha: %d\n", i_row);
 					printf("coluna: %d\n", i_col);
+					}
+
 				}
 				i_row++;
 			}
 			i_col++;
 			i_row=0;
 		}
-		//drawBitmap(double_buffer, element, x_pos_atual, y_pos_atual, ALIGN_LEFT);
+		//drawBitmap(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 		printf("acabou screen\n");
 		//memcpy(video_mem, double_buffer, SCREEN_SIZE);
 }
@@ -331,7 +343,7 @@ void remove_snakes_matrix()
 	{
 			while(i_row < 64)
 			{
-				if(matrix_graphics[i_col][i_row] == element)
+				if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2 || matrix_graphics[i_col][i_row] ==cabeca1hd || matrix_graphics[i_col][i_row] ==cabeca1vb || matrix_graphics[i_col][i_row] ==cabeca1he || matrix_graphics[i_col][i_row] ==cabeca1vc || matrix_graphics[i_col][i_row] ==cabeca2hd || matrix_graphics[i_col][i_row] ==cabeca2vb || matrix_graphics[i_col][i_row] ==cabeca2he || matrix_graphics[i_col][i_row] ==cabeca2vc)
 				{
 					matrix_graphics[i_col][i_row] = NULL;
 
@@ -372,7 +384,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 		printf("seg1 row: %d\n", seg1->row);
 		/*if(seg1 == s1->head)
 				{
-					if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+					if(matrix_graphics[seg1->col][seg1->row] == body)  //TODO need to add other colisions
 					{
 						printf("colision\n");
 						return 1;
@@ -384,7 +396,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 					}
 				}*/
 
-		matrix_graphics[seg1->col][seg1->row] = element;
+		matrix_graphics[seg1->col][seg1->row] = body;
 
 		seg1 = seg1->before;
 		i++;
@@ -392,7 +404,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 	if(seg1 == s1->head)
 			{
-				if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2)  //TODO need to add other colisions
 				{
 					printf("colision\n");
 					return 1;
@@ -451,7 +463,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2)
 			printf("seg1 row: %d\n", seg1->row);
 			/*if(seg1 == s1->head)
 					{
-						if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
+						if(matrix_graphics[seg1->col][seg1->row] == body)  //TODO need to add other colisions
 						{
 							printf("colision\n");
 							return 1;
@@ -463,55 +475,56 @@ int update_matrix_snakemp(Snake *s1,Snake *s2)
 						}
 					}*/
 
-			matrix_graphics[seg1->col][seg1->row] = element;
+			matrix_graphics[seg1->col][seg1->row] = body;
 
 			seg1 = seg1->before;
 			i++;
 		}while(i < s1->size-1);
 
-		if(seg1 == s1->head)
-				{
-					if(matrix_graphics[seg1->col][seg1->row] == element)  //TODO need to add other colisions
-					{
-						printf("colision\n");
-						return 1;
-					}
-					else if(matrix_graphics[seg1->col][seg1->row] == maca)
-					{
-						inc_snake(s1);
-						new_object_matrix(s1);
-					}
-				}
 
-		if(s1->head->direction == HORIZONTAL)
-			{
-				if(s1->head->orientation == RIGHT_DOWN)
-					matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
-				else
-					matrix_graphics[seg1->col][seg1->row] = cabeca1he;
-			}
-			else
-			{
-				if(s1->head->orientation == RIGHT_DOWN)
-					matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
-				else
-					matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
-			}
 		i = 0;
 		segment_snake *seg2 = s2->tail;
 		do
 			{
 				printf("seg2 col: %d\n", seg2->col);
 				printf("seg2 row: %d\n", seg2->row);
-				matrix_graphics[seg2->col][seg2->row] = element;
+				matrix_graphics[seg2->col][seg2->row] = body2;
 
 				seg2 = seg2->before;
 				i++;
 			}while(i < s2->size-1);
+		if(seg1 == s1->head)
+						{
+							if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2)  //TODO need to add other colisions
+							{
+								printf("colision\n");
+								return 1;
+							}
+							else if(matrix_graphics[seg1->col][seg1->row] == maca)
+							{
+								inc_snake(s1);
+								new_object_matrix(s1);
+							}
+						}
+
+				if(s1->head->direction == HORIZONTAL)
+					{
+						if(s1->head->orientation == RIGHT_DOWN)
+							matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+						else
+							matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+					}
+					else
+					{
+						if(s1->head->orientation == RIGHT_DOWN)
+							matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+						else
+							matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+					}
 
 			if(seg2 == s2->head)
 					{
-						if(matrix_graphics[seg2->col][seg2->row] == element)  //TODO need to add other colisions
+						if(matrix_graphics[seg2->col][seg2->row] == body2 || matrix_graphics[seg2->col][seg2->row] == body)  //TODO need to add other colisions
 						{
 							printf("colision\n");
 							return 1;
@@ -526,16 +539,16 @@ int update_matrix_snakemp(Snake *s1,Snake *s2)
 			if(s2->head->direction == HORIZONTAL)
 				{
 					if(s2->head->orientation == RIGHT_DOWN)
-						matrix_graphics[seg2->col][seg2->row] = cabeca1hd;
+						matrix_graphics[seg2->col][seg2->row] = cabeca2hd;
 					else
-						matrix_graphics[seg2->col][seg2->row] = cabeca1he;
+						matrix_graphics[seg2->col][seg2->row] = cabeca2he;
 				}
 				else
 				{
 					if(s2->head->orientation == RIGHT_DOWN)
-						matrix_graphics[seg2->col][seg2->row] = cabeca1vb;
+						matrix_graphics[seg2->col][seg2->row] = cabeca2vb;
 					else
-						matrix_graphics[seg2->col][seg2->row] = cabeca1vc;
+						matrix_graphics[seg2->col][seg2->row] = cabeca2vc;
 				}
 
 		printf("acabou\n");

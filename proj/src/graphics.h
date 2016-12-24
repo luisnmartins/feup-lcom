@@ -41,6 +41,7 @@ static Bitmap *mp_menu;
 static Bitmap *cursor;
 static Bitmap *numbers[11];
 static Bitmap *sp_inst;
+static Bitmap *pausesymb;
 
 
 void *vg_init(unsigned short mode);

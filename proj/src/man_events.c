@@ -2,7 +2,7 @@
 #include "man_events.h"
 
 typedef enum {
-	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T
+	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T
 } states;
 
 typedef enum {
@@ -77,10 +77,35 @@ void check_game_status(states *st, event *ev)
 
 		}
 	}
+	case PAUSE_T:
+	{
+		if(*ev == START_E)
+		{
+			if(t== OPTA)
+			{
+				*st = SP_T;
+			}else if(t == OPTB_1)
+			{
+
+				*st= KBC_T;
+			}else if (t== OPTB_2)
+			{
+
+				*st = MOKB_T;
+			}
+		}
+		break;
+	}
 	case SP_T:
 		//TODO
 	{
+		if(*ev == ESC_PRESSED)
+		{
 
+
+			*st = PAUSE_T;
+			draw_instructions(0);
+		}
 		if(*ev == COLISION)
 		{
 
@@ -99,12 +124,12 @@ void check_game_status(states *st, event *ev)
 				}*/
 		if(*ev == OPTB_1)
 		{
-			//TODO gera ecra e cobra
+
 			*st = WAIT_T;
 		}
 		else if (*ev == OPTB_2)
 		{
-			//TODO gera ecra e cobra
+
 			*st = WAIT_T;
 		}else if (*ev == OPTC)
 		{
@@ -113,6 +138,11 @@ void check_game_status(states *st, event *ev)
 		break;
 	}
 	case KBC_T:
+		if(*ev == ESC_PRESSED)
+				{
+					draw_instructions(0);
+					*st = PAUSE_T;
+				}
 		if(*ev == COLISION)
 						{
 							printf("tenta mudar de estado\n");
@@ -121,6 +151,11 @@ void check_game_status(states *st, event *ev)
 						}
 		break;
 	case MOKB_T:
+		if(*ev == ESC_PRESSED)
+				{
+					draw_instructions(0);
+					*st = PAUSE_T;
+				}
 		if(*ev == COLISION)
 								{
 									printf("tenta mudar de estado\n");
@@ -152,7 +187,7 @@ int keyboard_event_handler(unsigned long out_buf)
 		}
 	}
 
-	if (p == WAIT_T)
+	if (p == WAIT_T || p == PAUSE_T)
 	{
 		if(out_buf == ENTER)
 		{
@@ -171,6 +206,12 @@ int keyboard_event_handler(unsigned long out_buf)
 	}
 	if(p == SP_T || p == MOKB_T)
 	{
+		if(out_buf == ESC_CODE)
+		{
+			event aux = ESC_PRESSED;
+			check_game_status(&p,&aux);
+			return 0;
+		}
 		if(buf_full == 1)
 			return 0;
 
@@ -208,7 +249,12 @@ int keyboard_event_handler(unsigned long out_buf)
 	{
 		if(buf_full == 1)
 					return 0;
-
+		if(out_buf == ESC_CODE)
+				{
+			event aux = ESC_PRESSED;
+						check_game_status(&p,&aux);
+					return 0;
+				}
 				if(s1->head->direction == HORIZONTAL)
 				{
 					if(out_buf == UP_ARROW)
@@ -347,6 +393,7 @@ int timer_event_handler(unsigned short counter)
 		printf("changed\n");
 
 	}
+
 	if (p == MPMENU_T)
 	{
 		printf("ENTROU EM MPMENU_T!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
@@ -357,6 +404,7 @@ int timer_event_handler(unsigned short counter)
 		draw_menu(1);
 
 	}
+
 
 	if(flag_colision == 1 && (p== SP_T || p == KBC_T || p == MOKB_T))
 				{

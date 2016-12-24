@@ -100,6 +100,7 @@ void *vg_init(unsigned short mode) {
 	numbers[10] =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/twodots.bmp");
 	sp_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameControllersSP.bmp");
 	mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
+	pausesymb =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/pause.bmp");
 
 	//memset(video_mem, 1, SCREEN_SIZE);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
@@ -277,6 +278,11 @@ void  update_menu_mouse()
 
 void draw_instructions(int mode)
 {
+	if (mode == 0)
+	{
+		drawbackground(double_buffer,pausesymb,950,100,ALIGN_LEFT);
+		memcpy(video_mem,double_buffer,SCREEN_SIZE);
+	}
 	if (mode == 1)
 	{
 		drawbackground(double_buffer,sp_inst,0,0,ALIGN_LEFT);

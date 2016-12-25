@@ -117,6 +117,7 @@ void check_game_status(states *st, event *ev)
 			printf("tenta mudar de estado\n");
 			clear_matrix();
 			*st = END_T;
+			show_points_sp(s1);
 		}
 		break;
 	}
@@ -153,6 +154,7 @@ void check_game_status(states *st, event *ev)
 							printf("tenta mudar de estado\n");
 							clear_matrix();
 							*st = END_T;
+							show_points_mp(s1,s2);
 						}
 		break;
 	case MOKB_T:
@@ -166,6 +168,7 @@ void check_game_status(states *st, event *ev)
 									printf("tenta mudar de estado\n");
 									clear_matrix();
 									*st = END_T;
+									show_points_sp(s1);
 								}
 				break;
 

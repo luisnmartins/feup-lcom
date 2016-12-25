@@ -156,6 +156,50 @@ int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[])
 
 }
 
+void show_points_sp(Snake *s1)
+{
+	int x_inicial = 640;
+	int y = 512;
+	int points = s1->size -5;
+
+	while(points > 10)
+	{
+		drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
+		x_inicial -= 40;
+		points = points /10;
+	}
+	drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
+
+
+
+	/*drawBitmap(double_buffer,numbers[(s1->size-5)/10],x_inicial,y,ALIGN_LEFT);
+	x_inicial += 40;
+	drawBitmap(double_buffer,numbers[(s1->size-5)%10],x_inicial,y,ALIGN_LEFT);*/
+}
+void show_points_mp(Snake *s1, Snake *s2)
+{
+	int y = 512;
+	int x1_in = 320;
+	int x2_in = 960;
+	int points_s1 = s1->size-5;
+	int points_s2 = s2->size-5;
+	while(points_s1 > 10)
+		{
+			drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
+			x1_in -= 40;
+			points_s1 = points_s1 /10;
+		}
+		drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
+		while(points_s2 > 10)
+				{
+					drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
+					x2_in -= 40;
+					points_s2 = points_s2 /10;
+				}
+				drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
+
+
+}
 
 
 int paintPixel(int x,int y,int color)

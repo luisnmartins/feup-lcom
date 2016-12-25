@@ -67,6 +67,8 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive,int snake2_alive)
 void draw_time(int hour,int min, int seconds);
 void draw_instructions(int mode);
 void clear_screen();
+void show_points_sp(Snake *s1);
+void show_points_mp(Snake *s1, Snake *s2);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

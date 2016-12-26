@@ -345,6 +345,7 @@ void game_start(int mode)
 {
 	if (mode == 1) // e modo singleplayer
 	{
+		update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 						//s1 = s3;
 						new_snake(5,10,32, s1);
@@ -358,6 +359,7 @@ void game_start(int mode)
 	}
 	if (mode == 2)
 	{
+		update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 		s2 = (Snake*)(malloc(sizeof(Snake)));
 								//s1 = s3;
@@ -372,6 +374,7 @@ void game_start(int mode)
 	}
 	if (mode == 3)
 	{
+		update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 								//s1 = s3;
 								new_snake(5,10,32, s1);
@@ -446,11 +449,11 @@ int timer_event_handler(unsigned short counter)
 
 			if(flag_colision == 1)
 			{
+				draw_screen();
 				printf("mudanca estado\n");
 				printf("%d\n", p);
 				event col_event = COLISION;
 				check_game_status(&p, &col_event);
-				draw_screen();
 				flag_colision = 0;
 
 				printf("p: %d\n",p);
@@ -515,7 +518,7 @@ int timer_event_handler(unsigned short counter)
 
 
 							printf("running\n");
-							flag_colision = update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);//nao altera a flag_colision ???
+							update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision);//nao altera a flag_colision ???
 
 							printf("Flag colision: %d\n", flag_colision);
 							printf("matrix updated\n");

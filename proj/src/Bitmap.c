@@ -123,7 +123,8 @@ void drawBitmap(char* db, Bitmap* bmp, int x, int y, Alignment alignment) {
         int j;
 		for (j = 0; j < drawWidth; j++)
 		{
-			if (imgStartPos[j*2] != 0x17 && imgStartPos[j*2+1] != 0xfffffff8)
+			//imgStartPos[j*2] != 0x17
+			if (imgStartPos[j*2+1] != 0xfffffff8)
 			{
 
 				bufferStartPos[j*2] = imgStartPos[j*2];

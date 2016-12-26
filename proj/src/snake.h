@@ -21,7 +21,7 @@ typedef struct {
 	segment_snake *head;
 	segment_snake *tail;
 	unsigned int size;
-	unsigned short boost;
+	unsigned short velocity;
 }Snake;
 
 

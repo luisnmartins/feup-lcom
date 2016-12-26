@@ -397,21 +397,21 @@ void update_pos_mouse(unsigned long *x, unsigned long *y)
 	x_pos_atual += (*x);
 	y_pos_atual -= (*y);
 
-	if(x_pos_atual > 1280)
+	if(x_pos_atual > 1180)
 	{
-		x_pos_atual = 1280;
+		x_pos_atual = 1180;
 	}
-	if(x_pos_atual < 0)
+	if(x_pos_atual < 80)
 		{
-			x_pos_atual = 0;
+			x_pos_atual = 80;
 		}
-	if(y_pos_atual > 1024)
+	if(y_pos_atual > 944)
 	{
-		y_pos_atual = 1024;
+		y_pos_atual = 944;
 	}
-	if (y_pos_atual < 0)
+	if (y_pos_atual < 64)
 	{
-		y_pos_atual = 0;
+		y_pos_atual = 64;
 	}
 
 	(*y) = y_pos_atual;
@@ -594,7 +594,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 								printf("colision\n");
 								snake1_alive = 1;
 								matrix_graphics[seg1->col][seg1->row] = NULL;
-								return 1;
+								//return 1;
 							}
 							else if(matrix_graphics[seg1->col][seg1->row] == maca)
 							{
@@ -626,7 +626,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 							printf("colision\n");
 							snake2_alive = 1;
 							matrix_graphics[seg1->col][seg1->row] = NULL;
-							return 1;
+							//return 1;
 						}
 						else if(matrix_graphics[seg2->col][seg2->row] == maca)
 						{

@@ -136,26 +136,6 @@ void clear_screen()
 }
 
 
-int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[])
-{
-	int largura, altura,a,b;
-	char *ptr_img = (char *)read_xpm(xpm, &largura, &altura);
-
-	if(xi >= h_res || yi >= v_res)
-	{
-		return 1;
-	}
-
-	for (a = 0; a < altura; a++)
-	{
-		for (b = 0; b < largura; b++) {
-			paintPixel(xi + b, yi + a, *(ptr_img + a * largura + b));
-		}
-	}
-	free(ptr_img);
-
-}
-
 void show_points_sp(Snake *s1)
 {
 	int x_inicial = 640;
@@ -169,6 +149,7 @@ void show_points_sp(Snake *s1)
 		points = points /10;
 	}
 	drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
+	memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
 
 
@@ -202,7 +183,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 }
 
 
-int paintPixel(int x,int y,int color)
+/*int paintPixel(int x,int y,int color)
 {
 	if(x<0 || x>h_res || y<0 || y>v_res)
 	{
@@ -259,7 +240,8 @@ int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned 
 
 
 
-}
+}*/
+
 void clear_matrix()
 {
 	memset(matrix_graphics,NULL,sizeof(matrix_graphics[0][0])*64*64);
@@ -369,10 +351,11 @@ void draw_screen()
 			{
 				if(matrix_graphics[i_col][i_row] != NULL)
 				{
+
 					if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2)
 					{
 						drawbackground(double_buffer,matrix_graphics[i_col][i_row],20*i_col,16*i_row,ALIGN_LEFT);
-					}else
+					}else if(matrix_graphics[i_col][i_row] != snap)
 					{
 						drawBitmap(double_buffer, matrix_graphics[i_col][i_row], 20*i_col, 16*i_row, ALIGN_LEFT);
 					printf("linha: %d\n", i_row);
@@ -444,6 +427,22 @@ void remove_snakes_matrix()
 
 }
 
+void update_matrix_limits()
+{
+	int i;
+	for(i=3; i<(63-2); i++)
+	{
+		matrix_graphics[i][3] = snap;
+		matrix_graphics[i][60] = snap;
+
+	}
+	for(i = 3; i<(63-3); i++)
+	{
+		matrix_graphics[3][i] = snap;
+		matrix_graphics[60][i] = snap;
+	}
+}
+
 int update_matrix_snake(Snake *s1,int mouse)
 {
 	remove_snakes_matrix();
@@ -490,7 +489,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 	if(seg1 == s1->head)
 			{
-				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
+				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb ||  matrix_graphics[seg1->col][seg1->row] == snap)  //TODO need to add other colisions
 				{
 					if( matrix_graphics[seg1->col][seg1->row] == bomb)
 					{
@@ -594,7 +593,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 								printf("colision\n");
 								snake1_alive = 1;
 								matrix_graphics[seg1->col][seg1->row] = NULL;
-								//return 1;
+								return 1;
 							}
 							else if(matrix_graphics[seg1->col][seg1->row] == maca)
 							{
@@ -626,7 +625,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 							printf("colision\n");
 							snake2_alive = 1;
 							matrix_graphics[seg1->col][seg1->row] = NULL;
-							//return 1;
+							return 1;
 						}
 						else if(matrix_graphics[seg2->col][seg2->row] == maca)
 						{
@@ -690,6 +689,31 @@ int update_matrix_objects(Game_object *obj, Snake *s1)
 	return 0;
 
 }
+
+int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
+{
+
+	if(obj->col < 4 || obj->col >= 60 || obj->row < 4 || obj->row >= 60)
+		{
+			return 1;
+		}
+	if(matrix_graphics[obj->col][obj->row] != NULL)
+		return 1;
+	if((abs(obj->row - s1->head->row) < 2 || abs(obj->col - s1->head->col) < 2) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
+	{
+		return 1;
+	}
+
+	if(obj->name == 0)
+	matrix_graphics[obj->col][obj->row] = maca;
+	else if(obj->name == 1)
+	{
+		matrix_graphics[obj->col][obj->row] = bomb;
+	}
+	return 0;
+
+}
+
 int add_fruit_matrix(int x, int y,Snake *s1)
 {
 	printf("x: %d, y: %d\n",x,y);

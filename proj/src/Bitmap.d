@@ -55,11 +55,13 @@ Bitmap.o:	/usr/pkg/gcc44/lib/gcc/i686-pc-minix/4.4.3/include/stdarg.h
 Bitmap.o:	Bitmap.c
 Bitmap.o:	Bitmap.h
 Bitmap.o:	constants.h
+Bitmap.o:	date.h
 Bitmap.o:	graphics.h
 Bitmap.o:	i8254.h
 Bitmap.o:	keyboard.h
 Bitmap.o:	objects.h
 Bitmap.o:	pixmap.h
+Bitmap.o:	rtc.h
 Bitmap.o:	snake.h
 Bitmap.o:	timer.h
 Bitmap.o:	vbe.h

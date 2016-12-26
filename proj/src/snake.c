@@ -6,7 +6,7 @@ void new_snake(int size, unsigned short row, unsigned short col, Snake* s1)
 	printf("new_snake\n");
 
 	s1->size=0;
-	s1->boost = 0;
+	s1->velocity = 10;
 	s1->head = NULL;
 	int i=0;
 	int coluna = col;
@@ -78,6 +78,10 @@ void inc_snake(Snake *s1)
 		s1->tail = new_seg;
 	}
 	s1->size++;
+	if((s1->size-5)%3 == 0)
+	{
+		s1->velocity+=2;
+	}
 }
 
 

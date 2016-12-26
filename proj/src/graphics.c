@@ -178,7 +178,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 					points_s2 = points_s2 /10;
 				}
 				drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
-
+				memcpy(video_mem, double_buffer, SCREEN_SIZE);
 
 }
 
@@ -526,7 +526,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 }
 
-int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive)
+int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_alive)
 {
 	remove_snakes_matrix();
 
@@ -541,7 +541,8 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 
 
 		int i=0;
-
+		if((*snake1_alive) == 0)
+		{
 
 		segment_snake *seg1 = s1->tail;
 		printf("criou segmento");
@@ -572,8 +573,51 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 			i++;
 		}while(i < s1->size-1);
 
+		if(seg1 == s1->head)
+								{
+									if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == snap ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
+									{
+
+										if( matrix_graphics[seg1->col][seg1->row] == bomb)
+										{
+											matrix_graphics[seg1->col][seg1->row] = explosion;
+										}
+										else
+											matrix_graphics[seg1->col][seg1->row] = NULL;
+										printf("colision\n");
+										(*snake1_alive) = 1;
+
+										return 1;
+									}
+									else if(matrix_graphics[seg1->col][seg1->row] == maca)
+									{
+										inc_snake(s1);
+										new_object_2_snakes_matrix(s1,s2,0);
+									}
+
+									if(s1->head->direction == HORIZONTAL)
+										{
+											if(s1->head->orientation == RIGHT_DOWN)
+												matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+											else
+												matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+										}
+										else
+										{
+											if(s1->head->orientation == RIGHT_DOWN)
+												matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+											else
+												matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+										}
+								}
+
+
+		}
+
 
 		i = 0;
+		if((*snake2_alive) == 0)
+		{
 		segment_snake *seg2 = s2->tail;
 
 		do
@@ -586,51 +630,27 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 				i++;
 			}while(i < s2->size-1);
 
-		if(seg1 == s1->head)
-						{
-							if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2)  //TODO need to add other colisions
-							{
-								printf("colision\n");
-								snake1_alive = 1;
-								matrix_graphics[seg1->col][seg1->row] = NULL;
-								return 1;
-							}
-							else if(matrix_graphics[seg1->col][seg1->row] == maca)
-							{
-								inc_snake(s1);
-								new_object_matrix(s1,0);
-							}
-
-							if(s1->head->direction == HORIZONTAL)
-								{
-									if(s1->head->orientation == RIGHT_DOWN)
-										matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
-									else
-										matrix_graphics[seg1->col][seg1->row] = cabeca1he;
-								}
-								else
-								{
-									if(s1->head->orientation == RIGHT_DOWN)
-										matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
-									else
-										matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
-								}
-						}
-
 
 			if(seg2 == s2->head)
 					{
-						if(matrix_graphics[seg2->col][seg2->row] == body2 || matrix_graphics[seg2->col][seg2->row] == body)  //TODO need to add other colisions
-						{
-							printf("colision\n");
-							snake2_alive = 1;
-							matrix_graphics[seg1->col][seg1->row] = NULL;
-							return 1;
-						}
+				if(matrix_graphics[seg2->col][seg2->row] == body || matrix_graphics[seg2->col][seg2->row] == body2 || matrix_graphics[seg2->col][seg2->row] == snap ||  matrix_graphics[seg2->col][seg2->row] == bomb)  //TODO need to add other colisions
+				{
+
+				if( matrix_graphics[seg2->col][seg2->row] == bomb)
+				{
+						matrix_graphics[seg2->col][seg2->row] = explosion;
+														}
+														else
+															matrix_graphics[seg2->col][seg2->row] = NULL;
+														printf("colision\n");
+														(*snake2_alive) = 1;
+
+														return 1;
+													}
 						else if(matrix_graphics[seg2->col][seg2->row] == maca)
 						{
 							inc_snake(s2);
-							new_object_matrix(s2,0);
+							new_object_2_snakes_matrix(s1,s2,0);
 						}
 						if(s2->head->direction == HORIZONTAL)
 										{
@@ -647,6 +667,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int snake1_alive, int snake2_alive
 												matrix_graphics[seg2->col][seg2->row] = cabeca2vc;
 										}
 					}
+		}
 
 
 
@@ -665,6 +686,17 @@ void new_object_matrix(Snake *s1,unsigned int type)
 	}while(update_matrix_objects(obj,s1) == 1);
 }
 
+void new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type)
+{
+	Game_object *obj = (Game_object*)(malloc(sizeof(Game_object)));
+	do
+		{
+
+			new_object(obj,type);
+
+		}while(update_matrix_objects_2_snakes(obj,s1, s2) == 1);
+
+}
 
 int update_matrix_objects(Game_object *obj, Snake *s1)
 {
@@ -703,6 +735,10 @@ int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
 	{
 		return 1;
 	}
+	if((abs(obj->row - s2->head->row) < 2 || abs(obj->col - s2->head->col) < 2) || (obj->row == (s2->size-1) || obj->col == (s2->size-1) || obj->row+(s2->size-1) == 63 || obj->col+(s2->size-1) == 63))
+		{
+			return 1;
+		}
 
 	if(obj->name == 0)
 	matrix_graphics[obj->col][obj->row] = maca;

@@ -213,13 +213,6 @@ int keyboard_event_handler(unsigned long out_buf)
 		}
 	}
 	printf("P: %d", p);
-	if(p == END_T)
-	{
-		if(out_buf == ESC_CODE)
-		{
-			return 1;
-		}
-	}
 	if(p == SP_T || p == MOKB_T)
 	{
 		if(out_buf == ESC_CODE)
@@ -367,9 +360,11 @@ void game_start(int mode)
 								new_snake(5,10,10, s1);
 								new_snake(5,50,20,s2);
 								update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);
-								new_object_matrix(s1,0);
-								new_object_matrix(s1,0);
-								new_object_matrix(s1,0);
+								new_object_2_snakes_matrix(s1,s2,0);
+								new_object_2_snakes_matrix(s1,s2,0);
+								new_object_2_snakes_matrix(s1,s2,0);
+								new_object_2_snakes_matrix(s1,s2,1);
+
 								draw_screen();
 	}
 	if (mode == 3)
@@ -495,13 +490,13 @@ int timer_event_handler(unsigned short counter)
 		else if(p == KBC_T)
 		{
 
-			if(flag_colision == 1)
+			if(flag_colision == 1 && flag_colision2 == 1)
 			{
-				printf("mudanca estado\n");
+				draw_screen();
+				printf("mudanca estado KBC_T\n");
 									printf("%d\n", p);
 									event col_event = COLISION;
 									check_game_status(&p, &col_event);
-									draw_screen();
 									flag_colision = 0;
 									flag_colision2 = 0;
 									printf("p: %d\n",p);
@@ -509,6 +504,14 @@ int timer_event_handler(unsigned short counter)
 			}
 			//update_menu_mouse();
 			draw_screen();
+			if(counter%1200 == 0)
+			{
+					if(bomb_count() == 2)
+					{
+						remove_bomb();
+					}
+					new_object_2_snakes_matrix(s1, s2, 1);
+			}
 						if(counter%(s1->velocity) == 0)
 						{
 							if(flag_colision2 == 0)
@@ -518,7 +521,7 @@ int timer_event_handler(unsigned short counter)
 
 
 							printf("running\n");
-							update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision);//nao altera a flag_colision ???
+							update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);//nao altera a flag_colision ???
 
 							printf("Flag colision: %d\n", flag_colision);
 							printf("matrix updated\n");

@@ -17,7 +17,7 @@ int main()
 {
 	srand(time(NULL));
 	sef_startup();
-
+	sys_enable_iop(SELF);
 	start_mode();
 
 

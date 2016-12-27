@@ -4,6 +4,9 @@
 
 unsigned int khook_id = KB_IRQ;
 
+unsigned long outbufass = 0;
+unsigned long statusandobf= 0;
+
 
 int keyboard_subscribe_int() {
 
@@ -68,7 +71,13 @@ unsigned long keyboard_int_handler() {
 
 int receive_buffer(unsigned long *out_buf, unsigned long *out_buf2)
 {
-	(*out_buf) = keyboard_int_handler();
+	//(*out_buf) = keyboard_int_handler();
+	do
+	{
+		keyboardasm();
+	}while(statusandobf == 0);
+	readoutbuf();
+	(*out_buf) = outbufass;
 
 	if((*out_buf) == -1)
 		return 1;

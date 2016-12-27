@@ -67,6 +67,10 @@ Bitmap.o:	timer.h
 Bitmap.o:	vbe.h
 Bitmap.o:	video_gr.h
 
+assem_scan.o:	assem_scan.S
+assem_scan.o:	constants.h
+assem_scan.o:	i8254.h
+
 date.o:	/usr/include/errno.h
 date.o:	/usr/include/limits.h
 date.o:	/usr/include/machine/bios.h

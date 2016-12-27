@@ -14,7 +14,6 @@
 #include "timer.h"
 #include "keyboard.h"
 #include "snake.h"
-#include "constants.h"
 #include "objects.h"
 #include "date.h"
 
@@ -46,6 +45,8 @@ static Bitmap *mokb_inst;
 static Bitmap *pausesymb;
 static Bitmap *bomb;
 static Bitmap *explosion;
+static Bitmap *player1;
+static Bitmap *player2;
 
 
 void *vg_init(unsigned short mode);
@@ -72,6 +73,7 @@ void draw_instructions(int mode);
 void clear_screen();
 void show_points_sp(Snake *s1);
 void show_points_mp(Snake *s1, Snake *s2);
+int verify_colision_walls(int col,int row);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

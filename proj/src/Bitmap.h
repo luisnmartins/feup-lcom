@@ -8,7 +8,10 @@
 typedef enum {
     ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT
 } Alignment;
-
+static unsigned h_res; /* Horizontal screen resolution in pixels */
+static unsigned v_res; /* Vertical screen resolution in pixels */
+static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
+static unsigned screen_size;
 typedef struct {
     unsigned short type; // specifies the file type
     unsigned int size; // specifies the size in bytes of the bitmap file

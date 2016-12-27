@@ -338,7 +338,7 @@ void game_start(int mode)
 {
 	if (mode == 1) // e modo singleplayer
 	{
-		update_matrix_limits();
+		//update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 						//s1 = s3;
 						new_snake(5,10,32, s1);
@@ -352,7 +352,7 @@ void game_start(int mode)
 	}
 	if (mode == 2)
 	{
-		update_matrix_limits();
+		//update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 		s2 = (Snake*)(malloc(sizeof(Snake)));
 								//s1 = s3;
@@ -369,7 +369,7 @@ void game_start(int mode)
 	}
 	if (mode == 3)
 	{
-		update_matrix_limits();
+		//update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 								//s1 = s3;
 								new_snake(5,10,32, s1);

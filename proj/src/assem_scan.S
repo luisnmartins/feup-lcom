@@ -3,7 +3,7 @@
 .globl _keyboardasm
 
 .globl _readoutbuf;
-.globl _outbufass
+.globl _outbufassem
 .globl _statusandobf
 .text
 _keyboardasm:
@@ -16,5 +16,5 @@ _keyboardasm:
 _readoutbuf:
 
 inb $KBD_OUT_BUF, %al
-mov %al, _outbufass
+mov %al, _outbufassem
 ret

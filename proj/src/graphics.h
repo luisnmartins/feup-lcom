@@ -26,6 +26,7 @@ static Bitmap *body2;
 static Bitmap *mouse;
 static Bitmap *white;
 static Bitmap *bg;
+static Bitmap *bgmp;
 static Bitmap *macaret;
 static Bitmap *cabeca1hd;
 static Bitmap *cabeca1he;

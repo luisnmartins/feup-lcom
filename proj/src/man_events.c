@@ -348,7 +348,7 @@ void game_start(int mode)
 						new_object_matrix(s1,0);
 						new_object_matrix(s1,0);
 						new_object_matrix(s1,1);
-						draw_screen();
+						draw_screen(1);
 	}
 	if (mode == 2)
 	{
@@ -365,7 +365,7 @@ void game_start(int mode)
 								new_object_2_snakes_matrix(s1,s2,0);
 								new_object_2_snakes_matrix(s1,s2,1);
 
-								draw_screen();
+								draw_screen(2);
 	}
 	if (mode == 3)
 	{
@@ -376,7 +376,7 @@ void game_start(int mode)
 								//remove_snakes_matrix();
 								update_matrix_snake(s1,1);
 
-								draw_screen();
+								draw_screen(1);
 	}
 	//TODO para multiplayer
 }
@@ -444,7 +444,7 @@ int timer_event_handler(unsigned short counter)
 
 			if(flag_colision == 1)
 			{
-				draw_screen();
+				draw_screen(1);
 				printf("mudanca estado\n");
 				printf("%d\n", p);
 				event col_event = COLISION;
@@ -454,7 +454,7 @@ int timer_event_handler(unsigned short counter)
 				printf("p: %d\n",p);
 				return 0;
 			}
-			draw_screen();
+			draw_screen(1);
 			if(p == MOKB_T)
 			{
 				update_menu_mouse();
@@ -492,7 +492,7 @@ int timer_event_handler(unsigned short counter)
 
 			if(flag_colision == 1 && flag_colision2 == 1)
 			{
-				draw_screen();
+				draw_screen(2);
 				printf("mudanca estado KBC_T\n");
 									printf("%d\n", p);
 									event col_event = COLISION;
@@ -503,7 +503,7 @@ int timer_event_handler(unsigned short counter)
 									return 0;
 			}
 			//update_menu_mouse();
-			draw_screen();
+			draw_screen(2);
 			if(counter%1200 == 0)
 			{
 					if(bomb_count() == 2)

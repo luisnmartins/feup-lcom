@@ -1,7 +1,9 @@
 #include "Bitmap.h"
 
 #include "stdio.h"
+
 #include "graphics.h"
+
 //#include "Utilities.h"
 
 Bitmap* loadBitmap(const char* filename) {

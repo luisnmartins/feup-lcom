@@ -1,12 +1,12 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
+#include "constants.h"
 #include "video_gr.h"
 #include "keyboard.h"
 #include "graphics.h"
 #include "timer.h"
 #include "mouse.h"
-#include "constants.h"
 #include "man_events.h"
 #include <time.h>
 //#include "pixmap.h"
@@ -81,10 +81,10 @@ int main()
 							if (msg.NOTIFY_ARG & irq_mouse)
 							{
 
-								if(get_packets(&counter_mouse, &packet_mouse, &out_buf_mouse) == 0)
+								if(get_packets(&counter_mouse, packet_mouse, &out_buf_mouse) == 0)
 
 									{
-									mouse_event_handler(&packet_mouse);
+									mouse_event_handler(packet_mouse);
 									//draw_screen();
 									}
 							}

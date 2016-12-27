@@ -1,10 +1,10 @@
 #include "graphics.h"
 
+//#define SCREEN_SIZE 1280*1024*16/8
+
 static char *double_buffer;
 static char *video_mem; /* Process address to which VRAM is mapped */
-static unsigned h_res; /* Horizontal screen resolution in pixels */
-static unsigned v_res; /* Vertical screen resolution in pixels */
-static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
+
 static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
 static unsigned long x_pos_atual = 200;
 static unsigned long y_pos_atual = 200;
@@ -36,8 +36,12 @@ void *vg_init(unsigned short mode) {
 	vbe_get_mode_info(mode,&v);
 
 	h_res = v.XResolution;
+	printf("HRES: %d\n", h_res);
 	v_res = v.YResolution;
+	printf("VRES: %d\n", v_res);
 	bits_per_pixel = v.BitsPerPixel;
+	printf("BITS_PER_PIXEL: %d",bits_per_pixel);
+	screen_size = h_res*v_res*bits_per_pixel/8;
 
 	r.u.w.ax = 0x4F02; // VBE call, function 02 -- set VBE mode
 	r.u.w.bx = 1 << 14 | mode; // set bit 14: linear framebuffer
@@ -66,8 +70,8 @@ void *vg_init(unsigned short mode) {
 
 
 	video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
-	double_buffer = (short *)malloc(h_res*v_res*bits_per_pixel/8);
-	memset(double_buffer, 0, SCREEN_SIZE);
+	double_buffer = (char *)malloc(h_res*v_res*bits_per_pixel/8);
+	memset(double_buffer, 0, screen_size);
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
 
@@ -105,8 +109,10 @@ void *vg_init(unsigned short mode) {
 	explosion = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/explosions.bmp");
 	mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
 	pausesymb =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/pause.bmp");
+	player1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player1.bmp");
+	player2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player2.bmp");
 
-	//memset(video_mem, 1, SCREEN_SIZE);
+	//memset(video_mem, 1, screen_size);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
 }
@@ -118,7 +124,7 @@ int start_mode()
 		void *result = vg_init(0x11A);
 
 
-		//memcpy(video_mem, double_buffer, SCREEN_SIZE);
+		//memcpy(video_mem, double_buffer, screen_size);
 
 		if(result == NULL)
 			return 1;
@@ -132,7 +138,7 @@ int start_mode()
 }
 void clear_screen()
 {
-	memset(video_mem,0,SCREEN_SIZE);
+	memset(video_mem,0,screen_size);
 }
 
 
@@ -142,6 +148,8 @@ void show_points_sp(Snake *s1)
 	int y = 512;
 	int points = s1->size -5;
 
+	drawBitmap(double_buffer,player1,x_inicial-100,y-75,ALIGN_LEFT);
+
 	while(points > 10)
 	{
 		drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
@@ -149,7 +157,7 @@ void show_points_sp(Snake *s1)
 		points = points /10;
 	}
 	drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
-	memcpy(video_mem, double_buffer, SCREEN_SIZE);
+	memcpy(video_mem, double_buffer, screen_size);
 
 
 
@@ -164,6 +172,9 @@ void show_points_mp(Snake *s1, Snake *s2)
 	int x2_in = 960;
 	int points_s1 = s1->size-5;
 	int points_s2 = s2->size-5;
+
+	drawBitmap(double_buffer,player1,x1_in-100,y-75,ALIGN_LEFT);
+	drawBitmap(double_buffer,player2,x2_in-100,y-75,ALIGN_LEFT);
 	while(points_s1 > 10)
 		{
 			drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
@@ -178,7 +189,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 					points_s2 = points_s2 /10;
 				}
 				drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
-				memcpy(video_mem, double_buffer, SCREEN_SIZE);
+				memcpy(video_mem, double_buffer, screen_size);
 
 }
 
@@ -244,7 +255,7 @@ int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned 
 
 void clear_matrix()
 {
-	memset(matrix_graphics,NULL,sizeof(matrix_graphics[0][0])*64*64);
+	memset(matrix_graphics,(int)NULL,sizeof(matrix_graphics[0][0])*64*64);
 }
 
 int clear_pos(unsigned short line, unsigned short col)
@@ -261,8 +272,8 @@ void draw_menu(int mode)
 {
 	if(mode == 0)
 	{
-		memcpy(video_mem,double_buffer, SCREEN_SIZE);
-	//memset(double_buffer,0,SCREEN_SIZE);
+		memcpy(video_mem,double_buffer, screen_size);
+	//memset(double_buffer,0,screen_size);
 	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
 	update_menu_mouse();
 	//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
@@ -270,8 +281,8 @@ void draw_menu(int mode)
 	}else
 		if (mode == 1)
 		{
-			memcpy(video_mem,double_buffer, SCREEN_SIZE);
-			//memset(double_buffer,0,SCREEN_SIZE);
+			memcpy(video_mem,double_buffer, screen_size);
+			//memset(double_buffer,0,screen_size);
 			drawbackground(double_buffer,mp_menu,0,0,ALIGN_LEFT);
 			update_menu_mouse();
 			//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
@@ -281,7 +292,7 @@ void draw_menu(int mode)
 }
 void draw_time(int hour,int min, int seconds)
 {
-	//memcpy(video_mem,double_buffer,SCREEN_SIZE);
+	//memcpy(video_mem,double_buffer,screen_size);
 	int x_inicial =850;
 	int y_inicial = 75;
 	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
@@ -311,25 +322,25 @@ void draw_instructions(int mode)
 	if (mode == 0)
 	{
 		drawbackground(double_buffer,pausesymb,950,100,ALIGN_LEFT);
-		memcpy(video_mem,double_buffer,SCREEN_SIZE);
+		memcpy(video_mem,double_buffer,screen_size);
 		return ;
 	}
 	if (mode == 1)
 	{
 		drawbackground(double_buffer,sp_inst,0,0,ALIGN_LEFT);
-		memcpy(video_mem,double_buffer,SCREEN_SIZE);
+		memcpy(video_mem,double_buffer,screen_size);
 		return;
 	}
 	if (mode == 2)
 	{
 		drawbackground(double_buffer,kbc_inst,0,0,ALIGN_LEFT);
-				memcpy(video_mem,double_buffer,SCREEN_SIZE);
+				memcpy(video_mem,double_buffer,screen_size);
 				return;
 	}
 	if (mode == 3)
 	{
 		drawbackground(double_buffer,mokb_inst,0,0,ALIGN_LEFT);
-				memcpy(video_mem,double_buffer,SCREEN_SIZE);
+				memcpy(video_mem,double_buffer,screen_size);
 				return;
 	}
 	return;
@@ -340,8 +351,8 @@ void draw_screen()
 	int i_col=0;
 	int i_row=0;
 
-	memcpy(video_mem, double_buffer, SCREEN_SIZE);
-	//memset(double_buffer, 0, SCREEN_SIZE);
+	memcpy(video_mem, double_buffer, screen_size);
+	//memset(double_buffer, 0, screen_size);
 	drawbackground(double_buffer, bg, 0, 0, ALIGN_LEFT);
 	//drawBitmap(double_buffer, maca, 200, 200, ALIGN_LEFT);
 
@@ -370,7 +381,7 @@ void draw_screen()
 		}
 		//drawBitmap(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 		printf("acabou screen\n");
-		//memcpy(video_mem, double_buffer, SCREEN_SIZE);
+		//memcpy(video_mem, double_buffer, screen_size);
 }
 
 
@@ -443,6 +454,24 @@ void update_matrix_limits()
 	}
 }
 
+int verify_colision_walls(int col,int row)
+{
+	if(col < 4 || col >= 60 || row < 4 || row >= 60)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+/*int verify_colision_walls_bgmap(int col,int row)
+{
+	if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row <= 21) || (row == 21 && (col > 8 && col <= 17)) ||(col == 35 &&()))
+	{
+		return 1;
+	}
+	return 0;
+}*/
+
 int update_matrix_snake(Snake *s1,int mouse)
 {
 	remove_snakes_matrix();
@@ -489,6 +518,10 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 	if(seg1 == s1->head)
 			{
+				if(verify_colision_walls(seg1->col,seg1->row) == 1)
+				{
+					return 1;
+				}
 				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb ||  matrix_graphics[seg1->col][seg1->row] == snap)  //TODO need to add other colisions
 				{
 					if( matrix_graphics[seg1->col][seg1->row] == bomb)
@@ -537,14 +570,15 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 		{	printf("merdou\n");
 			return 1;
 		}
-
+		segment_snake *seg1 = s1->tail;
+		segment_snake *seg2 = s2->tail;
 
 
 		int i=0;
 		if((*snake1_alive) == 0)
 		{
 
-		segment_snake *seg1 = s1->tail;
+
 		printf("criou segmento");
 		printf("tail cenas: %d\n", seg1->col);
 
@@ -573,43 +607,6 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 			i++;
 		}while(i < s1->size-1);
 
-		if(seg1 == s1->head)
-								{
-									if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == snap ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
-									{
-
-										if( matrix_graphics[seg1->col][seg1->row] == bomb)
-										{
-											matrix_graphics[seg1->col][seg1->row] = explosion;
-										}
-										else
-											matrix_graphics[seg1->col][seg1->row] = NULL;
-										printf("colision\n");
-										(*snake1_alive) = 1;
-
-										return 1;
-									}
-									else if(matrix_graphics[seg1->col][seg1->row] == maca)
-									{
-										inc_snake(s1);
-										new_object_2_snakes_matrix(s1,s2,0);
-									}
-
-									if(s1->head->direction == HORIZONTAL)
-										{
-											if(s1->head->orientation == RIGHT_DOWN)
-												matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
-											else
-												matrix_graphics[seg1->col][seg1->row] = cabeca1he;
-										}
-										else
-										{
-											if(s1->head->orientation == RIGHT_DOWN)
-												matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
-											else
-												matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
-										}
-								}
 
 
 		}
@@ -618,7 +615,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 		i = 0;
 		if((*snake2_alive) == 0)
 		{
-		segment_snake *seg2 = s2->tail;
+
 
 		do
 			{
@@ -631,8 +628,70 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 			}while(i < s2->size-1);
 
 
+		}
+
+		if(*snake1_alive == 0)
+		{
+
+			if(seg1 == s1->head)
+									{
+
+				if(verify_colision_walls(seg1->col,seg1->row) == 1)
+								{
+					matrix_graphics[seg1->col][seg1->row] = NULL;
+											printf("colision\n");
+									(*snake1_alive) = 1;
+									return 1;
+								}
+
+										if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == snap ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
+										{
+
+											if( matrix_graphics[seg1->col][seg1->row] == bomb)
+											{
+												matrix_graphics[seg1->col][seg1->row] = explosion;
+											}
+											else
+												matrix_graphics[seg1->col][seg1->row] = NULL;
+											printf("colision\n");
+											(*snake1_alive) = 1;
+
+											return 1;
+										}
+										else if(matrix_graphics[seg1->col][seg1->row] == maca)
+										{
+											inc_snake(s1);
+											new_object_2_snakes_matrix(s1,s2,0);
+										}
+
+										if(s1->head->direction == HORIZONTAL)
+											{
+												if(s1->head->orientation == RIGHT_DOWN)
+													matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+												else
+													matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+											}
+											else
+											{
+												if(s1->head->orientation == RIGHT_DOWN)
+													matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+												else
+													matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+											}
+									}
+		}
+		if(*snake2_alive == 0)
+		{
+
 			if(seg2 == s2->head)
 					{
+				if(verify_colision_walls(seg2->col,seg2->row) == 1)
+								{
+					matrix_graphics[seg2->col][seg2->row] = NULL;
+																			printf("colision\n");
+																			(*snake2_alive) = 1;
+									return 1;
+								}
 				if(matrix_graphics[seg2->col][seg2->row] == body || matrix_graphics[seg2->col][seg2->row] == body2 || matrix_graphics[seg2->col][seg2->row] == snap ||  matrix_graphics[seg2->col][seg2->row] == bomb)  //TODO need to add other colisions
 				{
 
@@ -705,6 +764,10 @@ int update_matrix_objects(Game_object *obj, Snake *s1)
 		{
 			return 1;
 		}
+	if(verify_colision_walls(obj->col,obj->row) == 1)
+	{
+		return 1;
+	}
 	if(matrix_graphics[obj->col][obj->row] != NULL)
 		return 1;
 	if((abs(obj->row - s1->head->row) < 2 || abs(obj->col - s1->head->col) < 2) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
@@ -726,6 +789,10 @@ int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
 {
 
 	if(obj->col < 4 || obj->col >= 60 || obj->row < 4 || obj->row >= 60)
+		{
+			return 1;
+		}
+	if(verify_colision_walls(obj->col,obj->row) == 1)
 		{
 			return 1;
 		}
@@ -771,6 +838,10 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 		{
 			return 1;
 		}
+		if(verify_colision_walls(col,row) == 1)
+			{
+				return 1;
+			}
 		if(((abs(obj->row - s1->head->row) < 2 && abs(obj->col - s1->head->col) < 2)) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
 			{
 				return 1;
@@ -809,6 +880,10 @@ int add_bomb_matrix(int x, int y,Snake *s1)
 		{
 			return 1;
 		}
+		if(verify_colision_walls(col,row) == 1)
+					{
+						return 1;
+					}
 		if((abs(obj->row - s1->head->row) < 2 || abs(obj->col - s1->head->col) < 2) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
 					{
 						return 1;

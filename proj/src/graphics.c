@@ -88,7 +88,8 @@ void *vg_init(unsigned short mode) {
 	body = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
 	body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
 	white = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/3white.bmp");
-	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg.bmp");
+	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal.bmp");
+	bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_mp.bmp");
 	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
 	cursor = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cursor.bmp");
 	numbers[0]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number0.bmp");
@@ -346,14 +347,17 @@ void draw_instructions(int mode)
 	return;
 }
 
-void draw_screen()
+void draw_screen(int mode)
 {
 	int i_col=0;
 	int i_row=0;
 
 	memcpy(video_mem, double_buffer, screen_size);
 	//memset(double_buffer, 0, screen_size);
+	if(mode == 1)
 	drawbackground(double_buffer, bg, 0, 0, ALIGN_LEFT);
+	else if (mode == 2)
+		drawbackground(double_buffer,bgmp,0,0,ALIGN_LEFT);
 	//drawBitmap(double_buffer, maca, 200, 200, ALIGN_LEFT);
 
 		while(i_col < 64)
@@ -366,7 +370,7 @@ void draw_screen()
 					if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2)
 					{
 						drawbackground(double_buffer,matrix_graphics[i_col][i_row],20*i_col,16*i_row,ALIGN_LEFT);
-					}else if(matrix_graphics[i_col][i_row] != snap)
+					}else
 					{
 						drawBitmap(double_buffer, matrix_graphics[i_col][i_row], 20*i_col, 16*i_row, ALIGN_LEFT);
 					printf("linha: %d\n", i_row);
@@ -518,6 +522,8 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 	if(seg1 == s1->head)
 			{
+
+
 				if(verify_colision_walls(seg1->col,seg1->row) == 1)
 				{
 					return 1;
@@ -838,10 +844,10 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 		{
 			return 1;
 		}
-		if(verify_colision_walls(col,row) == 1)
+		/*if(verify_colision_walls(col,row) == 1)
 			{
 				return 1;
-			}
+			}*/
 		if(((abs(obj->row - s1->head->row) < 2 && abs(obj->col - s1->head->col) < 2)) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
 			{
 				return 1;

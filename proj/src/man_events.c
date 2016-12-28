@@ -466,8 +466,8 @@ void game_start(int mode)
 		s2 = (Snake*)(malloc(sizeof(Snake)));
 								//s1 = s3;
 								//s2 = s4;
-								new_snake(5,10,10, s1);
-								new_snake(5,50,20,s2);
+								new_snake(5,30,30, s1);
+								new_snake(5,40,30,s2);
 								update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);
 								new_object_2_snakes_matrix(s1,s2,0);
 								new_object_2_snakes_matrix(s1,s2,0);
@@ -609,6 +609,7 @@ int timer_event_handler(unsigned short counter)
 
 		if(p == SP_T || p == MOKB_T)
 		{
+			points_ingame_sp(s1);
 
 			if(flag_colision == 1)
 			{
@@ -624,6 +625,7 @@ int timer_event_handler(unsigned short counter)
 				return 0;
 			}
 			draw_screen(1);
+
 			if(p == MOKB_T)
 			{
 				update_menu_mouse();
@@ -683,6 +685,7 @@ int timer_event_handler(unsigned short counter)
 									return 0;
 			}
 			//update_menu_mouse();
+			points_ingame_mp (s1,s2);
 			draw_screen(2);
 			if(counter%1200 == 0)
 			{

@@ -243,6 +243,47 @@ void show_points_sp(Snake *s1)
 	x_inicial += 40;
 	drawBitmap(double_buffer,numbers[(s1->size-5)%10],x_inicial,y,ALIGN_LEFT);*/
 }
+
+void points_ingame_sp(Snake *s1)
+{
+	int x_inicial = 1180;
+	int y = 14;
+	int points = s1->size -5;
+
+	while(points > 10)
+	{
+		drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
+		x_inicial -= 40;
+		points = points/10;
+	}
+	drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
+		memcpy(video_mem, double_buffer, screen_size);
+
+}
+
+void points_ingame_mp (Snake *s1,Snake *s2)
+{
+	int y = 14;
+	int x1_in = 100;
+	int x2_in = 1180;
+	int points_s1 = s1->size-5;
+	int points_s2 = s2->size-5;
+	while(points_s1 > 10)
+	{
+		drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
+		x1_in -= 40;
+		points_s1 = points_s1 /10;
+	}
+	drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
+	while(points_s2 > 10)
+	{
+		drawbackground(double_buffer,numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
+		x2_in -= 40;
+		points_s2 = points_s2 /10;
+	}
+	drawbackground(double_buffer,numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
+	memcpy(video_mem, double_buffer, screen_size);
+}
 void show_points_mp(Snake *s1, Snake *s2)
 {
 	int y = 512;
@@ -250,6 +291,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 	int x2_in = 960;
 	int points_s1 = s1->size-5;
 	int points_s2 = s2->size-5;
+
 
 	drawBitmap(double_buffer,player1,x1_in-100,y-75,ALIGN_LEFT);
 	drawBitmap(double_buffer,player2,x2_in-100,y-75,ALIGN_LEFT);
@@ -585,7 +627,7 @@ int verify_colision_walls_bgmap(int col,int row,int mode)
 	}
 	else if(mode == 2)
 	{
-		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 35)) ||(row ==48 && (col >= 27 && col <= 35 )) )
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 42)) ||(row ==48 && (col >= 27 && col <= 35 )) )
 		{
 			return 1;
 		}

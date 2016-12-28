@@ -19,6 +19,7 @@ static Snake *s1;
 static Snake *s2;
 static int flag_colision = 0;
 static int flag_colision2 = 0;
+static int snakes_mp_modify =0;
 static int buf_full =0;
 
 
@@ -179,6 +180,8 @@ void check_game_status(states *st, event *ev)
 
 int keyboard_event_handler(unsigned long out_buf)
 {
+
+
 	if (p == MENU_T)
 	{
 		if(out_buf == ESC_CODE)
@@ -253,6 +256,22 @@ int keyboard_event_handler(unsigned long out_buf)
 				buf_full = 1;
 			}
 		}
+		if(out_buf == CTRL_MAKE)
+		{
+
+			if(s1->boost_time > 0)
+			{
+
+				set_boost(s1);
+			}
+		}
+		if(out_buf == CTRL_BREAK)
+		{
+			if(s1->boost == 1)
+			{
+				stop_boost(s1);
+			}
+		}
 	}
 	else if( p == KBC_T)
 	{
@@ -322,6 +341,35 @@ int keyboard_event_handler(unsigned long out_buf)
 										buf_full = 1;
 									}
 								}
+				if(out_buf == CTRL_MAKE)
+				{
+					if(s2->boost_time > 0)
+					{
+
+						set_boost(s2);
+					}
+				}
+				if(out_buf == CTRL_BREAK)
+				{
+					if(s2->boost == 1)
+					{
+						stop_boost(s2);
+					}
+				}
+				if(out_buf == SHIFT_MAKE)
+				{
+					if(s1->boost_time > 0)
+					{
+						set_boost(s1);
+					}
+				}
+				if(out_buf == SHIFT_BREAK)
+				{
+					if(s1->boost == 1)
+					{
+						stop_boost(s1);
+					}
+				}
 	}
 		return 0;
 }
@@ -468,6 +516,17 @@ int timer_event_handler(unsigned short counter)
 				}
 				new_object_matrix(s1,1);
 			}
+
+			if(counter%60 == 0)
+			{
+				if(s1->boost==1)
+				{
+					if(s1->boost_time > 0)
+						s1->boost_time--;
+					else
+						stop_boost(s1);
+				}
+			}
 			if(counter%(s1->velocity) == 0)
 			{
 				move_snake(s1);
@@ -512,20 +571,46 @@ int timer_event_handler(unsigned short counter)
 					}
 					new_object_2_snakes_matrix(s1, s2, 1);
 			}
-						if(counter%(s1->velocity) == 0)
+
+			if(counter%60 == 0)
+			{
+				if(s1->boost==1)
+				{
+					if(s1->boost_time > 0)
+						s1->boost_time--;
+					else
+						stop_boost(s1);
+				}
+				if(s2->boost == 1)
+				{
+					if(s2->boost_time > 0)
+						s2->boost_time--;
+					else
+						stop_boost(s2);
+				}
+			}
+
+			if(counter%(s2->velocity) == 0)
 						{
 							if(flag_colision2 == 0)
 							move_snake(s2);
+							snakes_mp_modify = 1;
+						}
+						if(counter%(s1->velocity) == 0)
+						{
 							if(flag_colision == 0)
 							move_snake(s1);
-
+							snakes_mp_modify = 1;
+						}
+						if(snakes_mp_modify == 1)
+						{
 
 							printf("running\n");
 							update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);//nao altera a flag_colision ???
 
 							printf("Flag colision: %d\n", flag_colision);
 							printf("matrix updated\n");
-
+							snakes_mp_modify = 0;
 							buf_full =0;
 						}
 						return 0;

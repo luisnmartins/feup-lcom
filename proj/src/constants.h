@@ -32,6 +32,10 @@
 #define S_KEY 0x9F
 #define D_KEY 0xA0
 #define ENTER  0x001C
+#define CTRL_MAKE 0x1D
+#define CTRL_BREAK 0x9D
+#define SHIFT_MAKE 0x36
+#define SHIFT_BREAK 0xB6
 
 
 #define NBIT(n) (0xFF^BIT(n))

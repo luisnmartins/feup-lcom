@@ -80,7 +80,7 @@ void inc_snake(Snake *s1)
 	s1->size++;
 	if((s1->size-5)%3 == 0)
 	{
-		s1->velocity+=2;
+		s1->velocity-=0.5;
 	}
 }
 

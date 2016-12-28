@@ -2,11 +2,11 @@
 #include "man_events.h"
 
 typedef enum {
-	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T
+	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T,CHOOSE_SN_T,START_DELAY_T
 } states;
 
 typedef enum {
-	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED//mais cenas
+	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED,DELAY_T//mais cenas
 } event;
 
 states p=MENU_T;
@@ -19,8 +19,14 @@ static Snake *s1;
 static Snake *s2;
 static int flag_colision = 0;
 static int flag_colision2 = 0;
+static int number_delay=1;
 static int snakes_mp_modify =0;
 static int buf_full =0;
+static int body_flag = 0;
+static int choose = 0;
+static int choose1 = 0;
+static int head_flag = 0;
+static int second_snake = 0;
 
 
 //TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
@@ -35,7 +41,7 @@ void check_game_status(states *st, event *ev)
 
 			if(*ev == OPTA)
 			{
-				draw_instructions(1);
+				//draw_instructions(1);
 				printf("fixe\n");
 				//game_start(1);
 				//printf("COL: %d\n", s1->head->col);
@@ -44,7 +50,7 @@ void check_game_status(states *st, event *ev)
 					printf("nao deu\n");*/
 				//*ev = START_E;
 				//TODO draw rules;
-				*st = WAIT_T;
+				*st = CHOOSE_SN_T;
 			}
 			 if (*ev == OPTB)
 				{//game_start(2);
@@ -66,23 +72,63 @@ void check_game_status(states *st, event *ev)
 			{
 
 				game_start(1);
-				*st = SP_T;
+				*st = START_DELAY_T;
 			}
 			else if(t == OPTB_1)
 			{
 
 				game_start(2);
-				*st= KBC_T;
+				*st= START_DELAY_T;
 			}else if (t== OPTB_2)
 			{
 
 
 				game_start(3);
-				*st = MOKB_T;
+				*st = START_DELAY_T;
 			}
 
 		}
+		break;
 	}
+	case CHOOSE_SN_T:
+		if(*ev == START_E)
+		{
+			if(t== OPTA)
+			{
+				draw_instructions(1);
+				*st = WAIT_T;
+			}else if(t== OPTB_1)
+			{
+				draw_instructions(2);
+				*st = WAIT_T;
+			}
+			else if( t == OPTB_2)
+			{
+				draw_instructions(3);
+				*st = WAIT_T;
+			}
+		}
+		break;
+	case START_DELAY_T:
+		{
+			if(*ev == DELAY_T)
+			{
+				if(t == OPTA)
+				{
+					*st = SP_T;
+				}
+				else if(t == OPTB_1)
+				{
+					*st= KBC_T;
+				}
+				else if(t == OPTB_2){
+
+					*st = MOKB_T;
+				}
+
+			}
+			break;
+		}
 	case PAUSE_T:
 	{
 		if(*ev == START_E)
@@ -131,13 +177,13 @@ void check_game_status(states *st, event *ev)
 				}*/
 		if(*ev == OPTB_1)
 		{
-			draw_instructions(2);
-			*st = WAIT_T;
+			//draw_instructions(2);
+			*st = CHOOSE_SN_T;
 		}
 		else if (*ev == OPTB_2)
 		{
-			draw_instructions(3);
-			*st = WAIT_T;
+			//draw_instructions(3);
+			*st = CHOOSE_SN_T;
 		}else if (*ev == OPTC)
 		{
 			*st = MENU_T;
@@ -169,7 +215,11 @@ void check_game_status(states *st, event *ev)
 									printf("tenta mudar de estado\n");
 									clear_matrix();
 									*st = END_T;
-									show_points_sp(s1);
+									if(second_snake == 0)
+									s2 = s1;
+									if(second_snake == 1)
+									show_points_mp(s2,s1);
+
 								}
 				break;
 
@@ -202,7 +252,18 @@ int keyboard_event_handler(unsigned long out_buf)
 	{
 		if(out_buf == ENTER)
 		{
-			p = MENU_T;
+			if(second_snake == 0 && t == OPTB_2)
+			{
+				second_snake = 1;
+				p = CHOOSE_SN_T;
+
+			}
+			else
+			{
+				p = MENU_T;
+				second_snake = 0;
+			}
+
 		}
 	}
 
@@ -418,13 +479,17 @@ void game_start(int mode)
 	if (mode == 3)
 	{
 		//update_matrix_limits();
-		s1 = (Snake*)(malloc(sizeof(Snake)));
-								//s1 = s3;
-								new_snake(5,10,32, s1);
-								//remove_snakes_matrix();
-								update_matrix_snake(s1,1);
 
-								draw_screen(1);
+			s1 = (Snake*)(malloc(sizeof(Snake)));
+
+				//s1 = s3;
+				new_snake(5,10,32, s1);
+				//remove_snakes_matrix();
+				update_matrix_snake(s1,1);
+
+			draw_screen(1);
+
+
 	}
 	//TODO para multiplayer
 }
@@ -454,6 +519,24 @@ int timer_event_handler(unsigned short counter)
 		printf("changed\n");
 
 	}
+	if(p == CHOOSE_SN_T)
+	{
+		if(t == OPTA || t== OPTB_2)
+		{
+			draw_choose_snake(0);
+		}
+		if (t == OPTB_1)
+		{
+			if(choose == 0)
+			{
+				draw_choose_snake(1);
+			}else
+				if(choose == 1)
+				{
+					draw_choose_snake(2);
+				}
+		}
+	}
 
 	if (p == MPMENU_T)
 	{
@@ -465,6 +548,43 @@ int timer_event_handler(unsigned short counter)
 		draw_menu(1);
 
 	}
+	if(p == START_DELAY_T)
+		{
+			if(counter%60 == 0)
+			{
+
+			if(t == OPTA)
+			{
+
+				draw_screen(1);
+
+			}
+			else if(t == OPTB_1)
+			{
+
+				draw_screen(2);
+
+
+			}else if (t== OPTB_2)
+			{
+
+				draw_screen(1);
+
+
+			}
+			print_number_delay(number_delay);
+			if(number_delay == 4)
+			{
+				number_delay = 1;
+				event stop_delay = DELAY_T;
+				check_game_status(&p,&stop_delay);
+			}
+			else
+			{
+				number_delay++;
+			}
+			}
+		}
 
 
 	/*if(flag_colision == 1 && (p== SP_T || p == KBC_T || p == MOKB_T))
@@ -498,6 +618,7 @@ int timer_event_handler(unsigned short counter)
 				event col_event = COLISION;
 				check_game_status(&p, &col_event);
 				flag_colision = 0;
+				change_head(1);
 
 				printf("p: %d\n",p);
 				return 0;
@@ -691,6 +812,152 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		if(*rb == 1 && p == MOKB_T)
 		{
 			add_bomb_matrix(*x,*y,s1);
+		}
+		if(p== CHOOSE_SN_T)
+		{
+			if( t == OPTB_1)
+			{
+				if(choose == 0)
+				{
+					if(body_flag == 1)
+					{
+						if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
+							{
+							printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+								head_flag = 0;
+								body_flag = 0;
+								choose = 1;
+								return;
+							}
+					}
+					if(*x >= 168 && *y >=594 && *x<= (168+286) && *y <= (594+126) && *lb ==1)
+					{
+						choose1 = 1;
+						change_body(1);
+						body_flag = 1;
+						return;
+					}
+					if(*x>= 500 && *y >= 594 && *x<= (500+286) && *y <= (594+126) && *lb == 1)
+					{
+						choose1 = 2;
+						change_body(2);
+						body_flag = 1;
+						return;
+					}
+					if(*x >= 840 && *y>= 594 && *x <= (840+286) && *y <= (594+126) && *lb == 1)
+					{
+						choose1 = 3;
+						change_body(3);
+						body_flag = 1;
+						return;
+					}
+				}
+				if(choose == 1)
+				{
+					if(body_flag == 1)
+					{
+						if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
+							{
+								printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+								head_flag = 0;
+								body_flag = 0;
+								choose = 0;
+								choose1 = 0;
+								event ev = START_E;
+								check_game_status(&p,&ev);
+								return;
+							}
+					}
+					if(*x >= 168 && *y >=594 && *x<= (168+286) && *y <= (594+126) && *lb ==1)
+					{
+						if(choose1 != 1)
+						{
+							body_flag = 1;
+							change_body2(1);
+							return;
+						}
+						return;
+					}
+					if(*x>= 500 && *y >= 594 && *x<= (500+286) && *y <= (594+126) && *lb == 1)
+					{
+						if (choose1 != 2)
+						{
+							body_flag = 1;
+							change_body2(2);
+							return;
+						}
+						return;
+					}
+					if(*x >= 840 && *y>= 594 && *x <= (840+286) && *y <= (594+126) && *lb == 1)
+					{
+						if (choose1 != 3)
+						{
+							body_flag = 1;
+							change_body2(3);
+							return;
+						}
+						return;
+					}
+				}
+			}
+			if(t == OPTA || t == OPTB_2)
+			{
+				if(head_flag ==1 && body_flag ==1)
+				{
+				if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
+					{
+					printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+						head_flag = 0;
+						body_flag = 0;
+						event ev = START_E;
+						check_game_status(&p,&ev);
+						return;
+					}
+
+								}
+				printf("ESTA AQUI POSSA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+				if(*x>= 166 && *y>= 484 && *x <= (166+282) && *y <= (484+114) && *lb ==1)
+				{
+					printf("ESCOLHER 1 CORPO HURRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+					change_body(1);
+					body_flag =1;
+					return ;
+				}
+				if(*x>= 504 && *y>= 484 && *x <= (504+282) && *y <= (484+114) && *lb ==1)
+				{
+					change_body(2);
+					body_flag = 1;
+					return;
+				}
+				if (*x>= 838 && *y>= 484 && *x <= (838+282) && *y <= (484+114) && *lb == 1)
+				{
+
+					change_body(3);
+					body_flag = 1;
+					return;
+				}
+				if(*x>= 166 && *y >= 710 && *x<= (166+282) && *y<= (710+114) && *lb ==1)
+				{
+					printf("ESCOLHEU PRIMEIRA CABECA HURRAY!!!!!!!!!!!!!!\n");
+					change_head(1);
+					head_flag =1;
+					return;
+				}
+				if(*x>= 504 &&  *y>= 710 && *x<= (504+282) && *y<= (710+114) && *lb ==1 )
+				{
+					change_head(2);
+					head_flag = 1;
+					return;
+				}
+				if(*x >= 838 && *y>= 710 && *x<= (838+282) && *y <= (710+114) && *lb == 1)
+				{
+
+					change_head(3);
+					head_flag = 1;
+					return;
+				}
+
+			}
 		}
 
 

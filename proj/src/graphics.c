@@ -89,7 +89,7 @@ void *vg_init(unsigned short mode) {
 	body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
 	white = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/3white.bmp");
 	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal.bmp");
-	bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_mp.bmp");
+	bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal_multi.bmp");
 	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
 	cursor = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cursor.bmp");
 	numbers[0]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number0.bmp");
@@ -103,6 +103,16 @@ void *vg_init(unsigned short mode) {
 	numbers[8]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number8.bmp");
 	numbers[9]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number9.bmp");
 	numbers[10] =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/twodots.bmp");
+	numbers_score[0] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score0.bmp");
+	numbers_score[1] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score1.bmp");
+	numbers_score[2] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score2.bmp");
+	numbers_score[3] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score3.bmp");
+	numbers_score[4] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score4.bmp");
+	numbers_score[5] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score5.bmp");
+	numbers_score[6] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score6.bmp");
+	numbers_score[7] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score7.bmp");
+	numbers_score[8] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score8.bmp");
+	numbers_score[9] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score9.bmp");
 	sp_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules1.bmp");
 	kbc_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules2.bmp");
 	mokb_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules3.bmp");
@@ -113,7 +123,12 @@ void *vg_init(unsigned short mode) {
 	wall = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/wall.bmp");
 	player1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player1.bmp");
 	player2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player2.bmp");
-
+	choose_main = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choosemain.bmp");
+	choose_p1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p1.bmp");
+	choose_p2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p2.bmp");
+	counter1_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count1_delay.bmp");
+	counter2_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count2_delay.bmp");
+	counter3_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count3_delay.bmp");
 	//memset(video_mem, 1, screen_size);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
@@ -142,6 +157,67 @@ void clear_screen()
 {
 	memset(video_mem,0,screen_size);
 }
+
+void change_body(int opt)
+{
+	if(opt == 1)
+	{
+		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+	}
+	else if(opt == 2)
+	{
+		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
+	}else if(opt == 3)
+	{
+		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
+
+	}
+	return;
+}
+
+void change_body2(int opt)
+{
+	if(opt == 1)
+		{
+			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+		}
+		else if(opt == 2)
+		{
+			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
+		}else if(opt == 3)
+		{
+			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
+
+		}
+		return;
+}
+
+void change_head(int opt)
+{
+	if(opt ==1)
+	{
+		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
+		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
+		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
+		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
+	}
+	else if(opt == 2)
+	{
+		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
+		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
+		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
+		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
+	}else if(opt ==3)
+	{
+		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_direita.bmp");
+		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_esquerda.bmp");
+		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_cima.bmp");
+		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_baixo.bmp");
+	}
+	return;
+
+}
+
 
 
 void show_points_sp(Snake *s1)
@@ -291,6 +367,35 @@ void draw_menu(int mode)
 		}
 
 
+}
+
+void draw_choose_snake(int mode)
+{
+	if(mode == 0)
+	{
+memcpy(video_mem,double_buffer,screen_size);
+		drawbackground(double_buffer,choose_main,0,0,ALIGN_LEFT);
+
+		update_menu_mouse();
+
+		return;
+	}
+	if (mode == 1)
+	{
+memcpy(video_mem,double_buffer,screen_size);
+		drawbackground(double_buffer,choose_p1,0,0,ALIGN_LEFT);
+
+				update_menu_mouse();
+
+				return;
+	}
+	if (mode == 2)
+	{
+		memcpy(video_mem,double_buffer,screen_size);
+		drawbackground(double_buffer,choose_p2,0,0,ALIGN_LEFT);
+		update_menu_mouse();
+		return;
+	}
 }
 void draw_time(int hour,int min, int seconds)
 {
@@ -480,7 +585,7 @@ int verify_colision_walls_bgmap(int col,int row,int mode)
 	}
 	else if(mode == 2)
 	{
-		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 18 && (row >= 29 && row <=37)) || (row == 29 && col <= 18) || (col == 45 && (row <= 45 && row >=36)) || (col == 36 && (row <= 21)) || (row == 17 && (col >=30 && col <=42)) )
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 35)) ||(row ==48 && (col >= 27 && col <= 35 )) )
 		{
 			return 1;
 		}
@@ -992,4 +1097,25 @@ int bomb_count()
 	printf("quantods:%d\n", how_many);
 	return how_many;
 }
+
+void print_number_delay(int number_delay)
+{
+	if (number_delay == 1)
+	{
+		drawBitmap(double_buffer,counter1_delay,592,419,ALIGN_LEFT);
+		memcpy(video_mem,double_buffer,screen_size);
+	}else if(number_delay == 2)
+	{
+		drawBitmap(double_buffer,counter2_delay,592,419,ALIGN_LEFT);
+				memcpy(video_mem,double_buffer,screen_size);
+	}
+	else if(number_delay == 3)
+	{
+		drawBitmap(double_buffer,counter3_delay,592,419,ALIGN_LEFT);
+				memcpy(video_mem,double_buffer,screen_size);
+	}
+}
+
+
+
 

@@ -467,13 +467,24 @@ int verify_colision_walls(int col,int row)
 	return 0;
 }
 
-int verify_colision_walls_bgmap(int col,int row)
+int verify_colision_walls_bgmap(int col,int row,int mode)
 {
-	if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row >= 42) || (row == 42 && (col > 9 && col <= 17)) || (col == 35 &&(row >= 42 )) || (row == 50 && (col >= 49)) || (col == 49 && (row <= 50 && row >=33)) || (col == 43 && (row <= 21)) || (row == 21 &&(col >=35 && col <=51)))
+	if(mode == 1)
+	{
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row >= 42) || (row == 42 && (col > 9 && col <= 17)) || (col == 35 &&(row >= 42 )) || (row == 50 && (col >= 49)) || (col == 49 && (row <= 50 && row >=33)) || (col == 43 && (row <= 21)) || (row == 21 &&(col >=35 && col <=51)))
 	{
 		return 1;
 	}
 	return 0;
+	}
+	else if(mode == 2)
+	{
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 18 && (row >= 29 && row <=37)) || (row == 29 && col <= 18) || (col == 45 && (row <= 45 && row >=36)) || (col == 36 && (row <= 21)) || (row == 17 && (col >=30 && col <=42)) )
+		{
+			return 1;
+		}
+		return 0;
+	}
 }
 
 int update_matrix_snake(Snake *s1,int mouse)
@@ -524,7 +535,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 			{
 
 
-				if(verify_colision_walls_bgmap(seg1->col,seg1->row) == 1)
+				if(verify_colision_walls_bgmap(seg1->col,seg1->row,1) == 1)
 				{
 					return 1;
 				}
@@ -642,7 +653,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 			if(seg1 == s1->head)
 									{
 
-				if(verify_colision_walls(seg1->col,seg1->row) == 1)
+				if(verify_colision_walls_bgmap(seg1->col,seg1->row,2) == 1)
 								{
 					matrix_graphics[seg1->col][seg1->row] = NULL;
 											printf("colision\n");
@@ -691,7 +702,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 
 			if(seg2 == s2->head)
 					{
-				if(verify_colision_walls(seg2->col,seg2->row) == 1)
+				if(verify_colision_walls_bgmap(seg2->col,seg2->row,2) == 1)
 								{
 					matrix_graphics[seg2->col][seg2->row] = NULL;
 																			printf("colision\n");
@@ -770,7 +781,7 @@ int update_matrix_objects(Game_object *obj, Snake *s1)
 		{
 			return 1;
 		}
-	if(verify_colision_walls(obj->col,obj->row) == 1)
+	if(verify_colision_walls_bgmap(obj->col,obj->row,1) == 1)
 	{
 		return 1;
 	}
@@ -798,7 +809,7 @@ int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
 		{
 			return 1;
 		}
-	if(verify_colision_walls(obj->col,obj->row) == 1)
+	if(verify_colision_walls_bgmap(obj->col,obj->row,2) == 1)
 		{
 			return 1;
 		}
@@ -844,10 +855,10 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 		{
 			return 1;
 		}
-		/*if(verify_colision_walls(col,row) == 1)
+		if(verify_colision_walls_bgmap(col,row,1) == 1)
 			{
 				return 1;
-			}*/
+			}
 		if(((abs(obj->row - s1->head->row) < 2 && abs(obj->col - s1->head->col) < 2)) || (obj->row == (s1->size-1) || obj->col == (s1->size-1) || obj->row+(s1->size-1) == 63 || obj->col+(s1->size-1) == 63))
 			{
 				return 1;
@@ -886,7 +897,7 @@ int add_bomb_matrix(int x, int y,Snake *s1)
 		{
 			return 1;
 		}
-		if(verify_colision_walls(col,row) == 1)
+		if(verify_colision_walls_bgmap(col,row,1) == 1)
 					{
 						return 1;
 					}

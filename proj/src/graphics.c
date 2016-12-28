@@ -110,6 +110,7 @@ void *vg_init(unsigned short mode) {
 	explosion = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/explosions.bmp");
 	mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
 	pausesymb =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/pause.bmp");
+	wall = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/wall.bmp");
 	player1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player1.bmp");
 	player2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player2.bmp");
 

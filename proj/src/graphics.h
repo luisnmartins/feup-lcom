@@ -46,6 +46,7 @@ static Bitmap *mokb_inst;
 static Bitmap *pausesymb;
 static Bitmap *bomb;
 static Bitmap *explosion;
+static Bitmap *wall;
 static Bitmap *player1;
 static Bitmap *player2;
 

@@ -75,6 +75,7 @@ void clear_screen();
 void show_points_sp(Snake *s1);
 void show_points_mp(Snake *s1, Snake *s2);
 int verify_colision_walls(int col,int row);
+int verify_colision_walls_bgmap(int col,int row,int mode);
 
 //paint snake on horizontal direction
 int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);

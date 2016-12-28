@@ -450,7 +450,7 @@ void game_start(int mode)
 		//update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
 						//s1 = s3;
-						new_snake(5,10,32, s1);
+						new_snake(5,28,32, s1);
 						//remove_snakes_matrix();
 						update_matrix_snake(s1,0);
 						new_object_matrix(s1,0);
@@ -483,7 +483,7 @@ void game_start(int mode)
 			s1 = (Snake*)(malloc(sizeof(Snake)));
 
 				//s1 = s3;
-				new_snake(5,10,32, s1);
+				new_snake(5,28,32, s1);
 				//remove_snakes_matrix();
 				update_matrix_snake(s1,1);
 

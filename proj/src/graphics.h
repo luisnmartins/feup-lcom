@@ -49,6 +49,13 @@ static Bitmap *explosion;
 static Bitmap *wall;
 static Bitmap *player1;
 static Bitmap *player2;
+static Bitmap *choose_main;
+static Bitmap *choose_p1;
+static Bitmap *choose_p2;
+static Bitmap *counter1_delay;
+static Bitmap *counter2_delay;
+static Bitmap *counter3_delay;
+static Bitmap *numbers_score[10];
 
 
 void *vg_init(unsigned short mode);
@@ -61,7 +68,11 @@ void update_pos_mouse(unsigned long *x, unsigned long *y);
 int update_matrix_snake(Snake *s1,int mouse);
 void draw_menu(int mode);
 void  update_menu_mouse();
+void change_body(int opt);
+void change_body2(int opt);
+void change_head(int opt);
 void clear_matrix();
+void draw_choose_snake(int mode);
 //void update_matrix_seg(struct Segment *seg);
 void new_object_matrix(Snake *s1,unsigned int type);
 void new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type);
@@ -85,6 +96,8 @@ int fruit_count();
 int bomb_count();
 void remove_bomb();
 int add_bomb_matrix(int x, int y,Snake *s2);
+
+void print_number_delay(int number_delay);
 
 
 

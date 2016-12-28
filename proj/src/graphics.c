@@ -467,14 +467,14 @@ int verify_colision_walls(int col,int row)
 	return 0;
 }
 
-/*int verify_colision_walls_bgmap(int col,int row)
+int verify_colision_walls_bgmap(int col,int row)
 {
-	if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row <= 21) || (row == 21 && (col > 8 && col <= 17)) ||(col == 35 &&()))
+	if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row >= 42) || (row == 42 && (col > 9 && col <= 17)) || (col == 35 &&(row >= 42 )) || (row == 50 && (col >= 49)) || (col == 49 && (row <= 50 && row >=33)) || (col == 43 && (row <= 21)) || (row == 21 &&(col >=35 && col <=51)))
 	{
 		return 1;
 	}
 	return 0;
-}*/
+}
 
 int update_matrix_snake(Snake *s1,int mouse)
 {
@@ -524,7 +524,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 			{
 
 
-				if(verify_colision_walls(seg1->col,seg1->row) == 1)
+				if(verify_colision_walls_bgmap(seg1->col,seg1->row) == 1)
 				{
 					return 1;
 				}

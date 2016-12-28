@@ -23,6 +23,7 @@ typedef struct {
 	unsigned int size;
 	unsigned short velocity;
 	unsigned short boost;
+	unsigned short boost_time;
 }Snake;
 
 
@@ -30,3 +31,5 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col);
 void new_snake(int size, unsigned short x, unsigned short y, Snake *s1);
 segment_snake *new_seg(unsigned short col, unsigned short row);
 void move_snake(Snake* s1);
+void set_boost(Snake* s1);
+void stop_boost(Snake *s1);

@@ -86,6 +86,8 @@ void draw_instructions(int mode);
 void clear_screen();
 void show_points_sp(Snake *s1);
 void show_points_mp(Snake *s1, Snake *s2);
+void points_ingame_sp(Snake *s1);
+void points_ingame_mp (Snake *s1,Snake *s2);
 int verify_colision_walls(int col,int row);
 int verify_colision_walls_bgmap(int col,int row,int mode);
 

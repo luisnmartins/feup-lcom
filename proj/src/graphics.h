@@ -74,7 +74,6 @@ void change_head(int opt);
 void clear_matrix();
 void draw_choose_snake(int mode);
 void draw_preview_snake(Snake *snake_preview, int counter, int body_count);
-//void update_matrix_seg(struct Segment *seg);
 void new_object_matrix(Snake *s1,unsigned int type);
 void new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type);
 void remove_snakes_matrix();
@@ -100,6 +99,10 @@ int bomb_count();
 void remove_bomb();
 int add_bomb_matrix(int x, int y,Snake *s2);
 
+/**
+ * @brief Print the 3, 2, 1 numbers used when a game is starting
+ * @param number_delay Number to print (1, 2 or 3)
+ */
 void print_number_delay(int number_delay);
 
 

@@ -20,7 +20,7 @@ static Snake *s2;
 static Snake *s_preview;
 static int flag_colision = 0;
 static int flag_colision2 = 0;
-static int number_delay=1;
+static int number_delay=3;
 static int snakes_mp_modify =0;
 static int buf_full =0;
 static int body_flag = 0;
@@ -613,15 +613,15 @@ int timer_event_handler(unsigned short counter)
 
 			}
 			print_number_delay(number_delay);
-			if(number_delay == 4)
+			if(number_delay == 0)
 			{
-				number_delay = 1;
+				number_delay = 3;
 				event stop_delay = DELAY_E;
 				check_game_status(&p,&stop_delay);
 			}
 			else
 			{
-				number_delay++;
+				number_delay--;
 			}
 			}
 		}

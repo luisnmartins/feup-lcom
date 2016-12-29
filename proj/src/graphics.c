@@ -1229,7 +1229,7 @@ void print_number_delay(int number_delay)
 	else if(number_delay == 3)
 	{
 		drawBitmap(double_buffer,counter3_delay,592,419,ALIGN_LEFT);
-				memcpy(video_mem,double_buffer,screen_size);
+		memcpy(video_mem,double_buffer,screen_size);
 	}
 }
 

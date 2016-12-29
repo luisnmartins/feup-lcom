@@ -85,6 +85,31 @@
 #define TOLERAN 5
 
 
+
+//--------------- MENU CONSTANTS
+
+#define SQUARE_HEIGHT 59
+#define SQUARE_WIDTH 101
+
+// ---- SINGLE PLAYER AND MOUSE + SNAKE
+
+#define FIRST_ELEMENT 341
+#define SECOND_ELEMENT 591
+#define THIRD_ELEMENT 838
+
+#define BODY_HEIGHT 491
+#define HEAD_HEIGHT 707
+
+// ------ MULTIPLAYER
+
+#define FIRST_ELEMENT_M 336
+#define SECOND_ELEMENT_M 584
+#define THIRD_ELEMENT_M 834
+
+
+#define BODY_HEIGHT_M 638
+
+
 // ---------- RTC
 
 #define RTC_ADDR_REG 0x70

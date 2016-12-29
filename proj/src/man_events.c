@@ -548,8 +548,8 @@ int timer_event_handler(unsigned short counter)
 
 			if(body_flag == 1 && head_flag == 1)
 			{
-				printf("POS COBRAAAAAAAAA\n");
-				draw_preview_snake(s_preview, counter);
+				//printf("POS COBRAAAAAAAAA\n");
+				draw_preview_snake(s_preview, counter, 0);
 
 			}
 		}
@@ -558,10 +558,20 @@ int timer_event_handler(unsigned short counter)
 			if(choose == 0)
 			{
 				draw_choose_snake(1);
+				if(body_flag == 1)
+				{
+					draw_preview_snake(s_preview, counter, 0);
+				}
 			}else
 				if(choose == 1)
 				{
 					draw_choose_snake(2);
+
+					if(body_flag == 1)
+					{
+
+						draw_preview_snake(s_preview, counter, 1);
+					}
 				}
 		}
 
@@ -860,24 +870,25 @@ void mouse_event_handler(unsigned long *packet_mouse)
 								head_flag = 0;
 								body_flag = 0;
 								choose = 1;
+								set_snake(s_preview, 5);
 								return;
 							}
 					}
-					if(*x >= 168 && *y >=594 && *x<= (168+286) && *y <= (594+126) && *lb ==1)
+					if(*x >= FIRST_ELEMENT_M && *y >=BODY_HEIGHT_M && *x<=(FIRST_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb ==1)
 					{
 						choose1 = 1;
 						change_body(1);
 						body_flag = 1;
 						return;
 					}
-					if(*x>= 500 && *y >= 594 && *x<= (500+286) && *y <= (594+126) && *lb == 1)
+					if(*x>= SECOND_ELEMENT_M && *y >= BODY_HEIGHT_M && *x<= (SECOND_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb == 1)
 					{
 						choose1 = 2;
 						change_body(2);
 						body_flag = 1;
 						return;
 					}
-					if(*x >= 840 && *y>= 594 && *x <= (840+286) && *y <= (594+126) && *lb == 1)
+					if(*x >= THIRD_ELEMENT_M && *y>= BODY_HEIGHT_M && *x <= (THIRD_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb == 1)
 					{
 						choose1 = 3;
 						change_body(3);
@@ -901,7 +912,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 								return;
 							}
 					}
-					if(*x >= 168 && *y >=594 && *x<= (168+286) && *y <= (594+126) && *lb ==1)
+					if(*x >= FIRST_ELEMENT_M && *y >=BODY_HEIGHT_M && *x<=(FIRST_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb ==1)
 					{
 						if(choose1 != 1)
 						{
@@ -911,7 +922,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 						}
 						return;
 					}
-					if(*x>= 500 && *y >= 594 && *x<= (500+286) && *y <= (594+126) && *lb == 1)
+					if(*x>= SECOND_ELEMENT_M && *y >= BODY_HEIGHT_M && *x<= (SECOND_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb == 1)
 					{
 						if (choose1 != 2)
 						{
@@ -921,7 +932,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 						}
 						return;
 					}
-					if(*x >= 840 && *y>= 594 && *x <= (840+286) && *y <= (594+126) && *lb == 1)
+					if(*x >= THIRD_ELEMENT_M && *y>= BODY_HEIGHT_M && *x <= (THIRD_ELEMENT_M + SQUARE_WIDTH) && *y <= (BODY_HEIGHT_M + SQUARE_HEIGHT) && *lb == 1)
 					{
 						if (choose1 != 3)
 						{
@@ -949,40 +960,40 @@ void mouse_event_handler(unsigned long *packet_mouse)
 
 								}
 				printf("ESTA AQUI POSSA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-				if(*x>= 166 && *y>= 484 && *x <= (166+282) && *y <= (484+114) && *lb ==1)
+				if(*x>= FIRST_ELEMENT && *y>= BODY_HEIGHT && *x <= (FIRST_ELEMENT + SQUARE_WIDTH) && *y <= (BODY_HEIGHT + SQUARE_HEIGHT) && *lb ==1)
 				{
 					printf("ESCOLHER 1 CORPO HURRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 					change_body(1);
 					body_flag =1;
 					return ;
 				}
-				if(*x>= 504 && *y>= 484 && *x <= (504+282) && *y <= (484+114) && *lb ==1)
+				if(*x>= SECOND_ELEMENT && *y>= BODY_HEIGHT && *x <= (SECOND_ELEMENT + SQUARE_WIDTH) && *y <= (BODY_HEIGHT + SQUARE_HEIGHT) && *lb ==1)
 				{
 					change_body(2);
 					body_flag = 1;
 					return;
 				}
-				if (*x>= 838 && *y>= 484 && *x <= (838+282) && *y <= (484+114) && *lb == 1)
+				if (*x>= THIRD_ELEMENT && *y>= BODY_HEIGHT && *x <= (THIRD_ELEMENT + SQUARE_WIDTH) && *y <= (BODY_HEIGHT + SQUARE_HEIGHT) && *lb == 1)
 				{
 
 					change_body(3);
 					body_flag = 1;
 					return;
 				}
-				if(*x>= 166 && *y >= 710 && *x<= (166+282) && *y<= (710+114) && *lb ==1)
+				if(*x>= FIRST_ELEMENT && *y >= HEAD_HEIGHT && *x<= (FIRST_ELEMENT + SQUARE_WIDTH) && *y<= (HEAD_HEIGHT + SQUARE_HEIGHT) && *lb ==1)
 				{
 					printf("ESCOLHEU PRIMEIRA CABECA HURRAY!!!!!!!!!!!!!!\n");
 					change_head(1);
 					head_flag =1;
 					return;
 				}
-				if(*x>= 504 &&  *y>= 710 && *x<= (504+282) && *y<= (710+114) && *lb ==1 )
+				if(*x>= SECOND_ELEMENT &&  *y>= HEAD_HEIGHT && *x<= (SECOND_ELEMENT + SQUARE_WIDTH) && *y<= (HEAD_HEIGHT + SQUARE_HEIGHT) && *lb ==1 )
 				{
 					change_head(2);
 					head_flag = 1;
 					return;
 				}
-				if(*x >= 838 && *y>= 710 && *x<= (838+282) && *y <= (710+114) && *lb == 1)
+				if(*x >= THIRD_ELEMENT && *y>= HEAD_HEIGHT && *x<= (THIRD_ELEMENT + SQUARE_WIDTH) && *y <= (HEAD_HEIGHT + SQUARE_HEIGHT) && *lb == 1)
 				{
 
 					change_head(3);

@@ -6,6 +6,7 @@ static char *double_buffer;
 static char *video_mem; /* Process address to which VRAM is mapped */
 
 static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
+static Bitmap *preview_matrix[20] = {NULL};
 static unsigned long x_pos_atual = 200;
 static unsigned long y_pos_atual = 200;
 
@@ -415,7 +416,7 @@ void draw_choose_snake(int mode)
 {
 	if(mode == 0)
 	{
-memcpy(video_mem,double_buffer,screen_size);
+		memcpy(video_mem,double_buffer,screen_size);
 		drawbackground(double_buffer,choose_main,0,0,ALIGN_LEFT);
 
 		update_menu_mouse();
@@ -424,7 +425,7 @@ memcpy(video_mem,double_buffer,screen_size);
 	}
 	if (mode == 1)
 	{
-memcpy(video_mem,double_buffer,screen_size);
+		memcpy(video_mem,double_buffer,screen_size);
 		drawbackground(double_buffer,choose_p1,0,0,ALIGN_LEFT);
 
 				update_menu_mouse();
@@ -493,6 +494,70 @@ void draw_instructions(int mode)
 				return;
 	}
 	return;
+}
+
+void draw_preview_snake(Snake *snake_preview, int counter)
+{
+	//draw_snake
+	//drawBitmap(double_buffer, body, 20*0+600,200, ALIGN_LEFT);
+	//drawBitmap(double_buffer, cabeca1hd, 20*1+200,200, ALIGN_LEFT);
+	//memcpy(video_mem, double_buffer, screen_size);
+
+	int i=0;
+	segment_snake *seg1 = snake_preview->tail;
+
+	do{
+		preview_matrix[seg1->col] = body;
+
+		seg1 = seg1->before;
+	}while(seg1!= snake_preview->head);
+
+
+	preview_matrix[seg1->col] = cabeca1hd;
+
+		i=5;
+	while(i<20)	{
+		if(preview_matrix[i] != NULL)
+		{
+			drawBitmap(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+
+			if(preview_matrix[i] == body || preview_matrix[i] == body2)
+			{
+				drawbackground(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+			}else
+			{
+				drawBitmap(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+			}
+		}
+		i++;
+	}
+	memcpy(video_mem, double_buffer, screen_size);
+	i=0;
+	for(i; i<20; i++)
+	{
+		preview_matrix[i] = NULL;
+	}
+
+	//memset(preview_matrix,(int)NULL,sizeof(matrix_graphics[0])*10);
+
+	if(counter%20 == 0)
+	{
+		if(snake_preview->head->col < 25)
+		{
+			move_snake(snake_preview);
+		}
+		else
+		{
+			set_snake(snake_preview, -5);
+		}
+	}
+
+
+
+	//fill matrix*/
+
+
+
 }
 
 void draw_screen(int mode)

@@ -2,11 +2,11 @@
 #include "man_events.h"
 
 typedef enum {
-	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T,CHOOSE_SN_T,START_DELAY_T
+	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T,CHOOSE_SN_T,START_DELAY_T, SNAKE_PREVIEW_T
 } states;
 
 typedef enum {
-	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED,DELAY_T//mais cenas
+	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED,DELAY_E, PREVIEW_E//mais cenas
 } event;
 
 states p=MENU_T;
@@ -17,12 +17,14 @@ states p=MENU_T;
 
 static Snake *s1;
 static Snake *s2;
+static Snake *s_preview;
 static int flag_colision = 0;
 static int flag_colision2 = 0;
 static int number_delay=1;
 static int snakes_mp_modify =0;
 static int buf_full =0;
 static int body_flag = 0;
+static int body_head_changed = 0;
 static int choose = 0;
 static int choose1 = 0;
 static int head_flag = 0;
@@ -42,7 +44,9 @@ void check_game_status(states *st, event *ev)
 			if(*ev == OPTA)
 			{
 				//draw_instructions(1);
+				new_snake_preview();
 				printf("fixe\n");
+				//printf("SIMMMMMMMMM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 				//game_start(1);
 				//printf("COL: %d\n", s1->head->col);
 				//printf("ROW: %d\n", s1->head->row);
@@ -54,7 +58,8 @@ void check_game_status(states *st, event *ev)
 			}
 			 if (*ev == OPTB)
 				{//game_start(2);
-				 printf("SIMMMMMMMMM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
+				 new_snake_preview();
 				*st = MPMENU_T;
 				}
 			if (*ev == OPTC)
@@ -96,22 +101,28 @@ void check_game_status(states *st, event *ev)
 			if(t== OPTA)
 			{
 				draw_instructions(1);
+				//new_snake_preview();
+				//*st = SNAKE_PREVIEW_T;
 				*st = WAIT_T;
 			}else if(t== OPTB_1)
 			{
 				draw_instructions(2);
+				//new_snake_preview();
+				//*st = SNAKE_PREVIEW_T;
 				*st = WAIT_T;
 			}
 			else if( t == OPTB_2)
 			{
 				draw_instructions(3);
+				//new_snake_preview()
+				//*st = SNAKE_PREVIEW_T;
 				*st = WAIT_T;
 			}
 		}
 		break;
 	case START_DELAY_T:
 		{
-			if(*ev == DELAY_T)
+			if(*ev == DELAY_E)
 			{
 				if(t == OPTA)
 				{
@@ -178,14 +189,18 @@ void check_game_status(states *st, event *ev)
 		if(*ev == OPTB_1)
 		{
 			//draw_instructions(2);
+			new_snake_preview();
+
 			*st = CHOOSE_SN_T;
 		}
 		else if (*ev == OPTB_2)
 		{
 			//draw_instructions(3);
+			new_snake_preview();
 			*st = CHOOSE_SN_T;
 		}else if (*ev == OPTC)
 		{
+			free(s_preview);
 			*st = MENU_T;
 		}
 		break;
@@ -459,7 +474,7 @@ void game_start(int mode)
 						new_object_matrix(s1,1);
 						draw_screen(1);
 	}
-	if (mode == 2)
+	else if (mode == 2)
 	{
 		//update_matrix_limits();
 		s1 = (Snake*)(malloc(sizeof(Snake)));
@@ -476,16 +491,16 @@ void game_start(int mode)
 
 								draw_screen(2);
 	}
-	if (mode == 3)
+	else if (mode == 3)
 	{
 		//update_matrix_limits();
 
 			s1 = (Snake*)(malloc(sizeof(Snake)));
 
 				//s1 = s3;
-				new_snake(5,28,32, s1);
+			new_snake(5,28,32, s1);
 				//remove_snakes_matrix();
-				update_matrix_snake(s1,1);
+			update_matrix_snake(s1,1);
 
 			draw_screen(1);
 
@@ -494,6 +509,12 @@ void game_start(int mode)
 	//TODO para multiplayer
 }
 
+
+void new_snake_preview()
+{
+	s_preview = (Snake*)(malloc(sizeof(Snake)));
+	new_snake(5,0,0, s_preview);
+}
 
 int timer_event_handler(unsigned short counter)
 {
@@ -524,6 +545,13 @@ int timer_event_handler(unsigned short counter)
 		if(t == OPTA || t== OPTB_2)
 		{
 			draw_choose_snake(0);
+
+			if(body_flag == 1 && head_flag == 1)
+			{
+				printf("POS COBRAAAAAAAAA\n");
+				draw_preview_snake(s_preview, counter);
+
+			}
 		}
 		if (t == OPTB_1)
 		{
@@ -536,7 +564,9 @@ int timer_event_handler(unsigned short counter)
 					draw_choose_snake(2);
 				}
 		}
+
 	}
+
 
 	if (p == MPMENU_T)
 	{
@@ -576,7 +606,7 @@ int timer_event_handler(unsigned short counter)
 			if(number_delay == 4)
 			{
 				number_delay = 1;
-				event stop_delay = DELAY_T;
+				event stop_delay = DELAY_E;
 				check_game_status(&p,&stop_delay);
 			}
 			else

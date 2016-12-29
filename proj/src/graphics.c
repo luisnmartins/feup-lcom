@@ -496,7 +496,7 @@ void draw_instructions(int mode)
 	return;
 }
 
-void draw_preview_snake(Snake *snake_preview, int counter)
+void draw_preview_snake(Snake *snake_preview, int counter, int body_count)
 {
 	//draw_snake
 	//drawBitmap(double_buffer, body, 20*0+600,200, ALIGN_LEFT);
@@ -505,12 +505,22 @@ void draw_preview_snake(Snake *snake_preview, int counter)
 
 	int i=0;
 	segment_snake *seg1 = snake_preview->tail;
+	if(body_count == 0)
+	{
+		do{
+			preview_matrix[seg1->col] = body;
 
-	do{
-		preview_matrix[seg1->col] = body;
+			seg1 = seg1->before;
+		}while(seg1!= snake_preview->head);
+	}
+	else
+	{
+		do{
+					preview_matrix[seg1->col] = body2;
 
-		seg1 = seg1->before;
-	}while(seg1!= snake_preview->head);
+					seg1 = seg1->before;
+				}while(seg1!= snake_preview->head);
+	}
 
 
 	preview_matrix[seg1->col] = cabeca1hd;
@@ -519,14 +529,14 @@ void draw_preview_snake(Snake *snake_preview, int counter)
 	while(i<20)	{
 		if(preview_matrix[i] != NULL)
 		{
-			drawBitmap(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+
 
 			if(preview_matrix[i] == body || preview_matrix[i] == body2)
 			{
-				drawbackground(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+				drawbackground(double_buffer,preview_matrix[i],20*i + 370,300,ALIGN_LEFT);
 			}else
 			{
-				drawBitmap(double_buffer,preview_matrix[i],20*i + 200,200,ALIGN_LEFT);
+				drawBitmap(double_buffer,preview_matrix[i],20*i + 370,300,ALIGN_LEFT);
 			}
 		}
 		i++;

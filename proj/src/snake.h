@@ -33,3 +33,4 @@ segment_snake *new_seg(unsigned short col, unsigned short row);
 void move_snake(Snake* s1);
 void set_boost(Snake* s1);
 void stop_boost(Snake *s1);
+void set_snake(Snake* snake, int col);

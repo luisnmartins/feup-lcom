@@ -73,6 +73,7 @@ void change_body2(int opt);
 void change_head(int opt);
 void clear_matrix();
 void draw_choose_snake(int mode);
+void draw_preview_snake(Snake *snake_preview, int counter);
 //void update_matrix_seg(struct Segment *seg);
 void new_object_matrix(Snake *s1,unsigned int type);
 void new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type);

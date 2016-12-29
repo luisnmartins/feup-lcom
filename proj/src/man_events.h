@@ -11,6 +11,7 @@ int keyboard_event_handler(unsigned long out_buf);
 int timer_event_handler(unsigned short counter);
 void mouse_event_handler(unsigned long *packet_mouse);
 void game_start(int mode);
+void new_snake_preview();
 
 
 

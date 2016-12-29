@@ -205,3 +205,17 @@ void stop_boost(Snake* s1)
 	s1->velocity = s1->velocity*2;
 	s1->boost = 0;
 }
+
+void set_snake(Snake* snake, int col)
+{
+	segment_snake* new_seg = snake->tail;
+	int i=0;
+	int size = snake->size;
+	do
+	{
+		new_seg->col=i;
+		new_seg = new_seg->before;
+		i++;
+	}while(i<size);
+
+}

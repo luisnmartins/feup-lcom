@@ -172,7 +172,7 @@ void check_game_status(states *st, event *ev)
 		if(*ev == COLISION)
 		{
 
-			printf("tenta mudar de estado\n");
+
 			clear_matrix();
 			*st = END_T;
 			show_points_sp(s1);
@@ -180,12 +180,7 @@ void check_game_status(states *st, event *ev)
 		break;
 	}
 	case MPMENU_T:
-	{/*if(*ev == COLISION)
-				{
-					printf("tenta mudar de estado\n");
-					clear_matrix();
-					*st = MENU_T;
-				}*/
+	{
 		if(*ev == OPTB_1)
 		{
 			//draw_instructions(2);
@@ -548,7 +543,7 @@ int timer_event_handler(unsigned short counter)
 
 			if(body_flag == 1 && head_flag == 1)
 			{
-				//printf("POS COBRAAAAAAAAA\n");
+
 				draw_preview_snake(s_preview, counter, 0);
 
 			}
@@ -580,7 +575,7 @@ int timer_event_handler(unsigned short counter)
 
 	if (p == MPMENU_T)
 	{
-		printf("ENTROU EM MPMENU_T!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
 		int hour = bcd_to_decimal(date.hour);
 		int min = bcd_to_decimal(date.min);
 		int sec = bcd_to_decimal(date.sec);
@@ -627,24 +622,6 @@ int timer_event_handler(unsigned short counter)
 		}
 
 
-	/*if(flag_colision == 1 && (p== SP_T || p == KBC_T || p == MOKB_T))
-				{
-
-					printf("mudanca estado\n");
-					printf("%d\n", p);
-					event col_event = COLISION;
-					check_game_status(&p, &col_event);
-					draw_screen();
-					flag_colision = 0;
-					printf("p: %d\n",p);
-					return 0;
-
-
-				}*/
-
-		printf("procesing\n");
-		//printf("R: %d\n", s1->head->row);
-		//printf("C: %d\n", s1->head->col);
 
 
 		if(p == SP_T || p == MOKB_T)
@@ -654,14 +631,10 @@ int timer_event_handler(unsigned short counter)
 			if(flag_colision == 1)
 			{
 				draw_screen(1);
-				printf("mudanca estado\n");
-				printf("%d\n", p);
 				event col_event = COLISION;
 				check_game_status(&p, &col_event);
 				flag_colision = 0;
 				change_head(1);
-
-				printf("p: %d\n",p);
 				return 0;
 			}
 			draw_screen(1);
@@ -704,7 +677,7 @@ int timer_event_handler(unsigned short counter)
 
 				buf_full =0;
 			}
-			//memcpy(video_mem, double_buffer, SCREEN_SIZE);
+
 
 			return 0;
 
@@ -797,9 +770,9 @@ void mouse_event_handler(unsigned long *packet_mouse)
 	printf("ALOCA MEMORIA PACKETS\n");
 	if(print_packet(3, packet_mouse, x, y, lb,rb) == 0)
 	{
-		printf("novoLB: %d\n",*lb);
+
 		update_pos_mouse(x,y);
-		//printf("x: %d, y: %d\n",*x,*y);
+
 		if(p == MENU_T)
 		{
 			if(*x >= 370 && *y >=374 && *x <=(370+542) && *y <= (374+116) && *lb==1 )
@@ -810,11 +783,11 @@ void mouse_event_handler(unsigned long *packet_mouse)
 			}
 			if(*x >= 370 && *y >=522 && *x <=(370+538) && *y <= (522+112) && *lb==1)
 			{
-				printf("RECONHECEU OPCAO MULTIPLAYER !!!!!!!!!!!!\n");
+
 				t = OPTB;
 				//clear_screen();
 				check_game_status(&p,&t);
-				printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP: %d!!!\n",p);
+
 				return ;
 			}
 
@@ -950,7 +923,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 				{
 				if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
 					{
-					printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+
 						head_flag = 0;
 						body_flag = 0;
 						event ev = START_E;
@@ -959,10 +932,10 @@ void mouse_event_handler(unsigned long *packet_mouse)
 					}
 
 								}
-				printf("ESTA AQUI POSSA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
 				if(*x>= FIRST_ELEMENT && *y>= BODY_HEIGHT && *x <= (FIRST_ELEMENT + SQUARE_WIDTH) && *y <= (BODY_HEIGHT + SQUARE_HEIGHT) && *lb ==1)
 				{
-					printf("ESCOLHER 1 CORPO HURRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
 					change_body(1);
 					body_flag =1;
 					return ;

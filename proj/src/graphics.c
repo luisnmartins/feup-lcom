@@ -76,7 +76,7 @@ void *vg_init(unsigned short mode) {
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
 
-	snap = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/snapchat20-16.bmp");
+
 	cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
 	cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
 	cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
@@ -88,7 +88,6 @@ void *vg_init(unsigned short mode) {
 	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/macaq.bmp");
 	body = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
 	body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
-	white = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/3white.bmp");
 	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal.bmp");
 	bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal_multi.bmp");
 	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
@@ -130,6 +129,7 @@ void *vg_init(unsigned short mode) {
 	counter1_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count1_delay.bmp");
 	counter2_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count2_delay.bmp");
 	counter3_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count3_delay.bmp");
+	numbers_back =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/backnumber.bmp");
 	//memset(video_mem, 1, screen_size);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
@@ -142,7 +142,7 @@ int start_mode()
 		void *result = vg_init(0x11A);
 
 
-		//memcpy(video_mem, double_buffer, screen_size);
+
 
 		if(result == NULL)
 			return 1;
@@ -154,10 +154,7 @@ int start_mode()
 
 
 }
-void clear_screen()
-{
-	memset(video_mem,0,screen_size);
-}
+
 
 void change_body(int opt)
 {
@@ -229,7 +226,7 @@ void show_points_sp(Snake *s1)
 
 	drawBitmap(double_buffer,player1,x_inicial-100,y-75,ALIGN_LEFT);
 
-	while(points > 10)
+	while(points >= 10)
 	{
 		drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
 		x_inicial -= 40;
@@ -238,20 +235,16 @@ void show_points_sp(Snake *s1)
 	drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
 	memcpy(video_mem, double_buffer, screen_size);
 
-
-
-	/*drawBitmap(double_buffer,numbers[(s1->size-5)/10],x_inicial,y,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[(s1->size-5)%10],x_inicial,y,ALIGN_LEFT);*/
 }
 
 void points_ingame_sp(Snake *s1)
 {
-	int x_inicial = 1180;
-	int y = 14;
+	int x_inicial = 1160;
+	int y = 32;
 	int points = s1->size -5;
 
-	while(points > 10)
+	drawbackground(double_buffer,numbers_back,x_inicial-100,y,ALIGN_LEFT);
+	while(points >= 10)
 	{
 		drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
 		x_inicial -= 40;
@@ -264,19 +257,23 @@ void points_ingame_sp(Snake *s1)
 
 void points_ingame_mp (Snake *s1,Snake *s2)
 {
-	int y = 14;
-	int x1_in = 100;
-	int x2_in = 1180;
+	int y = 32;
+	int x1_in = 160;
+	int x2_in = 1160;
 	int points_s1 = s1->size-5;
 	int points_s2 = s2->size-5;
-	while(points_s1 > 10)
+
+	drawbackground(double_buffer,numbers_back,x1_in-80,y,ALIGN_LEFT);
+	drawbackground(double_buffer,numbers_back,x2_in-80,y,ALIGN_LEFT);
+	while(points_s1 >= 10)
 	{
 		drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
 		x1_in -= 40;
 		points_s1 = points_s1 /10;
 	}
 	drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
-	while(points_s2 > 10)
+
+	while(points_s2 >= 10)
 	{
 		drawbackground(double_buffer,numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
 		x2_in -= 40;
@@ -296,7 +293,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 
 	drawBitmap(double_buffer,player1,x1_in-100,y-75,ALIGN_LEFT);
 	drawBitmap(double_buffer,player2,x2_in-100,y-75,ALIGN_LEFT);
-	while(points_s1 > 10)
+	while(points_s1 >= 10)
 		{
 			drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
 			x1_in -= 40;
@@ -321,34 +318,21 @@ void clear_matrix()
 	memset(matrix_graphics,(int)NULL,sizeof(matrix_graphics[0][0])*64*64);
 }
 
-int clear_pos(unsigned short line, unsigned short col)
-{
-	if (line >=0 && line <= 63 && col >= 0 && col <= 63)
-	{
-		matrix_graphics[line][col] = NULL;
-		return 0;
-	}
-	else
-		return 1;
-}
+
 void draw_menu(int mode)
 {
 	if(mode == 0)
 	{
 		memcpy(video_mem,double_buffer, screen_size);
-	//memset(double_buffer,0,screen_size);
 	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
 	update_menu_mouse();
-	//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 
 	}else
 		if (mode == 1)
 		{
 			memcpy(video_mem,double_buffer, screen_size);
-			//memset(double_buffer,0,screen_size);
 			drawbackground(double_buffer,mp_menu,0,0,ALIGN_LEFT);
 			update_menu_mouse();
-			//drawbackground(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
 		}
 
 
@@ -384,7 +368,6 @@ void draw_choose_snake(int mode)
 }
 void draw_time(int hour,int min, int seconds)
 {
-	//memcpy(video_mem,double_buffer,screen_size);
 	int x_inicial =850;
 	int y_inicial = 75;
 	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
@@ -550,9 +533,6 @@ void draw_screen(int mode)
 			i_col++;
 			i_row=0;
 		}
-		//drawBitmap(double_buffer, body, x_pos_atual, y_pos_atual, ALIGN_LEFT);
-		printf("acabou screen\n");
-		//memcpy(video_mem, double_buffer, screen_size);
 }
 
 
@@ -609,36 +589,13 @@ void remove_snakes_matrix()
 
 }
 
-void update_matrix_limits()
-{
-	int i;
-	for(i=3; i<(63-2); i++)
-	{
-		matrix_graphics[i][3] = snap;
-		matrix_graphics[i][60] = snap;
 
-	}
-	for(i = 3; i<(63-3); i++)
-	{
-		matrix_graphics[3][i] = snap;
-		matrix_graphics[60][i] = snap;
-	}
-}
-
-int verify_colision_walls(int col,int row)
-{
-	if(col < 4 || col >= 60 || row < 4 || row >= 60)
-	{
-		return 1;
-	}
-	return 0;
-}
 
 int verify_colision_walls_bgmap(int col,int row,int mode)
 {
 	if(mode == 1)
 	{
-		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col < 20) || (col == 12 && (row > 12 && row <= 31)) || (col == 17 && row >= 42) || (row == 42 && (col > 9 && col <= 17)) || (col == 35 &&(row >= 42 )) || (row == 50 && (col >= 49)) || (col == 49 && (row <= 50 && row >=33)) || (col == 43 && (row <= 21)) || (row == 21 &&(col >=35 && col <=51)))
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (row == 13 && col <= 20) || (col == 12 && (row > 12 && row <= 30)) || (col == 17 && row >= 42) || (row == 42 && (col > 9 && col <= 17)) || (col == 35 &&(row >= 42 )) || (row == 50 && (col >= 49)) || (col == 49 && (row <= 50 && row >=33)) || (col == 43 && (row <= 21)) || (row == 21 &&(col >=35 && col <=51)) || (row == 4 && (col <= 59 && col>= 54 )))
 	{
 		return 1;
 	}
@@ -646,7 +603,7 @@ int verify_colision_walls_bgmap(int col,int row,int mode)
 	}
 	else if(mode == 2)
 	{
-		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 42)) ||(row ==48 && (col >= 27 && col <= 35 )) )
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 42)) ||(row ==48 && (col >= 27 && col <= 35 )) || (row == 4 && (col <= 59 && col>= 54 )) || (row == 4 && (col>= 4 && col <= 9)) )
 		{
 			return 1;
 		}
@@ -658,9 +615,6 @@ int update_matrix_snake(Snake *s1,int mouse)
 {
 	remove_snakes_matrix();
 
-	//printf("okokok3\n");
-	//printf("ROW: %d\n", s1->head->row);
-		//		printf("COLD: %d\n", s1->head->col);
 	if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 )
 	{	printf("merdou\n");
 		return 1;
@@ -678,19 +632,6 @@ int update_matrix_snake(Snake *s1,int mouse)
 	{
 		printf("seg1 col: %d\n", seg1->col);
 		printf("seg1 row: %d\n", seg1->row);
-		/*if(seg1 == s1->head)
-				{
-					if(matrix_graphics[seg1->col][seg1->row] == body)  //TODO need to add other colisions
-					{
-						printf("colision\n");
-						return 1;
-					}
-					else if(matrix_graphics[seg1->col][seg1->row] == maca)
-					{
-						inc_snake(s1);
-						new_object_matrix(s1);
-					}
-				}*/
 
 		matrix_graphics[seg1->col][seg1->row] = body;
 
@@ -706,7 +647,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 				{
 					return 1;
 				}
-				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb ||  matrix_graphics[seg1->col][seg1->row] == snap)  //TODO need to add other colisions
+				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb )  //TODO need to add other colisions
 				{
 					if( matrix_graphics[seg1->col][seg1->row] == bomb)
 					{
@@ -747,9 +688,6 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 {
 	remove_snakes_matrix();
 
-		//printf("okokok3\n");
-		//printf("ROW: %d\n", s1->head->row);
-			//		printf("COLD: %d\n", s1->head->col);
 		if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 ||s2->head->row > 63 || s2->head->row <0 || s2->head->col > 63 || s2->head->col < 0 )
 		{	printf("merdou\n");
 			return 1;
@@ -771,19 +709,6 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 		{
 			printf("seg1 col: %d\n", seg1->col);
 			printf("seg1 row: %d\n", seg1->row);
-			/*if(seg1 == s1->head)
-					{
-						if(matrix_graphics[seg1->col][seg1->row] == body)  //TODO need to add other colisions
-						{
-							printf("colision\n");
-							return 1;
-						}
-						else if(matrix_graphics[seg1->col][seg1->row] == maca)
-						{
-							inc_snake(s1);
-							new_object_matrix(s1);
-						}
-					}*/
 
 			matrix_graphics[seg1->col][seg1->row] = body;
 
@@ -828,7 +753,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 									return 1;
 								}
 
-										if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == snap ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
+										if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
 										{
 
 											if( matrix_graphics[seg1->col][seg1->row] == bomb)
@@ -876,7 +801,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 																			(*snake2_alive) = 1;
 									return 1;
 								}
-				if(matrix_graphics[seg2->col][seg2->row] == body || matrix_graphics[seg2->col][seg2->row] == body2 || matrix_graphics[seg2->col][seg2->row] == snap ||  matrix_graphics[seg2->col][seg2->row] == bomb)  //TODO need to add other colisions
+				if(matrix_graphics[seg2->col][seg2->row] == body || matrix_graphics[seg2->col][seg2->row] == body2  ||  matrix_graphics[seg2->col][seg2->row] == bomb)  //TODO need to add other colisions
 				{
 
 				if( matrix_graphics[seg2->col][seg2->row] == bomb)

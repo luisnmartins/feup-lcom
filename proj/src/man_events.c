@@ -445,13 +445,6 @@ int keyboard_event_handler(unsigned long out_buf)
 		return 0;
 }
 
-void change_to_start()
-{
-	event col_event2 = OPTA;
-	check_game_status(&p, &col_event2);
-	//printf("COL1: %d\n", s1->head->col);
-	//printf("ROW1: %d\n", s1->head->row);
-}
 
 void game_start(int mode)
 {

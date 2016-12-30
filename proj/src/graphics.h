@@ -19,15 +19,12 @@
 
 
 //Bitmaps
-static Bitmap *snap;
 static Bitmap *maca;
 static Bitmap *body;
 static Bitmap *body2;
 static Bitmap *mouse;
-static Bitmap *white;
 static Bitmap *bg;
 static Bitmap *bgmp;
-static Bitmap *macaret;
 static Bitmap *cabeca1hd;
 static Bitmap *cabeca1he;
 static Bitmap *cabeca1vc;
@@ -56,41 +53,36 @@ static Bitmap *counter1_delay;
 static Bitmap *counter2_delay;
 static Bitmap *counter3_delay;
 static Bitmap *numbers_score[10];
+static Bitmap *numbers_back;
 
 
 void *vg_init(unsigned short mode);
-int vg_exit(void);
-int paintPixel(int x,int y,int color);
-int paint_xpm(unsigned short xi, unsigned short yi, char *xpm[]);
-int clear_pos(unsigned short line, unsigned short col);
-void draw_cell(Bitmap* bmp, int col, int line);
-void update_pos_mouse(unsigned long *x, unsigned long *y);
+int vg_exit();
+void update_pos_mouse(unsigned long *x, unsigned long *y);// pode ser metida no menu.c cuidado com as variaveis x_pos,y_pos_atual
 int update_matrix_snake(Snake *s1,int mouse);
-void draw_menu(int mode);
-void  update_menu_mouse();
-void change_body(int opt);
-void change_body2(int opt);
-void change_head(int opt);
+void draw_menu(int mode);//pode ser metida no menu.c
+int start_mode();
+void  update_menu_mouse();//pode ser metida no menu.c cuidado com os bitmaps  static
+void change_body(int opt); // pode ser metida no menu.c cuidado com as statics bitmaps
+void change_body2(int opt);//pode ser metida no menu.c cuidado com as statics bitmaps
+void change_head(int opt);// pode ser metida no menu.c
 void clear_matrix();
-void draw_choose_snake(int mode);
-void draw_preview_snake(Snake *snake_preview, int counter, int body_count);
+void draw_screen(int mode);
+void draw_choose_snake(int mode); //pode ser metida no menu .c cuidado com a bitmap
+void draw_preview_snake(Snake *snake_preview, int counter, int body_count);//pode ??
 void new_object_matrix(Snake *s1,unsigned int type);
 void new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type);
 void remove_snakes_matrix();
-void update_matrix_limits();
 int update_matrix_objects(Game_object *obj, Snake *s1);
 int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2);
 int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_alive);
-void draw_time(int hour,int min, int seconds);
-void draw_instructions(int mode);
-void clear_screen();
-void show_points_sp(Snake *s1);
-void show_points_mp(Snake *s1, Snake *s2);
-void points_ingame_sp(Snake *s1);
-void points_ingame_mp (Snake *s1,Snake *s2);
-int verify_colision_walls(int col,int row);
+void draw_time(int hour,int min, int seconds);//pode ser metida no menu.c cuidado com as bitmaps(array de numeros)
+void draw_instructions(int mode);//pode ser metida no menu.c
+void show_points_sp(Snake *s1);//pode ser metida no menuc.
+void show_points_mp(Snake *s1, Snake *s2);//pode ser metida no menu.c
+void points_ingame_sp(Snake *s1); //pode ser metida no menu.c mas como e usado durante o jogo em si talvez tenha mais sentido deixar aqui
+void points_ingame_mp (Snake *s1,Snake *s2);//a mesma ideia com points_ingame_sp
 int verify_colision_walls_bgmap(int col,int row,int mode);
-int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right);
 int add_fruit_matrix(int x, int y,Snake *s1);
 int fruit_count();
 int bomb_count();

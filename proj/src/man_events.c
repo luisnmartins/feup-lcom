@@ -124,6 +124,7 @@ void check_game_status(states *st, event *ev)
 
 			*st = PAUSE_T;
 			draw_instructions(0);
+			points_ingame_sp(s1);
 		}
 		if(*ev == COLISION)
 		{
@@ -160,6 +161,7 @@ void check_game_status(states *st, event *ev)
 		if(*ev == ESC_PRESSED)
 				{
 					draw_instructions(0);
+					points_ingame_mp(s1,s2);
 					*st = PAUSE_T;
 				}
 		if(*ev == COLISION)
@@ -174,6 +176,7 @@ void check_game_status(states *st, event *ev)
 		if(*ev == ESC_PRESSED)
 				{
 					draw_instructions(0);
+					points_ingame_sp(s1);
 					*st = PAUSE_T;
 				}
 		if(*ev == COLISION)

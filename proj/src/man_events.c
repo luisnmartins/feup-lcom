@@ -1,38 +1,6 @@
 
 #include "man_events.h"
 
-typedef enum {
-	MENU_T, SP_T,WAIT_T, MPMENU_T, MOKB_T ,KBC_T, EXIT_T, END_T, PAUSE_T,CHOOSE_SN_T,START_DELAY_T
-} states;
-
-typedef enum {
-	OPTA, OPTB,OPTB_1,OPTB_2, OPTC, COLISION, START_E ,ESC_PRESSED,DELAY_E
-} event;
-
-states p=MENU_T;
- event t;
-
-
-//static states *matrix_states[64][64] = {NULL};   //col x line
-
-static Snake *s1;
-static Snake *s2;
-static Snake *s_preview;
-static int flag_colision = 0;
-static int flag_colision2 = 0;
-static int number_delay=3;
-static int snakes_mp_modify =0;
-static int buf_full =0;
-static int body_flag = 0;
-static int body_head_changed = 0;
-static int choose = 0;
-static int choose1 = 0;
-static int head_flag = 0;
-static int second_snake = 0;
-
-
-//TODO if(2p 2 snakes) {aloca memoria snake 2 cobra}
-
 void check_game_status(states *st, event *ev)
 {
 
@@ -41,50 +9,38 @@ void check_game_status(states *st, event *ev)
 	case MENU_T:
 		{
 
-			if(*ev == OPTA)
+			if(*ev == OPT_SP)
 			{
-				//draw_instructions(1);
 				new_snake_preview();
 				printf("fixe\n");
-				//printf("SIMMMMMMMMM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
-				//game_start(1);
-				//printf("COL: %d\n", s1->head->col);
-				//printf("ROW: %d\n", s1->head->row);
-				/*if(s1->tail == NULL || s1->head == NULL)
-					printf("nao deu\n");*/
-				//*ev = START_E;
-				//TODO draw rules;
 				*st = CHOOSE_SN_T;
 			}
-			 if (*ev == OPTB)
-				{//game_start(2);
+			 if (*ev == OPT_MP)
+				{
 
 				 new_snake_preview();
 				*st = MPMENU_T;
 				}
-			if (*ev == OPTC)
+			if (*ev == OPT_EXIT)
 				*st = EXIT_T;
 			break;
 		}
-	/*case EXIT:
-		//sai do programa
-		break;*/
 	case WAIT_T:
 	{
 		if(*ev == START_E)
 		{
-			if(t == OPTA)
+			if(t == OPT_SP)
 			{
 
 				game_start(1);
 				*st = START_DELAY_T;
 			}
-			else if(t == OPTB_1)
+			else if(t == OPT_KBC)
 			{
 
 				game_start(2);
 				*st= START_DELAY_T;
-			}else if (t== OPTB_2)
+			}else if (t== OPT_MOKB)
 			{
 
 
@@ -98,20 +54,20 @@ void check_game_status(states *st, event *ev)
 	case CHOOSE_SN_T:
 		if(*ev == START_E)
 		{
-			if(t== OPTA)
+			if(t== OPT_SP)
 			{
 				draw_instructions(1);
 				//new_snake_preview();
 				//*st = SNAKE_PREVIEW_T;
 				*st = WAIT_T;
-			}else if(t== OPTB_1)
+			}else if(t== OPT_KBC)
 			{
 				draw_instructions(2);
 				//new_snake_preview();
 				//*st = SNAKE_PREVIEW_T;
 				*st = WAIT_T;
 			}
-			else if( t == OPTB_2)
+			else if( t == OPT_MOKB)
 			{
 				draw_instructions(3);
 				//new_snake_preview()
@@ -124,15 +80,15 @@ void check_game_status(states *st, event *ev)
 		{
 			if(*ev == DELAY_E)
 			{
-				if(t == OPTA)
+				if(t == OPT_SP)
 				{
 					*st = SP_T;
 				}
-				else if(t == OPTB_1)
+				else if(t == OPT_KBC)
 				{
 					*st= KBC_T;
 				}
-				else if(t == OPTB_2){
+				else if(t == OPT_MOKB){
 
 					*st = MOKB_T;
 				}
@@ -144,14 +100,14 @@ void check_game_status(states *st, event *ev)
 	{
 		if(*ev == START_E)
 		{
-			if(t== OPTA)
+			if(t== OPT_SP)
 			{
 				*st = SP_T;
-			}else if(t == OPTB_1)
+			}else if(t == OPT_KBC)
 			{
 
 				*st= KBC_T;
-			}else if (t== OPTB_2)
+			}else if (t== OPT_MOKB)
 			{
 
 				*st = MOKB_T;
@@ -181,19 +137,19 @@ void check_game_status(states *st, event *ev)
 	}
 	case MPMENU_T:
 	{
-		if(*ev == OPTB_1)
+		if(*ev == OPT_KBC)
 		{
 			//draw_instructions(2);
 			new_snake_preview();
 
 			*st = CHOOSE_SN_T;
 		}
-		else if (*ev == OPTB_2)
+		else if (*ev == OPT_MOKB)
 		{
 			//draw_instructions(3);
 			new_snake_preview();
 			*st = CHOOSE_SN_T;
-		}else if (*ev == OPTC)
+		}else if (*ev == OPT_EXIT)
 		{
 			free(s_preview);
 			*st = MENU_T;
@@ -262,7 +218,7 @@ int keyboard_event_handler(unsigned long out_buf)
 	{
 		if(out_buf == ENTER)
 		{
-			if(second_snake == 0 && t == OPTB_2)
+			if(second_snake == 0 && t == OPT_MOKB)
 			{
 				second_snake = 1;
 				p = CHOOSE_SN_T;
@@ -530,7 +486,7 @@ int timer_event_handler(unsigned short counter)
 	}
 	if(p == CHOOSE_SN_T)
 	{
-		if(t == OPTA || t== OPTB_2)
+		if(t == OPT_SP || t== OPT_MOKB)
 		{
 			draw_choose_snake(0);
 
@@ -541,7 +497,7 @@ int timer_event_handler(unsigned short counter)
 
 			}
 		}
-		if (t == OPTB_1)
+		if (t == OPT_KBC)
 		{
 			if(choose == 0)
 			{
@@ -581,19 +537,19 @@ int timer_event_handler(unsigned short counter)
 			if(counter%60 == 0)
 			{
 
-			if(t == OPTA)
+			if(t == OPT_SP)
 			{
 
 				draw_screen(1);
 
 			}
-			else if(t == OPTB_1)
+			else if(t == OPT_KBC)
 			{
 
 				draw_screen(2);
 
 
-			}else if (t== OPTB_2)
+			}else if (t== OPT_MOKB)
 			{
 
 				draw_screen(1);
@@ -770,14 +726,14 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		{
 			if(*x >= 370 && *y >=374 && *x <=(370+542) && *y <= (374+116) && *lb==1 )
 			{
-				t= OPTA;
+				t= OPT_SP;
 				check_game_status(&p,&t);
 				return ;
 			}
 			if(*x >= 370 && *y >=522 && *x <=(370+538) && *y <= (522+112) && *lb==1)
 			{
 
-				t = OPTB;
+				t = OPT_MP;
 				//clear_screen();
 				check_game_status(&p,&t);
 
@@ -786,7 +742,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 
 			if(*x >= 370 && *y >=658 && *x <=(370+542) && *y <= (658+116) && *lb==1 )
 				{
-					t= OPTC;
+					t= OPT_EXIT;
 					check_game_status(&p,&t);
 					return;
 				}
@@ -795,20 +751,20 @@ void mouse_event_handler(unsigned long *packet_mouse)
 				{
 					if(*x >= 370 && *y >=374 && *x <=(370+542) && *y <= (374+116) && *lb==1  )
 					{
-						t= OPTB_1;
+						t= OPT_KBC;
 						flag_colision = 0;
 						check_game_status(&p,&t);
 						return;
 					}
 					if(*x >= 370 && *y >=658 && *x <=(370+542) && *y <= (658+116) && *lb==1 )
 						{
-							t= OPTC;
+							t= OPT_EXIT;
 							check_game_status(&p,&t);
 							return;
 						}
 					if(*x >= 370 && *y >=522 && *x <=(370+542) && *y <= (522+116) && *lb==1)
 						{
-							t = OPTB_2;
+							t = OPT_MOKB;
 							check_game_status(&p,&t);
 							return;
 						}
@@ -824,7 +780,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 		}
 		if(p== CHOOSE_SN_T)
 		{
-			if( t == OPTB_1)
+			if( t == OPT_KBC)
 			{
 				if(choose == 0)
 				{
@@ -910,7 +866,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 					}
 				}
 			}
-			if(t == OPTA || t == OPTB_2)
+			if(t == OPT_SP || t == OPT_MOKB)
 			{
 				if(head_flag ==1 && body_flag ==1)
 				{

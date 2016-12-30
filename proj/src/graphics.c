@@ -243,7 +243,7 @@ void points_ingame_sp(Snake *s1)
 	int y = 32;
 	int points = s1->size -5;
 
-	drawbackground(double_buffer,numbers_back,x_inicial-100,y,ALIGN_LEFT);
+	drawbackground(double_buffer,numbers_back,x_inicial-80,y,ALIGN_LEFT);
 	while(points >= 10)
 	{
 		drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);

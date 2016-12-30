@@ -10,11 +10,9 @@ void new_object(Game_object *obj, object_name name)
 	obj->name = name;
 	switch(obj->name){
 	case FRUIT:
-		obj->type = FRIENDLY_TYPE;
 		obj->point_value = 2;
 		break;
 	case BOMB:
-		obj->type= DANGER_TYPE;
 		obj-> point_value = 0;
 		break;
 	default:

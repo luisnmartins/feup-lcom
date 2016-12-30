@@ -81,7 +81,7 @@ void inc_snake(Snake *s1)
 	s1->size++;
 	if((s1->size-5)%3 == 0)
 	{
-		s1->velocity-=0.25;
+		s1->velocity-=0.0005;
 		if(s1->boost_time < 1)
 			s1->boost_time = 1;
 	}

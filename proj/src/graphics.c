@@ -315,64 +315,6 @@ void show_points_mp(Snake *s1, Snake *s2)
 }
 
 
-/*int paintPixel(int x,int y,int color)
-{
-	if(x<0 || x>h_res || y<0 || y>v_res)
-	{
-		printf("Coordinates not valid\n");
-		return 1;
-	}
-
-
-	char *video_mptr = double_buffer;
-
-
-	unsigned bytes_pixel = bits_per_pixel/8;
-
-	video_mptr +=  (h_res*y + x) * bytes_pixel;
-
-	*video_mptr = color;
-
-	return 0;
-
-}
-
-
-
-
-int paint_snake_hor(unsigned int x, unsigned int y, unsigned int size, unsigned int right)
-{
-	int i=0;
-	int ultimo_pintado;
-
-	if(right == 1)
-	{
-		for(i;i<size; i++)
-		{
-
-			if(x< 0 || y<0 || x>1023 || y>767)
-				return 1;
-			paint_xpm(x, y, square_right);
-			x += 19;
-		}
-		return x-19;
-	}
-	else
-	{
-		//paint_xpm(200, 150, square_right);
-		for(i;i<size; i++)
-		{
-				if(x<0 || y<0 || x>1023 || y>767)
-					return 1;
-				paint_xpm(x, y, square_left);
-				x-=19;
-		}
-		return x+19;
-	}
-
-
-
-}*/
 
 void clear_matrix()
 {
@@ -512,18 +454,20 @@ void draw_preview_snake(Snake *snake_preview, int counter, int body_count)
 
 			seg1 = seg1->before;
 		}while(seg1!= snake_preview->head);
+		preview_matrix[seg1->col] = cabeca1hd;
 	}
 	else
 	{
-		do{
+			do{
 					preview_matrix[seg1->col] = body2;
 
 					seg1 = seg1->before;
 				}while(seg1!= snake_preview->head);
+			preview_matrix[seg1->col] = cabeca2hd;
 	}
 
 
-	preview_matrix[seg1->col] = cabeca1hd;
+
 
 		i=5;
 	while(i<20)	{
@@ -1188,7 +1132,6 @@ int fruit_count()
 				i_col++;
 				i_row=0;
 		}
-	printf("quantods:%d\n", how_many);
 	return how_many;
 }
 
@@ -1211,7 +1154,6 @@ int bomb_count()
 				i_col++;
 				i_row=0;
 		}
-	printf("quantods:%d\n", how_many);
 	return how_many;
 }
 

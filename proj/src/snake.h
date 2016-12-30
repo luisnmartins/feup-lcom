@@ -26,7 +26,7 @@ typedef struct {
 	segment_snake *tail; /** <@brief pointer to the tail of the snake*/
 	unsigned int size; /** <@brief size of the snake(number of segment_snake)*/
 	unsigned short velocity;/** <@brief velocity the snake is moving*/
-	unsigned short boost;/** <@brief flag to know if the snake can boost*/
+	unsigned short boost;/** <@brief flag to know if the snake is boosting*/
 	unsigned short boost_time; /** <@brief the amount of time the snake can boost */
 }Snake;
 
@@ -58,8 +58,23 @@ void new_snake(int size, unsigned short x, unsigned short y, Snake *s1);
  * Basically it moves by just removing the tail of the snake and create and put a new head
  * */
 void move_snake(Snake* s1);
+/**
+ * @brief sets the boost flag and doubles the snake velocity
+ * @s1 snake that is going to be set
+ * */
 void set_boost(Snake* s1);
+/**
+ * @brief resets the boost flag and decreases the snake velocity
+ * @s1 snake that is going to be reset
+ *
+ * It is basically the opposite of set_boost
+ * */
 void stop_boost(Snake *s1);
+/**
+ * @brief  resets the snake that is used in the menu preview(when choosing the snake skin)
+ * @param snake snake that is going to be reset
+ * @param col column that is going to be reset to
+ * */
 void set_snake(Snake* snake, int col);
 /**
  * @brief increases the size of the snake by adding a new segment as the tail of the snake

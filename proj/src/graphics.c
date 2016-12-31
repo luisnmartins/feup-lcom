@@ -4,11 +4,11 @@
 
 static char *double_buffer;
 static char *video_mem; /* Process address to which VRAM is mapped */
+static Bitmaps_struct* bmp;
 
 static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
-static Bitmap *preview_matrix[20] = {NULL};
-static unsigned long x_pos_atual = 200;
-static unsigned long y_pos_atual = 200;
+
+
 
 int vg_exit() {
 	struct reg86u reg86;
@@ -72,67 +72,74 @@ void *vg_init(unsigned short mode) {
 
 	video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
 	double_buffer = (char *)malloc(h_res*v_res*bits_per_pixel/8);
+	bmp = (Bitmaps_struct*)malloc(sizeof(Bitmaps_struct));
 	memset(double_buffer, 0, screen_size);
 	if (video_mem == MAP_FAILED)
 		panic("couldn't map video memory");
 
 
-	cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
-	cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
-	cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
-	cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
-	cabeca2hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
-	cabeca2he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
-	cabeca2vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
-	cabeca2vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
-	maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/macaq.bmp");
-	body = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
-	body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
-	bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal.bmp");
-	bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal_multi.bmp");
-	main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
-	cursor = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cursor.bmp");
-	numbers[0]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number0.bmp");
-	numbers[1]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number1.bmp");
-	numbers[2]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number2.bmp");
-	numbers[3]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number3.bmp");
-	numbers[4]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number4.bmp");
-	numbers[5]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number5.bmp");
-	numbers[6]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number6.bmp");
-	numbers[7]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number7.bmp");
-	numbers[8]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number8.bmp");
-	numbers[9]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number9.bmp");
-	numbers[10] =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/twodots.bmp");
-	numbers_score[0] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score0.bmp");
-	numbers_score[1] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score1.bmp");
-	numbers_score[2] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score2.bmp");
-	numbers_score[3] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score3.bmp");
-	numbers_score[4] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score4.bmp");
-	numbers_score[5] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score5.bmp");
-	numbers_score[6] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score6.bmp");
-	numbers_score[7] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score7.bmp");
-	numbers_score[8] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score8.bmp");
-	numbers_score[9] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score9.bmp");
-	sp_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules1.bmp");
-	kbc_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules2.bmp");
-	mokb_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules3.bmp");
-	bomb = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/bomb.bmp");
-	explosion = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/explosions.bmp");
-	mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
-	pausesymb =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/pause.bmp");
-	wall = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/wall.bmp");
-	player1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player1.bmp");
-	player2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player2.bmp");
-	choose_main = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choosemain.bmp");
-	choose_p1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p1.bmp");
-	choose_p2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p2.bmp");
-	counter1_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count1_delay.bmp");
-	counter2_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count2_delay.bmp");
-	counter3_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count3_delay.bmp");
-	numbers_back =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/backnumber.bmp");
+
 	//memset(video_mem, 1, screen_size);
 	//drawBitmap(video_mem, maca, 100, 100, ALIGN_LEFT);
 	return video_mem;
+}
+
+
+void initial_bitmaps()
+{
+		bmp->cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
+		bmp->cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
+		bmp->cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
+		bmp->cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
+		bmp->cabeca2hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
+		bmp->cabeca2he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
+		bmp->cabeca2vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
+		bmp->cabeca2vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
+		bmp->maca = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/macaq.bmp");
+		bmp->body = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+		bmp->body2 = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
+		bmp->bg = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal.bmp");
+		bmp->bgmp =loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/bg_principal_multi.bmp");
+		bmp->main_menu = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/menu.bmp");
+		bmp->cursor = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cursor.bmp");
+		bmp->numbers[0]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number0.bmp");
+		bmp->numbers[1]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number1.bmp");
+		bmp->numbers[2]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number2.bmp");
+		bmp->numbers[3]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number3.bmp");
+		bmp->numbers[4]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number4.bmp");
+		bmp->numbers[5]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number5.bmp");
+		bmp->numbers[6]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number6.bmp");
+		bmp->numbers[7]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number7.bmp");
+		bmp->numbers[8]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number8.bmp");
+		bmp->numbers[9]  = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Number9.bmp");
+		bmp->numbers[10] =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/twodots.bmp");
+		bmp->numbers_score[0] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score0.bmp");
+		bmp->numbers_score[1] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score1.bmp");
+		bmp->numbers_score[2] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score2.bmp");
+		bmp->numbers_score[3] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score3.bmp");
+		bmp->numbers_score[4] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score4.bmp");
+		bmp->numbers_score[5] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score5.bmp");
+		bmp->numbers_score[6] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score6.bmp");
+		bmp->numbers_score[7] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score7.bmp");
+		bmp->numbers_score[8] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score8.bmp");
+		bmp->numbers_score[9] = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/number_score9.bmp");
+		bmp->sp_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules1.bmp");
+		bmp->kbc_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules2.bmp");
+		bmp->mokb_inst = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/GameRules3.bmp");
+		bmp->bomb = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/bomb.bmp");
+		bmp->explosion = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/explosions.bmp");
+		bmp->mp_menu = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/menu_mp.bmp");
+		bmp->pausesymb =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/pause.bmp");
+		bmp->wall = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/wall.bmp");
+		bmp->player1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player1.bmp");
+		bmp->player2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/Player2.bmp");
+		bmp->choose_main = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choosemain.bmp");
+		bmp->choose_p1 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p1.bmp");
+		bmp->choose_p2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/choose_p2.bmp");
+		bmp->counter1_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count1_delay.bmp");
+		bmp->counter2_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count2_delay.bmp");
+		bmp->counter3_delay = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/count3_delay.bmp");
+		bmp->numbers_back =loadBitmap("home/lcom/lcom1617-t4g14/proj/res/backnumber.bmp");
 }
 
 
@@ -141,8 +148,7 @@ int start_mode()
 
 		void *result = vg_init(0x11A);
 
-
-
+		initial_bitmaps();
 
 		if(result == NULL)
 			return 1;
@@ -156,101 +162,20 @@ int start_mode()
 }
 
 
-void change_body(int opt)
-{
-	if(opt == 1)
-	{
-		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
-	}
-	else if(opt == 2)
-	{
-		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
-	}else if(opt == 3)
-	{
-		body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
-
-	}
-	return;
-}
-
-void change_body2(int opt)
-{
-	if(opt == 1)
-		{
-			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
-		}
-		else if(opt == 2)
-		{
-			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
-		}else if(opt == 3)
-		{
-			body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
-
-		}
-		return;
-}
-
-void change_head(int opt)
-{
-	if(opt ==1)
-	{
-		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
-		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
-		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
-		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
-	}
-	else if(opt == 2)
-	{
-		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
-		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
-		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
-		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
-	}else if(opt ==3)
-	{
-		cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_direita.bmp");
-		cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_esquerda.bmp");
-		cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_cima.bmp");
-		cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_baixo.bmp");
-	}
-	return;
-
-}
-
-
-
-void show_points_sp(Snake *s1)
-{
-	int x_inicial = 640;
-	int y = 512;
-	int points = s1->size -5;
-
-	drawBitmap(double_buffer,player1,x_inicial-100,y-75,ALIGN_LEFT);
-
-	while(points >= 10)
-	{
-		drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
-		x_inicial -= 40;
-		points = points /10;
-	}
-	drawBitmap(double_buffer,numbers[points%10],x_inicial,y,ALIGN_LEFT);
-	memcpy(video_mem, double_buffer, screen_size);
-
-}
-
 void points_ingame_sp(Snake *s1)
 {
 	int x_inicial = 1160;
 	int y = 32;
 	int points = s1->size -5;
 
-	drawbackground(double_buffer,numbers_back,x_inicial-80,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_back,x_inicial-80,y,ALIGN_LEFT);
 	while(points >= 10)
 	{
-		drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
+		drawbackground(double_buffer,bmp->numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
 		x_inicial -= 40;
 		points = points/10;
 	}
-	drawbackground(double_buffer,numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_score[points%10],x_inicial,y,ALIGN_LEFT);
 		memcpy(video_mem, double_buffer, screen_size);
 
 }
@@ -263,53 +188,26 @@ void points_ingame_mp (Snake *s1,Snake *s2)
 	int points_s1 = s1->size-5;
 	int points_s2 = s2->size-5;
 
-	drawbackground(double_buffer,numbers_back,x1_in-80,y,ALIGN_LEFT);
-	drawbackground(double_buffer,numbers_back,x2_in-80,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_back,x1_in-80,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_back,x2_in-80,y,ALIGN_LEFT);
 	while(points_s1 >= 10)
 	{
-		drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
+		drawbackground(double_buffer,bmp->numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
 		x1_in -= 40;
 		points_s1 = points_s1 /10;
 	}
-	drawbackground(double_buffer,numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);
 
 	while(points_s2 >= 10)
 	{
-		drawbackground(double_buffer,numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
+		drawbackground(double_buffer,bmp->numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
 		x2_in -= 40;
 		points_s2 = points_s2 /10;
 	}
-	drawbackground(double_buffer,numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
+	drawbackground(double_buffer,bmp->numbers_score[points_s2%10],x2_in,y,ALIGN_LEFT);
 	memcpy(video_mem, double_buffer, screen_size);
 }
-void show_points_mp(Snake *s1, Snake *s2)
-{
-	int y = 512;
-	int x1_in = 320;
-	int x2_in = 960;
-	int points_s1 = s1->size-5;
-	int points_s2 = s2->size-5;
 
-
-	drawBitmap(double_buffer,player1,x1_in-100,y-75,ALIGN_LEFT);
-	drawBitmap(double_buffer,player2,x2_in-100,y-75,ALIGN_LEFT);
-	while(points_s1 >= 10)
-		{
-			drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
-			x1_in -= 40;
-			points_s1 = points_s1 /10;
-		}
-		drawBitmap(double_buffer,numbers[points_s1%10],x1_in,y,ALIGN_LEFT);
-		while(points_s2 > 10)
-				{
-					drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
-					x2_in -= 40;
-					points_s2 = points_s2 /10;
-				}
-				drawBitmap(double_buffer,numbers[points_s2%10],x2_in,y,ALIGN_LEFT);
-				memcpy(video_mem, double_buffer, screen_size);
-
-}
 
 
 
@@ -319,183 +217,15 @@ void clear_matrix()
 }
 
 
-void draw_menu(int mode)
-{
-	if(mode == 0)
-	{
-		memcpy(video_mem,double_buffer, screen_size);
-	drawbackground(double_buffer,main_menu,0,0,ALIGN_LEFT);
-	update_menu_mouse();
-
-	}else
-		if (mode == 1)
-		{
-			memcpy(video_mem,double_buffer, screen_size);
-			drawbackground(double_buffer,mp_menu,0,0,ALIGN_LEFT);
-			update_menu_mouse();
-		}
-
-
-}
-
-void draw_choose_snake(int mode)
-{
-	if(mode == 0)
-	{
-		memcpy(video_mem,double_buffer,screen_size);
-		drawbackground(double_buffer,choose_main,0,0,ALIGN_LEFT);
-
-		update_menu_mouse();
-
-		return;
-	}
-	if (mode == 1)
-	{
-		memcpy(video_mem,double_buffer,screen_size);
-		drawbackground(double_buffer,choose_p1,0,0,ALIGN_LEFT);
-
-				update_menu_mouse();
-
-				return;
-	}
-	if (mode == 2)
-	{
-		memcpy(video_mem,double_buffer,screen_size);
-		drawbackground(double_buffer,choose_p2,0,0,ALIGN_LEFT);
-		update_menu_mouse();
-		return;
-	}
-}
-void draw_time(int hour,int min, int seconds)
-{
-	int x_inicial =850;
-	int y_inicial = 75;
-	drawBitmap(double_buffer,numbers[(hour/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[(hour%10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[10],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial +=40;
-	drawBitmap(double_buffer,numbers[(min/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[(min%10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[10],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[(seconds/10)],x_inicial,y_inicial,ALIGN_LEFT);
-	x_inicial += 40;
-	drawBitmap(double_buffer,numbers[(seconds%10)],x_inicial,y_inicial,ALIGN_LEFT);
-
-}
-void  update_menu_mouse()
-{
-	drawBitmap(double_buffer,cursor,x_pos_atual,y_pos_atual,ALIGN_LEFT);
-}
-
-void draw_instructions(int mode)
-{
-	if (mode == 0)
-	{
-		drawbackground(double_buffer,pausesymb,950,100,ALIGN_LEFT);
-		memcpy(video_mem,double_buffer,screen_size);
-		return ;
-	}
-	if (mode == 1)
-	{
-		drawbackground(double_buffer,sp_inst,0,0,ALIGN_LEFT);
-		memcpy(video_mem,double_buffer,screen_size);
-		return;
-	}
-	if (mode == 2)
-	{
-		drawbackground(double_buffer,kbc_inst,0,0,ALIGN_LEFT);
-				memcpy(video_mem,double_buffer,screen_size);
-				return;
-	}
-	if (mode == 3)
-	{
-		drawbackground(double_buffer,mokb_inst,0,0,ALIGN_LEFT);
-				memcpy(video_mem,double_buffer,screen_size);
-				return;
-	}
-	return;
-}
-
-void draw_preview_snake(Snake *snake_preview, int counter, int body_count)
-{
-	//draw_snake
-	//drawBitmap(double_buffer, body, 20*0+600,200, ALIGN_LEFT);
-	//drawBitmap(double_buffer, cabeca1hd, 20*1+200,200, ALIGN_LEFT);
-	//memcpy(video_mem, double_buffer, screen_size);
-
-	int i=0;
-	segment_snake *seg1 = snake_preview->tail;
-	if(body_count == 0)
-	{
-		do{
-			preview_matrix[seg1->col] = body;
-
-			seg1 = seg1->before;
-		}while(seg1!= snake_preview->head);
-		preview_matrix[seg1->col] = cabeca1hd;
-	}
-	else
-	{
-			do{
-					preview_matrix[seg1->col] = body2;
-
-					seg1 = seg1->before;
-				}while(seg1!= snake_preview->head);
-			preview_matrix[seg1->col] = cabeca2hd;
-	}
 
 
 
 
-		i=5;
-	while(i<20)	{
-		if(preview_matrix[i] != NULL)
-		{
-
-
-			if(preview_matrix[i] == body || preview_matrix[i] == body2)
-			{
-				drawbackground(double_buffer,preview_matrix[i],20*i + 370,300,ALIGN_LEFT);
-			}else
-			{
-				drawBitmap(double_buffer,preview_matrix[i],20*i + 370,300,ALIGN_LEFT);
-			}
-		}
-		i++;
-	}
-	memcpy(video_mem, double_buffer, screen_size);
-	i=0;
-	for(i; i<20; i++)
-	{
-		preview_matrix[i] = NULL;
-	}
-
-	//memset(preview_matrix,(int)NULL,sizeof(matrix_graphics[0])*10);
-
-	if(counter%20 == 0)
-	{
-		if(snake_preview->head->col < 25)
-		{
-			move_snake(snake_preview);
-		}
-		else
-		{
-			set_snake(snake_preview, -5);
-		}
-	}
 
 
 
-	//fill matrix*/
 
 
-
-}
 
 void draw_screen(int mode)
 {
@@ -505,9 +235,9 @@ void draw_screen(int mode)
 	memcpy(video_mem, double_buffer, screen_size);
 	//memset(double_buffer, 0, screen_size);
 	if(mode == 1)
-	drawbackground(double_buffer, bg, 0, 0, ALIGN_LEFT);
+	drawbackground(double_buffer, bmp->bg, 0, 0, ALIGN_LEFT);
 	else if (mode == 2)
-		drawbackground(double_buffer,bgmp,0,0,ALIGN_LEFT);
+		drawbackground(double_buffer,bmp->bgmp,0,0,ALIGN_LEFT);
 	//drawBitmap(double_buffer, maca, 200, 200, ALIGN_LEFT);
 
 		while(i_col < 64)
@@ -517,7 +247,7 @@ void draw_screen(int mode)
 				if(matrix_graphics[i_col][i_row] != NULL)
 				{
 
-					if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2)
+					if(matrix_graphics[i_col][i_row] == bmp->body || matrix_graphics[i_col][i_row] == bmp->body2)
 					{
 						drawbackground(double_buffer,matrix_graphics[i_col][i_row],20*i_col,16*i_row,ALIGN_LEFT);
 					}else
@@ -536,33 +266,7 @@ void draw_screen(int mode)
 }
 
 
-void update_pos_mouse(unsigned long *x, unsigned long *y)
-{
 
-	x_pos_atual += (*x);
-	y_pos_atual -= (*y);
-
-	if(x_pos_atual > 1180)
-	{
-		x_pos_atual = 1180;
-	}
-	if(x_pos_atual < 80)
-		{
-			x_pos_atual = 80;
-		}
-	if(y_pos_atual > 944)
-	{
-		y_pos_atual = 944;
-	}
-	if (y_pos_atual < 64)
-	{
-		y_pos_atual = 64;
-	}
-
-	(*y) = y_pos_atual;
-	(*x)= x_pos_atual;
-
-}
 
 
 void remove_snakes_matrix()
@@ -574,7 +278,7 @@ void remove_snakes_matrix()
 	{
 			while(i_row < 64)
 			{
-				if(matrix_graphics[i_col][i_row] == body || matrix_graphics[i_col][i_row] == body2 || matrix_graphics[i_col][i_row] ==cabeca1hd || matrix_graphics[i_col][i_row] ==cabeca1vb || matrix_graphics[i_col][i_row] ==cabeca1he || matrix_graphics[i_col][i_row] ==cabeca1vc || matrix_graphics[i_col][i_row] ==cabeca2hd || matrix_graphics[i_col][i_row] ==cabeca2vb || matrix_graphics[i_col][i_row] ==cabeca2he || matrix_graphics[i_col][i_row] ==cabeca2vc)
+				if(matrix_graphics[i_col][i_row] == bmp->body || matrix_graphics[i_col][i_row] == bmp->body2 || matrix_graphics[i_col][i_row] == bmp->cabeca1hd || matrix_graphics[i_col][i_row] == bmp->cabeca1vb || matrix_graphics[i_col][i_row] == bmp->cabeca1he || matrix_graphics[i_col][i_row] == bmp->cabeca1vc || matrix_graphics[i_col][i_row] == bmp->cabeca2hd || matrix_graphics[i_col][i_row] == bmp->cabeca2vb || matrix_graphics[i_col][i_row] == bmp->cabeca2he || matrix_graphics[i_col][i_row] == bmp->cabeca2vc)
 				{
 					matrix_graphics[i_col][i_row] = NULL;
 
@@ -633,7 +337,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 		printf("seg1 col: %d\n", seg1->col);
 		printf("seg1 row: %d\n", seg1->row);
 
-		matrix_graphics[seg1->col][seg1->row] = body;
+		matrix_graphics[seg1->col][seg1->row] = bmp->body;
 
 		seg1 = seg1->before;
 		i++;
@@ -647,16 +351,16 @@ int update_matrix_snake(Snake *s1,int mouse)
 				{
 					return 1;
 				}
-				if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 || matrix_graphics[seg1->col][seg1->row] == bomb )  //TODO need to add other colisions
+				if(matrix_graphics[seg1->col][seg1->row] == bmp->body || matrix_graphics[seg1->col][seg1->row] == bmp->body2 || matrix_graphics[seg1->col][seg1->row] == bmp->bomb )  //TODO need to add other colisions
 				{
-					if( matrix_graphics[seg1->col][seg1->row] == bomb)
+					if( matrix_graphics[seg1->col][seg1->row] == bmp->bomb)
 					{
-						matrix_graphics[seg1->col][seg1->row] = explosion;
+						matrix_graphics[seg1->col][seg1->row] = bmp->explosion;
 					}
 					printf("colision\n");
 					return 1;
 				}
-				else if(matrix_graphics[seg1->col][seg1->row] == maca)
+				else if(matrix_graphics[seg1->col][seg1->row] == bmp->maca)
 				{
 					inc_snake(s1);
 					if(mouse == 0)
@@ -666,16 +370,16 @@ int update_matrix_snake(Snake *s1,int mouse)
 	if(s1->head->direction == HORIZONTAL)
 	{
 		if(s1->head->orientation == RIGHT_DOWN)
-			matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+			matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1hd;
 		else
-			matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+			matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1he;
 	}
 	else
 	{
 		if(s1->head->orientation == RIGHT_DOWN)
-			matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+			matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1vb;
 		else
-			matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+			matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1vc;
 	}
 
 
@@ -710,7 +414,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 			printf("seg1 col: %d\n", seg1->col);
 			printf("seg1 row: %d\n", seg1->row);
 
-			matrix_graphics[seg1->col][seg1->row] = body;
+			matrix_graphics[seg1->col][seg1->row] = bmp->body;
 
 			seg1 = seg1->before;
 			i++;
@@ -730,7 +434,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 			{
 				printf("seg2 col: %d\n", seg2->col);
 				printf("seg2 row: %d\n", seg2->row);
-				matrix_graphics[seg2->col][seg2->row] = body2;
+				matrix_graphics[seg2->col][seg2->row] = bmp->body2;
 
 				seg2 = seg2->before;
 				i++;
@@ -753,12 +457,12 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 									return 1;
 								}
 
-										if(matrix_graphics[seg1->col][seg1->row] == body || matrix_graphics[seg1->col][seg1->row] == body2 ||  matrix_graphics[seg1->col][seg1->row] == bomb)  //TODO need to add other colisions
+										if(matrix_graphics[seg1->col][seg1->row] == bmp->body || matrix_graphics[seg1->col][seg1->row] == bmp->body2 ||  matrix_graphics[seg1->col][seg1->row] == bmp->bomb)  //TODO need to add other colisions
 										{
 
-											if( matrix_graphics[seg1->col][seg1->row] == bomb)
+											if( matrix_graphics[seg1->col][seg1->row] == bmp->bomb)
 											{
-												matrix_graphics[seg1->col][seg1->row] = explosion;
+												matrix_graphics[seg1->col][seg1->row] = bmp->explosion;
 											}
 											else
 												matrix_graphics[seg1->col][seg1->row] = NULL;
@@ -767,7 +471,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 
 											return 1;
 										}
-										else if(matrix_graphics[seg1->col][seg1->row] == maca)
+										else if(matrix_graphics[seg1->col][seg1->row] == bmp->maca)
 										{
 											inc_snake(s1);
 											new_object_2_snakes_matrix(s1,s2,0);
@@ -776,16 +480,16 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 										if(s1->head->direction == HORIZONTAL)
 											{
 												if(s1->head->orientation == RIGHT_DOWN)
-													matrix_graphics[seg1->col][seg1->row] = cabeca1hd;
+													matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1hd;
 												else
-													matrix_graphics[seg1->col][seg1->row] = cabeca1he;
+													matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1he;
 											}
 											else
 											{
 												if(s1->head->orientation == RIGHT_DOWN)
-													matrix_graphics[seg1->col][seg1->row] = cabeca1vb;
+													matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1vb;
 												else
-													matrix_graphics[seg1->col][seg1->row] = cabeca1vc;
+													matrix_graphics[seg1->col][seg1->row] = bmp->cabeca1vc;
 											}
 									}
 		}
@@ -801,12 +505,12 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 																			(*snake2_alive) = 1;
 									return 1;
 								}
-				if(matrix_graphics[seg2->col][seg2->row] == body || matrix_graphics[seg2->col][seg2->row] == body2  ||  matrix_graphics[seg2->col][seg2->row] == bomb)  //TODO need to add other colisions
+				if(matrix_graphics[seg2->col][seg2->row] == bmp->body || matrix_graphics[seg2->col][seg2->row] == bmp->body2  ||  matrix_graphics[seg2->col][seg2->row] == bmp->bomb)  //TODO need to add other colisions
 				{
 
-				if( matrix_graphics[seg2->col][seg2->row] == bomb)
+				if( matrix_graphics[seg2->col][seg2->row] == bmp->bomb)
 				{
-						matrix_graphics[seg2->col][seg2->row] = explosion;
+						matrix_graphics[seg2->col][seg2->row] = bmp->explosion;
 														}
 														else
 															matrix_graphics[seg2->col][seg2->row] = NULL;
@@ -815,7 +519,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 
 														return 1;
 													}
-						else if(matrix_graphics[seg2->col][seg2->row] == maca)
+						else if(matrix_graphics[seg2->col][seg2->row] == bmp->maca)
 						{
 							inc_snake(s2);
 							new_object_2_snakes_matrix(s1,s2,0);
@@ -823,16 +527,16 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 						if(s2->head->direction == HORIZONTAL)
 										{
 											if(s2->head->orientation == RIGHT_DOWN)
-												matrix_graphics[seg2->col][seg2->row] = cabeca2hd;
+												matrix_graphics[seg2->col][seg2->row] = bmp->cabeca2hd;
 											else
-												matrix_graphics[seg2->col][seg2->row] = cabeca2he;
+												matrix_graphics[seg2->col][seg2->row] = bmp->cabeca2he;
 										}
 										else
 										{
 											if(s2->head->orientation == RIGHT_DOWN)
-												matrix_graphics[seg2->col][seg2->row] = cabeca2vb;
+												matrix_graphics[seg2->col][seg2->row] = bmp->cabeca2vb;
 											else
-												matrix_graphics[seg2->col][seg2->row] = cabeca2vc;
+												matrix_graphics[seg2->col][seg2->row] = bmp->cabeca2vc;
 										}
 					}
 		}
@@ -885,10 +589,10 @@ int update_matrix_objects(Game_object *obj, Snake *s1)
 	}
 
 	if(obj->name == 0)
-	matrix_graphics[obj->col][obj->row] = maca;
+	matrix_graphics[obj->col][obj->row] = bmp->maca;
 	else if(obj->name == 1)
 	{
-		matrix_graphics[obj->col][obj->row] = bomb;
+		matrix_graphics[obj->col][obj->row] = bmp->bomb;
 	}
 	return 0;
 
@@ -917,10 +621,10 @@ int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
 		}
 
 	if(obj->name == 0)
-	matrix_graphics[obj->col][obj->row] = maca;
+	matrix_graphics[obj->col][obj->row] = bmp->maca;
 	else if(obj->name == 1)
 	{
-		matrix_graphics[obj->col][obj->row] = bomb;
+		matrix_graphics[obj->col][obj->row] = bmp->bomb;
 	}
 	return 0;
 
@@ -958,7 +662,7 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 
 		if(fruit_count() < 3)
 		{
-			matrix_graphics[obj->col][obj->row] = maca;
+			matrix_graphics[obj->col][obj->row] = bmp->maca;
 			return 0;
 		}
 
@@ -1001,12 +705,12 @@ int add_bomb_matrix(int x, int y,Snake *s1)
 		if(bomb_count() == fruit_count())
 		{
 			remove_bomb();
-			matrix_graphics[obj->col][obj->row] = bomb;
+			matrix_graphics[obj->col][obj->row] = bmp->bomb;
 						return 0;
 		}
 		if(bomb_count() < fruit_count())
 		{
-			matrix_graphics[obj->col][obj->row] = bomb;
+			matrix_graphics[obj->col][obj->row] = bmp->bomb;
 			return 0;
 		}
 
@@ -1024,7 +728,7 @@ void remove_bomb()
 			{
 					while(i_row < 64)
 					{
-						if(matrix_graphics[i_col][i_row] == bomb)
+						if(matrix_graphics[i_col][i_row] == bmp->bomb)
 						{
 							matrix_graphics[i_col][i_row] = NULL;
 							return;
@@ -1047,7 +751,7 @@ int fruit_count()
 		{
 				while(i_row < 64)
 				{
-					if(matrix_graphics[i_col][i_row] == maca)
+					if(matrix_graphics[i_col][i_row] == bmp->maca)
 					{
 						how_many++;
 
@@ -1069,7 +773,7 @@ int bomb_count()
 		{
 				while(i_row < 64)
 				{
-					if(matrix_graphics[i_col][i_row] == bomb)
+					if(matrix_graphics[i_col][i_row] == bmp->bomb)
 					{
 						how_many++;
 
@@ -1086,18 +790,40 @@ void print_number_delay(int number_delay)
 {
 	if (number_delay == 1)
 	{
-		drawBitmap(double_buffer,counter1_delay,592,419,ALIGN_LEFT);
+		drawBitmap(double_buffer,bmp->counter1_delay,592,419,ALIGN_LEFT);
 		memcpy(video_mem,double_buffer,screen_size);
 	}else if(number_delay == 2)
 	{
-		drawBitmap(double_buffer,counter2_delay,592,419,ALIGN_LEFT);
+		drawBitmap(double_buffer,bmp->counter2_delay,592,419,ALIGN_LEFT);
 				memcpy(video_mem,double_buffer,screen_size);
 	}
 	else if(number_delay == 3)
 	{
-		drawBitmap(double_buffer,counter3_delay,592,419,ALIGN_LEFT);
+		drawBitmap(double_buffer,bmp->counter3_delay,592,419,ALIGN_LEFT);
 		memcpy(video_mem,double_buffer,screen_size);
 	}
+}
+
+void print_buffer()
+{
+	memcpy(video_mem,double_buffer,screen_size);
+}
+
+void fill_buffer(Bitmap *bitmap, int x, int y, int func)
+{
+	if(func == 0)
+	{
+		drawbackground(double_buffer,bitmap,x,y,ALIGN_LEFT);
+	}
+	else
+	{
+		drawBitmap(double_buffer,bitmap,x,y,ALIGN_LEFT);
+	}
+}
+
+Bitmaps_struct* getBM()
+{
+	return bmp;
 }
 
 

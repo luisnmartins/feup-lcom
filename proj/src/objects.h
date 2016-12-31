@@ -3,7 +3,7 @@
 #define DANGER_TYPE 1
 
 #include <stdio.h>
-#include "Bitmap.h"
+
 
 /** @name object_name */
 /**@{

@@ -1,8 +1,7 @@
 #ifndef __MAN_EVENTS_H
 #define __MAN_EVENTS_H
 
-
-#include "graphics.h"
+#include "menu.h"
 
 /**
  * time of the system

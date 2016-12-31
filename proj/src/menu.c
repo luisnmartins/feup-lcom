@@ -232,6 +232,7 @@ void show_points_sp(Snake *s1)
 
 	drawBitmap(bmp->game_over,350,210,ALIGN_LEFT);
 	drawBitmap(bmp->player1,x_inicial-100,y-75,ALIGN_LEFT);
+	drawBitmap(bmp->press_enter,450,700,ALIGN_LEFT);
 
 	while(points >= 10)
 	{
@@ -256,6 +257,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 	drawBitmap(bmp->game_over,350,210,ALIGN_LEFT);
 	drawBitmap(bmp->player1,x1_in-100,y-75,ALIGN_LEFT);
 	drawBitmap(bmp->player2,x2_in-100,y-75,ALIGN_LEFT);
+	drawBitmap(bmp->press_enter,450,650,ALIGN_LEFT);
 	while(points_s1 >= 10)
 		{
 		drawBitmap(bmp->numbers[points_s1%10],x1_in,y,ALIGN_LEFT);

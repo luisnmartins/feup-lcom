@@ -61,6 +61,7 @@ main.o:	i8254.h
 main.o:	keyboard.h
 main.o:	main.c
 main.o:	man_events.h
+main.o:	menu.h
 main.o:	mouse.h
 main.o:	objects.h
 main.o:	pixmap.h

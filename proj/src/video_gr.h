@@ -38,12 +38,30 @@ int vg_exit(void);
 
  /** @} end of video_gr */
 
+
+/**
+ * @brief returns the resolution of the video mode that is being used
+ * @return the size of the horizontal line of the screen
+ * */
 unsigned getHorResolution();
 
+
+/**
+ *  @brief returns the resolution of the video mode that is being used
+ * @return the size of the vertical line of the screen
+ * */
 unsigned getVerResolution();
 
+/**
+ * @brief returns the double buffer
+ * @returns the double buffer
+ * */
 char* getDouleBuffer();
 
+
+/**
+ * @brief copies what is in the double buffer to the video mem
+ * */
 void print_buffer();
 
 

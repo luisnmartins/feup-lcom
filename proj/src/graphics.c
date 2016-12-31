@@ -2,9 +2,14 @@
 
 //#define SCREEN_SIZE 1280*1024*16/8
 
-
+/**
+ * @brief bitmap_struct with all bitmaps used in  project
+ * */
 static Bitmaps_struct* bmp;
 
+/**
+ * @brief global 64 by 64 matrix to virtually divide the screen with 20x16 rectangles
+ * */
 static Bitmap *matrix_graphics[64][64] = {NULL};   //col x line
 
 
@@ -72,7 +77,7 @@ void initial_bitmaps()
 }
 
 
-int start_mode()
+void start_mode()
 {
 
 		vg_init(0x11A);

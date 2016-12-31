@@ -1,12 +1,21 @@
 
 #include "menu.h"
 
+
+/**
+ * @brief bitmap_struct with all bitmaps used in  project
+ * */
 static Bitmaps_struct *bmp;
 
 
 static Bitmap *preview_matrix[25] = {NULL};
-
+/**
+ * @brief variable to save x position of the mouse
+ * */
 static unsigned long x_pos_atual = 200;
+/**
+ * @brief variable to save y position of the mmouse
+ * */
 static unsigned long y_pos_atual = 200;
 
 

@@ -47,14 +47,14 @@ void change_body(int opt)
 {
 	if(opt == 1)
 	{
-		bmp->body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+		bmp->body = loadBitmap("/home/proj/res/corpoa.bmp");
 	}
 	else if(opt == 2)
 	{
-		bmp->body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
+		bmp->body = loadBitmap("/home/proj/res/corpov.bmp");
 	}else if(opt == 3)
 	{
-		bmp->body = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
+		bmp->body = loadBitmap("/home/proj/res/corpo_c.bmp");
 
 	}
 	return;
@@ -64,14 +64,14 @@ void change_body2(int opt)
 {
 	if(opt == 1)
 		{
-		bmp->body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpoa.bmp");
+		bmp->body2 = loadBitmap("/home/proj/res/corpoa.bmp");
 		}
 		else if(opt == 2)
 		{
-			bmp->body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpov.bmp");
+			bmp->body2 = loadBitmap("/home/proj/res/corpov.bmp");
 		}else if(opt == 3)
 		{
-			bmp->body2 = loadBitmap("home/lcom/lcom1617-t4g14/proj/res/corpo_c.bmp");
+			bmp->body2 = loadBitmap("/home/proj/res/corpo_c.bmp");
 
 		}
 		return;
@@ -81,23 +81,23 @@ void change_head(int opt)
 {
 	if(opt ==1)
 	{
-		bmp->cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1hd.bmp");
-		bmp->cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1he.bmp");
-		bmp->cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vc.bmp");
-		bmp->cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca1vb.bmp");
+		bmp->cabeca1hd = loadBitmap("/home/proj/res/cabeca1hd.bmp");
+		bmp->cabeca1he = loadBitmap("/home/proj/res/cabeca1he.bmp");
+		bmp->cabeca1vc = loadBitmap("/home/proj/res/cabeca1vc.bmp");
+		bmp->cabeca1vb = loadBitmap("/home/proj/res/cabeca1vb.bmp");
 	}
 	else if(opt == 2)
 	{
-		bmp->cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2hd.bmp");
-		bmp->cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2he.bmp");
-		bmp->cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vc.bmp");
-		bmp->cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/cabeca2vb.bmp");
+		bmp->cabeca1hd = loadBitmap("/home/proj/res/cabeca2hd.bmp");
+		bmp->cabeca1he = loadBitmap("/home/proj/res/cabeca2he.bmp");
+		bmp->cabeca1vc = loadBitmap("/home/proj/res/cabeca2vc.bmp");
+		bmp->cabeca1vb = loadBitmap("/home/proj/res/cabeca2vb.bmp");
 	}else if(opt ==3)
 	{
-		bmp->cabeca1hd = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_direita.bmp");
-		bmp->cabeca1he = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_esquerda.bmp");
-		bmp->cabeca1vc = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_cima.bmp");
-		bmp->cabeca1vb = loadBitmap("/home/lcom/lcom1617-t4g14/proj/res/c_baixo.bmp");
+		bmp->cabeca1hd = loadBitmap("/home/proj/res/c_direita.bmp");
+		bmp->cabeca1he = loadBitmap("/home/proj/res/c_esquerda.bmp");
+		bmp->cabeca1vc = loadBitmap("/home/proj/res/c_cima.bmp");
+		bmp->cabeca1vb = loadBitmap("/home/proj/res/c_baixo.bmp");
 	}
 	return;
 

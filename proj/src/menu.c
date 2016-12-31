@@ -230,6 +230,7 @@ void show_points_sp(Snake *s1)
 	int y = 512;
 	int points = s1->size -5;
 
+	drawBitmap(bmp->game_over,350,210,ALIGN_LEFT);
 	drawBitmap(bmp->player1,x_inicial-100,y-75,ALIGN_LEFT);
 
 	while(points >= 10)
@@ -252,7 +253,7 @@ void show_points_mp(Snake *s1, Snake *s2)
 	int points_s1 = s1->size-5;
 	int points_s2 = s2->size-5;
 
-
+	drawBitmap(bmp->game_over,350,210,ALIGN_LEFT);
 	drawBitmap(bmp->player1,x1_in-100,y-75,ALIGN_LEFT);
 	drawBitmap(bmp->player2,x2_in-100,y-75,ALIGN_LEFT);
 	while(points_s1 >= 10)

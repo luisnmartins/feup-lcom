@@ -31,7 +31,7 @@ typedef struct
  Bitmap *maca;/**< @brief fruit eaten by the snake to grow*/
  Bitmap *body;/**< @brief body the s1 snake*/
  Bitmap *body2;/**< @brief body of the s2 snake*/
- Bitmap *game_over;
+ Bitmap *game_over;/***<@brief game over message*/
  Bitmap *bg; /**< @brief map used in SP and Snake and Mouse mode */
  Bitmap *bgmp;/**< @brief map used in the mode with 2 snakes*/
  Bitmap *cabeca1hd;/**< @brief head of the s1 snake in the horizontal and positive directions*/

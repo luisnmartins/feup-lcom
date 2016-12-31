@@ -74,6 +74,7 @@ void initial_bitmaps()
 		bmp->counter2_delay = loadBitmap("/home/proj/res/count2_delay.bmp");
 		bmp->counter3_delay = loadBitmap("/home/proj/res/count3_delay.bmp");
 		bmp->numbers_back =loadBitmap("/home/proj/res/backnumber.bmp");
+		bmp->game_over = loadBitmap("/home/proj/res/game_over.bmp");
 }
 
 

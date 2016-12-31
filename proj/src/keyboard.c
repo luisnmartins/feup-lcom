@@ -49,7 +49,6 @@ unsigned long keyboard_int_handler() {
 		while( n<= 5)
 		{
 			sys_inb(STATUS_REG, &status);
-			printf("ESTA A LER O TECLADO");
 			if( status & OBF)
 			{
 				sys_inb(KBD_OUT_BUF, &data);

@@ -169,8 +169,7 @@ void draw_screen(int mode)
 					}else
 					{
 						drawBitmap( matrix_graphics[i_col][i_row], 20*i_col, 16*i_row, ALIGN_LEFT);
-					printf("linha: %d\n", i_row);
-					printf("coluna: %d\n", i_col);
+
 					}
 
 				}
@@ -205,7 +204,7 @@ void remove_snakes_matrix()
 			i_row=0;
 	}
 
-	printf("snake removed\n");
+
 
 }
 
@@ -236,7 +235,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 	remove_snakes_matrix();
 
 	if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 )
-	{	printf("merdou\n");
+	{
 		return 1;
 	}
 
@@ -244,14 +243,12 @@ int update_matrix_snake(Snake *s1,int mouse)
 
 	int i=0;
 	segment_snake *seg1 = s1->tail;
-	printf("criou segmento");
-	printf("tail cenas: %d\n", seg1->col);
+
 
 
 	do
 	{
-		printf("seg1 col: %d\n", seg1->col);
-		printf("seg1 row: %d\n", seg1->row);
+
 
 		matrix_graphics[seg1->col][seg1->row] = bmp->body;
 
@@ -273,7 +270,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 					{
 						matrix_graphics[seg1->col][seg1->row] = bmp->explosion;
 					}
-					printf("colision\n");
+
 					return 1;
 				}
 				else if(matrix_graphics[seg1->col][seg1->row] == bmp->maca)
@@ -299,7 +296,7 @@ int update_matrix_snake(Snake *s1,int mouse)
 	}
 
 
-	printf("acabou\n");
+
 	return 0;
 
 }
@@ -309,7 +306,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 	remove_snakes_matrix();
 
 		if(s1->head->row > 63 || s1->head->row <0 || s1->head->col > 63 || s1->head->col < 0 ||s2->head->row > 63 || s2->head->row <0 || s2->head->col > 63 || s2->head->col < 0 )
-		{	printf("merdou\n");
+		{
 			return 1;
 		}
 		segment_snake *seg1 = s1->tail;
@@ -321,14 +318,11 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 		{
 
 
-		printf("criou segmento");
-		printf("tail cenas: %d\n", seg1->col);
+
 
 
 		do
 		{
-			printf("seg1 col: %d\n", seg1->col);
-			printf("seg1 row: %d\n", seg1->row);
 
 			matrix_graphics[seg1->col][seg1->row] = bmp->body;
 
@@ -348,8 +342,8 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 
 		do
 			{
-				printf("seg2 col: %d\n", seg2->col);
-				printf("seg2 row: %d\n", seg2->row);
+
+
 				matrix_graphics[seg2->col][seg2->row] = bmp->body2;
 
 				seg2 = seg2->before;
@@ -368,7 +362,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 				if(verify_colision_walls_bgmap(seg1->col,seg1->row,2) == 1)
 								{
 					matrix_graphics[seg1->col][seg1->row] = NULL;
-											printf("colision\n");
+
 									(*snake1_alive) = 1;
 									return 1;
 								}
@@ -382,7 +376,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 											}
 											else
 												matrix_graphics[seg1->col][seg1->row] = NULL;
-											printf("colision\n");
+
 											(*snake1_alive) = 1;
 
 											return 1;
@@ -417,7 +411,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 				if(verify_colision_walls_bgmap(seg2->col,seg2->row,2) == 1)
 								{
 					matrix_graphics[seg2->col][seg2->row] = NULL;
-																			printf("colision\n");
+
 																			(*snake2_alive) = 1;
 									return 1;
 								}
@@ -430,7 +424,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 														}
 														else
 															matrix_graphics[seg2->col][seg2->row] = NULL;
-														printf("colision\n");
+
 														(*snake2_alive) = 1;
 
 														return 1;
@@ -459,7 +453,7 @@ int update_matrix_snakemp(Snake *s1,Snake *s2,int *snake1_alive, int *snake2_ali
 
 
 
-		printf("acabou\n");
+
 		return 0;
 }
 
@@ -548,7 +542,7 @@ int update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)
 
 int add_fruit_matrix(int x, int y,Snake *s1)
 {
-	printf("x: %d, y: %d\n",x,y);
+
 	if(x > 1280 || x < 0 || y >1024 || y <0 )
 		return 1;
 	else
@@ -560,7 +554,7 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 		obj->col = col;
 		obj->row = row;
 
-		printf("nova_coluna:%d  novarow:%d  \n",col,row);
+
 		if (matrix_graphics[obj->col][obj->row] != NULL)
 				return 1;
 		if(col < 4 || col >= 60 || row < 4 || row >=60)
@@ -590,7 +584,7 @@ int add_fruit_matrix(int x, int y,Snake *s1)
 
 int add_bomb_matrix(int x, int y,Snake *s1)
 {
-	printf("x: %d, y: %d\n",x,y);
+
 	if(x > 1280 || x < 0 || y >1024 || y <0 )
 		return 1;
 	else
@@ -602,7 +596,7 @@ int add_bomb_matrix(int x, int y,Snake *s1)
 		obj->col = col;
 		obj->row = row;
 
-		printf("nova_coluna:%d  novarow:%d  \n",col,row);
+
 		if (matrix_graphics[obj->col][obj->row] != NULL)
 				return 1;
 		if(col < 4 || col >= 60 || row < 4 || row >=60)

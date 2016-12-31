@@ -3,7 +3,6 @@ man_events.o:	/usr/include/errno.h
 man_events.o:	/usr/include/limits.h
 man_events.o:	/usr/include/machine/bios.h
 man_events.o:	/usr/include/machine/fpu.h
-man_events.o:	/usr/include/machine/int86.h
 man_events.o:	/usr/include/machine/interrupt.h
 man_events.o:	/usr/include/machine/mcontext.h
 man_events.o:	/usr/include/machine/ports.h
@@ -60,6 +59,7 @@ man_events.o:	i8254.h
 man_events.o:	keyboard.h
 man_events.o:	man_events.c
 man_events.o:	man_events.h
+man_events.o:	menu.h
 man_events.o:	objects.h
 man_events.o:	pixmap.h
 man_events.o:	rtc.h

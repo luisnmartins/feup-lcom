@@ -12,7 +12,7 @@ void check_game_status(states *st, event *ev)
 			if(*ev == OPT_SP)
 			{
 				new_snake_preview();
-				printf("fixe\n");
+
 				*st = CHOOSE_SN_T;
 			}
 			 if (*ev == OPT_MP)
@@ -166,7 +166,7 @@ void check_game_status(states *st, event *ev)
 				}
 		if(*ev == COLISION)
 						{
-							printf("tenta mudar de estado\n");
+
 							clear_matrix();
 							*st = END_T;
 							show_points_mp(s1,s2);
@@ -181,7 +181,7 @@ void check_game_status(states *st, event *ev)
 				}
 		if(*ev == COLISION)
 								{
-									printf("tenta mudar de estado\n");
+
 									clear_matrix();
 									*st = END_T;
 									if(second_snake == 0)
@@ -245,7 +245,7 @@ int keyboard_event_handler(unsigned long out_buf)
 			return 0;
 		}
 	}
-	printf("P: %d", p);
+
 	if(p == SP_T || p == MOKB_T)
 	{
 		if(out_buf == ESC_CODE)
@@ -484,7 +484,7 @@ int timer_event_handler(unsigned short counter)
 		//change_to_start();
 		draw_menu(0);
 		//update_menu_mouse();
-		printf("changed\n");
+
 
 	}
 	if(p == CHOOSE_SN_T)
@@ -618,14 +618,13 @@ int timer_event_handler(unsigned short counter)
 			if(counter%(s1->velocity) == 0)
 			{
 				move_snake(s1);
-				printf("running\n");
+
 				if(p == MOKB_T)
 				{
 					flag_colision = update_matrix_snake(s1,1);
 				}else
 				{flag_colision = update_matrix_snake(s1,0);}
-				printf("Flag colision: %d\n", flag_colision);
-				printf("matrix updated\n");
+
 
 				buf_full =0;
 			}
@@ -640,13 +639,13 @@ int timer_event_handler(unsigned short counter)
 			if(flag_colision == 1 && flag_colision2 == 1)
 			{
 				draw_screen(2);
-				printf("mudanca estado KBC_T\n");
-									printf("%d\n", p);
+
+
 									event col_event = COLISION;
 									check_game_status(&p, &col_event);
 									flag_colision = 0;
 									flag_colision2 = 0;
-									printf("p: %d\n",p);
+
 									return 0;
 			}
 			//update_menu_mouse();
@@ -694,11 +693,10 @@ int timer_event_handler(unsigned short counter)
 						if(snakes_mp_modify == 1)
 						{
 
-							printf("running\n");
+
 							update_matrix_snakemp(s1,s2,&flag_colision,&flag_colision2);//nao altera a flag_colision ???
 
-							printf("Flag colision: %d\n", flag_colision);
-							printf("matrix updated\n");
+
 							snakes_mp_modify = 0;
 							buf_full =0;
 						}
@@ -719,7 +717,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 	long *y = (long*)malloc(sizeof(long));
 	unsigned short *lb = (unsigned short*)malloc(sizeof(unsigned short));
 	unsigned short *rb = (unsigned short*)malloc(sizeof(unsigned short));
-	printf("ALOCA MEMORIA PACKETS\n");
+
 	if(print_packet(3, packet_mouse, x, y, lb,rb) == 0)
 	{
 
@@ -791,7 +789,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 					{
 						if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
 							{
-							printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+
 								head_flag = 0;
 								body_flag = 0;
 								choose = 1;
@@ -827,7 +825,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 					{
 						if(*x >= 976 && *y >= 868 && *x <= (976+200) && *y <= (868+74) && *lb ==1)
 							{
-								printf("ESCOLHEU O VERDADEIRO SELECT HURAYYYYYYY|||||||||!!!!!!!!!!!!!!!!\n");
+
 								head_flag = 0;
 								body_flag = 0;
 								choose = 0;
@@ -907,7 +905,7 @@ void mouse_event_handler(unsigned long *packet_mouse)
 				}
 				if(*x>= FIRST_ELEMENT && *y >= HEAD_HEIGHT && *x<= (FIRST_ELEMENT + SQUARE_WIDTH) && *y<= (HEAD_HEIGHT + SQUARE_HEIGHT) && *lb ==1)
 				{
-					printf("ESCOLHEU PRIMEIRA CABECA HURRAY!!!!!!!!!!!!!!\n");
+
 					change_head(1);
 					head_flag =1;
 					return;

@@ -113,6 +113,10 @@ void check_game_status(states *st, event *ev)
 				*st = MOKB_T;
 			}
 		}
+		if(*ev == ESC_PRESSED)
+		{
+			*st = MENU_T;
+		}
 		break;
 	}
 	case SP_T:
@@ -247,6 +251,14 @@ int keyboard_event_handler(unsigned long out_buf)
 			event start_game = START_E;
 			check_game_status(&p,&start_game);
 			return 0;
+		}
+		if(out_buf == ESC_CODE)
+		{
+			clear_matrix();
+			event end_game = ESC_PRESSED;
+			check_game_status(&p,&end_game);
+			return 0;
+
 		}
 	}
 

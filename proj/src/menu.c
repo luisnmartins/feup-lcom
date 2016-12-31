@@ -226,7 +226,7 @@ void draw_instructions(int mode)
 
 void show_points_sp(Snake *s1)
 {
-	int x_inicial = 640;
+	int x_inicial = 620;
 	int y = 512;
 	int points = s1->size -5;
 
@@ -248,7 +248,7 @@ void show_points_sp(Snake *s1)
 
 void show_points_mp(Snake *s1, Snake *s2)
 {
-	int y = 512;
+	int y = 496;
 	int x1_in = 320;
 	int x2_in = 960;
 	int points_s1 = s1->size-5;

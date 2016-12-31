@@ -64,7 +64,7 @@ void initial_bitmaps()
 		bmp->explosion = loadBitmap("/home/proj/res/explosions.bmp");
 		bmp->mp_menu = loadBitmap("/home/proj/res/menu_mp.bmp");
 		bmp->pausesymb =loadBitmap("/home/proj/res/pause.bmp");
-		bmp->wall = loadBitmap("/home/proj/res/wall.bmp");
+		bmp->press_enter = loadBitmap("/home/proj/res/press_enter.bmp");
 		bmp->player1 = loadBitmap("/home/proj/res/Player1.bmp");
 		bmp->player2 = loadBitmap("/home/proj/res/Player2.bmp");
 		bmp->choose_main = loadBitmap("/home/proj/res/choosemain.bmp");

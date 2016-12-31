@@ -52,7 +52,7 @@ typedef struct
  Bitmap *pausesymb;/**< @brief pause message when the game is paused*/
  Bitmap *bomb;/**< @brief bomb that might kill a snake*/
  Bitmap *explosion;/**< @brief explosion if snake collides with a bomb*/
- Bitmap *wall;
+ Bitmap *press_enter; /**< @brief message press enter to continue at the end of each game*/
  Bitmap *player1;/**< @brief identifier of player 1*/
  Bitmap *player2;/**< @brief identifier of player 2*/
  Bitmap *choose_main;/**< @brief menu to choose the body and the head of the it wants to use(only in modes with one snake)*/

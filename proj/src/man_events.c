@@ -185,7 +185,11 @@ void check_game_status(states *st, event *ev)
 									clear_matrix();
 									*st = END_T;
 									if(second_snake == 0)
-									s2 = s1;
+									{
+										s2 = s1;
+										show_points_sp(s1);
+									}
+
 									if(second_snake == 1)
 									show_points_mp(s2,s1);
 

@@ -19,7 +19,12 @@
 #include "Bitmap.h"
 
 
-//Bitmaps
+
+/** @defgroup graphics graphics
+ * @{
+ *
+ * Functions related to the graphics components of the game
+ */
 
 /** @name Graphics elements */
 /**@{

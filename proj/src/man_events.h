@@ -3,8 +3,16 @@
 
 #include "menu.h"
 
+
+
+/** @defgroup man_events man_events
+ * @{
+ *
+ * Functions to interpret what to do with the interrupts of the timer,keyboard and mouse (main game state machine)
+ */
 /**
- * time of the system
+ * time
+ of the system
  * */
 date_rtc date;
 

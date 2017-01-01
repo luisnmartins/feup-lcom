@@ -5,6 +5,13 @@
 #include <stdio.h>
 
 
+
+
+/** @defgroup object object
+ * @{
+ *
+ * Creation of an object
+ */
 /** @name object_name */
 /**@{
  *

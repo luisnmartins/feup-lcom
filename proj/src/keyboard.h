@@ -7,6 +7,13 @@
 #include "constants.h"
 
 
+/** @defgroup keyboard keyboard
+ * @{
+ *
+ * Functions for using the keyboard
+ */
+
+
 /**
  * @brief subscribes and enables the keyboard interrupts
  * */

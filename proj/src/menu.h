@@ -4,6 +4,11 @@
 #include "constants.h"
 
 
+/** @defgroup menu menu
+ * @{
+ *
+ * Functions related to the game menus
+ */
 /**
  * @brief it fills the bmp global variable with the bitmaps loaded in graphics.c
  * */

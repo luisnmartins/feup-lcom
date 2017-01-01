@@ -32,7 +32,7 @@ int mouse_unsubscribe_int();
 unsigned long mouse_int_handler();
 /**
  * @brief issues a command to the buffer of the mouse
- * @param cdm command or arguments issued
+ * @param cmd command or arguments issued
  * @return 0 if succeeds 1 otherwise
  * */
 int issue_cmd_ms(unsigned long cmd);

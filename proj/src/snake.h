@@ -52,8 +52,8 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col);
 /**
  * @brief creates a new snake
  * @param size number of segments the snake is going to have(add_segment is used for this)
- * @param row the row member of all segments of the new snake
- * @param col the col member of all segments of the new snake
+ * @param x the row member of all segments of the new snake
+ * @param y the col member of all segments of the new snake
  *
  * Every new snake and its segments have the direction(horizontal) and oriectation(positive) as default
  * */
@@ -67,12 +67,12 @@ void new_snake(int size, unsigned short x, unsigned short y, Snake *s1);
 void move_snake(Snake* s1);
 /**
  * @brief sets the boost flag and doubles the snake velocity
- * @s1 snake that is going to be set
+ * @param s1 snake that is going to be set
  * */
 void set_boost(Snake* s1);
 /**
  * @brief resets the boost flag and decreases the snake velocity
- * @s1 snake that is going to be reset
+ * @param s1 snake that is going to be reset
  *
  * It is basically the opposite of set_boost
  * */

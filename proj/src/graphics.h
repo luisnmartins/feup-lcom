@@ -108,7 +108,7 @@ void clear_matrix();
 
 /**
  * @brief it draws in the screen the current state of the game
- * @param flag to know what map is being used
+ * @param mode flag to know what map is being used
  * */
 void draw_screen(int mode);
 

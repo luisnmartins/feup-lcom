@@ -35,7 +35,7 @@ void  update_menu_mouse();
 void change_body(int opt);
 /**
  * @brief it changes the bmp associated with the variable body2
- * @para opt which of the bodies as been chosen
+ * @param opt which of the bodies as been chosen
  * */
 void change_body2(int opt);
 /**

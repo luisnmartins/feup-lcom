@@ -30,7 +30,7 @@ int keyboard_unsubscribe_int();
 unsigned long keyboard_int_handler();
 /**
  * @brief checks if outbuf is of the E0, if the scan code of the key is of 2 bytes
- * @param outbuf to check
+ * @param out_buf to check
  * @param out_buf2 to save space for the 2 bytes
  * @return 1 if the scan code is of 2 bytes and the it hasn been handled,0 otherwise puting the full scan code in out_buff
  * */

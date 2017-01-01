@@ -193,7 +193,6 @@ main.o:	/usr/include/errno.h
 main.o:	/usr/include/limits.h
 main.o:	/usr/include/machine/bios.h
 main.o:	/usr/include/machine/fpu.h
-main.o:	/usr/include/machine/int86.h
 main.o:	/usr/include/machine/interrupt.h
 main.o:	/usr/include/machine/mcontext.h
 main.o:	/usr/include/machine/ports.h

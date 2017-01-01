@@ -60,6 +60,8 @@ typedef struct
  Bitmap *press_enter; /**< @brief message press enter to continue at the end of each game*/
  Bitmap *player1;/**< @brief identifier of player 1*/
  Bitmap *player2;/**< @brief identifier of player 2*/
+ Bitmap *small_player1; /** < @brief small identifier of player 1*/
+ Bitmap *small_player2; /**< @brief small identifier of player 2*/
  Bitmap *choose_main;/**< @brief menu to choose the body and the head of the it wants to use(only in modes with one snake)*/
  Bitmap *choose_p1;/**< @brief menu in 2 snakes mode, to choose the body of the snake of player1 (snake s1)*/
  Bitmap *choose_p2;/**< @brief menu in 2 snakes mode, to choose the body of the snake of player2 (snake s2)*/

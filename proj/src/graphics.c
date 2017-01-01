@@ -67,6 +67,8 @@ void initial_bitmaps()
 		bmp->press_enter = loadBitmap("/home/proj/res/press_enter.bmp");
 		bmp->player1 = loadBitmap("/home/proj/res/Player1.bmp");
 		bmp->player2 = loadBitmap("/home/proj/res/Player2.bmp");
+		bmp->small_player1 = loadBitmap("/home/proj/res/SPlayer1.bmp");
+		bmp->small_player2 = loadBitmap("/home/proj/res/SPlayer2.bmp");
 		bmp->choose_main = loadBitmap("/home/proj/res/choosemain.bmp");
 		bmp->choose_p1 = loadBitmap("/home/proj/res/choose_p1.bmp");
 		bmp->choose_p2 = loadBitmap("/home/proj/res/choose_p2.bmp");
@@ -119,6 +121,8 @@ void points_ingame_mp (Snake *s1,Snake *s2)
 
 	drawbackground(bmp->numbers_back,x1_in-80,y,ALIGN_LEFT);
 	drawbackground(bmp->numbers_back,x2_in-80,y,ALIGN_LEFT);
+	drawbackground(bmp->small_player1,x1_in-80,y-32,ALIGN_LEFT);
+	drawbackground(bmp->small_player2,x2_in-80,y-32,ALIGN_LEFT);
 	while(points_s1 >= 10)
 	{
 		drawbackground(bmp->numbers_score[points_s1%10],x1_in,y,ALIGN_LEFT);

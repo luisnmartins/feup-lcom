@@ -54,7 +54,7 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col);
  * @param size number of segments the snake is going to have(add_segment is used for this)
  * @param x the row member of all segments of the new snake
  * @param y the col member of all segments of the new snake
- *
+ * @param s1 the variable where the snake is going to be saved
  * Every new snake and its segments have the direction(horizontal) and oriectation(positive) as default
  * */
 void new_snake(int size, unsigned short x, unsigned short y, Snake *s1);

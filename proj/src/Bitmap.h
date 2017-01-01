@@ -52,7 +52,7 @@ Bitmap* loadBitmap(const char* filename);
 /**
  * @brief Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a transparent pixel (color rgb(255, 0, 255) )
  *
- * @param buffer Bitmap is going to be drawn
+ *
  * @param bitmap bitmap to be drawn
  * @param x destiny x coord
  * @param y destiny y coord
@@ -63,8 +63,8 @@ void drawBitmap(Bitmap* bitmap, int x, int y, Alignment alignment);
 /**
  *  @brief Draws an unscaled, unrotated bitmap at the given position
  *
- * 	@param buffer Bitmap is going to be drawn
- * 	@param bitmap bitmap to be drawn
+ *
+ * 	@param bmp bitmap to be drawn
  * 	@param x destiny x coord
  * 	@param y destiny y coord
  * 	@param alignment image alignment
@@ -74,7 +74,7 @@ void drawbackground(Bitmap* bmp, int x, int y, Alignment alignment);
 /**
  * @brief Destroys the given bitmap, freeing all resources used by it.
  *
- * @param bitmap bitmap to be destroyed
+ * @param bmp bitmap to be destroyed
  */
 void deleteBitmap(Bitmap* bmp);
 

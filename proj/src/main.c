@@ -21,7 +21,7 @@ int main()
 
 
 	start_mode();
-	start_variables_menu();
+
 
 
 	int ipc_status;

@@ -85,6 +85,8 @@ void start_mode()
 
 		initial_bitmaps();
 
+		start_variables_menu();
+
 
 }
 

@@ -223,7 +223,7 @@ int verify_colision_walls_bgmap(int col,int row,int mode)
 	}
 	else if(mode == 2)
 	{
-		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) || (col == 35 && (row >= 42)) ||(row ==48 && (col >= 27 && col <= 35 )) || (row == 4 && (col <= 59 && col>= 54 )) || (row == 4 && (col>= 4 && col <= 9)) )
+		if(col < 4 || col >= 60 || row < 4 || row >= 60 || (col == 12 && (row >= 26 && row <= 33)) || (row ==30 && col <= 12) || (col == 19 && row <= 13 ) || (row == 13 && (col >=15 && col <= 22 )) || (col == 43 && row <= 21) || (row == 21 && (col >= 43 && col <=50)) || (col == 52 && (row >= 34 && row <= 42 )) ||(row == 34 && (col>=52))|| (col == 35 && (row >= 42)) ||(row ==48 && (col >= 27 && col <= 35 )) || (row == 4 && (col <= 59 && col>= 54 )) || (row == 4 && (col>= 4 && col <= 9)) )
 		{
 			return 1;
 		}

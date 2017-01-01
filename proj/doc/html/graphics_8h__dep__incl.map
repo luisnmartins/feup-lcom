@@ -1,8 +1,0 @@
-<map id="src/graphics.h" name="src/graphics.h">
-<area shape="rect" id="node2" href="$graphics_8c.html" title="src/graphics.c" alt="" coords="5,80,109,107"/>
-<area shape="rect" id="node3" href="$main_8c.html" title="src/main.c" alt="" coords="105,229,188,256"/>
-<area shape="rect" id="node4" href="$menu_8h.html" title="src/menu.h" alt="" coords="205,80,291,107"/>
-<area shape="rect" id="node5" href="$man__events_8h.html" title="src/man_events.h" alt="" coords="185,155,311,181"/>
-<area shape="rect" id="node7" href="$menu_8c.html" title="src/menu.c" alt="" coords="335,155,422,181"/>
-<area shape="rect" id="node6" href="$man__events_8c.html" title="src/man_events.c" alt="" coords="213,229,339,256"/>
-</map>

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['cabeca1hd',['cabeca1hd',['../group__graphics.html#ga9959af1a5f4e538102e06e851ee5c915',1,'Bitmaps_struct']]],
+  ['cabeca1he',['cabeca1he',['../group__graphics.html#gaf74d52e92677f0524ff252ceb5dfe6db',1,'Bitmaps_struct']]],
+  ['cabeca1vb',['cabeca1vb',['../group__graphics.html#ga91a4701df66671d8faefa15ecab2d887',1,'Bitmaps_struct']]],
+  ['cabeca1vc',['cabeca1vc',['../group__graphics.html#gaca946b5e5cd964849db384603e7ca808',1,'Bitmaps_struct']]],
+  ['cabeca2hd',['cabeca2hd',['../group__graphics.html#ga379b6a9f712f69a4475e955edb88c19c',1,'Bitmaps_struct']]],
+  ['cabeca2he',['cabeca2he',['../group__graphics.html#gae79dd6b554a965d633bcf35b258f4c41',1,'Bitmaps_struct']]],
+  ['cabeca2vb',['cabeca2vb',['../group__graphics.html#gac602c2bac98d1a34109526635e1f83d0',1,'Bitmaps_struct']]],
+  ['cabeca2vc',['cabeca2vc',['../group__graphics.html#ga307d60d43f2b897c983f27f1945c6aaa',1,'Bitmaps_struct']]],
+  ['capabilities',['Capabilities',['../struct____attribute____.html#a555521aede0ff448231fc7a404862bdb',1,'__attribute__']]],
+  ['choose_5fmain',['choose_main',['../group__graphics.html#gafebd69f22d3fdbe228cd4e06a1e4463a',1,'Bitmaps_struct']]],
+  ['choose_5fp1',['choose_p1',['../group__graphics.html#ga7023ade15c6964650fdb7b7195725219',1,'Bitmaps_struct']]],
+  ['choose_5fp2',['choose_p2',['../group__graphics.html#ga69b97cf787373a4a0bb2a65e9aa4ce4c',1,'Bitmaps_struct']]],
+  ['col',['col',['../group__object.html#ga149c34515b4b850fccfe3a5d81cac0eb',1,'Game_object::col()'],['../group__snake.html#ga149c34515b4b850fccfe3a5d81cac0eb',1,'Segment::col()']]],
+  ['compression',['compression',['../struct_bitmap_info_header.html#ad180079f62b44e49ec672c9ef6e078b3',1,'BitmapInfoHeader']]],
+  ['contador',['contador',['../timer_8c.html#a2ed7654f780fd78ba0221a3dc7213629',1,'timer.c']]],
+  ['counter1_5fdelay',['counter1_delay',['../group__graphics.html#gad3c5f9511b4c9682887b9da1dbb07d3c',1,'Bitmaps_struct']]],
+  ['counter2_5fdelay',['counter2_delay',['../group__graphics.html#gad7d868cde8a2b58c8bdb9f5a5093c01a',1,'Bitmaps_struct']]],
+  ['counter3_5fdelay',['counter3_delay',['../group__graphics.html#gaa7db9f2ffb0bd551c81875e180c8a4fb',1,'Bitmaps_struct']]],
+  ['cursor',['cursor',['../group__graphics.html#gacd442af53aa26eaeef242c9483ee06b9',1,'Bitmaps_struct']]]
+];

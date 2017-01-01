@@ -1,0 +1,10 @@
+<map id="src/snake.h" name="src/snake.h">
+<area shape="rect" id="node2" href="$graphics_8h.html" title="src/graphics.h" alt="" coords="95,80,199,107"/>
+<area shape="rect" id="node9" href="$snake_8c.html" title="src/snake.c" alt="" coords="223,80,313,107"/>
+<area shape="rect" id="node3" href="$graphics_8c.html" title="src/graphics.c" alt="" coords="5,155,109,181"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="src/main.c" alt="" coords="105,304,188,331"/>
+<area shape="rect" id="node5" href="$menu_8h.html" title="src/menu.h" alt="" coords="205,155,291,181"/>
+<area shape="rect" id="node6" href="$man__events_8h.html" title="src/man_events.h" alt="" coords="185,229,311,256"/>
+<area shape="rect" id="node8" href="$menu_8c.html" title="src/menu.c" alt="" coords="335,229,422,256"/>
+<area shape="rect" id="node7" href="$man__events_8c.html" title="src/man_events.c" alt="" coords="213,304,339,331"/>
+</map>

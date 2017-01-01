@@ -1,0 +1,9 @@
+<map id="src/timer.h" name="src/timer.h">
+<area shape="rect" id="node2" href="$graphics_8h.html" title="src/graphics.h" alt="" coords="59,80,163,107"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="src/main.c" alt="" coords="5,304,88,331"/>
+<area shape="rect" id="node3" href="$graphics_8c.html" title="src/graphics.c" alt="" coords="84,155,188,181"/>
+<area shape="rect" id="node5" href="$menu_8h.html" title="src/menu.h" alt="" coords="213,155,299,181"/>
+<area shape="rect" id="node6" href="$man__events_8h.html" title="src/man_events.h" alt="" coords="195,229,322,256"/>
+<area shape="rect" id="node8" href="$menu_8c.html" title="src/menu.c" alt="" coords="85,229,171,256"/>
+<area shape="rect" id="node7" href="$man__events_8c.html" title="src/man_events.c" alt="" coords="195,304,322,331"/>
+</map>

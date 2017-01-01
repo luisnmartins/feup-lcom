@@ -1,0 +1,51 @@
+\hypertarget{timer_8c}{}\section{timer.\+c File Reference}
+\label{timer_8c}\index{timer.\+c@{timer.\+c}}
+{\ttfamily \#include \char`\"{}i8254.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$minix/syslib.\+h$>$}\\*
+{\ttfamily \#include $<$minix/drivers.\+h$>$}\\*
+{\ttfamily \#include $<$minix/com.\+h$>$}\\*
+Include dependency graph for timer.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{timer_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{group__timer_gada4efbb5c88275795526fc45f0814aa3}{timer\+\_\+set\+\_\+square} (unsigned long timer, unsigned long freq)
+\begin{DoxyCompactList}\small\item\em Configures a timer to generate a square wave. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga4c5d9f47323eda494cfd826f6d62eec9}{timer\+\_\+subscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em Subscribes and enables Timer 0 interrupts. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_gab9eea51549744bca5c5c923b388bb4ee}{timer\+\_\+unsubscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em Unsubscribes Timer 0 interrupts. \end{DoxyCompactList}\item 
+void \hyperlink{group__timer_gab1d93f51769dceca366a7613507e829d}{timer\+\_\+int\+\_\+handler} (unsigned short $\ast$counter)
+\begin{DoxyCompactList}\small\item\em Timer 0 interrupt handler. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga8eb3357bc05265afc4bea5bbbb480a53}{timer\+\_\+get\+\_\+conf} (unsigned long timer, unsigned char $\ast$st)
+\begin{DoxyCompactList}\small\item\em Reads the input timer configuration via read-\/back command. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga9ca64a3f3f048936d961d656d6829200}{timer\+\_\+display\+\_\+conf} (unsigned char conf)
+\begin{DoxyCompactList}\small\item\em Shows timer configuration. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga2e596aede5a7bfc4a6f4382779bf0d7d}{timer\+\_\+test\+\_\+square} (unsigned long freq)
+\begin{DoxyCompactList}\small\item\em Tests programming timer in square wave mode. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga459859709b7cc1ee37899fa48cce6a6e}{timer\+\_\+test\+\_\+int} (unsigned long time)
+\begin{DoxyCompactList}\small\item\em Tests Timer 0 interrupt handling. \end{DoxyCompactList}\item 
+int \hyperlink{group__timer_ga363e72d1c055d859746cb3305a68af6d}{timer\+\_\+test\+\_\+config} (unsigned long timer)
+\begin{DoxyCompactList}\small\item\em Tests display of timer config. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned short \hyperlink{timer_8c_a2ed7654f780fd78ba0221a3dc7213629}{contador} =0
+\item 
+unsigned int \hyperlink{timer_8c_a06b023bd22f59a547294cb5cdceb979b}{hook\+\_\+id} = \hyperlink{i8254_8h_ac9ab894720baf57ca4fb4c7a6b9e6b71}{T0\+\_\+\+I\+R\+Q\+S\+ET}
+\end{DoxyCompactItemize}
+
+
+\subsection{Variable Documentation}
+\index{timer.\+c@{timer.\+c}!contador@{contador}}
+\index{contador@{contador}!timer.\+c@{timer.\+c}}
+\subsubsection[{\texorpdfstring{contador}{contador}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short contador =0}\hypertarget{timer_8c_a2ed7654f780fd78ba0221a3dc7213629}{}\label{timer_8c_a2ed7654f780fd78ba0221a3dc7213629}
+\index{timer.\+c@{timer.\+c}!hook\+\_\+id@{hook\+\_\+id}}
+\index{hook\+\_\+id@{hook\+\_\+id}!timer.\+c@{timer.\+c}}
+\subsubsection[{\texorpdfstring{hook\+\_\+id}{hook_id}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int hook\+\_\+id = {\bf T0\+\_\+\+I\+R\+Q\+S\+ET}}\hypertarget{timer_8c_a06b023bd22f59a547294cb5cdceb979b}{}\label{timer_8c_a06b023bd22f59a547294cb5cdceb979b}

@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['up_5farrow',['UP_ARROW',['../constants_8h.html#ad315ce436b88e78c266532e4714dd197',1,'constants.h']]],
+  ['update_5fdate',['update_date',['../date_8c.html#ae96d0de25b8db24f700d58410389d37e',1,'update_date(date_rtc *date):&#160;date.c'],['../date_8h.html#ae96d0de25b8db24f700d58410389d37e',1,'update_date(date_rtc *date):&#160;date.c']]],
+  ['update_5fmatrix_5fobjects',['update_matrix_objects',['../group__graphics.html#gad40d6fc4b95f03cf67fff31597a2bada',1,'update_matrix_objects(Game_object *obj, Snake *s1):&#160;graphics.c'],['../group__graphics.html#gad40d6fc4b95f03cf67fff31597a2bada',1,'update_matrix_objects(Game_object *obj, Snake *s1):&#160;graphics.c']]],
+  ['update_5fmatrix_5fobjects_5f2_5fsnakes',['update_matrix_objects_2_snakes',['../group__graphics.html#ga15209d618a0ee6164a1b1c7f72ba5bdf',1,'update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2):&#160;graphics.c'],['../group__graphics.html#ga15209d618a0ee6164a1b1c7f72ba5bdf',1,'update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2):&#160;graphics.c']]],
+  ['update_5fmatrix_5fsnake',['update_matrix_snake',['../group__graphics.html#ga7d91305a8a6ade1fc8c13c1a83e011b3',1,'update_matrix_snake(Snake *s1, int mouse):&#160;graphics.c'],['../group__graphics.html#ga7d91305a8a6ade1fc8c13c1a83e011b3',1,'update_matrix_snake(Snake *s1, int mouse):&#160;graphics.c']]],
+  ['update_5fmatrix_5fsnakemp',['update_matrix_snakemp',['../group__graphics.html#ga114deb65eba6094fa6251e4dbf4dc1a2',1,'update_matrix_snakemp(Snake *s1, Snake *s2, int *snake1_alive, int *snake2_alive):&#160;graphics.c'],['../group__graphics.html#ga114deb65eba6094fa6251e4dbf4dc1a2',1,'update_matrix_snakemp(Snake *s1, Snake *s2, int *snake1_alive, int *snake2_alive):&#160;graphics.c']]],
+  ['update_5fmenu_5fmouse',['update_menu_mouse',['../group__menu.html#gab1b3c1e3e90e9c78f31cddcc2544fd09',1,'update_menu_mouse():&#160;menu.c'],['../group__menu.html#gab1b3c1e3e90e9c78f31cddcc2544fd09',1,'update_menu_mouse():&#160;menu.c']]],
+  ['update_5fpos_5fmouse',['update_pos_mouse',['../group__menu.html#gab149955bb30c6e7a2923c73e86c09ac9',1,'update_pos_mouse(unsigned long *x, unsigned long *y):&#160;menu.c'],['../group__menu.html#gab149955bb30c6e7a2923c73e86c09ac9',1,'update_pos_mouse(unsigned long *x, unsigned long *y):&#160;menu.c']]]
+];

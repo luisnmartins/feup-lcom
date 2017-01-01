@@ -304,80 +304,8 @@ long compl2(long nr) {
 
 }
 
-void print_conf_byte1(unsigned long *conf_byte) {
-	if (*conf_byte & RIGHT_BUTTON) {
-		printf("Right button is currently pressed\n");
-	} else {
-		printf("Right button is currently released\n");
-	}
-	if (*conf_byte & MIDDLE_BUTTON) {
-		printf("Middle button is currently pressed\n");
-	} else {
-		printf("Middle button is currently released\n");
-	}
-
-	if (*conf_byte & LEFT_BUTTON) {
-		printf("Left button is currently pressed\n");
-	} else {
-		printf("Left button is currently released\n");
-	}
-	if (*conf_byte & SCALING) {
-		printf("Scaling= 2:1\n");
-	} else {
-		printf("Scaling= 1:1\n");
-	}
-	if (*conf_byte & DATA_REPORT) {
-		printf("Data Reporting= Enabled\n");
-	} else {
-		printf("Data Reporting= Disabled\n");
-	}
-	if (*conf_byte & MOUSE_MODE) {
-		printf("Remote (polled) mode\n");
-	} else {
-		printf("Stream Mode\n");
-	}
-
-}
-
-void check_hor_line(ev_type_t *evt,state_t *st) {
-	//static state_t st = INIT; // initial state; keep state
-
-	long y0;
-	long yfinal;
 
 
 
-
-	switch (*st) {
-	case INIT:
-
-		if (*evt == RDOW)
-			*st = DRAW;
-		break;
-	case DRAW:
-
-		if (*evt == TOLERANCE) {
-			*st = DRAW;
-		}else if (*evt == VERT_LINE)
-		{
-			*st = COMP;
-		}
-			// need to check if events VERT_LINE or HOR_TOLERANCE
-	 else if (*evt == RUP)
-		*st = INIT;
-	break;
-default:
-	break;
-	}
-}
-int is_vert(short length,short length_drawn)
-{
-	if(length_drawn >= length)
-	{
-		return 0;
-	}else return 1;
-
-
-}
 
 

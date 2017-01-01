@@ -15,19 +15,7 @@ int can_read_date()
 
 }
 
-void set_binary()
-{
-	unsigned long regB=0;
-	sys_outb(RTC_ADDR_REG, RTC_REG_B);
-	sys_inb(RTC_DATA_REG, &regB);
-	if((regB & BINARY_MODE) == 0)
-	{
-		regB = regB | BINARY_MODE;
-		sys_outb(RTC_ADDR_REG, RTC_REG_B);
-		sys_outb(RTC_DATA_REG, regB);
 
-	}
-}
 
 int bcd_to_decimal(unsigned long number)
 {

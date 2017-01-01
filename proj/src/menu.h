@@ -48,8 +48,8 @@ void draw_choose_snake(int mode);
 /**
  * @brief draws in any of the choose menus a preview snake to see how the options chosen looks
  * @param snake_preview the snake it is going to draw and move
- * @param counter
- * @param body_count
+ * @param counter variable helpful to make sure if the snake is at the beggining or end of the demo
+ * @param body_count variable helpful to make sure if the snake is at the beggining or end of the demo
  * */
 void draw_preview_snake(Snake *snake_preview, int counter, int body_count);
 

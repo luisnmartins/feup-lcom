@@ -1,0 +1,370 @@
+\hypertarget{group__man__events}{}\section{man\+\_\+events}
+\label{group__man__events}\index{man\+\_\+events@{man\+\_\+events}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__man__events_ga35641febfec789ab3ddc031482a80ea1}{check\+\_\+game\+\_\+status} (\hyperlink{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}{states} $\ast$st, \hyperlink{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}{event} $\ast$ev)
+\begin{DoxyCompactList}\small\item\em main game state machine that knows and interprets the state the game is \end{DoxyCompactList}\item 
+int \hyperlink{group__man__events_ga87d21261b5adc5a0dccb151f938735a9}{keyboard\+\_\+event\+\_\+handler} (unsigned long out\+\_\+buf)
+\begin{DoxyCompactList}\small\item\em it interprets the interrupts of the keyboard and \char`\"{}acts\char`\"{} if the keys are pressed in the necessary states \end{DoxyCompactList}\item 
+int \hyperlink{group__man__events_ga5c998385f8d5e28e1380654ad355e0b5}{timer\+\_\+event\+\_\+handler} (unsigned short counter)
+\begin{DoxyCompactList}\small\item\em it interprets the interrupts of the timer and acts differently depending of the state that the state machine is currently in \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_ga9c2df329e13887f8f241315c35057d77}{mouse\+\_\+event\+\_\+handler} (unsigned long $\ast$packet\+\_\+mouse)
+\begin{DoxyCompactList}\small\item\em in interprets the interrupts of the mouse and acts depending of the currently state of the state machine \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_ga07dc5293a915fb3c924067ef41f08d23}{game\+\_\+start} (int mode)
+\begin{DoxyCompactList}\small\item\em it makes the necessary actions to start a game mode (established by the parameter), create snake(s), put them in the matrix,add the initial objects,etc \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_gacc914291496b74fddbe876393dda69a6}{new\+\_\+snake\+\_\+preview} ()
+\begin{DoxyCompactList}\small\item\em creates the snake that is shown in the choose skin of the snake menu before each game \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdate__rtc}{date\+\_\+rtc} \hyperlink{group__man__events_gaa68c2949762722dfdaa5fa0e70d23cec}{date}
+\item 
+static \hyperlink{structSnake}{Snake} $\ast$ \hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}
+\item 
+static \hyperlink{structSnake}{Snake} $\ast$ \hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2}
+\item 
+static \hyperlink{structSnake}{Snake} $\ast$ \hyperlink{group__man__events_gad4cd59e08d196fdec29b274d2f27254b}{s\+\_\+preview}
+\item 
+static int \hyperlink{group__man__events_ga4cf8437a340f1c3bc00642b3f4fb96ae}{flag\+\_\+colision} = 0
+\item 
+static int \hyperlink{group__man__events_ga85f22d2e2394a6cf3a343f1140068ea4}{flag\+\_\+colision2} = 0
+\item 
+static int \hyperlink{group__man__events_ga49dac5534222e1641ae32eba8e7baf8e}{number\+\_\+delay} =3
+\item 
+static int \hyperlink{group__man__events_ga96e3c9a348a3b68cb9b715a021eb8005}{snakes\+\_\+mp\+\_\+modify} =0
+\item 
+static int \hyperlink{group__man__events_ga45b2c3de13c3743778747ed17bd97be6}{buf\+\_\+full} =0
+\item 
+static int \hyperlink{group__man__events_ga50e9227ad82eba24c0fa3bc0fa3c4c94}{body\+\_\+flag} = 0
+\item 
+static int \hyperlink{group__man__events_ga382290cee9798b0d650c1f2fb55de1d4}{choose} = 0
+\item 
+static int \hyperlink{group__man__events_ga11ede57042994849c9753d651a6c31f0}{choose1} = 0
+\item 
+static int \hyperlink{group__man__events_ga2112e7f4b28f5bc73cc834ef6e7d97e1}{head\+\_\+flag} = 0
+\item 
+static int \hyperlink{group__man__events_ga559fc485a85afead1ca991d70e7c72ee}{second\+\_\+snake} = 0
+\item 
+static \hyperlink{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}{states} \hyperlink{group__man__events_ga70c7b8b5ec6a67ce08a8b74a970b88fa}{p} =\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6ecbaab572337a8459ab6ca3a9f05ebb}{M\+E\+N\+U\+\_\+T}
+\item 
+\hyperlink{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}{event} \hyperlink{group__man__events_gac7f56a32062f381248ce9a81e701ff8a}{t}
+\end{DoxyCompactItemize}
+\subsection*{state machine}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}{states} \{ \\*
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6ecbaab572337a8459ab6ca3a9f05ebb}{M\+E\+N\+U\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677ad3953e0dc7a25ed8ee8ec31e5ca5d41b}{S\+P\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677abbbab3a2cbb13791b4b5064e1d566597}{W\+A\+I\+T\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a4dc29741578e47417743a07f892f4049}{M\+P\+M\+E\+N\+U\+\_\+T}, 
+\\*
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5b6ec3d017f4183f9735df4b62ff7442}{M\+O\+K\+B\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a2b06aa5b6711cc7032419fbfd40030aa}{K\+B\+C\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5529b3e84771540fbe19b2ed85410d27}{E\+X\+I\+T\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6f9457e948223c9b27df28d4954a107d}{E\+N\+D\+\_\+T}, 
+\\*
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a64cdb26951aa6668703c13161a6e2d8d}{P\+A\+U\+S\+E\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a58fcc96efe3ede977e7e3c251fe84330}{C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T}, 
+\hyperlink{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a03626723ddbcb14a95dbcd64ea8048b9}{S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{state machine ev}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}{event} \{ \\*
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea45f322741bfece70663b053c4a73498e}{O\+P\+T\+\_\+\+SP}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ead2f33b9d791cfb13f1933bd97e9d0de9}{O\+P\+T\+\_\+\+MP}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7e30fbbcb01736379c1ed0aa2a55b307}{O\+P\+T\+\_\+\+K\+BC}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eacd503cf9049dd8a7d52b314666169ad3}{O\+P\+T\+\_\+\+M\+O\+KB}, 
+\\*
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea08a9c23bb05696396b02eaeedd3d8cc3}{O\+P\+T\+\_\+\+E\+X\+IT}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea9b299ae0726c225c42a89eb226198133}{C\+O\+L\+I\+S\+I\+ON}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7a58ef251d725c37e2b2525fc6d91ca6}{S\+T\+A\+R\+T\+\_\+E}, 
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea375530d8bde058d39a892a3be6f017e9}{E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED}, 
+\\*
+\hyperlink{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eaf5b3b945ab64a9a9915b818d526df00e}{D\+E\+L\+A\+Y\+\_\+E}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions to interpret what to do with the interrupts of the timer,keyboard and mouse (main game state machine) 
+
+\subsection{Enumeration Type Documentation}
+\index{man\+\_\+events@{man\+\_\+events}!event@{event}}
+\index{event@{event}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{event}{event}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf event}}\hypertarget{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}{}\label{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}
+events of the state machine \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{O\+P\+T\+\_\+\+SP@{O\+P\+T\+\_\+\+SP}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!O\+P\+T\+\_\+\+SP@{O\+P\+T\+\_\+\+SP}}\item[{\em 
+O\+P\+T\+\_\+\+SP\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea45f322741bfece70663b053c4a73498e}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea45f322741bfece70663b053c4a73498e}
+}]\index{O\+P\+T\+\_\+\+MP@{O\+P\+T\+\_\+\+MP}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!O\+P\+T\+\_\+\+MP@{O\+P\+T\+\_\+\+MP}}\item[{\em 
+O\+P\+T\+\_\+\+MP\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ead2f33b9d791cfb13f1933bd97e9d0de9}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ead2f33b9d791cfb13f1933bd97e9d0de9}
+}]\index{O\+P\+T\+\_\+\+K\+BC@{O\+P\+T\+\_\+\+K\+BC}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!O\+P\+T\+\_\+\+K\+BC@{O\+P\+T\+\_\+\+K\+BC}}\item[{\em 
+O\+P\+T\+\_\+\+K\+BC\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7e30fbbcb01736379c1ed0aa2a55b307}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7e30fbbcb01736379c1ed0aa2a55b307}
+}]\index{O\+P\+T\+\_\+\+M\+O\+KB@{O\+P\+T\+\_\+\+M\+O\+KB}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!O\+P\+T\+\_\+\+M\+O\+KB@{O\+P\+T\+\_\+\+M\+O\+KB}}\item[{\em 
+O\+P\+T\+\_\+\+M\+O\+KB\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eacd503cf9049dd8a7d52b314666169ad3}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eacd503cf9049dd8a7d52b314666169ad3}
+}]\index{O\+P\+T\+\_\+\+E\+X\+IT@{O\+P\+T\+\_\+\+E\+X\+IT}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!O\+P\+T\+\_\+\+E\+X\+IT@{O\+P\+T\+\_\+\+E\+X\+IT}}\item[{\em 
+O\+P\+T\+\_\+\+E\+X\+IT\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea08a9c23bb05696396b02eaeedd3d8cc3}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea08a9c23bb05696396b02eaeedd3d8cc3}
+}]\index{C\+O\+L\+I\+S\+I\+ON@{C\+O\+L\+I\+S\+I\+ON}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!C\+O\+L\+I\+S\+I\+ON@{C\+O\+L\+I\+S\+I\+ON}}\item[{\em 
+C\+O\+L\+I\+S\+I\+ON\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea9b299ae0726c225c42a89eb226198133}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea9b299ae0726c225c42a89eb226198133}
+}]\index{S\+T\+A\+R\+T\+\_\+E@{S\+T\+A\+R\+T\+\_\+E}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!S\+T\+A\+R\+T\+\_\+E@{S\+T\+A\+R\+T\+\_\+E}}\item[{\em 
+S\+T\+A\+R\+T\+\_\+E\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7a58ef251d725c37e2b2525fc6d91ca6}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea7a58ef251d725c37e2b2525fc6d91ca6}
+}]\index{E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED@{E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED@{E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED}}\item[{\em 
+E\+S\+C\+\_\+\+P\+R\+E\+S\+S\+ED\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea375530d8bde058d39a892a3be6f017e9}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9ea375530d8bde058d39a892a3be6f017e9}
+}]\index{D\+E\+L\+A\+Y\+\_\+E@{D\+E\+L\+A\+Y\+\_\+E}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!D\+E\+L\+A\+Y\+\_\+E@{D\+E\+L\+A\+Y\+\_\+E}}\item[{\em 
+D\+E\+L\+A\+Y\+\_\+E\hypertarget{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eaf5b3b945ab64a9a9915b818d526df00e}{}\label{group__man__events_gga3b65133bb9997cd1ccf311af0927fc9eaf5b3b945ab64a9a9915b818d526df00e}
+}]\end{description}
+\end{Desc}
+\index{man\+\_\+events@{man\+\_\+events}!states@{states}}
+\index{states@{states}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{states}{states}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf states}}\hypertarget{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}{}\label{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}
+States of the state machine \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{M\+E\+N\+U\+\_\+T@{M\+E\+N\+U\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!M\+E\+N\+U\+\_\+T@{M\+E\+N\+U\+\_\+T}}\item[{\em 
+M\+E\+N\+U\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6ecbaab572337a8459ab6ca3a9f05ebb}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6ecbaab572337a8459ab6ca3a9f05ebb}
+}]\index{S\+P\+\_\+T@{S\+P\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!S\+P\+\_\+T@{S\+P\+\_\+T}}\item[{\em 
+S\+P\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677ad3953e0dc7a25ed8ee8ec31e5ca5d41b}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677ad3953e0dc7a25ed8ee8ec31e5ca5d41b}
+}]\index{W\+A\+I\+T\+\_\+T@{W\+A\+I\+T\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!W\+A\+I\+T\+\_\+T@{W\+A\+I\+T\+\_\+T}}\item[{\em 
+W\+A\+I\+T\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677abbbab3a2cbb13791b4b5064e1d566597}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677abbbab3a2cbb13791b4b5064e1d566597}
+}]\index{M\+P\+M\+E\+N\+U\+\_\+T@{M\+P\+M\+E\+N\+U\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!M\+P\+M\+E\+N\+U\+\_\+T@{M\+P\+M\+E\+N\+U\+\_\+T}}\item[{\em 
+M\+P\+M\+E\+N\+U\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a4dc29741578e47417743a07f892f4049}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a4dc29741578e47417743a07f892f4049}
+}]\index{M\+O\+K\+B\+\_\+T@{M\+O\+K\+B\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!M\+O\+K\+B\+\_\+T@{M\+O\+K\+B\+\_\+T}}\item[{\em 
+M\+O\+K\+B\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5b6ec3d017f4183f9735df4b62ff7442}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5b6ec3d017f4183f9735df4b62ff7442}
+}]\index{K\+B\+C\+\_\+T@{K\+B\+C\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!K\+B\+C\+\_\+T@{K\+B\+C\+\_\+T}}\item[{\em 
+K\+B\+C\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a2b06aa5b6711cc7032419fbfd40030aa}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a2b06aa5b6711cc7032419fbfd40030aa}
+}]\index{E\+X\+I\+T\+\_\+T@{E\+X\+I\+T\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!E\+X\+I\+T\+\_\+T@{E\+X\+I\+T\+\_\+T}}\item[{\em 
+E\+X\+I\+T\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5529b3e84771540fbe19b2ed85410d27}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a5529b3e84771540fbe19b2ed85410d27}
+}]\index{E\+N\+D\+\_\+T@{E\+N\+D\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!E\+N\+D\+\_\+T@{E\+N\+D\+\_\+T}}\item[{\em 
+E\+N\+D\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6f9457e948223c9b27df28d4954a107d}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a6f9457e948223c9b27df28d4954a107d}
+}]\index{P\+A\+U\+S\+E\+\_\+T@{P\+A\+U\+S\+E\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!P\+A\+U\+S\+E\+\_\+T@{P\+A\+U\+S\+E\+\_\+T}}\item[{\em 
+P\+A\+U\+S\+E\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a64cdb26951aa6668703c13161a6e2d8d}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a64cdb26951aa6668703c13161a6e2d8d}
+}]\index{C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T@{C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T@{C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T}}\item[{\em 
+C\+H\+O\+O\+S\+E\+\_\+\+S\+N\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a58fcc96efe3ede977e7e3c251fe84330}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a58fcc96efe3ede977e7e3c251fe84330}
+}]\index{S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T@{S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T}!man\+\_\+events@{man\+\_\+events}}\index{man\+\_\+events@{man\+\_\+events}!S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T@{S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T}}\item[{\em 
+S\+T\+A\+R\+T\+\_\+\+D\+E\+L\+A\+Y\+\_\+T\hypertarget{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a03626723ddbcb14a95dbcd64ea8048b9}{}\label{group__man__events_ggaa19be6305a5a4485e1e70de70ed7d677a03626723ddbcb14a95dbcd64ea8048b9}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{man\+\_\+events@{man\+\_\+events}!check\+\_\+game\+\_\+status@{check\+\_\+game\+\_\+status}}
+\index{check\+\_\+game\+\_\+status@{check\+\_\+game\+\_\+status}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{check\+\_\+game\+\_\+status(states $\ast$st, event $\ast$ev)}{check_game_status(states *st, event *ev)}}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+game\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{{\bf states} $\ast$}]{st, }
+\item[{{\bf event} $\ast$}]{ev}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_ga35641febfec789ab3ddc031482a80ea1}{}\label{group__man__events_ga35641febfec789ab3ddc031482a80ea1}
+
+
+main game state machine that knows and interprets the state the game is 
+
+
+\begin{DoxyParams}{Parameters}
+{\em st} & state that the dfa is currently in \\
+\hline
+{\em ev} & event that may possibly enable the trasition to another state \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_ga35641febfec789ab3ddc031482a80ea1_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{man\+\_\+events@{man\+\_\+events}!game\+\_\+start@{game\+\_\+start}}
+\index{game\+\_\+start@{game\+\_\+start}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{game\+\_\+start(int mode)}{game_start(int mode)}}]{\setlength{\rightskip}{0pt plus 5cm}void game\+\_\+start (
+\begin{DoxyParamCaption}
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_ga07dc5293a915fb3c924067ef41f08d23}{}\label{group__man__events_ga07dc5293a915fb3c924067ef41f08d23}
+
+
+it makes the necessary actions to start a game mode (established by the parameter), create snake(s), put them in the matrix,add the initial objects,etc 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & simple number to identify the game mode that is going to start\\
+\hline
+\end{DoxyParams}
+If mode is equal to 1 the function is going to make the preparations to the singleplayer mode If mode is equal to 2 the function is going to make the preparations to the multiplayer, 2 snakes mode If mode is equal to 3 the function is going to make the preparations to the multiplayer with mouse mode 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_ga07dc5293a915fb3c924067ef41f08d23_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{man\+\_\+events@{man\+\_\+events}!keyboard\+\_\+event\+\_\+handler@{keyboard\+\_\+event\+\_\+handler}}
+\index{keyboard\+\_\+event\+\_\+handler@{keyboard\+\_\+event\+\_\+handler}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{keyboard\+\_\+event\+\_\+handler(unsigned long out\+\_\+buf)}{keyboard_event_handler(unsigned long out_buf)}}]{\setlength{\rightskip}{0pt plus 5cm}int keyboard\+\_\+event\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{out\+\_\+buf}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_ga87d21261b5adc5a0dccb151f938735a9}{}\label{group__man__events_ga87d21261b5adc5a0dccb151f938735a9}
+
+
+it interprets the interrupts of the keyboard and \char`\"{}acts\char`\"{} if the keys are pressed in the necessary states 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out\+\_\+buf} & the code of the key pressed (it works with codes of 2 Bytes) \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_ga87d21261b5adc5a0dccb151f938735a9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{man\+\_\+events@{man\+\_\+events}!mouse\+\_\+event\+\_\+handler@{mouse\+\_\+event\+\_\+handler}}
+\index{mouse\+\_\+event\+\_\+handler@{mouse\+\_\+event\+\_\+handler}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{mouse\+\_\+event\+\_\+handler(unsigned long $\ast$packet\+\_\+mouse)}{mouse_event_handler(unsigned long *packet_mouse)}}]{\setlength{\rightskip}{0pt plus 5cm}void mouse\+\_\+event\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{unsigned long $\ast$}]{packet\+\_\+mouse}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_ga9c2df329e13887f8f241315c35057d77}{}\label{group__man__events_ga9c2df329e13887f8f241315c35057d77}
+
+
+in interprets the interrupts of the mouse and acts depending of the currently state of the state machine 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet\+\_\+mouse} & the mouse packet that is useful to know the position of the mouse and the buttons that are pressed \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_ga9c2df329e13887f8f241315c35057d77_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{man\+\_\+events@{man\+\_\+events}!new\+\_\+snake\+\_\+preview@{new\+\_\+snake\+\_\+preview}}
+\index{new\+\_\+snake\+\_\+preview@{new\+\_\+snake\+\_\+preview}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{new\+\_\+snake\+\_\+preview()}{new_snake_preview()}}]{\setlength{\rightskip}{0pt plus 5cm}void new\+\_\+snake\+\_\+preview (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_gacc914291496b74fddbe876393dda69a6}{}\label{group__man__events_gacc914291496b74fddbe876393dda69a6}
+
+
+creates the snake that is shown in the choose skin of the snake menu before each game 
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_gacc914291496b74fddbe876393dda69a6_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{man\+\_\+events@{man\+\_\+events}!timer\+\_\+event\+\_\+handler@{timer\+\_\+event\+\_\+handler}}
+\index{timer\+\_\+event\+\_\+handler@{timer\+\_\+event\+\_\+handler}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{timer\+\_\+event\+\_\+handler(unsigned short counter)}{timer_event_handler(unsigned short counter)}}]{\setlength{\rightskip}{0pt plus 5cm}int timer\+\_\+event\+\_\+handler (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{counter}
+\end{DoxyParamCaption}
+)}\hypertarget{group__man__events_ga5c998385f8d5e28e1380654ad355e0b5}{}\label{group__man__events_ga5c998385f8d5e28e1380654ad355e0b5}
+
+
+it interprets the interrupts of the timer and acts differently depending of the state that the state machine is currently in 
+
+
+\begin{DoxyParams}{Parameters}
+{\em counter} & of the interrupt handler \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__man__events_ga5c998385f8d5e28e1380654ad355e0b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{man\+\_\+events@{man\+\_\+events}!body\+\_\+flag@{body\+\_\+flag}}
+\index{body\+\_\+flag@{body\+\_\+flag}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{body\+\_\+flag}{body_flag}}]{\setlength{\rightskip}{0pt plus 5cm}int body\+\_\+flag = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga50e9227ad82eba24c0fa3bc0fa3c4c94}{}\label{group__man__events_ga50e9227ad82eba24c0fa3bc0fa3c4c94}
+Flag to know if a body has been chosen in the choose the body menu before each game \index{man\+\_\+events@{man\+\_\+events}!buf\+\_\+full@{buf\+\_\+full}}
+\index{buf\+\_\+full@{buf\+\_\+full}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{buf\+\_\+full}{buf_full}}]{\setlength{\rightskip}{0pt plus 5cm}int buf\+\_\+full =0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga45b2c3de13c3743778747ed17bd97be6}{}\label{group__man__events_ga45b2c3de13c3743778747ed17bd97be6}
+Flag to know if buffer is full \index{man\+\_\+events@{man\+\_\+events}!choose@{choose}}
+\index{choose@{choose}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{choose}{choose}}]{\setlength{\rightskip}{0pt plus 5cm}int choose = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga382290cee9798b0d650c1f2fb55de1d4}{}\label{group__man__events_ga382290cee9798b0d650c1f2fb55de1d4}
+Flag used in multiplayer with 2 snakes to know wich snake is being changed in the choose the body menu \index{man\+\_\+events@{man\+\_\+events}!choose1@{choose1}}
+\index{choose1@{choose1}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{choose1}{choose1}}]{\setlength{\rightskip}{0pt plus 5cm}int choose1 = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga11ede57042994849c9753d651a6c31f0}{}\label{group__man__events_ga11ede57042994849c9753d651a6c31f0}
+Variable to make sure that in the 2 snakes mode, the same body isnt chosen for both snakes \index{man\+\_\+events@{man\+\_\+events}!date@{date}}
+\index{date@{date}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{date}{date}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf date\+\_\+rtc} date}\hypertarget{group__man__events_gaa68c2949762722dfdaa5fa0e70d23cec}{}\label{group__man__events_gaa68c2949762722dfdaa5fa0e70d23cec}
+time of the system \index{man\+\_\+events@{man\+\_\+events}!flag\+\_\+colision@{flag\+\_\+colision}}
+\index{flag\+\_\+colision@{flag\+\_\+colision}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{flag\+\_\+colision}{flag_colision}}]{\setlength{\rightskip}{0pt plus 5cm}int flag\+\_\+colision = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga4cf8437a340f1c3bc00642b3f4fb96ae}{}\label{group__man__events_ga4cf8437a340f1c3bc00642b3f4fb96ae}
+Flag to know if snake s1 as collided with something(wall or bomb) \index{man\+\_\+events@{man\+\_\+events}!flag\+\_\+colision2@{flag\+\_\+colision2}}
+\index{flag\+\_\+colision2@{flag\+\_\+colision2}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{flag\+\_\+colision2}{flag_colision2}}]{\setlength{\rightskip}{0pt plus 5cm}int flag\+\_\+colision2 = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga85f22d2e2394a6cf3a343f1140068ea4}{}\label{group__man__events_ga85f22d2e2394a6cf3a343f1140068ea4}
+Flag to know if snake s2 as collided with something(wall or bomb) \index{man\+\_\+events@{man\+\_\+events}!head\+\_\+flag@{head\+\_\+flag}}
+\index{head\+\_\+flag@{head\+\_\+flag}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{head\+\_\+flag}{head_flag}}]{\setlength{\rightskip}{0pt plus 5cm}int head\+\_\+flag = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga2112e7f4b28f5bc73cc834ef6e7d97e1}{}\label{group__man__events_ga2112e7f4b28f5bc73cc834ef6e7d97e1}
+Flag to know if a head has been chosen in the choose the body menu before each game \index{man\+\_\+events@{man\+\_\+events}!number\+\_\+delay@{number\+\_\+delay}}
+\index{number\+\_\+delay@{number\+\_\+delay}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{number\+\_\+delay}{number_delay}}]{\setlength{\rightskip}{0pt plus 5cm}int number\+\_\+delay =3\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga49dac5534222e1641ae32eba8e7baf8e}{}\label{group__man__events_ga49dac5534222e1641ae32eba8e7baf8e}
+Global counter to set 3 seconds before every game starts \index{man\+\_\+events@{man\+\_\+events}!p@{p}}
+\index{p@{p}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{p}{p}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf states} p ={\bf M\+E\+N\+U\+\_\+T}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga70c7b8b5ec6a67ce08a8b74a970b88fa}{}\label{group__man__events_ga70c7b8b5ec6a67ce08a8b74a970b88fa}
+\index{man\+\_\+events@{man\+\_\+events}!s1@{s1}}
+\index{s1@{s1}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{s1}{s1}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Snake}$\ast$ s1\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{}\label{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}
+\hyperlink{structSnake}{Snake} created used for all game modes \index{man\+\_\+events@{man\+\_\+events}!s2@{s2}}
+\index{s2@{s2}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{s2}{s2}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Snake}$\ast$ s2\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{}\label{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}
+\hyperlink{structSnake}{Snake} created used for all the multiplayer modes \index{man\+\_\+events@{man\+\_\+events}!s\+\_\+preview@{s\+\_\+preview}}
+\index{s\+\_\+preview@{s\+\_\+preview}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{s\+\_\+preview}{s_preview}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Snake}$\ast$ s\+\_\+preview\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_gad4cd59e08d196fdec29b274d2f27254b}{}\label{group__man__events_gad4cd59e08d196fdec29b274d2f27254b}
+\hyperlink{structSnake}{Snake} created to preview the chosen in the choose the body of the snake menu before every game \index{man\+\_\+events@{man\+\_\+events}!second\+\_\+snake@{second\+\_\+snake}}
+\index{second\+\_\+snake@{second\+\_\+snake}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{second\+\_\+snake}{second_snake}}]{\setlength{\rightskip}{0pt plus 5cm}int second\+\_\+snake = 0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga559fc485a85afead1ca991d70e7c72ee}{}\label{group__man__events_ga559fc485a85afead1ca991d70e7c72ee}
+Flag to know if it has to make the second round of the multiplayer with mouse mode \index{man\+\_\+events@{man\+\_\+events}!snakes\+\_\+mp\+\_\+modify@{snakes\+\_\+mp\+\_\+modify}}
+\index{snakes\+\_\+mp\+\_\+modify@{snakes\+\_\+mp\+\_\+modify}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{snakes\+\_\+mp\+\_\+modify}{snakes_mp_modify}}]{\setlength{\rightskip}{0pt plus 5cm}int snakes\+\_\+mp\+\_\+modify =0\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{group__man__events_ga96e3c9a348a3b68cb9b715a021eb8005}{}\label{group__man__events_ga96e3c9a348a3b68cb9b715a021eb8005}
+\index{man\+\_\+events@{man\+\_\+events}!t@{t}}
+\index{t@{t}!man\+\_\+events@{man\+\_\+events}}
+\subsubsection[{\texorpdfstring{t}{t}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf event} t}\hypertarget{group__man__events_gac7f56a32062f381248ce9a81e701ff8a}{}\label{group__man__events_gac7f56a32062f381248ce9a81e701ff8a}

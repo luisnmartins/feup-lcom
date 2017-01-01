@@ -1,0 +1,35 @@
+\hypertarget{keyboard_8h}{}\section{keyboard.\+h File Reference}
+\label{keyboard_8h}\index{keyboard.\+h@{keyboard.\+h}}
+{\ttfamily \#include $<$minix/sysutil.\+h$>$}\\*
+{\ttfamily \#include $<$minix/syslib.\+h$>$}\\*
+{\ttfamily \#include $<$minix/drivers.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\\*
+Include dependency graph for keyboard.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{keyboard_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=277pt]{keyboard_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{group__keyboard_ga4ac76b0a9a73670254d5fd4c520e458f}{keyboard\+\_\+subscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em subscribes and enables the keyboard interrupts \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_gac95aea27a5e91b363b876fed881f368f}{keyboard\+\_\+unsubscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes the keyboard interrupts \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__keyboard_ga2c87019aa101479f492115ffe8f96235}{keyboard\+\_\+int\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em reads and return the output buffer of the keyboard \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_ga72afc248bb5895d6948f7a0247291411}{receive\+\_\+buffer} (unsigned long $\ast$out\+\_\+buf, unsigned long $\ast$out\+\_\+buf2)
+\begin{DoxyCompactList}\small\item\em checks if outbuf is of the E0, if the scan code of the key is of 2 bytes \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_ga457cc5ca7ab01851bb8fcc8edfaba776}{issue\+\_\+cmd\+\_\+kbd} (unsigned long cmd)
+\begin{DoxyCompactList}\small\item\em issues a cmd to the keyboard buffer \end{DoxyCompactList}\end{DoxyCompactItemize}

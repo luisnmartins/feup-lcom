@@ -1,0 +1,12 @@
+<map id="src/video_gr.h" name="src/video_gr.h">
+<area shape="rect" id="node2" href="$_bitmap_8h.html" title="src/Bitmap.h" alt="" coords="61,80,157,107"/>
+<area shape="rect" id="node4" href="$graphics_8h.html" title="src/graphics.h" alt="" coords="163,155,267,181"/>
+<area shape="rect" id="node6" href="$main_8c.html" title="src/main.c" alt="" coords="48,379,131,405"/>
+<area shape="rect" id="node11" href="$video__gr_8c.html" title="src/video_gr.c" alt="" coords="232,80,336,107"/>
+<area shape="rect" id="node3" href="$_bitmap_8c.html" title="src/Bitmap.c" alt="" coords="43,155,139,181"/>
+<area shape="rect" id="node5" href="$graphics_8c.html" title="src/graphics.c" alt="" coords="128,229,232,256"/>
+<area shape="rect" id="node7" href="$menu_8h.html" title="src/menu.h" alt="" coords="257,229,343,256"/>
+<area shape="rect" id="node8" href="$man__events_8h.html" title="src/man_events.h" alt="" coords="238,304,365,331"/>
+<area shape="rect" id="node10" href="$menu_8c.html" title="src/menu.c" alt="" coords="127,304,214,331"/>
+<area shape="rect" id="node9" href="$man__events_8c.html" title="src/man_events.c" alt="" coords="238,379,365,405"/>
+</map>

@@ -1,0 +1,39 @@
+\hypertarget{structSegment}{}\section{Segment Struct Reference}
+\label{structSegment}\index{Segment@{Segment}}
+
+
+{\ttfamily \#include $<$snake.\+h$>$}
+
+
+
+Collaboration diagram for Segment\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{structSegment__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+unsigned short \hyperlink{group__snake_ga5c86edfec316ae4d5033a85525babed6}{row}
+\item 
+unsigned short \hyperlink{group__snake_ga3369387554e0ec37bb04c153c3529ed9}{col}
+\begin{DoxyCompactList}\small\item\em position in the matrix\+\_\+graphics \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_gacf610091b7f59fb0f1f37c6df4e14c18}{direction}
+\begin{DoxyCompactList}\small\item\em direction it is facing, vertical or horizontal \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_gadd6c62d3fd2c3aab9175c07694fdc075}{orientation}
+\item 
+struct \hyperlink{structSegment}{Segment} $\ast$ \hyperlink{group__snake_ga20fb1741f720a656ec35972c2305a2d9}{next}
+\begin{DoxyCompactList}\small\item\em orientation it is facing. if its moving in positive direction or negative \end{DoxyCompactList}\item 
+struct \hyperlink{structSegment}{Segment} $\ast$ \hyperlink{group__snake_ga60c4d032ff0baffc3c99c1630dae24e3}{before}
+\begin{DoxyCompactList}\small\item\em pointer to the next body part(like a linked list) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{structSnake}{Snake} using a linked list 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{snake_8h}{snake.\+h}\end{DoxyCompactItemize}

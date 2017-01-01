@@ -1,0 +1,84 @@
+\hypertarget{graphics_8h}{}\section{graphics.\+h File Reference}
+\label{graphics_8h}\index{graphics.\+h@{graphics.\+h}}
+{\ttfamily \#include $<$minix/syslib.\+h$>$}\\*
+{\ttfamily \#include $<$minix/drivers.\+h$>$}\\*
+{\ttfamily \#include $<$sys/mman.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}vbe.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}video\+\_\+gr.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pixmap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}timer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}keyboard.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}snake.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}objects.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}date.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Bitmap.\+h\char`\"{}}\\*
+Include dependency graph for graphics.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{graphics_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{graphics_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structBitmaps__struct}{Bitmaps\+\_\+struct}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{group__graphics_gacef21667c79365d57a084bed994c2189}{vg\+\_\+init} (unsigned short mode)
+\begin{DoxyCompactList}\small\item\em Initializes the video module in graphics mode. \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga9805b7e746b90143a74ad077d5d68223}{vg\+\_\+exit} ()
+\begin{DoxyCompactList}\small\item\em Returns to default Minix 3 text mode (0x03\+: 25 x 80, 16 colors) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga7d91305a8a6ade1fc8c13c1a83e011b3}{update\+\_\+matrix\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, int mouse)
+\begin{DoxyCompactList}\small\item\em updates the position of the snake in the screen and checks collisions \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga6669f4e380f03339751e723309577575}{start\+\_\+mode} ()
+\begin{DoxyCompactList}\small\item\em it call vg init to start the video mode in 11A and loads every bitmap used \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga266e075db0561b07746b8dc1d6e68ccf}{clear\+\_\+matrix} ()
+\begin{DoxyCompactList}\small\item\em it resets the graphics\+\_\+matrix to all N\+U\+LL pointers,so another game can be started \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaa559040a20c89667ba7033146b4413c5}{draw\+\_\+screen} (int mode)
+\begin{DoxyCompactList}\small\item\em it draws in the screen the current state of the game \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gadcd1766a79d92c6aac52fe0c7b51454c}{new\+\_\+object\+\_\+matrix} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, unsigned int type)
+\begin{DoxyCompactList}\small\item\em creates a new object of type type and make sure its position in the matrix doesnt interfere with the snake \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaa03ab4855ae73e5b616cf76f54de6f76}{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2}, unsigned int type)
+\begin{DoxyCompactList}\small\item\em creates a new object of type type and make sure its position in the matrix doesnt interfere with the snakes \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gac6b9fb650a2fb880335948e9ef3fdf82}{remove\+\_\+snakes\+\_\+matrix} ()
+\begin{DoxyCompactList}\small\item\em removes all snakes from the matrix \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_gad40d6fc4b95f03cf67fff31597a2bada}{update\+\_\+matrix\+\_\+objects} (\hyperlink{structGame__object}{Game\+\_\+object} $\ast$obj, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em places the new object created in the matrix making sure that is placed in a good spot \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga15209d618a0ee6164a1b1c7f72ba5bdf}{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes} (\hyperlink{structGame__object}{Game\+\_\+object} $\ast$obj, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2})
+\begin{DoxyCompactList}\small\item\em places the new object created in the matrix making sure that is placed in a good spot \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga114deb65eba6094fa6251e4dbf4dc1a2}{update\+\_\+matrix\+\_\+snakemp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2}, int $\ast$snake1\+\_\+alive, int $\ast$snake2\+\_\+alive)
+\begin{DoxyCompactList}\small\item\em it updates the matrix for the game mode with 2 snakes (similar to update matrix snake) \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga02b1006c34287574944819caa3616660}{points\+\_\+ingame\+\_\+sp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em show the points that the snake currently has during a game (game mode with only one snake) \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaf112074b9dd511b5810d96f97e003f5e}{points\+\_\+ingame\+\_\+mp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2})
+\begin{DoxyCompactList}\small\item\em shwo the points that both snakes has in real time during a game(game mode with 2 snakes) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga6e759569e268b5e7abca1e056657a608}{verify\+\_\+colision\+\_\+walls\+\_\+bgmap} (int col, int row, int mode)
+\begin{DoxyCompactList}\small\item\em checks if specific place in the screen is valid(if it is not the wall of the maps used) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga88a7bb68362e9184035973dee2da6c83}{add\+\_\+fruit\+\_\+matrix} (int x, int y, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em adds an object of type fruit in the position given, places only if it is valid spot (used in the mouse game mode) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga387f95a1f4cb68e7b372ee62064d41a5}{fruit\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em counts how many fruits are in the matrix \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_gaec6c3092de0056a44586f7df6de16282}{bomb\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em count how many bombs are in the matrix \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gacb3ed6bc6b07cdf572291ffcea76dab8}{remove\+\_\+bomb} ()
+\begin{DoxyCompactList}\small\item\em removes from the matrix the first bomb it encounters \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga4fa3e18d37f64de83f06af9aeb725ffd}{add\+\_\+bomb\+\_\+matrix} (int x, int y, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em adds an object of type bomb in the position given,places only if it is a valid spot(used in mouse game mode) \end{DoxyCompactList}\item 
+\hyperlink{structBitmaps__struct}{Bitmaps\+\_\+struct} $\ast$ \hyperlink{group__graphics_gaec3d602834e52141c736dcc41ef0ddc9}{get\+BM} ()
+\begin{DoxyCompactList}\small\item\em gets the bitmap\+\_\+struct with all bitmaps used in the project \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaf23c56c7e38458853c7a8775fb9e09ec}{print\+\_\+number\+\_\+delay} (int \hyperlink{group__man__events_ga49dac5534222e1641ae32eba8e7baf8e}{number\+\_\+delay})
+\begin{DoxyCompactList}\small\item\em Print the 3, 2, 1 numbers used when a game is starting. \end{DoxyCompactList}\end{DoxyCompactItemize}

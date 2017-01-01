@@ -1,15 +1,21 @@
 #include "rtc.h"
 
+
+/** @name rtc date */
+/**@{
+ *
+ * Stored time values of the rtc
+ */
 typedef struct
 {
-	unsigned long hour;
-	unsigned long min;
-	unsigned long sec;
-	unsigned long day;
-	unsigned long month;
-	unsigned long year;
+	unsigned long hour;/**< @brief the hour*/
+	unsigned long min;/**< @brief the minutes*/
+	unsigned long sec;/**<@brief the seconds*/
+	unsigned long day;/**<@brief the day of the year*/
+	unsigned long month;/**<@brief the month of the year*/
+	unsigned long year;/**< @brief the year*/
 }date_rtc;
-
+/** @} end of  rtc date*/
 /**
  *
  * @brief Update the date struct pointer with the current hour

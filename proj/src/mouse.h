@@ -9,6 +9,12 @@
 #include <minix/com.h>
 
 
+/** @defgroup mouse mouse
+ * @{
+ *
+ * Functions for using the mouse
+ */
+
 /**
  * @brief subscribes and enables the mouse interruts
  * @return the changed hook_id or -1 if it failed

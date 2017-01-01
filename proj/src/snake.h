@@ -8,6 +8,13 @@
 
 
 #include <stdio.h>
+
+
+/** @defgroup snake snake
+ * @{
+ *
+ * Functions associated with the creation of the snake and its movements
+ */
 /** @name Snake */
 /**@{
  *

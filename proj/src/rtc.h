@@ -3,6 +3,11 @@
 #include <minix/drivers.h>
 
 
+/** @defgroup rtc rtc
+ * @{
+ *
+ * Functions related to the rtc
+ */
 /**
  * @brief simple function that sees if the date can be read
  * @returns 1 if it cannot be read 0 otherwise

@@ -1,0 +1,14 @@
+<map id="proj/src/graphics.c" name="proj/src/graphics.c">
+<area shape="rect" id="node2" href="$graphics_8h.html" title="graphics.h" alt="" coords="579,80,662,107"/>
+<area shape="rect" id="node8" href="$vbe_8h.html" title="vbe.h" alt="" coords="676,155,731,181"/>
+<area shape="rect" id="node10" href="$video__gr_8h.html" title="video_gr.h" alt="" coords="793,229,875,256"/>
+<area shape="rect" id="node11" href="$timer_8h.html" title="timer.h" alt="" coords="905,155,968,181"/>
+<area shape="rect" id="node12" href="$keyboard_8h.html" title="keyboard.h" alt="" coords="192,229,279,256"/>
+<area shape="rect" id="node16" href="$snake_8h.html" title="snake.h" alt="" coords="1092,155,1160,181"/>
+<area shape="rect" id="node18" href="$objects_8h.html" title="objects.h" alt="" coords="993,155,1067,181"/>
+<area shape="rect" id="node19" href="$date_8h.html" title="date.h" alt="" coords="142,155,201,181"/>
+<area shape="rect" id="node21" href="$Bitmap_8h.html" title="Bitmap.h" alt="" coords="755,155,830,181"/>
+<area shape="rect" id="node14" href="$constants_8h.html" title="constants.h" alt="" coords="394,304,485,331"/>
+<area shape="rect" id="node15" href="$i8254_8h.html" title="i8254.h" alt="" coords="407,379,471,405"/>
+<area shape="rect" id="node20" href="$rtc_8h.html" title="rtc.h" alt="" coords="119,229,167,256"/>
+</map>

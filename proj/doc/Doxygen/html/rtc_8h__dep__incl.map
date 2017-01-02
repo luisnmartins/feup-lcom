@@ -1,0 +1,12 @@
+<map id="proj/src/rtc.h" name="proj/src/rtc.h">
+<area shape="rect" id="node2" href="$date_8h.html" title="proj/src/date.h" alt="" coords="76,80,181,107"/>
+<area shape="rect" id="node11" href="$rtc_8c.html" title="proj/src/rtc.c" alt="" coords="205,80,300,107"/>
+<area shape="rect" id="node3" href="$date_8c.html" title="proj/src/date.c" alt="" coords="5,155,111,181"/>
+<area shape="rect" id="node4" href="$graphics_8h.html" title="proj/src/graphics.h" alt="" coords="135,155,264,181"/>
+<area shape="rect" id="node5" href="$graphics_8c.html" title="proj/src/graphics.c" alt="" coords="32,229,161,256"/>
+<area shape="rect" id="node6" href="$main_8c.html" title="proj/src/main.c" alt="" coords="145,379,253,405"/>
+<area shape="rect" id="node7" href="$menu_8h.html" title="proj/src/menu.h" alt="" coords="257,229,369,256"/>
+<area shape="rect" id="node8" href="$man__events_8h.html" title="proj/src/man_events.h" alt="" coords="237,304,388,331"/>
+<area shape="rect" id="node10" href="$menu_8c.html" title="proj/src/menu.c" alt="" coords="413,304,525,331"/>
+<area shape="rect" id="node9" href="$man__events_8c.html" title="proj/src/man_events.c" alt="" coords="277,379,428,405"/>
+</map>

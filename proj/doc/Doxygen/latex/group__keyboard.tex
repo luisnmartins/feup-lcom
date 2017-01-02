@@ -1,0 +1,98 @@
+\hypertarget{group__keyboard}{}\section{keyboard}
+\label{group__keyboard}\index{keyboard@{keyboard}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{group__keyboard_ga4ac76b0a9a73670254d5fd4c520e458f}{keyboard\+\_\+subscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em subscribes and enables the keyboard interrupts \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_gac95aea27a5e91b363b876fed881f368f}{keyboard\+\_\+unsubscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes the keyboard interrupts \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__keyboard_ga2c87019aa101479f492115ffe8f96235}{keyboard\+\_\+int\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em reads and return the output buffer of the keyboard \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_ga72afc248bb5895d6948f7a0247291411}{receive\+\_\+buffer} (unsigned long $\ast$out\+\_\+buf, unsigned long $\ast$out\+\_\+buf2)
+\begin{DoxyCompactList}\small\item\em checks if outbuf is of the E0, if the scan code of the key is of 2 bytes \end{DoxyCompactList}\item 
+int \hyperlink{group__keyboard_ga457cc5ca7ab01851bb8fcc8edfaba776}{issue\+\_\+cmd\+\_\+kbd} (unsigned long cmd)
+\begin{DoxyCompactList}\small\item\em issues a cmd to the keyboard buffer \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions for using the keyboard 
+
+\subsection{Function Documentation}
+\index{keyboard@{keyboard}!issue\+\_\+cmd\+\_\+kbd@{issue\+\_\+cmd\+\_\+kbd}}
+\index{issue\+\_\+cmd\+\_\+kbd@{issue\+\_\+cmd\+\_\+kbd}!keyboard@{keyboard}}
+\subsubsection[{\texorpdfstring{issue\+\_\+cmd\+\_\+kbd(unsigned long cmd)}{issue_cmd_kbd(unsigned long cmd)}}]{\setlength{\rightskip}{0pt plus 5cm}int issue\+\_\+cmd\+\_\+kbd (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{cmd}
+\end{DoxyParamCaption}
+)}\hypertarget{group__keyboard_ga457cc5ca7ab01851bb8fcc8edfaba776}{}\label{group__keyboard_ga457cc5ca7ab01851bb8fcc8edfaba776}
+
+
+issues a cmd to the keyboard buffer 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & argument or command that is being written \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if it failed,0 otherwise 
+\end{DoxyReturn}
+\index{keyboard@{keyboard}!keyboard\+\_\+int\+\_\+handler@{keyboard\+\_\+int\+\_\+handler}}
+\index{keyboard\+\_\+int\+\_\+handler@{keyboard\+\_\+int\+\_\+handler}!keyboard@{keyboard}}
+\subsubsection[{\texorpdfstring{keyboard\+\_\+int\+\_\+handler()}{keyboard_int_handler()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long keyboard\+\_\+int\+\_\+handler (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__keyboard_ga2c87019aa101479f492115ffe8f96235}{}\label{group__keyboard_ga2c87019aa101479f492115ffe8f96235}
+
+
+reads and return the output buffer of the keyboard 
+
+\begin{DoxyReturn}{Returns}
+the output buffer of the keyboard,useful to check keys scancodes (assembly version is being used) 
+\end{DoxyReturn}
+\index{keyboard@{keyboard}!keyboard\+\_\+subscribe\+\_\+int@{keyboard\+\_\+subscribe\+\_\+int}}
+\index{keyboard\+\_\+subscribe\+\_\+int@{keyboard\+\_\+subscribe\+\_\+int}!keyboard@{keyboard}}
+\subsubsection[{\texorpdfstring{keyboard\+\_\+subscribe\+\_\+int()}{keyboard_subscribe_int()}}]{\setlength{\rightskip}{0pt plus 5cm}int keyboard\+\_\+subscribe\+\_\+int (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__keyboard_ga4ac76b0a9a73670254d5fd4c520e458f}{}\label{group__keyboard_ga4ac76b0a9a73670254d5fd4c520e458f}
+
+
+subscribes and enables the keyboard interrupts 
+
+\index{keyboard@{keyboard}!keyboard\+\_\+unsubscribe\+\_\+int@{keyboard\+\_\+unsubscribe\+\_\+int}}
+\index{keyboard\+\_\+unsubscribe\+\_\+int@{keyboard\+\_\+unsubscribe\+\_\+int}!keyboard@{keyboard}}
+\subsubsection[{\texorpdfstring{keyboard\+\_\+unsubscribe\+\_\+int()}{keyboard_unsubscribe_int()}}]{\setlength{\rightskip}{0pt plus 5cm}int keyboard\+\_\+unsubscribe\+\_\+int (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__keyboard_gac95aea27a5e91b363b876fed881f368f}{}\label{group__keyboard_gac95aea27a5e91b363b876fed881f368f}
+
+
+unsubscribes the keyboard interrupts 
+
+\index{keyboard@{keyboard}!receive\+\_\+buffer@{receive\+\_\+buffer}}
+\index{receive\+\_\+buffer@{receive\+\_\+buffer}!keyboard@{keyboard}}
+\subsubsection[{\texorpdfstring{receive\+\_\+buffer(unsigned long $\ast$out\+\_\+buf, unsigned long $\ast$out\+\_\+buf2)}{receive_buffer(unsigned long *out_buf, unsigned long *out_buf2)}}]{\setlength{\rightskip}{0pt plus 5cm}int receive\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{unsigned long $\ast$}]{out\+\_\+buf, }
+\item[{unsigned long $\ast$}]{out\+\_\+buf2}
+\end{DoxyParamCaption}
+)}\hypertarget{group__keyboard_ga72afc248bb5895d6948f7a0247291411}{}\label{group__keyboard_ga72afc248bb5895d6948f7a0247291411}
+
+
+checks if outbuf is of the E0, if the scan code of the key is of 2 bytes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out\+\_\+buf} & to check \\
+\hline
+{\em out\+\_\+buf2} & to save space for the 2 bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the scan code is of 2 bytes and the it hasn been handled,0 otherwise puting the full scan code in out\+\_\+buff 
+\end{DoxyReturn}

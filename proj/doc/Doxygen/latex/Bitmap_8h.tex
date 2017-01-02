@@ -1,0 +1,58 @@
+\hypertarget{Bitmap_8h}{}\section{proj/src/\+Bitmap.h File Reference}
+\label{Bitmap_8h}\index{proj/src/\+Bitmap.\+h@{proj/src/\+Bitmap.\+h}}
+{\ttfamily \#include \char`\"{}video\+\_\+gr.\+h\char`\"{}}\\*
+Include dependency graph for Bitmap.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=171pt]{Bitmap_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Bitmap_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structBitmapFileHeader}{Bitmap\+File\+Header}
+\item 
+struct \hyperlink{structBitmapInfoHeader}{Bitmap\+Info\+Header}
+\item 
+struct \hyperlink{structBitmap}{Bitmap}
+\begin{DoxyCompactList}\small\item\em Represents a \hyperlink{structBitmap}{Bitmap}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__Bitmap_gacdfaca60ec19c0265bac2692d7982726}{Alignment} \{ \hyperlink{group__Bitmap_ggacdfaca60ec19c0265bac2692d7982726a6ec599857e15466988726932dd592305}{A\+L\+I\+G\+N\+\_\+\+L\+E\+FT}, 
+\hyperlink{group__Bitmap_ggacdfaca60ec19c0265bac2692d7982726a5624165187e56db612253e608a45b1c6}{A\+L\+I\+G\+N\+\_\+\+C\+E\+N\+T\+ER}, 
+\hyperlink{group__Bitmap_ggacdfaca60ec19c0265bac2692d7982726a9c81840e8cad46418b39a8b74a246354}{A\+L\+I\+G\+N\+\_\+\+R\+I\+G\+HT}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__Bitmap_ga3506880ffd407c36eb8aaddd2c1606d2}{load\+Bitmap} (const char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Loads a bmp image. \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga18d05a1c671f4638bc63d37874efb9d4}{draw\+Bitmap} (\hyperlink{structBitmap}{Bitmap} $\ast$bitmap, int x, int y, \hyperlink{group__Bitmap_gacdfaca60ec19c0265bac2692d7982726}{Alignment} alignment)
+\begin{DoxyCompactList}\small\item\em Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a transparent pixel (color rgb(255, 0, 255) ) \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga362eae5066441f6797d2289c5ccd493d}{drawbackground} (\hyperlink{structBitmap}{Bitmap} $\ast$\hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp}, int x, int y, \hyperlink{group__Bitmap_gacdfaca60ec19c0265bac2692d7982726}{Alignment} alignment)
+\begin{DoxyCompactList}\small\item\em Draws an unscaled, unrotated bitmap at the given position. \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga08c1d4f4fff81df260d979ea8fc1aa61}{delete\+Bitmap} (\hyperlink{structBitmap}{Bitmap} $\ast$\hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp})
+\begin{DoxyCompactList}\small\item\em Destroys the given bitmap, freeing all resources used by it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned \hyperlink{group__Bitmap_ga43e7e5a0a8f9069e6413b2066ca52f3e}{h\+\_\+res}
+\item 
+static unsigned \hyperlink{group__Bitmap_ga5bda1b499253a8fbf3cab646f8760391}{v\+\_\+res}
+\item 
+static unsigned \hyperlink{group__Bitmap_ga89fa3fb58e975d148fcb2413e24b78a1}{bits\+\_\+per\+\_\+pixel}
+\item 
+static unsigned \hyperlink{group__Bitmap_ga59559f1bdfa71061d06d9ea27c0748ed}{screen\+\_\+size}
+\end{DoxyCompactItemize}

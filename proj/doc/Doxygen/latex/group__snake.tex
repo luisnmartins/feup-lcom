@@ -1,0 +1,300 @@
+\hypertarget{group__snake}{}\section{snake}
+\label{group__snake}\index{snake@{snake}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structSegment}{Segment}
+\item 
+struct \hyperlink{structSnake}{Snake}
+\begin{DoxyCompactList}\small\item\em Represents a \hyperlink{structSnake}{Snake}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__snake_ga9905deea86c0d94567ede79df04a2917}{add\+\_\+segment} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, unsigned short row, unsigned short col)
+\begin{DoxyCompactList}\small\item\em adds a new segment\+\_\+snake to the snake as the new head of the snake \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_ga0da33cffbcc02a3da21cb4b74271c429}{new\+\_\+snake} (int size, unsigned short x, unsigned short y, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em creates a new snake \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_ga0ff179758d3dbd6aa7c79dc51776c9d7}{move\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em moves the snake by one position based on its segments direction and orientation \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_gabc6924be4961d75d44ed29f0a4ed5bbb}{set\+\_\+boost} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em sets the boost flag and doubles the snake velocity \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_ga471508bb9844c474f3c27e078aecc638}{stop\+\_\+boost} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em resets the boost flag and decreases the snake velocity \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_gafc851c81ca29b4d1e7e8890e7bf6bbf0}{set\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$snake, int col)
+\begin{DoxyCompactList}\small\item\em resets the snake that is used in the menu preview(when choosing the snake skin) \end{DoxyCompactList}\item 
+void \hyperlink{group__snake_ga155db98fd681adcf82c1d07b8c4372f8}{inc\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em increases the size of the snake by adding a new segment as the tail of the snake \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned short \hyperlink{group__snake_ga5c86edfec316ae4d5033a85525babed6}{Segment\+::row}
+\item 
+unsigned short \hyperlink{group__snake_ga3369387554e0ec37bb04c153c3529ed9}{Segment\+::col}
+\begin{DoxyCompactList}\small\item\em position in the matrix\+\_\+graphics \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_gacf610091b7f59fb0f1f37c6df4e14c18}{Segment\+::direction}
+\begin{DoxyCompactList}\small\item\em direction it is facing, vertical or horizontal \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_gadd6c62d3fd2c3aab9175c07694fdc075}{Segment\+::orientation}
+\item 
+struct \hyperlink{structSegment}{Segment} $\ast$ \hyperlink{group__snake_ga20fb1741f720a656ec35972c2305a2d9}{Segment\+::next}
+\begin{DoxyCompactList}\small\item\em orientation it is facing. if its moving in positive direction or negative \end{DoxyCompactList}\item 
+struct \hyperlink{structSegment}{Segment} $\ast$ \hyperlink{group__snake_ga60c4d032ff0baffc3c99c1630dae24e3}{Segment\+::before}
+\begin{DoxyCompactList}\small\item\em pointer to the next body part(like a linked list) \end{DoxyCompactList}\item 
+\hyperlink{group__snake_ga40f634d31a1f9372bd182d65da207a21}{segment\+\_\+snake} $\ast$ \hyperlink{group__snake_gaf63e50ac65f365d67ae3975a178cba8c}{Snake\+::head}
+\begin{DoxyCompactList}\small\item\em pointer to the head of the snake \end{DoxyCompactList}\item 
+\hyperlink{group__snake_ga40f634d31a1f9372bd182d65da207a21}{segment\+\_\+snake} $\ast$ \hyperlink{group__snake_gada92e10f60af5b1afdb7318df07a1a33}{Snake\+::tail}
+\item 
+unsigned int \hyperlink{group__snake_ga29ba822024f7651a9fa0c80df840252b}{Snake\+::size}
+\begin{DoxyCompactList}\small\item\em pointer to the tail of the snake \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_gac444a5a9306233f5be0b603335785b3d}{Snake\+::velocity}
+\begin{DoxyCompactList}\small\item\em size of the snake(number of segment\+\_\+snake) \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_ga7339bbc2027ffeb1ce00f24a834610cc}{Snake\+::boost}
+\begin{DoxyCompactList}\small\item\em velocity the snake is moving \end{DoxyCompactList}\item 
+unsigned short \hyperlink{group__snake_ga0b46bc6b402fd8999c6998eca1806c3e}{Snake\+::boost\+\_\+time}
+\begin{DoxyCompactList}\small\item\em flag to know if the snake is boosting \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Snake}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structSegment}{Segment} \hyperlink{group__snake_ga40f634d31a1f9372bd182d65da207a21}{segment\+\_\+snake}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions associated with the creation of the snake and its movements 
+
+\subsection{Typedef Documentation}
+\index{snake@{snake}!segment\+\_\+snake@{segment\+\_\+snake}}
+\index{segment\+\_\+snake@{segment\+\_\+snake}!snake@{snake}}
+\subsubsection[{\texorpdfstring{segment\+\_\+snake}{segment_snake}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Segment} {\bf segment\+\_\+snake}}\hypertarget{group__snake_ga40f634d31a1f9372bd182d65da207a21}{}\label{group__snake_ga40f634d31a1f9372bd182d65da207a21}
+\hyperlink{structSnake}{Snake} using a linked list 
+
+\subsection{Function Documentation}
+\index{snake@{snake}!add\+\_\+segment@{add\+\_\+segment}}
+\index{add\+\_\+segment@{add\+\_\+segment}!snake@{snake}}
+\subsubsection[{\texorpdfstring{add\+\_\+segment(\+Snake $\ast$s1, unsigned short row, unsigned short col)}{add_segment(Snake *s1, unsigned short row, unsigned short col)}}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+segment (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{unsigned short}]{row, }
+\item[{unsigned short}]{col}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_ga9905deea86c0d94567ede79df04a2917}{}\label{group__snake_ga9905deea86c0d94567ede79df04a2917}
+
+
+adds a new segment\+\_\+snake to the snake as the new head of the snake 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake which the new segment is going to be added \\
+\hline
+{\em row} & member row of the new segment \\
+\hline
+{\em col} & member col of the new segment\\
+\hline
+\end{DoxyParams}
+The last elements of the new segment, are based on the segments of the snake(especially the head) \index{snake@{snake}!inc\+\_\+snake@{inc\+\_\+snake}}
+\index{inc\+\_\+snake@{inc\+\_\+snake}!snake@{snake}}
+\subsubsection[{\texorpdfstring{inc\+\_\+snake(\+Snake $\ast$s1)}{inc_snake(Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void inc\+\_\+snake (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_ga155db98fd681adcf82c1d07b8c4372f8}{}\label{group__snake_ga155db98fd681adcf82c1d07b8c4372f8}
+
+
+increases the size of the snake by adding a new segment as the tail of the snake 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake which is going to increase\\
+\hline
+\end{DoxyParams}
+It is used when the snake eats a fruit, it is basically add\+\_\+segment but a little more restrictive \index{snake@{snake}!move\+\_\+snake@{move\+\_\+snake}}
+\index{move\+\_\+snake@{move\+\_\+snake}!snake@{snake}}
+\subsubsection[{\texorpdfstring{move\+\_\+snake(\+Snake $\ast$s1)}{move_snake(Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void move\+\_\+snake (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_ga0ff179758d3dbd6aa7c79dc51776c9d7}{}\label{group__snake_ga0ff179758d3dbd6aa7c79dc51776c9d7}
+
+
+moves the snake by one position based on its segments direction and orientation 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake that is going to be moved\\
+\hline
+\end{DoxyParams}
+Basically it moves by just removing the tail of the snake and create and put a new head 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{group__snake_ga0ff179758d3dbd6aa7c79dc51776c9d7_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{snake@{snake}!new\+\_\+snake@{new\+\_\+snake}}
+\index{new\+\_\+snake@{new\+\_\+snake}!snake@{snake}}
+\subsubsection[{\texorpdfstring{new\+\_\+snake(int size, unsigned short x, unsigned short y, Snake $\ast$s1)}{new_snake(int size, unsigned short x, unsigned short y, Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void new\+\_\+snake (
+\begin{DoxyParamCaption}
+\item[{int}]{size, }
+\item[{unsigned short}]{x, }
+\item[{unsigned short}]{y, }
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_ga0da33cffbcc02a3da21cb4b74271c429}{}\label{group__snake_ga0da33cffbcc02a3da21cb4b74271c429}
+
+
+creates a new snake 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & number of segments the snake is going to have(add\+\_\+segment is used for this) \\
+\hline
+{\em x} & the row member of all segments of the new snake \\
+\hline
+{\em y} & the col member of all segments of the new snake \\
+\hline
+{\em s1} & the variable where the snake is going to be saved Every new snake and its segments have the direction(horizontal) and oriectation(positive) as default \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{group__snake_ga0da33cffbcc02a3da21cb4b74271c429_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{snake@{snake}!set\+\_\+boost@{set\+\_\+boost}}
+\index{set\+\_\+boost@{set\+\_\+boost}!snake@{snake}}
+\subsubsection[{\texorpdfstring{set\+\_\+boost(\+Snake $\ast$s1)}{set_boost(Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+boost (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_gabc6924be4961d75d44ed29f0a4ed5bbb}{}\label{group__snake_gabc6924be4961d75d44ed29f0a4ed5bbb}
+
+
+sets the boost flag and doubles the snake velocity 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake that is going to be set \\
+\hline
+\end{DoxyParams}
+\index{snake@{snake}!set\+\_\+snake@{set\+\_\+snake}}
+\index{set\+\_\+snake@{set\+\_\+snake}!snake@{snake}}
+\subsubsection[{\texorpdfstring{set\+\_\+snake(\+Snake $\ast$snake, int col)}{set_snake(Snake *snake, int col)}}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+snake (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{snake, }
+\item[{int}]{col}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_gafc851c81ca29b4d1e7e8890e7bf6bbf0}{}\label{group__snake_gafc851c81ca29b4d1e7e8890e7bf6bbf0}
+
+
+resets the snake that is used in the menu preview(when choosing the snake skin) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em snake} & snake that is going to be reset \\
+\hline
+{\em col} & column that is going to be reset to \\
+\hline
+\end{DoxyParams}
+\index{snake@{snake}!stop\+\_\+boost@{stop\+\_\+boost}}
+\index{stop\+\_\+boost@{stop\+\_\+boost}!snake@{snake}}
+\subsubsection[{\texorpdfstring{stop\+\_\+boost(\+Snake $\ast$s1)}{stop_boost(Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void stop\+\_\+boost (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__snake_ga471508bb9844c474f3c27e078aecc638}{}\label{group__snake_ga471508bb9844c474f3c27e078aecc638}
+
+
+resets the boost flag and decreases the snake velocity 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake that is going to be reset\\
+\hline
+\end{DoxyParams}
+It is basically the opposite of set\+\_\+boost 
+
+\subsection{Variable Documentation}
+\index{snake@{snake}!before@{before}}
+\index{before@{before}!snake@{snake}}
+\subsubsection[{\texorpdfstring{before}{before}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Segment}$\ast$ Segment\+::before}\hypertarget{group__snake_ga60c4d032ff0baffc3c99c1630dae24e3}{}\label{group__snake_ga60c4d032ff0baffc3c99c1630dae24e3}
+
+
+pointer to the next body part(like a linked list) 
+
+$<$ \index{snake@{snake}!boost@{boost}}
+\index{boost@{boost}!snake@{snake}}
+\subsubsection[{\texorpdfstring{boost}{boost}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Snake\+::boost}\hypertarget{group__snake_ga7339bbc2027ffeb1ce00f24a834610cc}{}\label{group__snake_ga7339bbc2027ffeb1ce00f24a834610cc}
+
+
+velocity the snake is moving 
+
+$<$ \index{snake@{snake}!boost\+\_\+time@{boost\+\_\+time}}
+\index{boost\+\_\+time@{boost\+\_\+time}!snake@{snake}}
+\subsubsection[{\texorpdfstring{boost\+\_\+time}{boost_time}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Snake\+::boost\+\_\+time}\hypertarget{group__snake_ga0b46bc6b402fd8999c6998eca1806c3e}{}\label{group__snake_ga0b46bc6b402fd8999c6998eca1806c3e}
+
+
+flag to know if the snake is boosting 
+
+$<$ \index{snake@{snake}!col@{col}}
+\index{col@{col}!snake@{snake}}
+\subsubsection[{\texorpdfstring{col}{col}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Segment\+::col}\hypertarget{group__snake_ga3369387554e0ec37bb04c153c3529ed9}{}\label{group__snake_ga3369387554e0ec37bb04c153c3529ed9}
+
+
+position in the matrix\+\_\+graphics 
+
+\index{snake@{snake}!direction@{direction}}
+\index{direction@{direction}!snake@{snake}}
+\subsubsection[{\texorpdfstring{direction}{direction}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Segment\+::direction}\hypertarget{group__snake_gacf610091b7f59fb0f1f37c6df4e14c18}{}\label{group__snake_gacf610091b7f59fb0f1f37c6df4e14c18}
+
+
+direction it is facing, vertical or horizontal 
+
+\index{snake@{snake}!head@{head}}
+\index{head@{head}!snake@{snake}}
+\subsubsection[{\texorpdfstring{head}{head}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf segment\+\_\+snake}$\ast$ Snake\+::head}\hypertarget{group__snake_gaf63e50ac65f365d67ae3975a178cba8c}{}\label{group__snake_gaf63e50ac65f365d67ae3975a178cba8c}
+
+
+pointer to the head of the snake 
+
+\index{snake@{snake}!next@{next}}
+\index{next@{next}!snake@{snake}}
+\subsubsection[{\texorpdfstring{next}{next}}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Segment}$\ast$ Segment\+::next}\hypertarget{group__snake_ga20fb1741f720a656ec35972c2305a2d9}{}\label{group__snake_ga20fb1741f720a656ec35972c2305a2d9}
+
+
+orientation it is facing. if its moving in positive direction or negative 
+
+$<$ \index{snake@{snake}!orientation@{orientation}}
+\index{orientation@{orientation}!snake@{snake}}
+\subsubsection[{\texorpdfstring{orientation}{orientation}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Segment\+::orientation}\hypertarget{group__snake_gadd6c62d3fd2c3aab9175c07694fdc075}{}\label{group__snake_gadd6c62d3fd2c3aab9175c07694fdc075}
+\index{snake@{snake}!row@{row}}
+\index{row@{row}!snake@{snake}}
+\subsubsection[{\texorpdfstring{row}{row}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Segment\+::row}\hypertarget{group__snake_ga5c86edfec316ae4d5033a85525babed6}{}\label{group__snake_ga5c86edfec316ae4d5033a85525babed6}
+\index{snake@{snake}!size@{size}}
+\index{size@{size}!snake@{snake}}
+\subsubsection[{\texorpdfstring{size}{size}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Snake\+::size}\hypertarget{group__snake_ga29ba822024f7651a9fa0c80df840252b}{}\label{group__snake_ga29ba822024f7651a9fa0c80df840252b}
+
+
+pointer to the tail of the snake 
+
+$<$ \index{snake@{snake}!tail@{tail}}
+\index{tail@{tail}!snake@{snake}}
+\subsubsection[{\texorpdfstring{tail}{tail}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf segment\+\_\+snake}$\ast$ Snake\+::tail}\hypertarget{group__snake_gada92e10f60af5b1afdb7318df07a1a33}{}\label{group__snake_gada92e10f60af5b1afdb7318df07a1a33}
+\index{snake@{snake}!velocity@{velocity}}
+\index{velocity@{velocity}!snake@{snake}}
+\subsubsection[{\texorpdfstring{velocity}{velocity}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short Snake\+::velocity}\hypertarget{group__snake_gac444a5a9306233f5be0b603335785b3d}{}\label{group__snake_gac444a5a9306233f5be0b603335785b3d}
+
+
+size of the snake(number of segment\+\_\+snake) 
+
+$<$ 

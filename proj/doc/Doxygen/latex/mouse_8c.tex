@@ -1,0 +1,102 @@
+\hypertarget{mouse_8c}{}\section{proj/src/mouse.c File Reference}
+\label{mouse_8c}\index{proj/src/mouse.\+c@{proj/src/mouse.\+c}}
+{\ttfamily \#include \char`\"{}mouse.\+h\char`\"{}}\\*
+Include dependency graph for mouse.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mouse_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{mouse_8c_aa0aafed44fec19806d8f9ad834be1248}{state\+\_\+t} \{ \hyperlink{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{I\+N\+IT}, 
+\hyperlink{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a61f3c57b6943c85413975507aede78cd}{D\+R\+AW}, 
+\hyperlink{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a676fb7a17038f5f755e8acdabecba0ad}{C\+O\+MP}
+ \}
+\item 
+enum \hyperlink{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31}{ev\+\_\+type\+\_\+t} \{ \hyperlink{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31ad5aee2c7a60982b28275b8a838c86d80}{R\+D\+OW}, 
+\hyperlink{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a525f6b8da5df7c9789e6dc2ea82d8928}{R\+UP}, 
+\hyperlink{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a6769711eb447a181d11c55404466ee12}{T\+O\+L\+E\+R\+A\+N\+CE}, 
+\hyperlink{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a361da64b3bdc6ec0a151023e15607cd4}{V\+E\+R\+T\+\_\+\+L\+I\+NE}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{group__mouse_ga99506573209b197b84ee22a228b89fbd}{mouse\+\_\+subscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em subscribes and enables the mouse interruts \end{DoxyCompactList}\item 
+int \hyperlink{group__mouse_ga685ad2706aca36d9869a30a19b9f446a}{mouse\+\_\+unsubscribe\+\_\+int} ()
+\begin{DoxyCompactList}\small\item\em unsubscribes mouse interrupts \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__mouse_ga45c719d8de1147830bd478d4b0e47b97}{mouse\+\_\+int\+\_\+handler} ()
+\begin{DoxyCompactList}\small\item\em reads the out bufer of the mouse \end{DoxyCompactList}\item 
+int \hyperlink{group__mouse_ga264805a6ca2c11cf80a5e18741400e33}{issue\+\_\+cmd\+\_\+ms} (unsigned long cmd)
+\begin{DoxyCompactList}\small\item\em issues a command to the buffer of the mouse \end{DoxyCompactList}\item 
+int \hyperlink{mouse_8c_ab08c0bde77afc947bc33ce88f7610687}{set\+\_\+kbc\+\_\+mouse} ()
+\item 
+int \hyperlink{group__mouse_ga9bed3f8254b40f5c02cca1cab0551be7}{get\+\_\+packets} (unsigned short $\ast$counter, unsigned long $\ast$packet\+\_\+mouse, unsigned long $\ast$out\+\_\+buf\+\_\+mouse)
+\begin{DoxyCompactList}\small\item\em it reads and stores the packet of the mouse \end{DoxyCompactList}\item 
+int \hyperlink{group__mouse_gabf86ae410ee145ab149b704b7c09d4a0}{set\+\_\+stream\+\_\+mode} ()
+\begin{DoxyCompactList}\small\item\em sets and enables the stream mode of the mouse \end{DoxyCompactList}\item 
+int \hyperlink{group__mouse_gaf578f6a923fae48268dc84dbe1d85c9e}{disable\+\_\+stream\+\_\+mode\+\_\+end} ()
+\begin{DoxyCompactList}\small\item\em disables the stream mode of the mouse \end{DoxyCompactList}\item 
+int \hyperlink{group__mouse_ga04a289fdee2cabf12ec9132bb4ca9add}{print\+\_\+packet} (int size\+\_\+array, unsigned long $\ast$array, long $\ast$x, long $\ast$y, unsigned short $\ast$lb, unsigned short $\ast$rb)
+\begin{DoxyCompactList}\small\item\em interprets and prints the contents of a mouse packet,and also store some of its values, like the movement in the x and y axis, the state of both mouse buttons(left and right) \end{DoxyCompactList}\item 
+long \hyperlink{group__mouse_ga47845a8af6ede60754da2c4e2540d687}{compl2} (long nr)
+\begin{DoxyCompactList}\small\item\em gets a negative number in the complement for 2 mode a returns the absolute value of it \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{mouse_8c_a00b253760a7bf156187bd9608987def6}{mhook\+\_\+id} = 12
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{mouse.\+c@{mouse.\+c}!ev\+\_\+type\+\_\+t@{ev\+\_\+type\+\_\+t}}
+\index{ev\+\_\+type\+\_\+t@{ev\+\_\+type\+\_\+t}!mouse.\+c@{mouse.\+c}}
+\subsubsection[{\texorpdfstring{ev\+\_\+type\+\_\+t}{ev_type_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf ev\+\_\+type\+\_\+t}}\hypertarget{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31}{}\label{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{R\+D\+OW@{R\+D\+OW}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!R\+D\+OW@{R\+D\+OW}}\item[{\em 
+R\+D\+OW\hypertarget{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31ad5aee2c7a60982b28275b8a838c86d80}{}\label{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31ad5aee2c7a60982b28275b8a838c86d80}
+}]\index{R\+UP@{R\+UP}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!R\+UP@{R\+UP}}\item[{\em 
+R\+UP\hypertarget{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a525f6b8da5df7c9789e6dc2ea82d8928}{}\label{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a525f6b8da5df7c9789e6dc2ea82d8928}
+}]\index{T\+O\+L\+E\+R\+A\+N\+CE@{T\+O\+L\+E\+R\+A\+N\+CE}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!T\+O\+L\+E\+R\+A\+N\+CE@{T\+O\+L\+E\+R\+A\+N\+CE}}\item[{\em 
+T\+O\+L\+E\+R\+A\+N\+CE\hypertarget{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a6769711eb447a181d11c55404466ee12}{}\label{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a6769711eb447a181d11c55404466ee12}
+}]\index{V\+E\+R\+T\+\_\+\+L\+I\+NE@{V\+E\+R\+T\+\_\+\+L\+I\+NE}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!V\+E\+R\+T\+\_\+\+L\+I\+NE@{V\+E\+R\+T\+\_\+\+L\+I\+NE}}\item[{\em 
+V\+E\+R\+T\+\_\+\+L\+I\+NE\hypertarget{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a361da64b3bdc6ec0a151023e15607cd4}{}\label{mouse_8c_aabca14b349ba212174a00ffc1d2a2f31a361da64b3bdc6ec0a151023e15607cd4}
+}]\end{description}
+\end{Desc}
+\index{mouse.\+c@{mouse.\+c}!state\+\_\+t@{state\+\_\+t}}
+\index{state\+\_\+t@{state\+\_\+t}!mouse.\+c@{mouse.\+c}}
+\subsubsection[{\texorpdfstring{state\+\_\+t}{state_t}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf state\+\_\+t}}\hypertarget{mouse_8c_aa0aafed44fec19806d8f9ad834be1248}{}\label{mouse_8c_aa0aafed44fec19806d8f9ad834be1248}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{I\+N\+IT@{I\+N\+IT}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!I\+N\+IT@{I\+N\+IT}}\item[{\em 
+I\+N\+IT\hypertarget{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}{}\label{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a0cb1b2c6a7db1f1084886c98909a3f36}
+}]\index{D\+R\+AW@{D\+R\+AW}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!D\+R\+AW@{D\+R\+AW}}\item[{\em 
+D\+R\+AW\hypertarget{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a61f3c57b6943c85413975507aede78cd}{}\label{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a61f3c57b6943c85413975507aede78cd}
+}]\index{C\+O\+MP@{C\+O\+MP}!mouse.\+c@{mouse.\+c}}\index{mouse.\+c@{mouse.\+c}!C\+O\+MP@{C\+O\+MP}}\item[{\em 
+C\+O\+MP\hypertarget{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a676fb7a17038f5f755e8acdabecba0ad}{}\label{mouse_8c_aa0aafed44fec19806d8f9ad834be1248a676fb7a17038f5f755e8acdabecba0ad}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{mouse.\+c@{mouse.\+c}!set\+\_\+kbc\+\_\+mouse@{set\+\_\+kbc\+\_\+mouse}}
+\index{set\+\_\+kbc\+\_\+mouse@{set\+\_\+kbc\+\_\+mouse}!mouse.\+c@{mouse.\+c}}
+\subsubsection[{\texorpdfstring{set\+\_\+kbc\+\_\+mouse()}{set_kbc_mouse()}}]{\setlength{\rightskip}{0pt plus 5cm}int set\+\_\+kbc\+\_\+mouse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{mouse_8c_ab08c0bde77afc947bc33ce88f7610687}{}\label{mouse_8c_ab08c0bde77afc947bc33ce88f7610687}
+
+
+\subsection{Variable Documentation}
+\index{mouse.\+c@{mouse.\+c}!mhook\+\_\+id@{mhook\+\_\+id}}
+\index{mhook\+\_\+id@{mhook\+\_\+id}!mouse.\+c@{mouse.\+c}}
+\subsubsection[{\texorpdfstring{mhook\+\_\+id}{mhook_id}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int mhook\+\_\+id = 12}\hypertarget{mouse_8c_a00b253760a7bf156187bd9608987def6}{}\label{mouse_8c_a00b253760a7bf156187bd9608987def6}

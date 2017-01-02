@@ -1,0 +1,10 @@
+<map id="proj/src/keyboard.h" name="proj/src/keyboard.h">
+<area shape="rect" id="node2" href="$graphics_8h.html" title="proj/src/graphics.h" alt="" coords="72,80,201,107"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="proj/src/main.c" alt="" coords="5,304,113,331"/>
+<area shape="rect" id="node9" href="$keyboard_8c.html" title="proj/src/keyboard.c" alt="" coords="226,80,359,107"/>
+<area shape="rect" id="node3" href="$graphics_8c.html" title="proj/src/graphics.c" alt="" coords="97,155,227,181"/>
+<area shape="rect" id="node5" href="$menu_8h.html" title="proj/src/menu.h" alt="" coords="250,155,362,181"/>
+<area shape="rect" id="node6" href="$man__events_8h.html" title="proj/src/man_events.h" alt="" coords="233,229,384,256"/>
+<area shape="rect" id="node8" href="$menu_8c.html" title="proj/src/menu.c" alt="" coords="97,229,209,256"/>
+<area shape="rect" id="node7" href="$man__events_8c.html" title="proj/src/man_events.c" alt="" coords="233,304,384,331"/>
+</map>

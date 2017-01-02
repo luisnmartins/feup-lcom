@@ -1,7 +1,0 @@
-<map id="start_mode" name="start_mode">
-<area shape="rect" id="node2" href="$group__graphics.html#gacef21667c79365d57a084bed994c2189" title="Initializes the video module in graphics mode. " alt="" coords="183,5,243,32"/>
-<area shape="rect" id="node3" href="$graphics_8c.html#ad5ac8ab6d65bfeb89822d5a68048d180" title="initial_bitmaps" alt="" coords="161,56,266,83"/>
-<area shape="rect" id="node5" href="$group__menu.html#gaa00e45cbd295e588746a7f2fd88b0d20" title="it fills the bmp global variable with the bitmaps loaded in graphics.c " alt="" coords="140,107,287,133"/>
-<area shape="rect" id="node4" href="$group__Bitmap.html#ga3506880ffd407c36eb8aaddd2c1606d2" title="Loads a bmp image. " alt="" coords="335,56,421,83"/>
-<area shape="rect" id="node6" href="$group__graphics.html#gaec3d602834e52141c736dcc41ef0ddc9" title="gets the bitmap_struct with all bitmaps used in the project " alt="" coords="348,107,408,133"/>
-</map>

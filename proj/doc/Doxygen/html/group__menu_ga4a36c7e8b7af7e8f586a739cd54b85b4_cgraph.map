@@ -1,7 +1,0 @@
-<map id="draw_instructions" name="draw_instructions">
-<area shape="rect" id="node2" href="$group__Bitmap.html#ga362eae5066441f6797d2289c5ccd493d" title="Draws an unscaled, unrotated bitmap at the given position. " alt="" coords="177,56,295,83"/>
-<area shape="rect" id="node6" href="$video__gr_8c.html#a7d5ac1f44aa40304e931686f8ae993c3" title="copies what is in the double buffer to the video mem " alt="" coords="193,107,279,133"/>
-<area shape="rect" id="node3" href="$video__gr_8c.html#ae2b9b38f4f97e1c580123c8e9a993353" title="returns the resolution of the video mode that is being used " alt="" coords="343,5,465,32"/>
-<area shape="rect" id="node4" href="$video__gr_8c.html#a7ee85b0f333d227380a2c43e5fb8507a" title="returns the resolution of the video mode that is being used " alt="" coords="343,56,465,83"/>
-<area shape="rect" id="node5" href="$video__gr_8c.html#a53bcb644c2becbafdee4cef123410bd9" title="returns the double buffer " alt="" coords="349,107,459,133"/>
-</map>

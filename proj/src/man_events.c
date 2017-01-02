@@ -490,16 +490,28 @@ int timer_event_handler(unsigned short counter)
 
 	if(p == MENU_T)
 	{
+		int hour;
+		int min;
+		int sec;
 
-			int hour = bcd_to_decimal(date.hour);
-			int min = bcd_to_decimal(date.min);
-			int sec = bcd_to_decimal(date.sec);
+			if(is_binary() == 1)
+			{
+				hour = bcd_to_decimal(date.hour);
+				min = bcd_to_decimal(date.min);
+				sec = bcd_to_decimal(date.sec);
+			}
+			else
+			{
+				hour = date.hour;
+				min = date.min;
+				sec = date.sec;
+			}
 			draw_time(hour,min,sec);
 
 
-		//change_to_start();
+
 		draw_menu(0);
-		//update_menu_mouse();
+
 
 
 	}

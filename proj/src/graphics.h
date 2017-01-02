@@ -10,7 +10,6 @@
 #include <math.h>
 #include "vbe.h"
 #include "video_gr.h"
-#include "pixmap.h"
 #include "timer.h"
 #include "keyboard.h"
 #include "snake.h"

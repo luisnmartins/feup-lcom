@@ -15,7 +15,18 @@ int can_read_date()
 
 }
 
+int is_binary()
+{
+	unsigned long regB = 0;
 
+	sys_outb(RTC_ADDR_REG, RTC_REG_B);
+	sys_inb(RTC_DATA_REG, &regB);
+	if((regB & BINARY_MODE) != 0)
+		return 1;
+	else
+		return 0;
+
+}
 
 int bcd_to_decimal(unsigned long number)
 {

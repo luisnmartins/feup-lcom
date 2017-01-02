@@ -14,7 +14,11 @@
  * */
 int can_read_date();
 
-
+/**
+ *  @brief verify if real time clock is on binary mode
+ *  @return return 1 if is on bcd mode and 0 if is on binary mode
+ */
+int is_binary();
 
 /**
  * @brief it "transforms" a binary number to a decimal one

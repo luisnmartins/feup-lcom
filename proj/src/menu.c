@@ -226,7 +226,7 @@ void draw_instructions(int mode)
 
 void show_points_sp(Snake *s1)
 {
-	int x_inicial = 620;
+	int x_inicial = 580;
 	int y = 512;
 	int points = s1->size -5;
 

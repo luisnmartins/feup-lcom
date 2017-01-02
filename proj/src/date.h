@@ -6,6 +6,7 @@
  *
  * Stored time values of the rtc
  */
+///Represents the rtc date
 typedef struct
 {
 	unsigned long hour;/**< @brief the hour*/

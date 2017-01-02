@@ -29,6 +29,7 @@ typedef enum {
  *
  * Objects used in game
  */
+///Represents an object
 typedef struct {
 	unsigned short row,col; /**< @brief position in the matrix_graphics*/
 	int point_value; /** <@brief how many points the object is valued (UNUSED)*/

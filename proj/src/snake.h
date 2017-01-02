@@ -27,7 +27,7 @@ typedef struct Segment{
 	struct Segment *next; /** <@brief pointer to the next body part(like a linked list)*/
 	struct Segment *before;/** <@brief pointer to the previous body part*/
 }segment_snake;
-
+///Represents a Snake
 typedef struct {
 	segment_snake *head; /**< @brief pointer to the head of the snake*/
 	segment_snake *tail; /** <@brief pointer to the tail of the snake*/

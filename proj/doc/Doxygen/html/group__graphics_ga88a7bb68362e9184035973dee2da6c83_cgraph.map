@@ -1,5 +1,0 @@
-<map id="add_fruit_matrix" name="add_fruit_matrix">
-<area shape="rect" id="node2" href="$group__object.html#gaec22a837ae65e3ba7f3e55ad9c37c91d" title="it creates a new object in a random position " alt="" coords="195,5,283,32"/>
-<area shape="rect" id="node3" href="$group__graphics.html#ga6e759569e268b5e7abca1e056657a608" title="checks if specific place in the screen is valid(if it is not the wall of the maps used) ..." alt="" coords="168,57,311,98"/>
-<area shape="rect" id="node4" href="$group__graphics.html#ga387f95a1f4cb68e7b372ee62064d41a5" title="counts how many fruits are in the matrix " alt="" coords="198,123,281,149"/>
-</map>

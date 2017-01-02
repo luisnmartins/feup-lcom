@@ -1,5 +1,0 @@
-<map id="drawbackground" name="drawbackground">
-<area shape="rect" id="node2" href="$video__gr_8c.html#ae2b9b38f4f97e1c580123c8e9a993353" title="returns the resolution of the video mode that is being used " alt="" coords="171,5,293,32"/>
-<area shape="rect" id="node3" href="$video__gr_8c.html#a7ee85b0f333d227380a2c43e5fb8507a" title="returns the resolution of the video mode that is being used " alt="" coords="171,56,293,83"/>
-<area shape="rect" id="node4" href="$video__gr_8c.html#a53bcb644c2becbafdee4cef123410bd9" title="returns the double buffer " alt="" coords="177,107,287,133"/>
-</map>

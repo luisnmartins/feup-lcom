@@ -1,6 +1,0 @@
-<map id="draw_time" name="draw_time">
-<area shape="rect" id="node2" href="$group__Bitmap.html#ga18d05a1c671f4638bc63d37874efb9d4" title="Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a t..." alt="" coords="136,56,227,83"/>
-<area shape="rect" id="node3" href="$video__gr_8c.html#ae2b9b38f4f97e1c580123c8e9a993353" title="returns the resolution of the video mode that is being used " alt="" coords="275,5,397,32"/>
-<area shape="rect" id="node4" href="$video__gr_8c.html#a7ee85b0f333d227380a2c43e5fb8507a" title="returns the resolution of the video mode that is being used " alt="" coords="275,56,397,83"/>
-<area shape="rect" id="node5" href="$video__gr_8c.html#a53bcb644c2becbafdee4cef123410bd9" title="returns the double buffer " alt="" coords="281,107,391,133"/>
-</map>

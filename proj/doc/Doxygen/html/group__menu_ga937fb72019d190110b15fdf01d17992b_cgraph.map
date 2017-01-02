@@ -1,0 +1,9 @@
+<map id="draw_menu" name="draw_menu">
+<area shape="rect" id="node2" href="$video__gr_8c.html#a7d5ac1f44aa40304e931686f8ae993c3" title="copies what is in the double buffer to the video mem " alt="" coords="173,5,259,32"/>
+<area shape="rect" id="node3" href="$group__Bitmap.html#ga362eae5066441f6797d2289c5ccd493d" title="Draws an unscaled, unrotated bitmap at the given position. " alt="" coords="337,56,455,83"/>
+<area shape="rect" id="node7" href="$group__menu.html#gab1b3c1e3e90e9c78f31cddcc2544fd09" title="draws in the screen the mouse cursor in the current position of the mouse " alt="" coords="143,107,289,133"/>
+<area shape="rect" id="node4" href="$video__gr_8c.html#ae2b9b38f4f97e1c580123c8e9a993353" title="returns the resolution of the video mode that is being used " alt="" coords="503,31,625,57"/>
+<area shape="rect" id="node5" href="$video__gr_8c.html#a7ee85b0f333d227380a2c43e5fb8507a" title="returns the resolution of the video mode that is being used " alt="" coords="503,81,625,108"/>
+<area shape="rect" id="node6" href="$video__gr_8c.html#a53bcb644c2becbafdee4cef123410bd9" title="returns the double buffer " alt="" coords="509,132,619,159"/>
+<area shape="rect" id="node8" href="$group__Bitmap.html#ga18d05a1c671f4638bc63d37874efb9d4" title="Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a t..." alt="" coords="351,107,441,133"/>
+</map>

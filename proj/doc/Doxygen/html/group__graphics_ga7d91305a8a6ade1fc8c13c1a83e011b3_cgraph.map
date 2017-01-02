@@ -1,0 +1,8 @@
+<map id="update_matrix_snake" name="update_matrix_snake">
+<area shape="rect" id="node2" href="$group__graphics.html#gac6b9fb650a2fb880335948e9ef3fdf82" title="removes all snakes from the matrix " alt="" coords="200,5,357,32"/>
+<area shape="rect" id="node3" href="$group__graphics.html#ga6e759569e268b5e7abca1e056657a608" title="checks if specific place in the screen is valid(if it is not the wall of the maps used) ..." alt="" coords="607,99,749,141"/>
+<area shape="rect" id="node4" href="$group__snake.html#ga155db98fd681adcf82c1d07b8c4372f8" title="increases the size of the snake by adding a new segment as the tail of the snake " alt="" coords="238,107,319,133"/>
+<area shape="rect" id="node5" href="$group__graphics.html#gadcd1766a79d92c6aac52fe0c7b51454c" title="creates a new object of type type and make sure its position in the matrix doesnt interfere with the ..." alt="" coords="213,157,344,184"/>
+<area shape="rect" id="node6" href="$group__object.html#gaec22a837ae65e3ba7f3e55ad9c37c91d" title="it creates a new object in a random position " alt="" coords="438,107,526,133"/>
+<area shape="rect" id="node7" href="$group__graphics.html#gad40d6fc4b95f03cf67fff31597a2bada" title="places the new object created in the matrix making sure that is placed in a good spot ..." alt="" coords="405,157,559,184"/>
+</map>

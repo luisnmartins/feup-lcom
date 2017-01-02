@@ -1,0 +1,941 @@
+\hypertarget{group__graphics}{}\section{graphics}
+\label{group__graphics}\index{graphics@{graphics}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structBitmaps__struct}{Bitmaps\+\_\+struct}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{group__graphics_gacef21667c79365d57a084bed994c2189}{vg\+\_\+init} (unsigned short mode)
+\begin{DoxyCompactList}\small\item\em Initializes the video module in graphics mode. \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga9805b7e746b90143a74ad077d5d68223}{vg\+\_\+exit} ()
+\begin{DoxyCompactList}\small\item\em Returns to default Minix 3 text mode (0x03\+: 25 x 80, 16 colors) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga7d91305a8a6ade1fc8c13c1a83e011b3}{update\+\_\+matrix\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, int mouse)
+\begin{DoxyCompactList}\small\item\em updates the position of the snake in the screen and checks collisions \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga6669f4e380f03339751e723309577575}{start\+\_\+mode} ()
+\begin{DoxyCompactList}\small\item\em it call vg init to start the video mode in 11A and loads every bitmap used \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga266e075db0561b07746b8dc1d6e68ccf}{clear\+\_\+matrix} ()
+\begin{DoxyCompactList}\small\item\em it resets the graphics\+\_\+matrix to all N\+U\+LL pointers,so another game can be started \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaa559040a20c89667ba7033146b4413c5}{draw\+\_\+screen} (int mode)
+\begin{DoxyCompactList}\small\item\em it draws in the screen the current state of the game \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gadcd1766a79d92c6aac52fe0c7b51454c}{new\+\_\+object\+\_\+matrix} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, unsigned int type)
+\begin{DoxyCompactList}\small\item\em creates a new object of type type and make sure its position in the matrix doesnt interfere with the snake \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaa03ab4855ae73e5b616cf76f54de6f76}{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2}, unsigned int type)
+\begin{DoxyCompactList}\small\item\em creates a new object of type type and make sure its position in the matrix doesnt interfere with the snakes \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gac6b9fb650a2fb880335948e9ef3fdf82}{remove\+\_\+snakes\+\_\+matrix} ()
+\begin{DoxyCompactList}\small\item\em removes all snakes from the matrix \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_gad40d6fc4b95f03cf67fff31597a2bada}{update\+\_\+matrix\+\_\+objects} (\hyperlink{structGame__object}{Game\+\_\+object} $\ast$obj, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em places the new object created in the matrix making sure that is placed in a good spot \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga15209d618a0ee6164a1b1c7f72ba5bdf}{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes} (\hyperlink{structGame__object}{Game\+\_\+object} $\ast$obj, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2})
+\begin{DoxyCompactList}\small\item\em places the new object created in the matrix making sure that is placed in a good spot \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga114deb65eba6094fa6251e4dbf4dc1a2}{update\+\_\+matrix\+\_\+snakemp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2}, int $\ast$snake1\+\_\+alive, int $\ast$snake2\+\_\+alive)
+\begin{DoxyCompactList}\small\item\em it updates the matrix for the game mode with 2 snakes (similar to update matrix snake) \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_ga02b1006c34287574944819caa3616660}{points\+\_\+ingame\+\_\+sp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em show the points that the snake currently has during a game (game mode with only one snake) \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaf112074b9dd511b5810d96f97e003f5e}{points\+\_\+ingame\+\_\+mp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2})
+\begin{DoxyCompactList}\small\item\em shwo the points that both snakes has in real time during a game(game mode with 2 snakes) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga6e759569e268b5e7abca1e056657a608}{verify\+\_\+colision\+\_\+walls\+\_\+bgmap} (int col, int row, int mode)
+\begin{DoxyCompactList}\small\item\em checks if specific place in the screen is valid(if it is not the wall of the maps used) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga88a7bb68362e9184035973dee2da6c83}{add\+\_\+fruit\+\_\+matrix} (int x, int y, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em adds an object of type fruit in the position given, places only if it is valid spot (used in the mouse game mode) \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga387f95a1f4cb68e7b372ee62064d41a5}{fruit\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em counts how many fruits are in the matrix \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_gaec6c3092de0056a44586f7df6de16282}{bomb\+\_\+count} ()
+\begin{DoxyCompactList}\small\item\em count how many bombs are in the matrix \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gacb3ed6bc6b07cdf572291ffcea76dab8}{remove\+\_\+bomb} ()
+\begin{DoxyCompactList}\small\item\em removes from the matrix the first bomb it encounters \end{DoxyCompactList}\item 
+int \hyperlink{group__graphics_ga4fa3e18d37f64de83f06af9aeb725ffd}{add\+\_\+bomb\+\_\+matrix} (int x, int y, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em adds an object of type bomb in the position given,places only if it is a valid spot(used in mouse game mode) \end{DoxyCompactList}\item 
+\hyperlink{structBitmaps__struct}{Bitmaps\+\_\+struct} $\ast$ \hyperlink{group__graphics_gaec3d602834e52141c736dcc41ef0ddc9}{get\+BM} ()
+\begin{DoxyCompactList}\small\item\em gets the bitmap\+\_\+struct with all bitmaps used in the project \end{DoxyCompactList}\item 
+void \hyperlink{group__graphics_gaf23c56c7e38458853c7a8775fb9e09ec}{print\+\_\+number\+\_\+delay} (int \hyperlink{group__man__events_ga49dac5534222e1641ae32eba8e7baf8e}{number\+\_\+delay})
+\begin{DoxyCompactList}\small\item\em Print the 3, 2, 1 numbers used when a game is starting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga90d36683bc99f1ee114191f6ae238990}{Bitmaps\+\_\+struct\+::maca}
+\begin{DoxyCompactList}\small\item\em fruit eaten by the snake to grow \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaa22a993c184e8cd76dbdf4830e5d108e}{Bitmaps\+\_\+struct\+::body}
+\begin{DoxyCompactList}\small\item\em body the s1 snake \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga8b84da2f75b89636fa34ff1cd47215f4}{Bitmaps\+\_\+struct\+::body2}
+\begin{DoxyCompactList}\small\item\em body of the s2 snake \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga0145b28638489d1308f15646be8042eb}{Bitmaps\+\_\+struct\+::game\+\_\+over}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga2b3fa0b4fba818dec225a5cfa4ad2400}{Bitmaps\+\_\+struct\+::bg}
+\begin{DoxyCompactList}\small\item\em map used in SP and \hyperlink{structSnake}{Snake} and Mouse mode \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaca55c5a5f1494cb6d6c872d072b501d1}{Bitmaps\+\_\+struct\+::bgmp}
+\begin{DoxyCompactList}\small\item\em map used in the mode with 2 snakes \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga7740065d096144bd6f6f9457083584d9}{Bitmaps\+\_\+struct\+::cabeca1hd}
+\begin{DoxyCompactList}\small\item\em head of the s1 snake in the horizontal and positive directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga5989c4f83267088c9fdb6d1251d2e092}{Bitmaps\+\_\+struct\+::cabeca1he}
+\begin{DoxyCompactList}\small\item\em head of the s1 snake in the horizontal and negative directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga257cc4fca4ad7cceb125e4e43f62a17b}{Bitmaps\+\_\+struct\+::cabeca1vc}
+\begin{DoxyCompactList}\small\item\em head of the s1 snake in the vertical and negative directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga5737d3b582663eb60cd3fd47421707b3}{Bitmaps\+\_\+struct\+::cabeca1vb}
+\begin{DoxyCompactList}\small\item\em head of the s1 snake in the vertical and positive directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga74f59c6b2020b67b1e4c40b4d07b7dcb}{Bitmaps\+\_\+struct\+::cabeca2hd}
+\begin{DoxyCompactList}\small\item\em head of the s2 snake in the horizontal and positive directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gad921a321d31f1c5f8430770b09949bd8}{Bitmaps\+\_\+struct\+::cabeca2he}
+\begin{DoxyCompactList}\small\item\em head of the s2 snake in the horizontal and negative directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gabcbbaac60aafd8e9549fcef5fa6acb83}{Bitmaps\+\_\+struct\+::cabeca2vc}
+\begin{DoxyCompactList}\small\item\em head of the s2 snake in the vertical and negative directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga50f31017797fe46247d3ef644f6670c9}{Bitmaps\+\_\+struct\+::cabeca2vb}
+\begin{DoxyCompactList}\small\item\em head of the s2 snake in the vertical and positive directions \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga024eb6d4380a6df2938202e45547c241}{Bitmaps\+\_\+struct\+::main\+\_\+menu}
+\begin{DoxyCompactList}\small\item\em menu that appears at the start of the game \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga65a5f6d63fc1498c0bace1310dac202f}{Bitmaps\+\_\+struct\+::mp\+\_\+menu}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaa9e2b675fd059f98d6fc79bff67f7918}{Bitmaps\+\_\+struct\+::cursor}
+\begin{DoxyCompactList}\small\item\em menu that appears when player selects multiplayer in main\+\_\+menu \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga055c85bff730277d284b6e00bb7d1b62}{Bitmaps\+\_\+struct\+::numbers} \mbox{[}11\mbox{]}
+\begin{DoxyCompactList}\small\item\em all the numbers from 0 to 9 in order,and the char \textquotesingle{}\+:\textquotesingle{} and \textquotesingle{}/\textquotesingle{} used in time and final scores \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga067f54df47f8ccad03f63d3b683f73a5}{Bitmaps\+\_\+struct\+::sp\+\_\+inst}
+\begin{DoxyCompactList}\small\item\em instructions of the singleplayer mode \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga4096188495e68d783bf3b8ac7871b7fa}{Bitmaps\+\_\+struct\+::kbc\+\_\+inst}
+\begin{DoxyCompactList}\small\item\em instructions of the snake gladiator mode \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaa403b7ac82d3c61224b7064f29790bd3}{Bitmaps\+\_\+struct\+::mokb\+\_\+inst}
+\begin{DoxyCompactList}\small\item\em instructions of the snake and mouse game mode \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga3b47ad4f61b00c3e5527f2bec90890b5}{Bitmaps\+\_\+struct\+::pausesymb}
+\begin{DoxyCompactList}\small\item\em pause message when the game is paused \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga86313247313ec7e1e264d13835d7d012}{Bitmaps\+\_\+struct\+::bomb}
+\begin{DoxyCompactList}\small\item\em bomb that might kill a snake \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gac0df1ce2b02d6d52203766b8cb13c9bf}{Bitmaps\+\_\+struct\+::explosion}
+\begin{DoxyCompactList}\small\item\em explosion if snake collides with a bomb \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaf891e78c1cd9b89f53a3cf6032f88e71}{Bitmaps\+\_\+struct\+::press\+\_\+enter}
+\begin{DoxyCompactList}\small\item\em message press enter to continue at the end of each game \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga279ac50f42320cb39cbc02270e40597a}{Bitmaps\+\_\+struct\+::player1}
+\begin{DoxyCompactList}\small\item\em identifier of player 1 \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gaaee24419ba914b7d473d1f5e06d84272}{Bitmaps\+\_\+struct\+::player2}
+\begin{DoxyCompactList}\small\item\em identifier of player 2 \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga500b120fd59215d5436fe2121557d34a}{Bitmaps\+\_\+struct\+::small\+\_\+player1}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga6d0717c0730d1f4bf907299c4cb3fb97}{Bitmaps\+\_\+struct\+::small\+\_\+player2}
+\begin{DoxyCompactList}\small\item\em small identifier of player 1 \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga0fe961b9b328a12b933b0e3d2393e9d4}{Bitmaps\+\_\+struct\+::choose\+\_\+main}
+\begin{DoxyCompactList}\small\item\em menu to choose the body and the head of the it wants to use(only in modes with one snake) \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga1c051bf49f7de6f60eb93649684ebfb5}{Bitmaps\+\_\+struct\+::choose\+\_\+p1}
+\begin{DoxyCompactList}\small\item\em menu in 2 snakes mode, to choose the body of the snake of player1 (snake s1) \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gabe0652c58a65bf0ccd93497ab08d9cfb}{Bitmaps\+\_\+struct\+::choose\+\_\+p2}
+\begin{DoxyCompactList}\small\item\em menu in 2 snakes mode, to choose the body of the snake of player2 (snake s2) \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga0d2f0b6ce3ed9e3fbdca9fb0e2197c8f}{Bitmaps\+\_\+struct\+::counter1\+\_\+delay}
+\begin{DoxyCompactList}\small\item\em number 1 in the countdown before the start of each game \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gabbfd3197d8f58f68356e4c404c9b41a7}{Bitmaps\+\_\+struct\+::counter2\+\_\+delay}
+\begin{DoxyCompactList}\small\item\em number 2 in the count down before the start of each game \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gac1063b5ae836e49a51d16a672c9cc11f}{Bitmaps\+\_\+struct\+::counter3\+\_\+delay}
+\begin{DoxyCompactList}\small\item\em number 3 in the count down before the start of each game \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_gac29eba55edb941d1896f1ea16ba40601}{Bitmaps\+\_\+struct\+::numbers\+\_\+score} \mbox{[}10\mbox{]}
+\begin{DoxyCompactList}\small\item\em numbers from 0 to 9 used to show the atual points of the snake ingame \end{DoxyCompactList}\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__graphics_ga416a4e7839cf0a547fcf830f0e5e3cf3}{Bitmaps\+\_\+struct\+::numbers\+\_\+back}
+\begin{DoxyCompactList}\small\item\em simple black background to put the numbers stated above, and to make a standard new wall that the snakes should\textquotesingle{}nt collide with \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions related to the graphics components of the game 
+
+\subsection{Function Documentation}
+\index{graphics@{graphics}!add\+\_\+bomb\+\_\+matrix@{add\+\_\+bomb\+\_\+matrix}}
+\index{add\+\_\+bomb\+\_\+matrix@{add\+\_\+bomb\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{add\+\_\+bomb\+\_\+matrix(int x, int y, Snake $\ast$s1)}{add_bomb_matrix(int x, int y, Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+bomb\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga4fa3e18d37f64de83f06af9aeb725ffd}{}\label{group__graphics_ga4fa3e18d37f64de83f06af9aeb725ffd}
+
+
+adds an object of type bomb in the position given,places only if it is a valid spot(used in mouse game mode) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & position on the x axis of the mouse \\
+\hline
+{\em y} & position on the y axis of the mouse \\
+\hline
+{\em s1} & snake to validate spot to put matrix ¶eturn 0 if the bomb has been successfuly added to the matrix, 1 otherwise \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{group__graphics_ga4fa3e18d37f64de83f06af9aeb725ffd_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!add\+\_\+fruit\+\_\+matrix@{add\+\_\+fruit\+\_\+matrix}}
+\index{add\+\_\+fruit\+\_\+matrix@{add\+\_\+fruit\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{add\+\_\+fruit\+\_\+matrix(int x, int y, Snake $\ast$s1)}{add_fruit_matrix(int x, int y, Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+fruit\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga88a7bb68362e9184035973dee2da6c83}{}\label{group__graphics_ga88a7bb68362e9184035973dee2da6c83}
+
+
+adds an object of type fruit in the position given, places only if it is valid spot (used in the mouse game mode) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & position on x axis of the mouse \\
+\hline
+{\em y} & position on y axis of the mouse \\
+\hline
+{\em s1} & snake to validate spot to put \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if the fruit has been succesfully added to the matrix, 1 otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{group__graphics_ga88a7bb68362e9184035973dee2da6c83_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!bomb\+\_\+count@{bomb\+\_\+count}}
+\index{bomb\+\_\+count@{bomb\+\_\+count}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{bomb\+\_\+count()}{bomb_count()}}]{\setlength{\rightskip}{0pt plus 5cm}int bomb\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaec6c3092de0056a44586f7df6de16282}{}\label{group__graphics_gaec6c3092de0056a44586f7df6de16282}
+
+
+count how many bombs are in the matrix 
+
+\begin{DoxyReturn}{Returns}
+the number of bombs in the matrix 
+\end{DoxyReturn}
+\index{graphics@{graphics}!clear\+\_\+matrix@{clear\+\_\+matrix}}
+\index{clear\+\_\+matrix@{clear\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{clear\+\_\+matrix()}{clear_matrix()}}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+\_\+matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga266e075db0561b07746b8dc1d6e68ccf}{}\label{group__graphics_ga266e075db0561b07746b8dc1d6e68ccf}
+
+
+it resets the graphics\+\_\+matrix to all N\+U\+LL pointers,so another game can be started 
+
+\index{graphics@{graphics}!draw\+\_\+screen@{draw\+\_\+screen}}
+\index{draw\+\_\+screen@{draw\+\_\+screen}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{draw\+\_\+screen(int mode)}{draw_screen(int mode)}}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+screen (
+\begin{DoxyParamCaption}
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaa559040a20c89667ba7033146b4413c5}{}\label{group__graphics_gaa559040a20c89667ba7033146b4413c5}
+
+
+it draws in the screen the current state of the game 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & flag to know what map is being used \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_gaa559040a20c89667ba7033146b4413c5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!fruit\+\_\+count@{fruit\+\_\+count}}
+\index{fruit\+\_\+count@{fruit\+\_\+count}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{fruit\+\_\+count()}{fruit_count()}}]{\setlength{\rightskip}{0pt plus 5cm}int fruit\+\_\+count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga387f95a1f4cb68e7b372ee62064d41a5}{}\label{group__graphics_ga387f95a1f4cb68e7b372ee62064d41a5}
+
+
+counts how many fruits are in the matrix 
+
+\begin{DoxyReturn}{Returns}
+the number of fruits in the matrix 
+\end{DoxyReturn}
+\index{graphics@{graphics}!get\+BM@{get\+BM}}
+\index{get\+BM@{get\+BM}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{get\+B\+M()}{getBM()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmaps\+\_\+struct}$\ast$ get\+BM (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaec3d602834e52141c736dcc41ef0ddc9}{}\label{group__graphics_gaec3d602834e52141c736dcc41ef0ddc9}
+
+
+gets the bitmap\+\_\+struct with all bitmaps used in the project 
+
+\begin{DoxyReturn}{Returns}
+the bmp global variable 
+\end{DoxyReturn}
+\index{graphics@{graphics}!new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix@{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix}}
+\index{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix@{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix(\+Snake $\ast$s1, Snake $\ast$s2, unsigned int type)}{new_object_2_snakes_matrix(Snake *s1, Snake *s2, unsigned int type)}}]{\setlength{\rightskip}{0pt plus 5cm}void new\+\_\+object\+\_\+2\+\_\+snakes\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{{\bf Snake} $\ast$}]{s2, }
+\item[{unsigned int}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaa03ab4855ae73e5b616cf76f54de6f76}{}\label{group__graphics_gaa03ab4855ae73e5b616cf76f54de6f76}
+
+
+creates a new object of type type and make sure its position in the matrix doesnt interfere with the snakes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake to compare positions with \\
+\hline
+{\em s2} & second snake to compare positions with \\
+\hline
+{\em type} & what type of object it is (0 for fruit or 1 for bomb) \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_gaa03ab4855ae73e5b616cf76f54de6f76_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!new\+\_\+object\+\_\+matrix@{new\+\_\+object\+\_\+matrix}}
+\index{new\+\_\+object\+\_\+matrix@{new\+\_\+object\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{new\+\_\+object\+\_\+matrix(\+Snake $\ast$s1, unsigned int type)}{new_object_matrix(Snake *s1, unsigned int type)}}]{\setlength{\rightskip}{0pt plus 5cm}void new\+\_\+object\+\_\+matrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{unsigned int}]{type}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gadcd1766a79d92c6aac52fe0c7b51454c}{}\label{group__graphics_gadcd1766a79d92c6aac52fe0c7b51454c}
+
+
+creates a new object of type type and make sure its position in the matrix doesnt interfere with the snake 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake to compare positions wiht \\
+\hline
+{\em type} & what type of object it is (0 for fruit or 1 for bomb) \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_gadcd1766a79d92c6aac52fe0c7b51454c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!points\+\_\+ingame\+\_\+mp@{points\+\_\+ingame\+\_\+mp}}
+\index{points\+\_\+ingame\+\_\+mp@{points\+\_\+ingame\+\_\+mp}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{points\+\_\+ingame\+\_\+mp(\+Snake $\ast$s1, Snake $\ast$s2)}{points_ingame_mp(Snake *s1, Snake *s2)}}]{\setlength{\rightskip}{0pt plus 5cm}void points\+\_\+ingame\+\_\+mp (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{{\bf Snake} $\ast$}]{s2}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaf112074b9dd511b5810d96f97e003f5e}{}\label{group__graphics_gaf112074b9dd511b5810d96f97e003f5e}
+
+
+shwo the points that both snakes has in real time during a game(game mode with 2 snakes) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake to check points of player 1 \\
+\hline
+{\em s2} & snake to check points of player 2 \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_gaf112074b9dd511b5810d96f97e003f5e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!points\+\_\+ingame\+\_\+sp@{points\+\_\+ingame\+\_\+sp}}
+\index{points\+\_\+ingame\+\_\+sp@{points\+\_\+ingame\+\_\+sp}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{points\+\_\+ingame\+\_\+sp(\+Snake $\ast$s1)}{points_ingame_sp(Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}void points\+\_\+ingame\+\_\+sp (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga02b1006c34287574944819caa3616660}{}\label{group__graphics_ga02b1006c34287574944819caa3616660}
+
+
+show the points that the snake currently has during a game (game mode with only one snake) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake to check its points \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_ga02b1006c34287574944819caa3616660_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!print\+\_\+number\+\_\+delay@{print\+\_\+number\+\_\+delay}}
+\index{print\+\_\+number\+\_\+delay@{print\+\_\+number\+\_\+delay}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{print\+\_\+number\+\_\+delay(int number\+\_\+delay)}{print_number_delay(int number_delay)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+number\+\_\+delay (
+\begin{DoxyParamCaption}
+\item[{int}]{number\+\_\+delay}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gaf23c56c7e38458853c7a8775fb9e09ec}{}\label{group__graphics_gaf23c56c7e38458853c7a8775fb9e09ec}
+
+
+Print the 3, 2, 1 numbers used when a game is starting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em number\+\_\+delay} & Number to print (1, 2 or 3) \\
+\hline
+\end{DoxyParams}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_gaf23c56c7e38458853c7a8775fb9e09ec_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!remove\+\_\+bomb@{remove\+\_\+bomb}}
+\index{remove\+\_\+bomb@{remove\+\_\+bomb}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{remove\+\_\+bomb()}{remove_bomb()}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+\_\+bomb (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gacb3ed6bc6b07cdf572291ffcea76dab8}{}\label{group__graphics_gacb3ed6bc6b07cdf572291ffcea76dab8}
+
+
+removes from the matrix the first bomb it encounters 
+
+\index{graphics@{graphics}!remove\+\_\+snakes\+\_\+matrix@{remove\+\_\+snakes\+\_\+matrix}}
+\index{remove\+\_\+snakes\+\_\+matrix@{remove\+\_\+snakes\+\_\+matrix}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{remove\+\_\+snakes\+\_\+matrix()}{remove_snakes_matrix()}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+\_\+snakes\+\_\+matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gac6b9fb650a2fb880335948e9ef3fdf82}{}\label{group__graphics_gac6b9fb650a2fb880335948e9ef3fdf82}
+
+
+removes all snakes from the matrix 
+
+\index{graphics@{graphics}!start\+\_\+mode@{start\+\_\+mode}}
+\index{start\+\_\+mode@{start\+\_\+mode}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{start\+\_\+mode()}{start_mode()}}]{\setlength{\rightskip}{0pt plus 5cm}void start\+\_\+mode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga6669f4e380f03339751e723309577575}{}\label{group__graphics_ga6669f4e380f03339751e723309577575}
+
+
+it call vg init to start the video mode in 11A and loads every bitmap used 
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_ga6669f4e380f03339751e723309577575_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!update\+\_\+matrix\+\_\+objects@{update\+\_\+matrix\+\_\+objects}}
+\index{update\+\_\+matrix\+\_\+objects@{update\+\_\+matrix\+\_\+objects}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{update\+\_\+matrix\+\_\+objects(\+Game\+\_\+object $\ast$obj, Snake $\ast$s1)}{update_matrix_objects(Game_object *obj, Snake *s1)}}]{\setlength{\rightskip}{0pt plus 5cm}int update\+\_\+matrix\+\_\+objects (
+\begin{DoxyParamCaption}
+\item[{{\bf Game\+\_\+object} $\ast$}]{obj, }
+\item[{{\bf Snake} $\ast$}]{s1}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gad40d6fc4b95f03cf67fff31597a2bada}{}\label{group__graphics_gad40d6fc4b95f03cf67fff31597a2bada}
+
+
+places the new object created in the matrix making sure that is placed in a good spot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & object that is being set \\
+\hline
+{\em s1} & snake to compare if it is placed on a good spot \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if has been successfully placed,1 otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__graphics_gad40d6fc4b95f03cf67fff31597a2bada_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes@{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes}}
+\index{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes@{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes(\+Game\+\_\+object $\ast$obj, Snake $\ast$s1, Snake $\ast$s2)}{update_matrix_objects_2_snakes(Game_object *obj, Snake *s1, Snake *s2)}}]{\setlength{\rightskip}{0pt plus 5cm}int update\+\_\+matrix\+\_\+objects\+\_\+2\+\_\+snakes (
+\begin{DoxyParamCaption}
+\item[{{\bf Game\+\_\+object} $\ast$}]{obj, }
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{{\bf Snake} $\ast$}]{s2}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga15209d618a0ee6164a1b1c7f72ba5bdf}{}\label{group__graphics_ga15209d618a0ee6164a1b1c7f72ba5bdf}
+
+
+places the new object created in the matrix making sure that is placed in a good spot 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & object that is being set \\
+\hline
+{\em s1} & snake to compare if it is placed on a good spot \\
+\hline
+{\em s2} & second snake to compare if it is placed on a good spot \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if has been successfully placed,1 otherwise 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__graphics_ga15209d618a0ee6164a1b1c7f72ba5bdf_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!update\+\_\+matrix\+\_\+snake@{update\+\_\+matrix\+\_\+snake}}
+\index{update\+\_\+matrix\+\_\+snake@{update\+\_\+matrix\+\_\+snake}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{update\+\_\+matrix\+\_\+snake(\+Snake $\ast$s1, int mouse)}{update_matrix_snake(Snake *s1, int mouse)}}]{\setlength{\rightskip}{0pt plus 5cm}int update\+\_\+matrix\+\_\+snake (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{int}]{mouse}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga7d91305a8a6ade1fc8c13c1a83e011b3}{}\label{group__graphics_ga7d91305a8a6ade1fc8c13c1a83e011b3}
+
+
+updates the position of the snake in the screen and checks collisions 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake that is going to be analised and update in the matrix \\
+\hline
+{\em mouse} & flag to know if when a snake collides with a fruit (eats it) to know if a new fruit should be generated automatically,or if the game mode is snake and mouse and doesnt need to do it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the snake as collided with something other than a fruit, so we know the snake dies,return 0 if the snake is ok 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_ga7d91305a8a6ade1fc8c13c1a83e011b3_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!update\+\_\+matrix\+\_\+snakemp@{update\+\_\+matrix\+\_\+snakemp}}
+\index{update\+\_\+matrix\+\_\+snakemp@{update\+\_\+matrix\+\_\+snakemp}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{update\+\_\+matrix\+\_\+snakemp(\+Snake $\ast$s1, Snake $\ast$s2, int $\ast$snake1\+\_\+alive, int $\ast$snake2\+\_\+alive)}{update_matrix_snakemp(Snake *s1, Snake *s2, int *snake1_alive, int *snake2_alive)}}]{\setlength{\rightskip}{0pt plus 5cm}int update\+\_\+matrix\+\_\+snakemp (
+\begin{DoxyParamCaption}
+\item[{{\bf Snake} $\ast$}]{s1, }
+\item[{{\bf Snake} $\ast$}]{s2, }
+\item[{int $\ast$}]{snake1\+\_\+alive, }
+\item[{int $\ast$}]{snake2\+\_\+alive}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga114deb65eba6094fa6251e4dbf4dc1a2}{}\label{group__graphics_ga114deb65eba6094fa6251e4dbf4dc1a2}
+
+
+it updates the matrix for the game mode with 2 snakes (similar to update matrix snake) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em s1} & snake of player 1 that is being updated in the matrix \\
+\hline
+{\em s2} & snake of player 2 that is being updated in the matrix \\
+\hline
+{\em snake1\+\_\+alive} & flag to know the living state of snake1 (so the game doesnt end when one of the snakes dies) \\
+\hline
+{\em snake2\+\_\+alive} & flag to know the living state of snake2 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if any of the snakes has collided with a dangerous object,otherwise returns 0 
+\end{DoxyReturn}
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__graphics_ga114deb65eba6094fa6251e4dbf4dc1a2_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{graphics@{graphics}!verify\+\_\+colision\+\_\+walls\+\_\+bgmap@{verify\+\_\+colision\+\_\+walls\+\_\+bgmap}}
+\index{verify\+\_\+colision\+\_\+walls\+\_\+bgmap@{verify\+\_\+colision\+\_\+walls\+\_\+bgmap}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{verify\+\_\+colision\+\_\+walls\+\_\+bgmap(int col, int row, int mode)}{verify_colision_walls_bgmap(int col, int row, int mode)}}]{\setlength{\rightskip}{0pt plus 5cm}int verify\+\_\+colision\+\_\+walls\+\_\+bgmap (
+\begin{DoxyParamCaption}
+\item[{int}]{col, }
+\item[{int}]{row, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga6e759569e268b5e7abca1e056657a608}{}\label{group__graphics_ga6e759569e268b5e7abca1e056657a608}
+
+
+checks if specific place in the screen is valid(if it is not the wall of the maps used) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em col} & column that is going to be studied \\
+\hline
+{\em row} & row that is being studied \\
+\hline
+{\em mode} & to check what map we are checking collisions, 1 for map with only one snake , 2 for the other map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if it is an invalid place(if it is in a same position with a wall of the map), 0 otherwise 
+\end{DoxyReturn}
+\index{graphics@{graphics}!vg\+\_\+exit@{vg\+\_\+exit}}
+\index{vg\+\_\+exit@{vg\+\_\+exit}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{vg\+\_\+exit()}{vg_exit()}}]{\setlength{\rightskip}{0pt plus 5cm}int vg\+\_\+exit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_ga9805b7e746b90143a74ad077d5d68223}{}\label{group__graphics_ga9805b7e746b90143a74ad077d5d68223}
+
+
+Returns to default Minix 3 text mode (0x03\+: 25 x 80, 16 colors) 
+
+\begin{DoxyReturn}{Returns}
+0 upon success, non-\/zero upon failure 
+\end{DoxyReturn}
+\index{graphics@{graphics}!vg\+\_\+init@{vg\+\_\+init}}
+\index{vg\+\_\+init@{vg\+\_\+init}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{vg\+\_\+init(unsigned short mode)}{vg_init(unsigned short mode)}}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ vg\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{mode}
+\end{DoxyParamCaption}
+)}\hypertarget{group__graphics_gacef21667c79365d57a084bed994c2189}{}\label{group__graphics_gacef21667c79365d57a084bed994c2189}
+
+
+Initializes the video module in graphics mode. 
+
+Uses the V\+BE I\+NT 0x10 interface to set the desired graphics mode, maps V\+R\+AM to the process\textquotesingle{} address space and initializes global variables with the resolution of the screen, and the number of colors
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & 16-\/bit V\+BE mode to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Virtual address V\+R\+AM was mapped to. N\+U\+LL, upon failure. 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\index{graphics@{graphics}!bg@{bg}}
+\index{bg@{bg}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{bg}{bg}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::bg}\hypertarget{group__graphics_ga2b3fa0b4fba818dec225a5cfa4ad2400}{}\label{group__graphics_ga2b3fa0b4fba818dec225a5cfa4ad2400}
+
+
+map used in SP and \hyperlink{structSnake}{Snake} and Mouse mode 
+
+\index{graphics@{graphics}!bgmp@{bgmp}}
+\index{bgmp@{bgmp}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{bgmp}{bgmp}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::bgmp}\hypertarget{group__graphics_gaca55c5a5f1494cb6d6c872d072b501d1}{}\label{group__graphics_gaca55c5a5f1494cb6d6c872d072b501d1}
+
+
+map used in the mode with 2 snakes 
+
+\index{graphics@{graphics}!body@{body}}
+\index{body@{body}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{body}{body}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::body}\hypertarget{group__graphics_gaa22a993c184e8cd76dbdf4830e5d108e}{}\label{group__graphics_gaa22a993c184e8cd76dbdf4830e5d108e}
+
+
+body the s1 snake 
+
+\index{graphics@{graphics}!body2@{body2}}
+\index{body2@{body2}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{body2}{body2}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::body2}\hypertarget{group__graphics_ga8b84da2f75b89636fa34ff1cd47215f4}{}\label{group__graphics_ga8b84da2f75b89636fa34ff1cd47215f4}
+
+
+body of the s2 snake 
+
+\index{graphics@{graphics}!bomb@{bomb}}
+\index{bomb@{bomb}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{bomb}{bomb}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::bomb}\hypertarget{group__graphics_ga86313247313ec7e1e264d13835d7d012}{}\label{group__graphics_ga86313247313ec7e1e264d13835d7d012}
+
+
+bomb that might kill a snake 
+
+\index{graphics@{graphics}!cabeca1hd@{cabeca1hd}}
+\index{cabeca1hd@{cabeca1hd}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca1hd}{cabeca1hd}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca1hd}\hypertarget{group__graphics_ga7740065d096144bd6f6f9457083584d9}{}\label{group__graphics_ga7740065d096144bd6f6f9457083584d9}
+
+
+head of the s1 snake in the horizontal and positive directions 
+
+\index{graphics@{graphics}!cabeca1he@{cabeca1he}}
+\index{cabeca1he@{cabeca1he}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca1he}{cabeca1he}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca1he}\hypertarget{group__graphics_ga5989c4f83267088c9fdb6d1251d2e092}{}\label{group__graphics_ga5989c4f83267088c9fdb6d1251d2e092}
+
+
+head of the s1 snake in the horizontal and negative directions 
+
+\index{graphics@{graphics}!cabeca1vb@{cabeca1vb}}
+\index{cabeca1vb@{cabeca1vb}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca1vb}{cabeca1vb}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca1vb}\hypertarget{group__graphics_ga5737d3b582663eb60cd3fd47421707b3}{}\label{group__graphics_ga5737d3b582663eb60cd3fd47421707b3}
+
+
+head of the s1 snake in the vertical and positive directions 
+
+\index{graphics@{graphics}!cabeca1vc@{cabeca1vc}}
+\index{cabeca1vc@{cabeca1vc}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca1vc}{cabeca1vc}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca1vc}\hypertarget{group__graphics_ga257cc4fca4ad7cceb125e4e43f62a17b}{}\label{group__graphics_ga257cc4fca4ad7cceb125e4e43f62a17b}
+
+
+head of the s1 snake in the vertical and negative directions 
+
+\index{graphics@{graphics}!cabeca2hd@{cabeca2hd}}
+\index{cabeca2hd@{cabeca2hd}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca2hd}{cabeca2hd}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca2hd}\hypertarget{group__graphics_ga74f59c6b2020b67b1e4c40b4d07b7dcb}{}\label{group__graphics_ga74f59c6b2020b67b1e4c40b4d07b7dcb}
+
+
+head of the s2 snake in the horizontal and positive directions 
+
+\index{graphics@{graphics}!cabeca2he@{cabeca2he}}
+\index{cabeca2he@{cabeca2he}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca2he}{cabeca2he}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca2he}\hypertarget{group__graphics_gad921a321d31f1c5f8430770b09949bd8}{}\label{group__graphics_gad921a321d31f1c5f8430770b09949bd8}
+
+
+head of the s2 snake in the horizontal and negative directions 
+
+\index{graphics@{graphics}!cabeca2vb@{cabeca2vb}}
+\index{cabeca2vb@{cabeca2vb}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca2vb}{cabeca2vb}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca2vb}\hypertarget{group__graphics_ga50f31017797fe46247d3ef644f6670c9}{}\label{group__graphics_ga50f31017797fe46247d3ef644f6670c9}
+
+
+head of the s2 snake in the vertical and positive directions 
+
+\index{graphics@{graphics}!cabeca2vc@{cabeca2vc}}
+\index{cabeca2vc@{cabeca2vc}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cabeca2vc}{cabeca2vc}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cabeca2vc}\hypertarget{group__graphics_gabcbbaac60aafd8e9549fcef5fa6acb83}{}\label{group__graphics_gabcbbaac60aafd8e9549fcef5fa6acb83}
+
+
+head of the s2 snake in the vertical and negative directions 
+
+\index{graphics@{graphics}!choose\+\_\+main@{choose\+\_\+main}}
+\index{choose\+\_\+main@{choose\+\_\+main}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{choose\+\_\+main}{choose_main}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::choose\+\_\+main}\hypertarget{group__graphics_ga0fe961b9b328a12b933b0e3d2393e9d4}{}\label{group__graphics_ga0fe961b9b328a12b933b0e3d2393e9d4}
+
+
+menu to choose the body and the head of the it wants to use(only in modes with one snake) 
+
+\index{graphics@{graphics}!choose\+\_\+p1@{choose\+\_\+p1}}
+\index{choose\+\_\+p1@{choose\+\_\+p1}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{choose\+\_\+p1}{choose_p1}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::choose\+\_\+p1}\hypertarget{group__graphics_ga1c051bf49f7de6f60eb93649684ebfb5}{}\label{group__graphics_ga1c051bf49f7de6f60eb93649684ebfb5}
+
+
+menu in 2 snakes mode, to choose the body of the snake of player1 (snake s1) 
+
+\index{graphics@{graphics}!choose\+\_\+p2@{choose\+\_\+p2}}
+\index{choose\+\_\+p2@{choose\+\_\+p2}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{choose\+\_\+p2}{choose_p2}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::choose\+\_\+p2}\hypertarget{group__graphics_gabe0652c58a65bf0ccd93497ab08d9cfb}{}\label{group__graphics_gabe0652c58a65bf0ccd93497ab08d9cfb}
+
+
+menu in 2 snakes mode, to choose the body of the snake of player2 (snake s2) 
+
+\index{graphics@{graphics}!counter1\+\_\+delay@{counter1\+\_\+delay}}
+\index{counter1\+\_\+delay@{counter1\+\_\+delay}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{counter1\+\_\+delay}{counter1_delay}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::counter1\+\_\+delay}\hypertarget{group__graphics_ga0d2f0b6ce3ed9e3fbdca9fb0e2197c8f}{}\label{group__graphics_ga0d2f0b6ce3ed9e3fbdca9fb0e2197c8f}
+
+
+number 1 in the countdown before the start of each game 
+
+\index{graphics@{graphics}!counter2\+\_\+delay@{counter2\+\_\+delay}}
+\index{counter2\+\_\+delay@{counter2\+\_\+delay}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{counter2\+\_\+delay}{counter2_delay}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::counter2\+\_\+delay}\hypertarget{group__graphics_gabbfd3197d8f58f68356e4c404c9b41a7}{}\label{group__graphics_gabbfd3197d8f58f68356e4c404c9b41a7}
+
+
+number 2 in the count down before the start of each game 
+
+\index{graphics@{graphics}!counter3\+\_\+delay@{counter3\+\_\+delay}}
+\index{counter3\+\_\+delay@{counter3\+\_\+delay}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{counter3\+\_\+delay}{counter3_delay}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::counter3\+\_\+delay}\hypertarget{group__graphics_gac1063b5ae836e49a51d16a672c9cc11f}{}\label{group__graphics_gac1063b5ae836e49a51d16a672c9cc11f}
+
+
+number 3 in the count down before the start of each game 
+
+\index{graphics@{graphics}!cursor@{cursor}}
+\index{cursor@{cursor}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{cursor}{cursor}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::cursor}\hypertarget{group__graphics_gaa9e2b675fd059f98d6fc79bff67f7918}{}\label{group__graphics_gaa9e2b675fd059f98d6fc79bff67f7918}
+
+
+menu that appears when player selects multiplayer in main\+\_\+menu 
+
+$<$mouse cursor \index{graphics@{graphics}!explosion@{explosion}}
+\index{explosion@{explosion}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{explosion}{explosion}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::explosion}\hypertarget{group__graphics_gac0df1ce2b02d6d52203766b8cb13c9bf}{}\label{group__graphics_gac0df1ce2b02d6d52203766b8cb13c9bf}
+
+
+explosion if snake collides with a bomb 
+
+\index{graphics@{graphics}!game\+\_\+over@{game\+\_\+over}}
+\index{game\+\_\+over@{game\+\_\+over}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{game\+\_\+over}{game_over}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::game\+\_\+over}\hypertarget{group__graphics_ga0145b28638489d1308f15646be8042eb}{}\label{group__graphics_ga0145b28638489d1308f15646be8042eb}
+\index{graphics@{graphics}!kbc\+\_\+inst@{kbc\+\_\+inst}}
+\index{kbc\+\_\+inst@{kbc\+\_\+inst}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{kbc\+\_\+inst}{kbc_inst}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::kbc\+\_\+inst}\hypertarget{group__graphics_ga4096188495e68d783bf3b8ac7871b7fa}{}\label{group__graphics_ga4096188495e68d783bf3b8ac7871b7fa}
+
+
+instructions of the snake gladiator mode 
+
+\index{graphics@{graphics}!maca@{maca}}
+\index{maca@{maca}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{maca}{maca}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::maca}\hypertarget{group__graphics_ga90d36683bc99f1ee114191f6ae238990}{}\label{group__graphics_ga90d36683bc99f1ee114191f6ae238990}
+
+
+fruit eaten by the snake to grow 
+
+\index{graphics@{graphics}!main\+\_\+menu@{main\+\_\+menu}}
+\index{main\+\_\+menu@{main\+\_\+menu}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{main\+\_\+menu}{main_menu}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::main\+\_\+menu}\hypertarget{group__graphics_ga024eb6d4380a6df2938202e45547c241}{}\label{group__graphics_ga024eb6d4380a6df2938202e45547c241}
+
+
+menu that appears at the start of the game 
+
+\index{graphics@{graphics}!mokb\+\_\+inst@{mokb\+\_\+inst}}
+\index{mokb\+\_\+inst@{mokb\+\_\+inst}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{mokb\+\_\+inst}{mokb_inst}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::mokb\+\_\+inst}\hypertarget{group__graphics_gaa403b7ac82d3c61224b7064f29790bd3}{}\label{group__graphics_gaa403b7ac82d3c61224b7064f29790bd3}
+
+
+instructions of the snake and mouse game mode 
+
+\index{graphics@{graphics}!mp\+\_\+menu@{mp\+\_\+menu}}
+\index{mp\+\_\+menu@{mp\+\_\+menu}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{mp\+\_\+menu}{mp_menu}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::mp\+\_\+menu}\hypertarget{group__graphics_ga65a5f6d63fc1498c0bace1310dac202f}{}\label{group__graphics_ga65a5f6d63fc1498c0bace1310dac202f}
+\index{graphics@{graphics}!numbers@{numbers}}
+\index{numbers@{numbers}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{numbers}{numbers}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::numbers\mbox{[}11\mbox{]}}\hypertarget{group__graphics_ga055c85bff730277d284b6e00bb7d1b62}{}\label{group__graphics_ga055c85bff730277d284b6e00bb7d1b62}
+
+
+all the numbers from 0 to 9 in order,and the char \textquotesingle{}\+:\textquotesingle{} and \textquotesingle{}/\textquotesingle{} used in time and final scores 
+
+\index{graphics@{graphics}!numbers\+\_\+back@{numbers\+\_\+back}}
+\index{numbers\+\_\+back@{numbers\+\_\+back}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{numbers\+\_\+back}{numbers_back}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::numbers\+\_\+back}\hypertarget{group__graphics_ga416a4e7839cf0a547fcf830f0e5e3cf3}{}\label{group__graphics_ga416a4e7839cf0a547fcf830f0e5e3cf3}
+
+
+simple black background to put the numbers stated above, and to make a standard new wall that the snakes should\textquotesingle{}nt collide with 
+
+\index{graphics@{graphics}!numbers\+\_\+score@{numbers\+\_\+score}}
+\index{numbers\+\_\+score@{numbers\+\_\+score}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{numbers\+\_\+score}{numbers_score}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::numbers\+\_\+score\mbox{[}10\mbox{]}}\hypertarget{group__graphics_gac29eba55edb941d1896f1ea16ba40601}{}\label{group__graphics_gac29eba55edb941d1896f1ea16ba40601}
+
+
+numbers from 0 to 9 used to show the atual points of the snake ingame 
+
+\index{graphics@{graphics}!pausesymb@{pausesymb}}
+\index{pausesymb@{pausesymb}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{pausesymb}{pausesymb}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::pausesymb}\hypertarget{group__graphics_ga3b47ad4f61b00c3e5527f2bec90890b5}{}\label{group__graphics_ga3b47ad4f61b00c3e5527f2bec90890b5}
+
+
+pause message when the game is paused 
+
+\index{graphics@{graphics}!player1@{player1}}
+\index{player1@{player1}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{player1}{player1}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::player1}\hypertarget{group__graphics_ga279ac50f42320cb39cbc02270e40597a}{}\label{group__graphics_ga279ac50f42320cb39cbc02270e40597a}
+
+
+identifier of player 1 
+
+\index{graphics@{graphics}!player2@{player2}}
+\index{player2@{player2}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{player2}{player2}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::player2}\hypertarget{group__graphics_gaaee24419ba914b7d473d1f5e06d84272}{}\label{group__graphics_gaaee24419ba914b7d473d1f5e06d84272}
+
+
+identifier of player 2 
+
+\index{graphics@{graphics}!press\+\_\+enter@{press\+\_\+enter}}
+\index{press\+\_\+enter@{press\+\_\+enter}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{press\+\_\+enter}{press_enter}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::press\+\_\+enter}\hypertarget{group__graphics_gaf891e78c1cd9b89f53a3cf6032f88e71}{}\label{group__graphics_gaf891e78c1cd9b89f53a3cf6032f88e71}
+
+
+message press enter to continue at the end of each game 
+
+\index{graphics@{graphics}!small\+\_\+player1@{small\+\_\+player1}}
+\index{small\+\_\+player1@{small\+\_\+player1}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{small\+\_\+player1}{small_player1}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::small\+\_\+player1}\hypertarget{group__graphics_ga500b120fd59215d5436fe2121557d34a}{}\label{group__graphics_ga500b120fd59215d5436fe2121557d34a}
+\index{graphics@{graphics}!small\+\_\+player2@{small\+\_\+player2}}
+\index{small\+\_\+player2@{small\+\_\+player2}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{small\+\_\+player2}{small_player2}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::small\+\_\+player2}\hypertarget{group__graphics_ga6d0717c0730d1f4bf907299c4cb3fb97}{}\label{group__graphics_ga6d0717c0730d1f4bf907299c4cb3fb97}
+
+
+small identifier of player 1 
+
+$<$small identifier of player 2 \index{graphics@{graphics}!sp\+\_\+inst@{sp\+\_\+inst}}
+\index{sp\+\_\+inst@{sp\+\_\+inst}!graphics@{graphics}}
+\subsubsection[{\texorpdfstring{sp\+\_\+inst}{sp_inst}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ Bitmaps\+\_\+struct\+::sp\+\_\+inst}\hypertarget{group__graphics_ga067f54df47f8ccad03f63d3b683f73a5}{}\label{group__graphics_ga067f54df47f8ccad03f63d3b683f73a5}
+
+
+instructions of the singleplayer mode 
+

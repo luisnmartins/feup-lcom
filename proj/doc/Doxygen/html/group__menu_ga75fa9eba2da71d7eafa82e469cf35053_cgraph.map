@@ -1,0 +1,11 @@
+<map id="draw_preview_snake" name="draw_preview_snake">
+<area shape="rect" id="node2" href="$group__Bitmap.html#ga362eae5066441f6797d2289c5ccd493d" title="Draws an unscaled, unrotated bitmap at the given position. " alt="" coords="197,81,315,108"/>
+<area shape="rect" id="node6" href="$group__Bitmap.html#ga18d05a1c671f4638bc63d37874efb9d4" title="Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a t..." alt="" coords="211,31,301,57"/>
+<area shape="rect" id="node7" href="$video__gr_8c.html#a7d5ac1f44aa40304e931686f8ae993c3" title="copies what is in the double buffer to the video mem " alt="" coords="213,132,299,159"/>
+<area shape="rect" id="node8" href="$group__snake.html#ga0ff179758d3dbd6aa7c79dc51776c9d7" title="moves the snake by one position based on its segments direction and orientation " alt="" coords="208,183,304,209"/>
+<area shape="rect" id="node10" href="$group__snake.html#gafc851c81ca29b4d1e7e8890e7bf6bbf0" title="resets the snake that is used in the menu preview(when choosing the snake skin) " alt="" coords="215,233,297,260"/>
+<area shape="rect" id="node3" href="$video__gr_8c.html#ae2b9b38f4f97e1c580123c8e9a993353" title="returns the resolution of the video mode that is being used " alt="" coords="363,5,485,32"/>
+<area shape="rect" id="node4" href="$video__gr_8c.html#a7ee85b0f333d227380a2c43e5fb8507a" title="returns the resolution of the video mode that is being used " alt="" coords="363,56,485,83"/>
+<area shape="rect" id="node5" href="$video__gr_8c.html#a53bcb644c2becbafdee4cef123410bd9" title="returns the double buffer " alt="" coords="369,107,479,133"/>
+<area shape="rect" id="node9" href="$group__snake.html#ga9905deea86c0d94567ede79df04a2917" title="adds a new segment_snake to the snake as the new head of the snake " alt="" coords="374,183,474,209"/>
+</map>

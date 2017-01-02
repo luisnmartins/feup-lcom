@@ -1,0 +1,5 @@
+<map id="new_object_matrix" name="new_object_matrix">
+<area shape="rect" id="node2" href="$group__object.html#gaec22a837ae65e3ba7f3e55ad9c37c91d" title="it creates a new object in a random position " alt="" coords="217,5,305,32"/>
+<area shape="rect" id="node3" href="$group__graphics.html#gad40d6fc4b95f03cf67fff31597a2bada" title="places the new object created in the matrix making sure that is placed in a good spot ..." alt="" coords="184,56,337,83"/>
+<area shape="rect" id="node4" href="$group__graphics.html#ga6e759569e268b5e7abca1e056657a608" title="checks if specific place in the screen is valid(if it is not the wall of the maps used) ..." alt="" coords="385,49,528,90"/>
+</map>

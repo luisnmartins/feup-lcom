@@ -1,0 +1,24 @@
+\hypertarget{Bitmap_8c}{}\section{proj/src/\+Bitmap.c File Reference}
+\label{Bitmap_8c}\index{proj/src/\+Bitmap.\+c@{proj/src/\+Bitmap.\+c}}
+{\ttfamily \#include \char`\"{}Bitmap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}stdio.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\\*
+Include dependency graph for Bitmap.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{Bitmap_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{group__Bitmap_ga3506880ffd407c36eb8aaddd2c1606d2}{load\+Bitmap} (const char $\ast$filename)
+\begin{DoxyCompactList}\small\item\em Loads a bmp image. \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga18d05a1c671f4638bc63d37874efb9d4}{draw\+Bitmap} (\hyperlink{structBitmap}{Bitmap} $\ast$\hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp}, int x, int y, \hyperlink{group__Bitmap_gacdfaca60ec19c0265bac2692d7982726}{Alignment} alignment)
+\begin{DoxyCompactList}\small\item\em Draws an unscaled, unrotated bitmap at the given position, and verify each pixel to know if it is a transparent pixel (color rgb(255, 0, 255) ) \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga362eae5066441f6797d2289c5ccd493d}{drawbackground} (\hyperlink{structBitmap}{Bitmap} $\ast$\hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp}, int x, int y, \hyperlink{group__Bitmap_gacdfaca60ec19c0265bac2692d7982726}{Alignment} alignment)
+\begin{DoxyCompactList}\small\item\em Draws an unscaled, unrotated bitmap at the given position. \end{DoxyCompactList}\item 
+void \hyperlink{group__Bitmap_ga08c1d4f4fff81df260d979ea8fc1aa61}{delete\+Bitmap} (\hyperlink{structBitmap}{Bitmap} $\ast$\hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp})
+\begin{DoxyCompactList}\small\item\em Destroys the given bitmap, freeing all resources used by it. \end{DoxyCompactList}\end{DoxyCompactItemize}

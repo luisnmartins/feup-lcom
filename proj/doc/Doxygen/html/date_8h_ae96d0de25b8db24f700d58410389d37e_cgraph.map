@@ -1,0 +1,5 @@
+<map id="update_date" name="update_date">
+<area shape="rect" id="node2" href="$group__rtc.html#ga5960e020c86a383a63cdead42f3928b9" title="simple function that sees if the date can be read " alt="" coords="147,5,253,32"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga2ed53b5a2ef633341d444c26659c2e58" title="reads the right registers of the rtc to get the date of the system " alt="" coords="161,56,239,83"/>
+<area shape="rect" id="node4" href="$group__rtc.html#ga361f06856ed8c5dfb47c2e01af6a7470" title="reads the necessary registers of the rtc to get the time of the system " alt="" coords="161,107,239,133"/>
+</map>

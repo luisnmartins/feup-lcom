@@ -1,0 +1,78 @@
+\hypertarget{menu_8c}{}\section{proj/src/menu.c File Reference}
+\label{menu_8c}\index{proj/src/menu.\+c@{proj/src/menu.\+c}}
+{\ttfamily \#include \char`\"{}menu.\+h\char`\"{}}\\*
+Include dependency graph for menu.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{menu_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__menu_gaa00e45cbd295e588746a7f2fd88b0d20}{start\+\_\+variables\+\_\+menu} ()
+\begin{DoxyCompactList}\small\item\em it fills the bmp global variable with the bitmaps loaded in \hyperlink{graphics_8c}{graphics.\+c} \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga937fb72019d190110b15fdf01d17992b}{draw\+\_\+menu} (int mode)
+\begin{DoxyCompactList}\small\item\em draws in the screen the menu specified \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_gab1b3c1e3e90e9c78f31cddcc2544fd09}{update\+\_\+menu\+\_\+mouse} ()
+\begin{DoxyCompactList}\small\item\em draws in the screen the mouse cursor in the current position of the mouse \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga95721c20a1fd0be4884cd0a0f8168f53}{change\+\_\+body} (int opt)
+\begin{DoxyCompactList}\small\item\em it changes the bmp associated with the variable body \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga8f65ea2dd45c3b01b9f3752fc04745db}{change\+\_\+body2} (int opt)
+\begin{DoxyCompactList}\small\item\em it changes the bmp associated with the variable body2 \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga0c2bebb094507763ab9c3343f554c0cc}{change\+\_\+head} (int opt)
+\begin{DoxyCompactList}\small\item\em it changes all the bmps associated with the variables of the head of snake s1 \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_gafebc2d04c898f861176790d50232e001}{draw\+\_\+choose\+\_\+snake} (int mode)
+\begin{DoxyCompactList}\small\item\em draws the menus to choose the body of the snakes \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_gab149955bb30c6e7a2923c73e86c09ac9}{update\+\_\+pos\+\_\+mouse} (unsigned long $\ast$x, unsigned long $\ast$y)
+\begin{DoxyCompactList}\small\item\em it updates the x\+\_\+pos\+\_\+atual and y\+\_\+pos\+\_\+atual of the mouse \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga9b565fa7246d14c851c7d66b487e21fc}{draw\+\_\+time} (int hour, int min, int seconds)
+\begin{DoxyCompactList}\small\item\em it draws in the menus the current time of the system \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga4a36c7e8b7af7e8f586a739cd54b85b4}{draw\+\_\+instructions} (int mode)
+\begin{DoxyCompactList}\small\item\em draws the game instructions of each game mode \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga2cb72366439253e4818c96e350f195d2}{show\+\_\+points\+\_\+sp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1})
+\begin{DoxyCompactList}\small\item\em show the end game points of the snake(1 snake modes) \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga1ceb0e04a7680faf9583052de831fbe6}{show\+\_\+points\+\_\+mp} (\hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_gaf79c0d77b0cca9ebf96bbbed1f88aed0}{s1}, \hyperlink{structSnake}{Snake} $\ast$\hyperlink{group__man__events_ga5b853e8b22f27ef547e5b45e4197d308}{s2})
+\begin{DoxyCompactList}\small\item\em show the end game points of both players snakes (2 snake modes) \end{DoxyCompactList}\item 
+void \hyperlink{group__menu_ga75fa9eba2da71d7eafa82e469cf35053}{draw\+\_\+preview\+\_\+snake} (\hyperlink{structSnake}{Snake} $\ast$snake\+\_\+preview, int counter, int body\+\_\+count)
+\begin{DoxyCompactList}\small\item\em draws in any of the choose menus a preview snake to see how the options chosen looks \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{structBitmaps__struct}{Bitmaps\+\_\+struct} $\ast$ \hyperlink{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{bmp}
+\begin{DoxyCompactList}\small\item\em bitmap\+\_\+struct with all bitmaps used in project \end{DoxyCompactList}\item 
+static \hyperlink{structBitmap}{Bitmap} $\ast$ \hyperlink{menu_8c_a6fbc26fd96149ee0464500cf23166402}{preview\+\_\+matrix} \mbox{[}25\mbox{]} = \{N\+U\+LL\}
+\item 
+static unsigned long \hyperlink{menu_8c_ae8cd0275877fd881f17bd884bf67e0fd}{x\+\_\+pos\+\_\+atual} = 200
+\begin{DoxyCompactList}\small\item\em variable to save x position of the mouse \end{DoxyCompactList}\item 
+static unsigned long \hyperlink{menu_8c_add716e994b6ff9e5b3c3cd445ce2308e}{y\+\_\+pos\+\_\+atual} = 200
+\begin{DoxyCompactList}\small\item\em variable to save y position of the mmouse \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Variable Documentation}
+\index{menu.\+c@{menu.\+c}!bmp@{bmp}}
+\index{bmp@{bmp}!menu.\+c@{menu.\+c}}
+\subsubsection[{\texorpdfstring{bmp}{bmp}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmaps\+\_\+struct}$\ast$ bmp\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}{}\label{menu_8c_a9ac459dc630a69c0162412290c4cc1f6}
+
+
+bitmap\+\_\+struct with all bitmaps used in project 
+
+\index{menu.\+c@{menu.\+c}!preview\+\_\+matrix@{preview\+\_\+matrix}}
+\index{preview\+\_\+matrix@{preview\+\_\+matrix}!menu.\+c@{menu.\+c}}
+\subsubsection[{\texorpdfstring{preview\+\_\+matrix}{preview_matrix}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bitmap}$\ast$ preview\+\_\+matrix\mbox{[}25\mbox{]} = \{N\+U\+LL\}\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{menu_8c_a6fbc26fd96149ee0464500cf23166402}{}\label{menu_8c_a6fbc26fd96149ee0464500cf23166402}
+\index{menu.\+c@{menu.\+c}!x\+\_\+pos\+\_\+atual@{x\+\_\+pos\+\_\+atual}}
+\index{x\+\_\+pos\+\_\+atual@{x\+\_\+pos\+\_\+atual}!menu.\+c@{menu.\+c}}
+\subsubsection[{\texorpdfstring{x\+\_\+pos\+\_\+atual}{x_pos_atual}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long x\+\_\+pos\+\_\+atual = 200\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{menu_8c_ae8cd0275877fd881f17bd884bf67e0fd}{}\label{menu_8c_ae8cd0275877fd881f17bd884bf67e0fd}
+
+
+variable to save x position of the mouse 
+
+\index{menu.\+c@{menu.\+c}!y\+\_\+pos\+\_\+atual@{y\+\_\+pos\+\_\+atual}}
+\index{y\+\_\+pos\+\_\+atual@{y\+\_\+pos\+\_\+atual}!menu.\+c@{menu.\+c}}
+\subsubsection[{\texorpdfstring{y\+\_\+pos\+\_\+atual}{y_pos_atual}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long y\+\_\+pos\+\_\+atual = 200\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{menu_8c_add716e994b6ff9e5b3c3cd445ce2308e}{}\label{menu_8c_add716e994b6ff9e5b3c3cd445ce2308e}
+
+
+variable to save y position of the mmouse 
+

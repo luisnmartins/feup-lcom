@@ -1,0 +1,26 @@
+\hypertarget{man__events_8c}{}\section{proj/src/man\+\_\+events.c File Reference}
+\label{man__events_8c}\index{proj/src/man\+\_\+events.\+c@{proj/src/man\+\_\+events.\+c}}
+{\ttfamily \#include \char`\"{}man\+\_\+events.\+h\char`\"{}}\\*
+Include dependency graph for man\+\_\+events.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{man__events_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__man__events_ga35641febfec789ab3ddc031482a80ea1}{check\+\_\+game\+\_\+status} (\hyperlink{group__man__events_gaa19be6305a5a4485e1e70de70ed7d677}{states} $\ast$st, \hyperlink{group__man__events_ga3b65133bb9997cd1ccf311af0927fc9e}{event} $\ast$ev)
+\begin{DoxyCompactList}\small\item\em main game state machine that knows and interprets the state the game is \end{DoxyCompactList}\item 
+int \hyperlink{group__man__events_ga87d21261b5adc5a0dccb151f938735a9}{keyboard\+\_\+event\+\_\+handler} (unsigned long out\+\_\+buf)
+\begin{DoxyCompactList}\small\item\em it interprets the interrupts of the keyboard and \char`\"{}acts\char`\"{} if the keys are pressed in the necessary states \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_ga07dc5293a915fb3c924067ef41f08d23}{game\+\_\+start} (int mode)
+\begin{DoxyCompactList}\small\item\em it makes the necessary actions to start a game mode (established by the parameter), create snake(s), put them in the matrix,add the initial objects,etc \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_gacc914291496b74fddbe876393dda69a6}{new\+\_\+snake\+\_\+preview} ()
+\begin{DoxyCompactList}\small\item\em creates the snake that is shown in the choose skin of the snake menu before each game \end{DoxyCompactList}\item 
+int \hyperlink{group__man__events_ga5c998385f8d5e28e1380654ad355e0b5}{timer\+\_\+event\+\_\+handler} (unsigned short counter)
+\begin{DoxyCompactList}\small\item\em it interprets the interrupts of the timer and acts differently depending of the state that the state machine is currently in \end{DoxyCompactList}\item 
+void \hyperlink{group__man__events_ga9c2df329e13887f8f241315c35057d77}{mouse\+\_\+event\+\_\+handler} (unsigned long $\ast$packet\+\_\+mouse)
+\begin{DoxyCompactList}\small\item\em in interprets the interrupts of the mouse and acts depending of the currently state of the state machine \end{DoxyCompactList}\end{DoxyCompactItemize}

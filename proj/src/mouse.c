@@ -9,8 +9,6 @@ typedef enum {
 	RDOW, RUP, TOLERANCE, VERT_LINE
 } ev_type_t;
 
-
-
 int mouse_subscribe_int() {
 	int temp = mhook_id;
 
@@ -74,7 +72,7 @@ int issue_cmd_ms(unsigned long cmd) {
 	unsigned int n = 0;
 	while (n <= 5) {
 		if (set_kbc_mouse() == -1) //set kbc to read mouse
-					return -1;
+			return -1;
 		sys_inb(STATUS_REG, &stat); /* assuming it returns OK */
 		/* loop while 8042 input buffer is not empty */
 
@@ -91,9 +89,6 @@ int issue_cmd_ms(unsigned long cmd) {
 	return -1;
 
 }
-
-
-
 
 int set_kbc_mouse() {
 	unsigned long stat = 0;
@@ -116,35 +111,28 @@ int set_kbc_mouse() {
 
 }
 
-
-int get_packets(unsigned short *counter, unsigned long *packet_mouse, unsigned long *out_buf_mouse)
-{
+int get_packets(unsigned short *counter, unsigned long *packet_mouse,
+		unsigned long *out_buf_mouse) {
 
 	printf("GET PACKETS\n");
 	(*out_buf_mouse) = mouse_int_handler();
-	if((*out_buf_mouse) == -1)
-	{
-			(*counter) = 0;
-			return 1;
+	if ((*out_buf_mouse) == -1) {
+		(*counter) = 0;
+		return 1;
 	}
-	if ((*counter) == 0)
-	{
-		if ((*out_buf_mouse) & VERIFY_PACKET)
-		{
+	if ((*counter) == 0) {
+		if ((*out_buf_mouse) & VERIFY_PACKET) {
 
 			packet_mouse[0] = (*out_buf_mouse);
 
-		} else return 1;
+		} else
+			return 1;
 
-	}
-	else if ((*counter) == 1)
-	{
+	} else if ((*counter) == 1) {
 
 		packet_mouse[1] = (*out_buf_mouse);
 
-	}
-	else if ((*counter) == 2)
-	{
+	} else if ((*counter) == 2) {
 		packet_mouse[2] = (*out_buf_mouse);
 		printf("ACABOU LEITURA\n");
 		(*counter) = 0;
@@ -154,87 +142,76 @@ int get_packets(unsigned short *counter, unsigned long *packet_mouse, unsigned l
 	printf("COUNTER MOUSE: %d\n", (*counter));
 	return 1;
 
-
-
-
 }
 
-int set_stream_mode()
-{
-	int send_ct=0;
+int set_stream_mode() {
+	int send_ct = 0;
 	unsigned long out_buf = 0;
 
 	do {
 
-			issue_cmd_ms(DISABLE_STREAM);
-			out_buf = mouse_int_handler();
-			send_ct++;
-
-		} while ((out_buf != ACK) && send_ct<5);
-		if(send_ct>= 5)
-		{
-			printf("Error sending Disable command");
-			return 1;
-		}
-		send_ct=0;
-		do {
-
-
-			issue_cmd_ms(ENABLE_STREAM);
-			out_buf = mouse_int_handler();
-			send_ct++;
-
-		} while ((out_buf != ACK) && send_ct<5);
-
-		if(send_ct>= 5)
-		{
-			printf("Error sending Enable command");
-			return 1;
-		}
-}
-
-
-int disable_stream_mode_end()
-{
-		int send_ct=0;
-		unsigned long out_buf = 0;
-		do {
-
-			issue_cmd_ms(DISABLE_STREAM);
-			out_buf = mouse_int_handler();
-			send_ct++;
-
-		} while ((out_buf != ACK) && send_ct<5);
-		if(send_ct>= 5)
-		{
-			printf("Error sending Disable command");
-			return 1;
-		}
-
-		printf("Stream Disabled\n");
-
-		send_ct=0;
-
-		do {
-
-			issue_cmd_ms(STREAM_MODE);
-			out_buf = mouse_int_handler();
-			send_ct++;
-
-		} while (out_buf != ACK && send_ct<5);
-		if(send_ct>= 5)
-			{
-				printf("Error sending set stream command");
-				return 1;
-			}
-
-		printf("Stream mode set");
-
+		issue_cmd_ms(DISABLE_STREAM);
 		out_buf = mouse_int_handler();
+		send_ct++;
+
+	} while ((out_buf != ACK) && send_ct < 5);
+	if (send_ct >= 5) {
+		printf("Error sending Disable command");
+		return 1;
+	}
+	send_ct = 0;
+	do {
+
+		issue_cmd_ms(ENABLE_STREAM);
+		out_buf = mouse_int_handler();
+		send_ct++;
+
+	} while ((out_buf != ACK) && send_ct < 5);
+
+	if (send_ct >= 5) {
+		printf("Error sending Enable command");
+		return 1;
+	}
 }
 
+int disable_stream_mode_end() {
+	int send_ct = 0;
+	unsigned long out_buf = 0;
+	do {
 
-int print_packet(int size_array, unsigned long *array, long *x, long  *y, unsigned short *lb,unsigned short *rb) {
+		issue_cmd_ms(DISABLE_STREAM);
+		out_buf = mouse_int_handler();
+		send_ct++;
+
+	} while ((out_buf != ACK) && send_ct < 5);
+	if (send_ct >= 5) {
+		printf("Error sending Disable command");
+		return 1;
+	}
+
+	printf("Stream Disabled\n");
+
+	send_ct = 0;
+
+	do {
+
+		issue_cmd_ms(STREAM_MODE);
+		out_buf = mouse_int_handler();
+		send_ct++;
+
+	} while (out_buf != ACK && send_ct < 5);
+	if (send_ct >= 5) {
+		printf("Error sending set stream command");
+		return 1;
+	}
+
+	printf("Stream mode set");
+
+	out_buf = mouse_int_handler();
+}
+
+int print_packet(int size_array, unsigned long *array, long *x, long *y,
+		unsigned short *lb, unsigned short *rb) {
 	int i = 0;
 	int flag = 0;
 	unsigned long byte1 = array[0];
@@ -303,9 +280,4 @@ long compl2(long nr) {
 	return nr;
 
 }
-
-
-
-
-
 

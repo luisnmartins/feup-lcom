@@ -1,73 +1,64 @@
-
 #include "snake.h"
 
-void new_snake(int size, unsigned short row, unsigned short col, Snake* s1)
-{
+void new_snake(int size, unsigned short row, unsigned short col, Snake* s1) {
 	printf("new_snake\n");
 
-	s1->size=0;
+	s1->size = 0;
 	s1->velocity = 6;
 	s1->head = NULL;
 	s1->boost = 0;
-	int i=0;
+	int i = 0;
 	int coluna = col;
-	while(i<size)
-	{
+	while (i < size) {
 		add_segment(s1, row, coluna);
 		//printf("%d\n", col);
 		//printf("row: %d\n", row);
 		coluna++;
 		i++;
 	}
-	i=0;
+	i = 0;
 	segment_snake *seg1 = s1->tail;
-	while(i<size)
-	{
+	while (i < size) {
 		printf("COLUNA: %d\n", seg1->col);
 		printf("LINHA: %d\n", seg1->row);
 		seg1 = seg1->before;
-				i++;
+		i++;
 	}
 	printf("end s1\n");
-
 
 }
 
 /*segment_snake *new_seg(unsigned short col, unsigned short row)
-{
-	segment_snake *new_seg = NULL;
-	new_seg = (malloc(sizeof(segment_snake)));
-	new_seg->row = row;
-	new_seg->col = col;
-	new_seg->direction = HORIZONTAL;
-	new_seg->orientation = RIGHT_DOWN;
-	new_seg->before = NULL;
-	new_seg->next = NULL;
+ {
+ segment_snake *new_seg = NULL;
+ new_seg = (malloc(sizeof(segment_snake)));
+ new_seg->row = row;
+ new_seg->col = col;
+ new_seg->direction = HORIZONTAL;
+ new_seg->orientation = RIGHT_DOWN;
+ new_seg->before = NULL;
+ new_seg->next = NULL;
 
-	return new_seg;
+ return new_seg;
 
-}*/
+ }*/
 
-void inc_snake(Snake *s1)
-{
+void inc_snake(Snake *s1) {
 	segment_snake* new_seg = NULL;
-	new_seg = (segment_snake*)malloc(sizeof(segment_snake));
+	new_seg = (segment_snake*) malloc(sizeof(segment_snake));
 	int inc = s1->tail->orientation;
 	int dir = s1->tail->direction;
-	if(dir == HORIZONTAL)
-	{
+	if (dir == HORIZONTAL) {
 
 		new_seg->row = s1->tail->row;
-		new_seg->col = s1->tail->col-inc;
+		new_seg->col = s1->tail->col - inc;
 		new_seg->direction = HORIZONTAL;
 		new_seg->orientation = s1->tail->orientation;
 		new_seg->next = NULL;
 		new_seg->before = s1->tail;
 		s1->tail->next = new_seg;
 		s1->tail = new_seg;
-	}
-	else if(dir == VERTICAL)
-	{
+	} else if (dir == VERTICAL) {
 
 		new_seg->row = s1->tail->row - inc;
 		new_seg->col = s1->tail->col;
@@ -79,25 +70,19 @@ void inc_snake(Snake *s1)
 		s1->tail = new_seg;
 	}
 	s1->size++;
-	if((s1->size-5)%3 == 0)
-	{
-		s1->velocity-=0.0005;
-		if(s1->boost_time < 1)
+	if ((s1->size - 5) % 3 == 0) {
+		s1->velocity -= 0.0005;
+		if (s1->boost_time < 1)
 			s1->boost_time = 1;
 	}
 }
 
+void add_segment(Snake *s1, unsigned short row, unsigned short col) {
 
-
-void add_segment(Snake *s1,unsigned short row,unsigned short col)
-{
-
-	if(s1->head == NULL)
-	{
+	if (s1->head == NULL) {
 		segment_snake* new_seg = NULL;
-		new_seg = (segment_snake*)malloc(sizeof(segment_snake));
-		if(new_seg == NULL)
-		{
+		new_seg = (segment_snake*) malloc(sizeof(segment_snake));
+		if (new_seg == NULL) {
 
 			return;
 		}
@@ -110,11 +95,9 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col)
 		new_seg->next = NULL;
 		s1->head = new_seg;
 		s1->tail = new_seg;
-	}
-	else
-	{
+	} else {
 		segment_snake* new_seg = NULL;
-		new_seg = (segment_snake*)malloc(sizeof(segment_snake));
+		new_seg = (segment_snake*) malloc(sizeof(segment_snake));
 		//printf("cola: %d\n", col);
 		new_seg->row = row;
 		new_seg->col = col;
@@ -131,91 +114,78 @@ void add_segment(Snake *s1,unsigned short row,unsigned short col)
 	s1->size++;
 }
 
-
-void move_snake(Snake* s1)
-{
-
-
+void move_snake(Snake* s1) {
 
 	segment_snake* new_seg = NULL;
-	new_seg = (segment_snake*)malloc(sizeof(segment_snake));
+	new_seg = (segment_snake*) malloc(sizeof(segment_snake));
 
 	//segment_snake* remove = s1->tail;
 	int inc = s1->head->orientation;
 	printf("INC: %d\n", inc);
 	int row = s1->head->row;
 	int col = s1->head->col;
-	if(s1->head->direction == HORIZONTAL)
-	{
+	if (s1->head->direction == HORIZONTAL) {
 		printf("COL: %d\n", col);
 		printf("ROW: %d\n", row);
 
 		col += inc;
-		add_segment(s1,row, col);
+		add_segment(s1, row, col);
 		s1->size--;
 
 		s1->tail = s1->tail->before;
 
 		free(s1->tail->next);
-		s1->tail->next= NULL;
+		s1->tail->next = NULL;
 		printf("Col do tail novo: %d\n", s1->tail->col);
 
 		/*new_seg = s1->head;
-		while (new_seg->next->next != NULL) {
-	        new_seg = new_seg->next;
-		}
-		free(new_seg->next);
-		new_seg->next = NULL;
-		s1->tail = new_seg;*/
+		 while (new_seg->next->next != NULL) {
+		 new_seg = new_seg->next;
+		 }
+		 free(new_seg->next);
+		 new_seg->next = NULL;
+		 s1->tail = new_seg;*/
 
 		//printf("COL2: %d\n", col);
-			//		printf("ROW2: %d\n", row);
+		//		printf("ROW2: %d\n", row);
 		//printf("INIT: %d \n", col);		//s1->tail = s1->tail->before;
 		//free(remove);
 
+	} else if (s1->head->direction == VERTICAL) {
 
+		row += inc;
+		add_segment(s1, row, col);
+		s1->size--;
+		printf("row: %d\n", row);
+		printf("col: %d\n", col);
 
-	}else if(s1->head->direction == VERTICAL)
-	{
+		s1->tail = s1->tail->before;
 
-				row += inc;
-				add_segment(s1,row, col);
-				s1->size--;
-				printf("row: %d\n",row);
-				printf("col: %d\n",col);
-
-				s1->tail = s1->tail->before;
-
-				free(s1->tail->next);
-				s1->tail->next= NULL;
-				printf("Col do tail novo: %d\n", s1->tail->col);
-
+		free(s1->tail->next);
+		s1->tail->next = NULL;
+		printf("Col do tail novo: %d\n", s1->tail->col);
 
 	}
 }
 
-void set_boost(Snake* s1)
-{
+void set_boost(Snake* s1) {
 	s1->boost = 1;
-	s1->velocity = s1->velocity/2;
+	s1->velocity = s1->velocity / 2;
 }
 
-void stop_boost(Snake* s1)
-{
-	s1->velocity = s1->velocity*2;
+void stop_boost(Snake* s1) {
+	s1->velocity = s1->velocity * 2;
 	s1->boost = 0;
 }
 
-void set_snake(Snake* snake, int col)
-{
+void set_snake(Snake* snake, int col) {
 	segment_snake* new_seg = snake->tail;
-	int i=0;
+	int i = 0;
 	int size = snake->size;
-	do
-	{
-		new_seg->col=i;
+	do {
+		new_seg->col = i;
 		new_seg = new_seg->before;
 		i++;
-	}while(i<size);
+	} while (i < size);
 
 }

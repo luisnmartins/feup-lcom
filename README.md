@@ -1,6 +1,6 @@
 # FEUP-LCOM
 
-Here you can find  the laboratory classes and a final project developed for the Computer Laboratory (LCOM) class of the Master in Informatics and Computer Engineering (MIEIC) at the Faculty of Engineering of the University of Porto (FEUP).
+Here you can find  the laboratory classes and a final project developed for the Computer Laboratory (LCOM) course of the Master in Informatics and Computer Engineering (MIEIC) at the Faculty of Engineering of the University of Porto (FEUP).
 
 This project was developed in C for MINIX OS.
 

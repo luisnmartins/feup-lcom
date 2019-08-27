@@ -9,7 +9,7 @@ Made in collaboration with [Carlos Freitas](https://github.com/CarlosFr97)
 ## Labs
 --------------------
 
-* Lab 1 - Introduction
+* Lab 0 - Introduction
 * Lab 2 - Timer
 * Lab 3 - Keyboard
 * Lab 4 - Mouse
